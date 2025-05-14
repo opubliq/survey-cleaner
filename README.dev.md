@@ -37,12 +37,7 @@ lubridate
 
 1. Cloner le dépôt dans l'arborescence existante
 ```bash
-git clone [URL] bot_nettoyage
-```
-
-2. Installer les dépendances
-```bash
-pip install -r bot_nettoyage/requirements.txt
+git clone [URL] survey-cleaner
 ```
 
 3. Configurer l'API key Claude
