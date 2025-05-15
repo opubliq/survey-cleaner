@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import os
 from io import StringIO
+from utils.parsers import parse_csv, extract_structure, format_data_for_llm
 
 st.title("Bot de Nettoyage de Sondages")
 
@@ -21,18 +22,29 @@ st.header("Fichier de sondage")
 survey_file = st.file_uploader("Téléversez votre fichier CSV ou SAV", type=["csv", "sav"])
 
 # Preview des données
+# Remplacer la section de preview des données par:
 if survey_file is not None:
     try:
         if survey_file.name.endswith('.csv'):
-            df = pd.read_csv(survey_file)
-            st.write("Aperçu des données:")
-            st.dataframe(df.head())
+            # Parsage du CSV
+            df, error = parse_csv(survey_file)
+            if error:
+                st.error(f"Erreur: {error}")
+            else:
+                # Extraction de la structure
+                structure = extract_structure(df)
+                
+                # Affichage aperçu
+                st.write("Aperçu des données:")
+                st.dataframe(df.head())
+                
+                # Préparation des données pour le LLM
+                st.session_state['data_prompt'] = format_data_for_llm(df, structure)
+                
         elif survey_file.name.endswith('.sav'):
-            st.warning("Support SAV en développement - conversion basique pour prévisualisation")
-            # Note: pyreadstat serait utilisé ici dans la version complète
-            st.text("Fichier SAV détecté: " + survey_file.name)
+            st.warning("Support SAV en développement")
     except Exception as e:
-        st.error(f"Erreur lors de la lecture du fichier: {e}")
+        st.error(f"Erreur: {e}")
 
 # Upload codebook
 st.header("Codebook (optionnel)")
