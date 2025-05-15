@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from utils.llm_interface import generate_r_script
+from utils.llm_interface import prompt_llm
 
 prompt = """
 Génère un script R pour nettoyer un sondage.
@@ -13,5 +13,5 @@ Le script doit :
 4. Exporter au format .rds
 """
 
-script = generate_r_script(prompt)
+script = prompt_llm(prompt)
 print(script)
