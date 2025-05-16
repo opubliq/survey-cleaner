@@ -4,6 +4,7 @@ import pandas as pd
 import os
 from io import StringIO
 from utils.parsers import parse_csv, extract_structure, format_data_for_llm
+from utils.llm_interface import prompt_llm
 
 st.title("Bot de Nettoyage de Sondages")
 
@@ -60,37 +61,39 @@ instructions = st.text_area("Entrez vos instructions pour le nettoyage du sondag
 
 # Bouton pour générer script
 if st.button("Générer script R"):
-    # Pour le MVP, on retourne un script R statique
-    sample_script = """
-    # Script de nettoyage généré
-    library(tidyverse)
-    library(haven) # Pour les fichiers SAV
+    if 'data_prompt' not in st.session_state:
+        st.error("Aucune donnée chargée.")
+    else:
+        prompt = f"""
+    Génère uniquement un script R.
     
-    # Charger les données
-    data <- read_csv("chemin/vers/fichier.csv")
+    But : nettoyer un fichier de sondage brut en appliquant les instructions ci-dessous.
     
-    # Nettoyer les noms de colonnes
-    data <- data %>%
-      janitor::clean_names()
+    Données brutes :
+    {st.session_state['data_prompt']}
     
-    # Standardiser valeurs manquantes
-    data <- data %>%
-      mutate(across(everything(), ~na_if(., "")))
+    Instructions de nettoyage à appliquer, strictement dans l’ordre :
+    {instructions}
     
-    # Préfixes pour variables démographiques
-    data <- data %>%
-      rename_with(~paste0("demo_", .), c(age, sexe, region))
+    Contraintes :
+    - Utilise tidyverse
+    - Ne commente pas le code
+    - Ne montre aucune sortie ou aperçu
+    - Ne fais aucune explication
+    - Résultat : un `data.frame` nommé `data`
     
-    # Sauvegarder le résultat
-    write_rds(data, "donnees_nettoyees.rds")
-    """
-    
-    st.code(sample_script, language="r")
-    
-    # Bouton téléchargement
-    st.download_button(
-        label="Télécharger le script R",
-        data=sample_script,
-        file_name="nettoyage_sondage.R",
-        mime="text/plain"
-    )
+    Retourne **uniquement** le script R, rien d’autre.
+"""
+        
+    with st.spinner("Génération du script..."):
+        try:
+            r_script = prompt_llm(prompt)
+            st.code(r_script, language="r")
+            st.download_button(
+                label="Télécharger le script R",
+                data=r_script,
+                file_name="nettoyage_sondage.R",
+                mime="text/plain"
+            )
+        except Exception as e:
+            st.error(f"Erreur lors de la génération : {e}")
