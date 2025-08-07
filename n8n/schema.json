@@ -1,0 +1,55 @@
+{
+  "workflow_id": "0AtjKIACj5OQCnsx",
+  "name": "Survey Cleaning Agent",
+  "description": "N8n workflow that receives survey files (CSV, SAV, XLSX) and codebook documentation to generate Python cleaning scripts using Claude API",
+  "webhook_endpoint": "/webhook/survey-cleaner",
+  "active": false,
+  "flow": {
+    "trigger": {
+      "type": "webhook",
+      "method": "POST",
+      "path": "survey-cleaner",
+      "accepts": ["multipart/form-data", "application/json"],
+      "binary_data": true
+    },
+    "processing": [
+      {
+        "step": "extract_files",
+        "description": "Extract survey file and codebook from request",
+        "required_fields": ["survey_file"],
+        "optional_fields": ["codebook_file"]
+      },
+      {
+        "step": "claude_api",
+        "description": "Generate Python cleaning script using Claude API",
+        "model": "claude-3-sonnet-20240229",
+        "max_tokens": 4000,
+        "prompt_template": "templates/cleaning_script_generation.txt"
+      },
+      {
+        "step": "format_response",
+        "description": "Format Claude response into structured output",
+        "output_fields": ["success", "script", "metadata", "instructions"]
+      }
+    ],
+    "error_handling": {
+      "enabled": true,
+      "response_format": "json",
+      "error_fields": ["success", "error", "message", "timestamp"]
+    }
+  },
+  "conventions": {
+    "demographic_prefix": "demo_",
+    "opinion_prefix": "op_",
+    "missing_values": "NA",
+    "scale_standardization": "0-1 for opinion variables"
+  },
+  "supported_formats": {
+    "survey_files": ["csv", "sav", "xlsx"],
+    "codebook_files": ["pdf", "xlsx", "csv", "txt"]
+  },
+  "usage": {
+    "curl_example": "curl -X POST http://localhost:5678/webhook/survey-cleaner -F 'survey_file=@data.csv' -F 'codebook_file=@codebook.pdf'",
+    "response_format": "JSON with generated Python script and metadata"
+  }
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Cleaner - Opubliq</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .upload-section {
+            margin-bottom: 2rem;
+        }
+
+        .upload-box {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .upload-box.dragover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .file-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .file-size {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .result {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .conventions {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .conventions h3 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .conventions ul {
+            margin-left: 1.5rem;
+        }
+
+        .conventions li {
+            margin-bottom: 0.25rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Cleaner</h1>
+        <p class="subtitle">Upload your survey files and get a Python cleaning script</p>
+        
+        <div class="conventions">
+            <h3>Opubliq Conventions</h3>
+            <ul>
+                <li><strong>Demographics:</strong> demo_ prefix</li>
+                <li><strong>Opinions:</strong> op_ prefix</li>
+                <li><strong>Missing values:</strong> NA</li>
+                <li><strong>Opinion scales:</strong> 0-1 standardization</li>
+            </ul>
+        </div>
+
+        <div class="upload-section">
+            <h3>Survey File (Required)</h3>
+            <div class="upload-box" id="surveyUpload">
+                <div class="upload-icon">📊</div>
+                <p>Drop your survey file here or click to browse</p>
+                <p><small>Supported: CSV, SAV, XLSX</small></p>
+                <input type="file" id="surveyFile" class="file-input" accept=".csv,.sav,.xlsx">
+            </div>
+            <div id="surveyInfo" class="file-info" style="display: none;">
+                <div class="file-name"></div>
+                <div class="file-size"></div>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h3>Codebook (Optional)</h3>
+            <div class="upload-box" id="codebookUpload">
+                <div class="upload-icon">📖</div>
+                <p>Drop your codebook here or click to browse</p>
+                <p><small>Supported: PDF, XLSX, CSV, TXT</small></p>
+                <input type="file" id="codebookFile" class="file-input" accept=".pdf,.xlsx,.csv,.txt">
+            </div>
+            <div id="codebookInfo" class="file-info" style="display: none;">
+                <div class="file-name"></div>
+                <div class="file-size"></div>
+            </div>
+        </div>
+
+        <button class="btn" id="generateScript">Generate Python Script</button>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Generating your Python cleaning script...</p>
+        </div>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const surveyUpload = document.getElementById('surveyUpload');
+        const surveyFile = document.getElementById('surveyFile');
+        const surveyInfo = document.getElementById('surveyInfo');
+        
+        const codebookUpload = document.getElementById('codebookUpload');
+        const codebookFile = document.getElementById('codebookFile');
+        const codebookInfo = document.getElementById('codebookInfo');
+        
+        const generateBtn = document.getElementById('generateScript');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+
+        // Survey file upload handling
+        surveyUpload.addEventListener('click', () => surveyFile.click());
+        surveyUpload.addEventListener('dragover', handleDragOver);
+        surveyUpload.addEventListener('drop', (e) => handleDrop(e, surveyFile));
+        surveyFile.addEventListener('change', (e) => handleFileSelect(e, surveyInfo));
+
+        // Codebook file upload handling
+        codebookUpload.addEventListener('click', () => codebookFile.click());
+        codebookUpload.addEventListener('dragover', handleDragOver);
+        codebookUpload.addEventListener('drop', (e) => handleDrop(e, codebookFile));
+        codebookFile.addEventListener('change', (e) => handleFileSelect(e, codebookInfo));
+
+        // Generate script button
+        generateBtn.addEventListener('click', generateScript);
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDrop(e, fileInput) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                const event = new Event('change');
+                fileInput.dispatchEvent(event);
+            }
+        }
+
+        function handleFileSelect(e, infoDiv) {
+            const file = e.target.files[0];
+            if (file) {
+                const fileName = infoDiv.querySelector('.file-name');
+                const fileSize = infoDiv.querySelector('.file-size');
+                
+                fileName.textContent = file.name;
+                fileSize.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                infoDiv.style.display = 'block';
+                
+                // Update button state
+                generateBtn.disabled = !surveyFile.files[0];
+            }
+        }
+
+        async function generateScript() {
+            if (!surveyFile.files[0]) {
+                alert('Please select a survey file first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('survey_file', surveyFile.files[0]);
+            
+            if (codebookFile.files[0]) {
+                formData.append('codebook_file', codebookFile.files[0]);
+            }
+
+            // Show loading state
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            generateBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:5678/webhook/survey-cleaner', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.className = 'result success';
+                    result.innerHTML = `<strong>Python Script Generated Successfully!</strong>\n\n${data.script}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `Error: ${data.error || 'Unknown error occurred'}`;
+                }
+                
+                result.style.display = 'block';
+                
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `Network Error: ${error.message}`;
+                result.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+                generateBtn.disabled = false;
+            }
+        }
+
+        // Remove dragover class when dragging leaves
+        document.addEventListener('dragleave', (e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) {
+                surveyUpload.classList.remove('dragover');
+                codebookUpload.classList.remove('dragover');
+            }
+        });
+    </script>
+</body>
+</html>
