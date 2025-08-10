@@ -1,0 +1,46 @@
+graph TD
+    A[Utilisateur Opubliq] --> B[Page Web Upload]
+    B --> C[Upload data + codebook]
+    
+    C --> D[Webhook n8n Survey Cleaner]
+    
+    D --> E[codebook_reader Node]
+    D --> F[data_reader Node]
+    
+    E --> G[Codebook.md structuré]
+    F --> H[DataFrame structuré]
+    
+    G --> I[Data Cleaner Node]
+    H --> I
+    
+    I --> J[Liste des variables]
+    J --> K[Variable Loop Start]
+    
+    K --> L[Identifier codage variable]
+    L --> M[Nommer selon conventions Opubliq]
+    M --> N[Analyser structure raw data]
+    N --> O[Générer code nettoyage]
+    O --> P[Exécuter code nettoyage]
+    P --> Q[Vérifier distributions/qualité]
+    Q --> R[Append au script final]
+    R --> S{Plus de variables?}
+    
+    S -->|Oui| K
+    S -->|Non| T[Finaliser script Python]
+    
+    T --> U[Script Python conforme pipeline-sondage]
+    
+    U --> V{Mode de sortie}
+    V -->|Download| W[Retourner script à utilisateur]
+    V -->|Auto-deploy| X[Déployer dans pipeline-sondage]
+    
+    %% Styles
+    classDef userNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    classDef processingNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,color:#000
+    classDef codeNode fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px,color:#000
+    classDef outputNode fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000
+    
+    class A,B,C userNode
+    class D,E,F,G,H,I,J processingNode
+    class K,L,M,N,O,P,Q,R,S,T codeNode
+    class U,V,W,X outputNode
