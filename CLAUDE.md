@@ -136,18 +136,27 @@ Données originales:
 ## Structure du projet
 
 ```
-bot_nettoyage/
-├── app.py            # Interface Streamlit
-├── api.py            # Communication avec Claude
-├── executor.py       # Exécution des scripts R
+survey-cleaner/
+├── web/              # Interface web d'upload
+│   └── index.html    # Page de upload MVP
+├── tests/            # Tests et scripts utilitaires
+│   ├── test_webhook.sh    # Test du webhook n8n
+│   └── start_mvp.sh       # Script de démarrage MVP
 ├── templates/        # Templates de prompts
 │   ├── analysis.txt
 │   └── cleaning.txt
 ├── utils/
 │   ├── parsers.py    # Parsers CSV/SAV/PDF
 │   └── validators.py # Validation des outputs
-└── tests/            # Tests unitaires
+├── schema.json       # Configuration du workflow n8n
+└── CLAUDE.md         # Instructions du projet
 ```
+
+## Tests et développement
+
+Tous les scripts de test et utilitaires sont dans le dossier `tests/`:
+- `test_webhook.sh`: Test du webhook n8n avec fichier CSV d'exemple
+- `start_mvp.sh`: Script de démarrage complet (active webhook + lance serveur web + ouvre navigateur)
 
 ## Utilisation
 
