@@ -1,42 +1,28 @@
 {
-  "workflow_id": "0AtjKIACj5OQCnsx",
-  "name": "Survey Cleaning Agent",
-  "description": "N8n workflow that receives survey files (CSV, SAV, XLSX) and codebook documentation to generate Python cleaning scripts using Claude API",
+  "workflow_id": "EuQL3RwAz5ULPxjP",
+  "name": "survey-cleaner",
+  "description": "MVP: Simple n8n workflow to receive file uploads via webhook",
   "webhook_endpoint": "/webhook/survey-cleaner",
-  "active": false,
+  "active": true,
   "flow": {
     "trigger": {
       "type": "webhook",
       "method": "POST",
       "path": "survey-cleaner",
-      "accepts": ["multipart/form-data", "application/json"],
+      "accepts": ["multipart/form-data"],
       "binary_data": true
     },
     "processing": [
       {
-        "step": "extract_files",
-        "description": "Extract survey file and codebook from request",
-        "required_fields": ["survey_file"],
-        "optional_fields": ["codebook_file"]
-      },
-      {
-        "step": "claude_api",
-        "description": "Generate Python cleaning script using Claude API",
-        "model": "claude-3-sonnet-20240229",
-        "max_tokens": 4000,
-        "prompt_template": "templates/cleaning_script_generation.txt"
-      },
-      {
-        "step": "format_response",
-        "description": "Format Claude response into structured output",
-        "output_fields": ["success", "script", "metadata", "instructions"]
+        "step": "receive_files",
+        "description": "Receive and acknowledge file upload",
+        "response": {
+          "success": true,
+          "message": "Files received successfully",
+          "timestamp": "{{new Date().toISOString()}}"
+        }
       }
-    ],
-    "error_handling": {
-      "enabled": true,
-      "response_format": "json",
-      "error_fields": ["success", "error", "message", "timestamp"]
-    }
+    ]
   },
   "conventions": {
     "demographic_prefix": "demo_",
