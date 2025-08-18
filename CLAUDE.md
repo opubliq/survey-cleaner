@@ -17,6 +17,23 @@ Claude servira de moteur d'intelligence pour notre bot de nettoyage de sondages,
 - Détecter et corriger les problèmes courants
 - Standardiser les variables selon notre schéma
 
+**IMPORTANT**: Toujours lire le plan détaillé dans `schemas/plan.md` avant de commencer tout travail sur le projet pour comprendre l'architecture complète du workflow n8n.
+
+## Workflow n8n actuel
+
+- **Workflow ID**: EuQL3RwAz5ULPxjP 
+- **Nom**: survey-cleaner-mvp
+- **Type**: Form Trigger (upload intégré n8n)
+- **WebhookId**: 17f8e709-76d0-49c6-b4af-6d5f7a2201b8
+- **Status**: Actif
+
+Pour obtenir le workflow et le modifier :
+```bash
+# Via MCP n8n
+mcp__n8n-mcp__get_workflow --workflowId EuQL3RwAz5ULPxjP
+mcp__n8n-mcp__update_workflow --workflowId EuQL3RwAz5ULPxjP
+```
+
 ## Prérequis
 
 - Python 3.9+
@@ -137,11 +154,11 @@ Données originales:
 
 ```
 survey-cleaner/
-├── web/              # Interface web d'upload
-│   └── index.html    # Page de upload MVP
 ├── tests/            # Tests et scripts utilitaires
-│   ├── test_webhook.sh    # Test du webhook n8n
-│   └── start_mvp.sh       # Script de démarrage MVP
+│   ├── test_codebook.txt  # Fichier de test codebook
+│   ├── test_survey.csv    # Fichier de test données
+│   ├── start_mvp.sh       # Script de démarrage MVP
+│   └── quick_test.sh      # Tests rapides
 ├── templates/        # Templates de prompts
 │   ├── analysis.txt
 │   └── cleaning.txt
@@ -149,29 +166,35 @@ survey-cleaner/
 │   ├── parsers.py    # Parsers CSV/SAV/PDF
 │   └── validators.py # Validation des outputs
 ├── schema.json       # Configuration du workflow n8n
+├── schemas/
+│   └── plan.md       # Plan détaillé du projet
 └── CLAUDE.md         # Instructions du projet
 ```
 
 ## Tests et développement
 
 Tous les scripts de test et utilitaires sont dans le dossier `tests/`:
-- `test_webhook.sh`: Test du webhook n8n avec fichier CSV d'exemple
-- `start_mvp.sh`: Script de démarrage complet (active webhook + lance serveur web + ouvre navigateur)
+- `start_mvp.sh`: Script de vérification n8n et instructions d'utilisation
+- `test_codebook.txt`: Fichier de test pour le codebook (format markdown)
+- `test_survey.csv`: Fichier de test pour les données de sondage
+- `quick_test.sh`: Tests rapides du workflow
 
 ## Utilisation
 
-### Mode local
+### Mode n8n form upload
 
-```bash
-cd bot_nettoyage
-streamlit run app.py
-```
+1. Démarrer n8n : `npm run start` ou `docker-compose up`
+2. Vérifier le setup : `./tests/start_mvp.sh`
+3. Aller sur http://localhost:5678
+4. Ouvrir le workflow `survey-cleaner-mvp`
+5. Utiliser le form trigger intégré pour uploader:
+   - **Codebook**: fichier TXT/PDF/CSV/XLSX (requis)
+   - **Données**: fichier CSV/SAV/XLSX (optionnel)
 
-### Intégration avec pipeline actuel
+### Workflow actuel
 
-```bash
-python bot_nettoyage/process.py --input data.csv --codebook codebook.pdf --output create_survey_bd/new_survey/
-```
+Le workflow traite actuellement les codebooks TXT en les convertissant en markdown.
+Les autres formats (PDF, CSV, XLSX) ont des placeholders à implémenter.
 
 ## Limitations
 
@@ -199,9 +222,10 @@ Utiliser ces métriques pour améliorer les prompts.
 
 ## Roadmap
 
-- **MVP 1**: Upload CSV + génération script simple
-- **MVP 2**: Exécution et debug automatique
-- **MVP 3**: Support complet formats + optimisation
+- **MVP 1**: ✅ Form upload n8n + traitement codebook TXT
+- **MVP 2**: Implémentation parseurs PDF, CSV, XLSX pour codebooks
+- **MVP 3**: Traitement des données de sondage + génération script R  
+- **MVP 4**: Intégration avec API Claude pour génération automatique
 
 ## Intégration avec le projet parent
 
