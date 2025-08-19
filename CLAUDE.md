@@ -19,15 +19,22 @@ Claude servira de moteur d'intelligence pour notre bot de nettoyage de sondages,
 
 **IMPORTANT**: Toujours lire le plan détaillé dans `schemas/plan.md` avant de commencer tout travail sur le projet pour comprendre l'architecture complète du workflow n8n.
 
-## Workflow n8n actuel
+## Architecture n8n actuelle
 
+### Workflow principal: survey-cleaner-mvp
 - **Workflow ID**: EuQL3RwAz5ULPxjP 
-- **Nom**: survey-cleaner-mvp
 - **Type**: Form Trigger (upload intégré n8n)
 - **WebhookId**: 17f8e709-76d0-49c6-b4af-6d5f7a2201b8
 - **Status**: Actif
+- **Fonction**: Orchestrateur principal du nettoyage de sondages
 
-Pour obtenir le workflow et le modifier :
+### Workflow spécialisé: codebook-reader
+- **Fonction**: Lecture et structuration des codebooks en JSON
+- **Input**: Fichiers codebook (TXT, PDF, CSV, XLSX)
+- **Output**: JSON structuré standardisé
+- **Intégration**: Appelé par survey-cleaner-mvp
+
+Pour gérer les workflows :
 ```bash
 # Via MCP n8n
 mcp__n8n-mcp__get_workflow --workflowId EuQL3RwAz5ULPxjP
@@ -155,7 +162,8 @@ Données originales:
 ```
 survey-cleaner/
 ├── tests/            # Tests et scripts utilitaires
-│   ├── test_codebook.txt  # Fichier de test codebook
+│   ├── test_codebook.txt  # Fichier de test codebook TXT
+│   ├── test_codebook.csv  # Fichier de test codebook CSV
 │   ├── test_survey.csv    # Fichier de test données
 │   ├── start_mvp.sh       # Script de démarrage MVP
 │   └── quick_test.sh      # Tests rapides
@@ -165,9 +173,11 @@ survey-cleaner/
 ├── utils/
 │   ├── parsers.py    # Parsers CSV/SAV/PDF
 │   └── validators.py # Validation des outputs
-├── schema.json       # Configuration du workflow n8n
-├── schemas/
-│   └── plan.md       # Plan détaillé du projet
+├── schemas/          # Schémas et documentation
+│   ├── plan.md       # Plan détaillé du projet
+│   └── n8n/          # Schémas des workflows n8n
+│       ├── survey-cleaner-mvp.json  # Workflow principal
+│       └── codebook-reader.json     # Workflow codebook reader
 └── CLAUDE.md         # Instructions du projet
 ```
 
