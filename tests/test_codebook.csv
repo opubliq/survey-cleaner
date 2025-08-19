@@ -1,0 +1,12 @@
+variable_name,variable_type,description,values,missing_values,category
+id,numeric,Identifiant unique du répondant,1-20,,demographic
+nom,text,Nom complet du répondant,Prénom Nom,,demographic
+age,numeric,Age du répondant en années,18-65,,demographic
+sexe,categorical,Sexe du répondant,"M=Masculin,F=Féminin",,demographic
+education,categorical,Niveau d'éducation le plus élevé,"Primaire=École primaire,Secondaire=École secondaire,Collegial=Cégep/Collège,Universitaire=Université",,demographic
+region,categorical,Région de résidence,"Quebec,Montreal,Laval,Gatineau,Sherbrooke,Trois-Rivieres,Longueuil",,demographic
+opinion_immigration,likert,Opinion sur l'immigration au Québec,"1=Très défavorable,2=Défavorable,3=Neutre,4=Favorable,5=Très favorable",99,opinion
+opinion_economie,likert,Opinion sur la situation économique actuelle,"1=Très mauvaise,2=Mauvaise,3=Neutre,4=Bonne,5=Très bonne",99,opinion
+opinion_environnement,likert,Importance accordée aux enjeux environnementaux,"1=Pas important,2=Peu important,3=Neutre,4=Important,5=Très important",99,opinion
+satisfaction_gouv,likert,Satisfaction envers le gouvernement actuel,"1=Très insatisfait,2=Insatisfait,3=Neutre,4=Satisfait,5=Très satisfait",99,opinion
+vote_intention,categorical,Intention de vote aux prochaines élections,"PLQ=Parti Libéral du Québec,CAQ=Coalition Avenir Québec,PQ=Parti Québécois,QS=Québec Solidaire",99,political

@@ -1,0 +1,708 @@
+{
+  "createdAt": "2025-08-19T00:06:48.594Z",
+  "updatedAt": "2025-08-19T15:09:57.000Z",
+  "id": "XS8CoobALeopydu4",
+  "name": "codebook-reader",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "Codebook",
+        "destinationKey": "rawtext",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        -328
+      ],
+      "id": "bc9409ec-4b0e-4015-ab1b-ef98686cb2a2",
+      "name": "txt_parser",
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "Codebook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        472
+      ],
+      "id": "2e4c3a00-5b0f-46b6-b825-4ef0ee4962cf",
+      "name": "csv_parser",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "Codebook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        872
+      ],
+      "id": "84735e5c-f3b7-4888-80a5-cd4aef66bbe5",
+      "name": "xlsx_parser",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Codebook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        72
+      ],
+      "id": "3d49be5a-e312-46a6-821a-fa6e56dc8ab5",
+      "name": "pdf_parser",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.Codebook.filename.split('.').pop()}}",
+                    "rightValue": "txt",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "fc1e9ff7-296d-4e52-8c01-5c007a12369a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d757c6cf-c5af-4d85-bdaf-194ca678318c",
+                    "leftValue": "={{$json.Codebook.filename.split('.').pop()}}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "278dc30b-1386-46d9-b339-6140f20e3b93",
+                    "leftValue": "={{$json.Codebook.filename.split('.').pop()}}",
+                    "rightValue": "csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ca6b0509-49e2-4b6d-827a-0a1557eaa501",
+                    "leftValue": "={{$json.Codebook.filename.split('.').pop()}}",
+                    "rightValue": "xlsx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1200,
+        240
+      ],
+      "id": "4ea54dbf-434f-49b7-951f-7a42979990d5",
+      "name": "Identifier extension"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -720,
+        -208
+      ],
+      "id": "cededbf2-9f75-4505-a9cf-5f63db2f757c",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "VNI1UOscf9DaPK7z",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"variables\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"label\": {\"type\": \"string\"},\n          \"type\": {\"type\": \"string\"},\n          \"values\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"code\": {\"type\": \"string\"},\n                \"label\": {\"type\": \"string\"}\n              },\n              \"required\": [\"code\", \"label\"]\n            }\n          }\n        },\n        \"required\": [\"name\", \"label\", \"type\", \"values\"]\n      }\n    }\n  },\n  \"required\": [\"variables\"]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        -208
+      ],
+      "id": "34158931-f9d1-4fb4-8cbb-2a7d353e8fa4",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Prends le texte ci-dessous :\n{{ $json.rawtext }}\n\nLis TOUTES les variables (même si elles sont groupées par section ou ont des formats différents).\nPour chaque variable trouvée, crée une entrée dans le tableau \"variables\" ci-dessous, en extrayant :\n\n    Le nom original de la variable (\"name\")\n\n    L'étiquette ou question (\"label\")\n\n    Le type (\"type\") — exemple: numeric, categorical, text, likert, etc.\n\n    Les valeurs possibles (\"values\"), sous forme d'un tableau d'objets {\"code\": \"...\", \"label\": \"...\"} (pour les Likert, liste tous les codes possibles, pour les caté, liste chaque valeur/catégorie trouvée).\n\nNe saute aucune variable, liste-les toutes, même si elles sont dans des sections différentes ou qu'elles n'ont pas toutes des \"valeurs\".\n\nRetourne UNIQUEMENT un objet JSON au format :\n{\n\"variables\": [\n{\n\"name\": \"\",\n\"label\": \"\",\n\"type\": \"\",\n\"values\": [\n{\"code\": \"\", \"label\": \"\"}\n]\n}\n]\n}\n\nN'ajoute aucun commentaire ou texte autour, seulement le JSON au bon format.",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -752,
+        -432
+      ],
+      "id": "5b74cad0-a63d-4592-b9f4-00223a4e5d2f",
+      "name": "CLAUDE structure le codebook"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        192
+      ],
+      "id": "1b63fe91-b2ee-48d5-a628-f195c7f530fe",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "VNI1UOscf9DaPK7z",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"variables\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"label\": {\"type\": \"string\"},\n          \"type\": {\"type\": \"string\"},\n          \"values\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"code\": {\"type\": \"string\"},\n                \"label\": {\"type\": \"string\"}\n              },\n              \"required\": [\"code\", \"label\"]\n            }\n          }\n        },\n        \"required\": [\"name\", \"label\", \"type\", \"values\"]\n      }\n    }\n  },\n  \"required\": [\"variables\"]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -1424,
+        1200
+      ],
+      "id": "da49b5e2-f2e2-4e96-82b8-7f914f111a71",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Lis attentivement le texte ci-dessous issu d'un questionnaire d'enquête :\n\n{{ $json.text }}\n\nRepère toutes les variables/questions du questionnaire, même si elles sont présentées dans des sections, des instructions ou sous forme de blocs avec des crochets, du code ou des balises. Ignore les crochets [ ] et les lignes d'instructions qui ne sont pas des questions ou définitions de variables.\n\nPour chaque variable que tu repères dans le questionnaire, fournis :\n\n    \"name\" : le nom court/codé de la variable (par exemple, RGENDER, ces_0, ces_1…)\n\n    \"label\" : la question ou description textuelle posée au répondant (essaie de choisir la version anglaise principale si question bilingue)\n\n    \"type\" : le type attendu : numeric, categorical, string, scale, etc. (d'après la façon dont les réponses sont codées)\n\n    \"values\" : toutes les modalités de réponses possibles (code+label) extraites sous forme :\n    [ {\"code\": \"1\", \"label\": \"Yes\"}, ... ] ; si la question accepte une entrée libre ou texte, \"values\" est vide.\n\nSi la variable a plusieurs modalités (ex : 1 yes, 3 no, 5 refused), liste-les toutes.\nSi une variable n'a pas de valeurs prédéfinies, mets simplement \"values\": [].\n\nRetourne OBLIGATOIREMENT le résultat sous ce format JSON, sans texte autour :\n{\n\"variables\": [\n{\n\"name\": \"\",\n\"label\": \"\",\n\"type\": \"\",\n\"values\": [\n{\"code\": \"\", \"label\": \"\"}\n]\n}\n]\n}\n\nNe produis jamais autre chose que ce JSON. Toute variable trouvée doit figurer, même si son nom paraît obscur ou sa question trop technique.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -752,
+        -32
+      ],
+      "id": "54a5393a-fe78-4912-9922-cb0a5d6f4c86",
+      "name": "CLAUDE structure le codebook1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -720,
+        592
+      ],
+      "id": "aa3aeba6-86d6-4d59-a610-184088457a9a",
+      "name": "Anthropic Chat Model2",
+      "credentials": {
+        "anthropicApi": {
+          "id": "VNI1UOscf9DaPK7z",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"variables\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"label\": {\"type\": \"string\"},\n          \"type\": {\"type\": \"string\"},\n          \"values\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"code\": {\"type\": \"string\"},\n                \"label\": {\"type\": \"string\"}\n              },\n              \"required\": [\"code\", \"label\"]\n            }\n          }\n        },\n        \"required\": [\"name\", \"label\", \"type\", \"values\"]\n      }\n    }\n  },\n  \"required\": [\"variables\"]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        592
+      ],
+      "id": "02e630ab-551d-408a-9570-a3af6a1284b6",
+      "name": "Structured Output Parser2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Prends le contenu du fichier CSV ci-dessous :\n{{ JSON.stringify($json) }}\n\nPour chaque variable (chaque ligne du tableau), crée une entrée dans la clé \"variables\" du JSON ci-dessous, en inférant intelligemment :\n\n    \"name\" : reprends la valeur de la colonne qui semble être le nom de la variable (peu importe son en-tête exacte)\n\n    \"label\" : reprends la colonne qui décrit le mieux la question ou l'étiquette (même si son nom change)\n\n    \"type\" : déduis le type de variable en utilisant les colonnes du CSV ou le contenu (exemple : numeric, categorical, text, likert, etc.)\n\n    \"values\" : si des valeurs/modalités/valeurs permises sont présentes dans une colonne ou encodées dans du texte, extrait-les sous la forme [{\"code\": \"...\", \"label\": \"...\"}]. S'il n'y en a pas, mets un tableau vide []. Si c'est par exemple un range de valeurs, mets le range de valeurs. Si c'est une question ouverte, indique le. \n    Inclue absolument TOUTES les variables, sans en sauter.\n    Retourne UNIQUEMENT un objet JSON avec la clé \"variables\" contenant toutes les variables extraites et rien d'autre, au format suivant :\n    {\n    \"variables\": [\n    {\n    \"name\": \"\",\n    \"label\": \"\",\n    \"type\": \"\",\n    \"values\": [\n    {\"code\": \"\", \"label\": \"\"}\n    ]\n    }\n    ]\n    }\n    Ne mets aucun texte autour, aucun commentaire, aucun formatage particulier (pas de markdown, pas de bloc de code), uniquement cet objet JSON.\n",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -752,
+        368
+      ],
+      "id": "8dbb8731-1cb2-4655-b1ba-abe1d817fb14",
+      "name": "CLAUDE structure le codebook2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-20250514",
+          "cachedResultName": "Claude 4 Sonnet"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -720,
+        1096
+      ],
+      "id": "a4a8f3ff-cad1-4c35-b9b6-2e9703f50c62",
+      "name": "Anthropic Chat Model3",
+      "credentials": {
+        "anthropicApi": {
+          "id": "VNI1UOscf9DaPK7z",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"variables\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"label\": {\"type\": \"string\"},\n          \"type\": {\"type\": \"string\"},\n          \"values\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"code\": {\"type\": \"string\"},\n                \"label\": {\"type\": \"string\"}\n              },\n              \"required\": [\"code\", \"label\"]\n            }\n          }\n        },\n        \"required\": [\"name\", \"label\", \"type\", \"values\"]\n      }\n    }\n  },\n  \"required\": [\"variables\"]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        1096
+      ],
+      "id": "0dfd87df-48db-476e-8b9e-146020505cad",
+      "name": "Structured Output Parser3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Prends le contenu du fichier Excel ci-dessous :\n{{ JSON.stringify($json) }}\n\nPour chaque variable (chaque ligne du tableau), crée une entrée dans la clé \"variables\" du JSON ci-dessous, en inférant intelligemment :\n\n    \"name\" : reprends la valeur de la colonne qui semble être le nom de la variable (peu importe son en-tête exacte)\n\n    \"label\" : reprends la colonne qui décrit le mieux la question ou l'étiquette (même si son nom change)\n\n    \"type\" : déduis le type de variable en utilisant les colonnes du CSV ou le contenu (exemple : numeric, categorical, text, likert, etc.)\n\n    \"values\" : si des valeurs/modalités/valeurs permises sont présentes dans une colonne ou encodées dans du texte, extrait-les sous la forme [{\"code\": \"...\", \"label\": \"...\"}]. S'il n'y en a pas, mets un tableau vide []. Si c'est par exemple un range de valeurs, mets le range de valeurs. Si c'est une question ouverte, indique le. \n    Inclue absolument TOUTES les variables, sans en sauter.\n    Retourne UNIQUEMENT un objet JSON avec la clé \"variables\" contenant toutes les variables extraites et rien d'autre, au format suivant :\n    {\n    \"variables\": [\n    {\n    \"name\": \"\",\n    \"label\": \"\",\n    \"type\": \"\",\n    \"values\": [\n    {\"code\": \"\", \"label\": \"\"}\n    ]\n    }\n    ]\n    }\n    Ne mets aucun texte autour, aucun commentaire, aucun formatage particulier (pas de markdown, pas de bloc de code), uniquement cet objet JSON.\n",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -752,
+        872
+      ],
+      "id": "0ea2feab-b4b4-4c00-b573-4350796b36b2",
+      "name": "CLAUDE structure le codebook3"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1424,
+        176
+      ],
+      "id": "69e2dfa7-1669-490b-90eb-5e580f1e9dbe",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "formTitle": "Upload",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Codebook",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".txt, .pdf, .html, .csv, .xlsx",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Données",
+              "fieldType": "file",
+              "multipleFiles": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -1424,
+        368
+      ],
+      "id": "fefa92b4-9cf7-4b39-84e3-ce8e54f27210",
+      "name": "Upload fichiers",
+      "webhookId": "17f8e709-76d0-49c6-b4af-6d5f7a2201b8"
+    }
+  ],
+  "connections": {
+    "txt_parser": {
+      "main": [
+        [
+          {
+            "node": "CLAUDE structure le codebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "csv_parser": {
+      "main": [
+        [
+          {
+            "node": "CLAUDE structure le codebook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "xlsx_parser": {
+      "main": [
+        [
+          {
+            "node": "CLAUDE structure le codebook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pdf_parser": {
+      "main": [
+        [
+          {
+            "node": "CLAUDE structure le codebook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Identifier extension": {
+      "main": [
+        [
+          {
+            "node": "txt_parser",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "pdf_parser",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "csv_parser",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "xlsx_parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CLAUDE structure le codebook",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "CLAUDE structure le codebook",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CLAUDE structure le codebook1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        []
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CLAUDE structure le codebook2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "CLAUDE structure le codebook2",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CLAUDE structure le codebook3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser3": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "CLAUDE structure le codebook3",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Identifier extension",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload fichiers": {
+      "main": [
+        [
+          {
+            "node": "Identifier extension",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "executionTimeout": 3600,
+    "timezone": "UTC"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "bf741aa7-039c-4b5d-a34d-135a9ccaa0e5",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "createdAt": "2025-08-19T00:06:48.598Z",
+      "updatedAt": "2025-08-19T00:06:48.598Z",
+      "role": "workflow:owner",
+      "workflowId": "XS8CoobALeopydu4",
+      "projectId": "X97a0syLxb5oruzG",
+      "project": {
+        "createdAt": "2025-07-14T17:32:03.414Z",
+        "updatedAt": "2025-07-14T17:33:08.383Z",
+        "id": "X97a0syLxb5oruzG",
+        "name": "Hubert Cadieux <hubertcadieux@opubliq.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "projectRelations": [
+          {
+            "createdAt": "2025-07-14T17:32:03.415Z",
+            "updatedAt": "2025-07-14T17:32:03.415Z",
+            "role": "project:personalOwner",
+            "userId": "dbbc81c4-7b05-4260-8011-2d4208978b3e",
+            "projectId": "X97a0syLxb5oruzG",
+            "user": {
+              "createdAt": "2025-07-14T17:32:02.939Z",
+              "updatedAt": "2025-08-19T00:11:17.372Z",
+              "id": "dbbc81c4-7b05-4260-8011-2d4208978b3e",
+              "email": "hubertcadieux@opubliq.com",
+              "firstName": "Hubert",
+              "lastName": "Cadieux",
+              "personalizationAnswers": {
+                "version": "v4",
+                "personalization_survey_submitted_at": "2025-07-14T17:33:22.979Z",
+                "personalization_survey_n8n_version": "1.102.3",
+                "companySize": "<20",
+                "companyType": "saas",
+                "role": "business-owner",
+                "reportedSource": "google"
+              },
+              "settings": {
+                "userActivated": true,
+                "easyAIWorkflowOnboarded": true,
+                "firstSuccessfulWorkflowId": "XS8CoobALeopydu4",
+                "userActivatedAt": 1755562265602
+              },
+              "role": "global:owner",
+              "disabled": false,
+              "mfaEnabled": false,
+              "lastActiveAt": "2025-08-19",
+              "isPending": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    {
+      "createdAt": "2025-08-19T00:06:25.131Z",
+      "updatedAt": "2025-08-19T00:06:25.131Z",
+      "id": "gfafzty3g7s01vwm",
+      "name": "survey-cleaner"
+    }
+  ]
+}
