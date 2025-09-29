@@ -1,7 +1,6 @@
 # Variables Processing Todo - Test Survey
 
 ## Pending
-- [ ] opinion_economie
 - [ ] opinion_environnement
 - [ ] satisfaction_gouv
 - [ ] vote_intention
@@ -16,3 +15,4 @@
 - [x] education -> ses_education
 - [x] region -> ses_region
 - [x] opinion_immigration -> op_immigration_opinion (0-1 scale)
+- [x] opinion_economie -> op_economy_opinion (0-1 scale)
