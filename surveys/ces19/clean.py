@@ -99,6 +99,25 @@ def clean_data(df):
         3.0: 'other'
     })
 
+    # Variable: cps19_province -> ses_province
+    # Province or territory of residence
+    df_clean['ses_province'] = df['cps19_province'].copy()
+    df_clean['ses_province'] = df_clean['ses_province'].replace({
+        14.0: 'province_alberta',
+        15.0: 'province_british_columbia',
+        16.0: 'province_manitoba',
+        17.0: 'province_new_brunswick',
+        18.0: 'province_newfoundland_and_labrador',
+        19.0: 'territory_northwest_territories',
+        20.0: 'province_nova_scotia',
+        21.0: 'territory_nunavut',
+        22.0: 'province_ontario',
+        23.0: 'province_prince_edward_island',
+        24.0: 'province_quebec',
+        25.0: 'province_saskatchewan',
+        26.0: 'territory_yukon'
+    })
+
     return df_clean
 
 # ============================================================================
@@ -240,6 +259,24 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["ses_gender"].notna().sum())
+        }
+    }
+
+    # ses_province
+    val_counts_province = df_clean["ses_province"].value_counts()
+    codebook["variables"]["ses_province"] = {
+        "label": "Province or territory of residence",
+        "type": "character",
+        "original_variable": "cps19_province",
+        "values": {
+            val: {"count": int(val_counts_province.get(val, 0)),
+                  "percent": round(100 * val_counts_province.get(val, 0) / len(df_clean), 2)}
+            for val in val_counts_province.index
+        },
+        "missing": int(df_clean["ses_province"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["ses_province"].notna().sum())
         }
     }
 
