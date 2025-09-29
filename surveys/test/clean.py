@@ -142,6 +142,18 @@ def clean_data(df):
     df_clean['op_government_satisfaction'] = df_clean['op_government_satisfaction'].replace({99: np.nan})
     df_clean['op_government_satisfaction'] = (df_clean['op_government_satisfaction'] - 1) / 4
 
+    # Variable: vote_intention -> behav_vote_intention
+    # Type: Categorical unordered
+    # Transformation: Recode party acronyms to full English descriptive names
+    df_clean['behav_vote_intention'] = df['vote_intention'].copy()
+    df_clean['behav_vote_intention'] = df_clean['behav_vote_intention'].replace({
+        'PLQ': 'liberal_party_quebec',
+        'CAQ': 'coalition_avenir_quebec',
+        'PQ': 'parti_quebecois',
+        'QS': 'quebec_solidaire',
+        '99': np.nan
+    })
+
     return df_clean
 
 # ============================================================================
