@@ -1,7 +1,6 @@
 # Variables Processing Todo - Test Survey
 
 ## Pending
-- [ ] region
 - [ ] opinion_immigration
 - [ ] opinion_economie
 - [ ] opinion_environnement
@@ -16,3 +15,4 @@
 - [x] age -> ses_age + ses_age_category
 - [x] sexe -> ses_gender
 - [x] education -> ses_education
+- [x] region -> ses_region

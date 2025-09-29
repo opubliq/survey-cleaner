@@ -100,6 +100,20 @@ def clean_data(df):
         'Universitaire': 'university'
     })
 
+    # Variable: region -> ses_region
+    # Type: Categorical unordered
+    # Transformation: Standardize to lowercase with underscores
+    df_clean['ses_region'] = df['region'].copy()
+    df_clean['ses_region'] = df_clean['ses_region'].replace({
+        'Quebec': 'quebec_city',
+        'Montreal': 'montreal',
+        'Laval': 'laval',
+        'Gatineau': 'gatineau',
+        'Sherbrooke': 'sherbrooke',
+        'Trois-Rivieres': 'trois_rivieres',
+        'Longueuil': 'longueuil'
+    })
+
     return df_clean
 
 # ============================================================================
