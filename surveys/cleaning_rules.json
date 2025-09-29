@@ -1,10 +1,19 @@
 {
   "nomenclature": {
-    "demographic_prefix": "demo_",
-    "opinion_prefix": "op_",
-    "technical_prefix": "tech_",
-    "weight_prefix": "weight_",
-    "id_prefix": "id_"
+    "general_rules": {
+      "case": "snake_case",
+      "descriptive": "Variable and category names must be exhaustive and descriptive, while remaining reasonably concise (can be long, but not excessively long)",
+      "categories_case": "lowercase_snake_case",
+      "language": "English - all variable names, category values, and labels must be in English"
+    },
+    "prefixes": {
+      "socioeconomic": "ses_",
+      "opinion": "op_",
+      "behaviour": "behav_",
+      "technical": "tech_",
+      "weight": "weight_",
+      "id": "id_"
+    }
   },
   "missing_values": {
     "codes_to_nan": [
@@ -15,53 +24,129 @@
       ".", "", " ", "NA"
     ],
     "keep_as_categories": [
-      "Autre",
+      "other",
       "Other"
     ]
   },
-  "recoding": {
-    "demographic": {
-      "gender": {
-        "target_values": ["Homme", "Femme", "Autre", "Préfère ne pas répondre"],
-        "common_mappings": {
-          "1": "Homme",
-          "2": "Femme",
-          "3": "Autre",
-          "Male": "Homme",
-          "Female": "Femme",
-          "M": "Homme",
-          "F": "Femme",
-          "H": "Homme"
+  "variable_types": {
+    "likert_ordinal": {
+      "description": "Variables with ordered scales (Likert, agreement/disagreement, satisfaction, etc.)",
+      "encoding": "numeric",
+      "range": [0, 1],
+      "normalization": "linear_scale",
+      "examples": {
+        "likert_5": {
+          "original": [1, 2, 3, 4, 5],
+          "target": [0, 0.25, 0.5, 0.75, 1.0]
+        },
+        "likert_7": {
+          "original": [1, 2, 3, 4, 5, 6, 7],
+          "target": [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1.0]
+        },
+        "likert_4": {
+          "original": [1, 2, 3, 4],
+          "target": [0, 0.333, 0.667, 1.0]
         }
-      },
-      "age": {
-        "format": "numeric",
-        "bins": [18, 25, 35, 45, 55, 65, 100],
-        "labels": ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
-      },
-      "region": {
-        "standardize_to": "province_code",
-        "use_iso": true
       }
     },
-    "opinion_scales": {
-      "likert_5": {
-        "original": [1, 2, 3, 4, 5],
-        "target": [0, 0.25, 0.5, 0.75, 1.0],
-        "reverse_if_needed": true
-      },
-      "likert_7": {
-        "original": [1, 2, 3, 4, 5, 6, 7],
-        "target": [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1.0]
-      },
-      "likert_4": {
-        "original": [1, 2, 3, 4],
-        "target": [0, 0.333, 0.667, 1.0]
-      },
-      "agreement": {
-        "labels": ["Fortement en désaccord", "En désaccord", "Neutre", "D'accord", "Fortement d'accord"],
-        "normalize": true
+    "categorical_unordered": {
+      "description": "Unordered categorical variables (multiple choice, types, groups, etc.)",
+      "encoding": "character",
+      "format": "descriptive_lowercase_snake_case",
+      "note": "Use full descriptive names - be specific and clear",
+      "examples": {
+        "gender": ["male", "female", "other", "prefer_not_to_answer"],
+        "region": ["province_quebec", "province_ontario", "province_british_columbia", "province_alberta"],
+        "party_vote": ["liberal_party_canada", "conservative_party_canada", "new_democratic_party", "bloc_quebecois", "green_party_canada"],
+        "education": ["elementary_school", "high_school", "college_cegep", "bachelor_degree", "master_degree", "doctoral_degree"]
       }
+    },
+    "open_text": {
+      "description": "Open-ended questions with textual responses",
+      "encoding": "text",
+      "preserve": true,
+      "codebook_marker": "OPEN_TEXT",
+      "note": "Keep responses as-is, no transformation"
+    },
+    "numeric_continuous": {
+      "description": "Continuous numeric variables with many unique values (age, income, etc.)",
+      "encoding": "dual",
+      "outputs": {
+        "continuous": {
+          "suffix": "",
+          "type": "numeric",
+          "note": "Original variable in numeric format"
+        },
+        "grouped": {
+          "suffix": "_category",
+          "type": "character",
+          "note": "Categorized version with coherent groups using descriptive labels",
+          "creation": "Explore distribution, create logical bins, ask user for input if necessary"
+        }
+      },
+      "examples": {
+        "age": {
+          "continuous_var": "ses_age",
+          "grouped_var": "ses_age_category",
+          "bins": [18, 25, 35, 45, 55, 65, 100],
+          "labels": ["age_18_to_24", "age_25_to_34", "age_35_to_44", "age_45_to_54", "age_55_to_64", "age_65_and_over"]
+        },
+        "income": {
+          "continuous_var": "ses_income_annual",
+          "grouped_var": "ses_income_annual_category",
+          "note": "Explore quartiles or standard groups based on distribution",
+          "example_labels": ["income_under_25k", "income_25k_to_50k", "income_50k_to_75k", "income_75k_to_100k", "income_over_100k"]
+        }
+      }
+    }
+  },
+  "recoding": {
+    "demographic_examples": {
+      "gender": {
+        "target_values": ["male", "female", "other", "prefer_not_to_answer"],
+        "common_mappings": {
+          "1": "male",
+          "2": "female",
+          "3": "other",
+          "Male": "male",
+          "Female": "female",
+          "M": "male",
+          "F": "female",
+          "H": "male",
+          "Homme": "male",
+          "Femme": "female",
+          "homme": "male",
+          "femme": "female"
+        }
+      },
+      "region": {
+        "standardize_to": "descriptive_full_name_with_province_prefix",
+        "examples": ["province_quebec", "province_ontario", "province_british_columbia", "province_alberta", "province_nova_scotia"],
+        "note": "Use full descriptive names with 'province_' prefix for Canadian provinces"
+      },
+      "education": {
+        "standardize_to": "descriptive_education_level",
+        "examples": ["elementary_school", "high_school", "college_cegep", "bachelor_degree", "master_degree", "doctoral_degree"],
+        "common_mappings": {
+          "primaire": "elementary_school",
+          "secondaire": "high_school",
+          "collegial": "college_cegep",
+          "universitaire": "bachelor_degree",
+          "Université": "bachelor_degree"
+        }
+      }
+    }
+  },
+  "user_interaction": {
+    "ask_for_input": {
+      "enabled": true,
+      "situations": [
+        "Choice of bins for continuous numeric variables",
+        "Ambiguity on variable type (ordered vs unordered)",
+        "Decisions on grouping rare categories",
+        "Interpretation of poorly documented variables in codebook"
+      ],
+      "format": "Present analysis, propose 2-3 options, ask for user preference"
     }
   },
   "validation": {

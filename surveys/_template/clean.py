@@ -2,12 +2,20 @@
 """
 Script de nettoyage pour [NOM_SONDAGE]
 
-Usage:
+DUAL-MODE SCRIPT:
+  - AWS Mode: Exposé via clean_data(df) pour pipeline_sondages lambda
+  - Local Mode: Exécution standalone via python clean.py
+
+AWS Integration:
+    La fonction clean_data(df) est appelée par lambda_raffineur_nettoyage
+    qui charge les données depuis S3 et gère l'export vers Parquet.
+
+Local Usage:
     python clean.py
 
-Output:
-    - processed/data_cleaned.csv: Données nettoyées
-    - processed/codebook.json: Codebook standardisé
+    Output:
+        - processed/data_cleaned.csv: Données nettoyées
+        - processed/codebook.json: Codebook standardisé
 """
 
 import pandas as pd
@@ -15,21 +23,66 @@ import numpy as np
 import json
 from pathlib import Path
 
-# Paths
+# Paths (used only in local mode)
 BASE_DIR = Path(__file__).parent
 RAW_DIR = BASE_DIR / "raw"
 PROCESSED_DIR = BASE_DIR / "processed"
-PROCESSED_DIR.mkdir(exist_ok=True)
+
+def clean_data(df):
+    """Nettoyer et standardiser les données
+
+    Cette fonction est le point d'entrée principal pour AWS lambda_raffineur_nettoyage.
+
+    Args:
+        df (pd.DataFrame): Données brutes chargées depuis Parquet
+
+    Returns:
+        pd.DataFrame: Données nettoyées
+
+    Approche: Créer une nouvelle dataframe propre avec seulement les variables nettoyées.
+    Les données raw (df) restent intactes.
+    """
+    # Initialize empty clean dataframe with same index
+    df_clean = pd.DataFrame(index=df.index)
+
+    # ============================================================================
+    # VARIABLE PROCESSING
+    # ============================================================================
+    # Pour chaque variable, ajouter le code de nettoyage ici.
+    # Pattern:
+    #   1. Explorer la variable raw: df['raw_var']
+    #   2. Nettoyer et créer nouvelle variable: df_clean['new_var'] = ...
+    #   3. Ne jamais modifier df directement
+    #
+    # Exemple:
+    # # Variable: age
+    # df_clean['ses_age'] = df['Q1_age'].copy()
+    # df_clean['ses_age'] = df_clean['ses_age'].replace({-99: np.nan, -98: np.nan})
+    #
+    # # Variable: satisfaction (Likert 1-5 -> 0-1)
+    # df_clean['op_satisfaction'] = df['Q5_satisfaction'].copy()
+    # df_clean['op_satisfaction'] = df_clean['op_satisfaction'].replace({-99: np.nan})
+    # df_clean['op_satisfaction'] = (df_clean['op_satisfaction'] - 1) / 4
+    # ============================================================================
+
+    # TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous
+
+    return df_clean
+
+# ============================================================================
+# LOCAL MODE FUNCTIONS (not used by AWS lambda)
+# ============================================================================
 
 def load_data():
-    """Charger les données brutes"""
+    """Charger les données brutes (local mode only)"""
     # TODO: Adapter selon le format (CSV, SAV, XLSX)
     data_file = list(RAW_DIR.glob("data.*"))[0]
 
     if data_file.suffix == ".csv":
         df = pd.read_csv(data_file)
     elif data_file.suffix == ".sav":
-        df = pd.read_spss(data_file)
+        import pyreadstat
+        df, meta = pyreadstat.read_sav(data_file)
     elif data_file.suffix in [".xlsx", ".xls"]:
         df = pd.read_excel(data_file)
     else:
@@ -37,20 +90,8 @@ def load_data():
 
     return df
 
-def clean_data(df):
-    """Nettoyer et standardiser les données"""
-    df_clean = df.copy()
-
-    # TODO: Implémenter le nettoyage
-    # 1. Renommer les variables selon les conventions
-    # 2. Recoder les valeurs manquantes
-    # 3. Standardiser les échelles
-    # 4. Créer les variables dérivées si nécessaire
-
-    return df_clean
-
 def create_codebook(df_clean):
-    """Créer le codebook standardisé"""
+    """Créer le codebook standardisé (local mode only)"""
     codebook = {
         "variables": {}
     }
@@ -60,17 +101,19 @@ def create_codebook(df_clean):
             "label": col,  # TODO: Ajouter les vrais labels
             "type": str(df_clean[col].dtype),
             "values": {},  # TODO: Ajouter les valeurs et labels si applicable
-            "missing": df_clean[col].isna().sum(),
+            "missing": int(df_clean[col].isna().sum()),
             "stats": {
-                "n": len(df_clean),
-                "n_valid": df_clean[col].notna().sum()
+                "n": int(len(df_clean)),
+                "n_valid": int(df_clean[col].notna().sum())
             }
         }
 
     return codebook
 
 def main():
-    """Pipeline principal"""
+    """Pipeline principal (local mode only)"""
+    PROCESSED_DIR.mkdir(exist_ok=True)
+
     print("Chargement des données...")
     df = load_data()
     print(f"  {len(df)} observations, {len(df.columns)} variables")
