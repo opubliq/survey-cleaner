@@ -1,0 +1,97 @@
+{
+  "nomenclature": {
+    "demographic_prefix": "demo_",
+    "opinion_prefix": "op_",
+    "technical_prefix": "tech_",
+    "weight_prefix": "weight_",
+    "id_prefix": "id_"
+  },
+  "missing_values": {
+    "codes_to_nan": [
+      -99, -98, -97, -9, -8, -7,
+      99, 98, 97, 999, 998, 997,
+      "NSP", "NRP", "Refus", "Ne sait pas", "Préfère ne pas répondre",
+      "DK", "RF", "DNA", "Don't know", "Refused", "Not applicable",
+      ".", "", " ", "NA"
+    ],
+    "keep_as_categories": [
+      "Autre",
+      "Other"
+    ]
+  },
+  "recoding": {
+    "demographic": {
+      "gender": {
+        "target_values": ["Homme", "Femme", "Autre", "Préfère ne pas répondre"],
+        "common_mappings": {
+          "1": "Homme",
+          "2": "Femme",
+          "3": "Autre",
+          "Male": "Homme",
+          "Female": "Femme",
+          "M": "Homme",
+          "F": "Femme",
+          "H": "Homme"
+        }
+      },
+      "age": {
+        "format": "numeric",
+        "bins": [18, 25, 35, 45, 55, 65, 100],
+        "labels": ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
+      },
+      "region": {
+        "standardize_to": "province_code",
+        "use_iso": true
+      }
+    },
+    "opinion_scales": {
+      "likert_5": {
+        "original": [1, 2, 3, 4, 5],
+        "target": [0, 0.25, 0.5, 0.75, 1.0],
+        "reverse_if_needed": true
+      },
+      "likert_7": {
+        "original": [1, 2, 3, 4, 5, 6, 7],
+        "target": [0, 0.167, 0.333, 0.5, 0.667, 0.833, 1.0]
+      },
+      "likert_4": {
+        "original": [1, 2, 3, 4],
+        "target": [0, 0.333, 0.667, 1.0]
+      },
+      "agreement": {
+        "labels": ["Fortement en désaccord", "En désaccord", "Neutre", "D'accord", "Fortement d'accord"],
+        "normalize": true
+      }
+    }
+  },
+  "validation": {
+    "check_frequency_drift": {
+      "enabled": true,
+      "max_drift_percent": 5,
+      "action_on_fail": "warn"
+    },
+    "check_missing_increase": {
+      "enabled": true,
+      "max_increase_percent": 2,
+      "action_on_fail": "error"
+    },
+    "check_value_range": {
+      "enabled": true,
+      "action_on_fail": "error"
+    }
+  },
+  "output": {
+    "format": "csv",
+    "encoding": "utf-8",
+    "decimal": ".",
+    "date_format": "ISO8601",
+    "save_frequency_tables": true,
+    "save_validation_report": true
+  },
+  "workflow": {
+    "process_order": ["id", "weights", "demographics", "opinions", "technical"],
+    "create_backup": true,
+    "incremental_save": true,
+    "log_each_variable": true
+  }
+}
