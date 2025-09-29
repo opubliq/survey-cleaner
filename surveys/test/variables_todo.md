@@ -1,7 +1,6 @@
 # Variables Processing Todo - Test Survey
 
 ## Pending
-- [ ] education
 - [ ] region
 - [ ] opinion_immigration
 - [ ] opinion_economie
@@ -16,3 +15,4 @@
 - [x] nom -> EXCLUDED (confidential personal identifier)
 - [x] age -> ses_age + ses_age_category
 - [x] sexe -> ses_gender
+- [x] education -> ses_education
