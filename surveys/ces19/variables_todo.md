@@ -12,8 +12,8 @@ Total rows: 37,822
 
 ### Campaign Period Survey (CPS) Variables
 - [x] cps19_StartDate (-> tech_survey_start_date)
-- [~] cps19_EndDate
-- [ ] cps19_ResponseId
+- [x] cps19_EndDate (-> tech_survey_end_date)
+- [~] cps19_ResponseId
 - [ ] cps19_consent
 - [ ] cps19_citizenship
 - [ ] cps19_yob

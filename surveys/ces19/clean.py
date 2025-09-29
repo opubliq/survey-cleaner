@@ -56,6 +56,12 @@ def clean_data(df):
     df_clean['tech_survey_start_date'] = df['cps19_StartDate'].astype(str)
     df_clean.loc[df['cps19_StartDate'].isna(), 'tech_survey_start_date'] = np.nan
 
+    # Variable: cps19_EndDate -> tech_survey_end_date
+    # Technical metadata: Survey end timestamp
+    # Keep as string representation (Stata timestamp format)
+    df_clean['tech_survey_end_date'] = df['cps19_EndDate'].astype(str)
+    df_clean.loc[df['cps19_EndDate'].isna(), 'tech_survey_end_date'] = np.nan
+
     return df_clean
 
 # ============================================================================
@@ -95,6 +101,19 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["tech_survey_start_date"].notna().sum())
+        }
+    }
+
+    # tech_survey_end_date
+    codebook["variables"]["tech_survey_end_date"] = {
+        "label": "Campaign Period Survey end timestamp",
+        "type": "character",
+        "encoding": "stata_timestamp_string",
+        "original_variable": "cps19_EndDate",
+        "missing": int(df_clean["tech_survey_end_date"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["tech_survey_end_date"].notna().sum())
         }
     }
 
