@@ -16,9 +16,9 @@ Total rows: 37,822
 - [x] cps19_ResponseId (-> id_respondent)
 - [x] cps19_consent (-> tech_consent)
 - [x] cps19_citizenship (-> ses_citizenship)
-- [~] cps19_yob
-- [ ] cps19_yob_2001_age
-- [ ] cps19_gender
+- [x] cps19_yob (-> tech_yob_quota)
+- [x] cps19_yob_2001_age (-> tech_age_screening)
+- [~] cps19_gender
 - [ ] cps19_province
 - [ ] cps19_education
 - [ ] cps19_demsat
