@@ -89,6 +89,16 @@ def clean_data(df):
     # Most values are missing (only filled for people born in 2001)
     df_clean['tech_age_screening'] = df['cps19_yob_2001_age'].copy()
 
+    # Variable: cps19_gender -> ses_gender
+    # Gender (categorical)
+    # 1 = man, 2 = woman, 3 = other
+    df_clean['ses_gender'] = df['cps19_gender'].copy()
+    df_clean['ses_gender'] = df_clean['ses_gender'].replace({
+        1.0: 'male',
+        2.0: 'female',
+        3.0: 'other'
+    })
+
     return df_clean
 
 # ============================================================================
@@ -212,6 +222,24 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["tech_age_screening"].notna().sum())
+        }
+    }
+
+    # ses_gender
+    val_counts_gender = df_clean["ses_gender"].value_counts()
+    codebook["variables"]["ses_gender"] = {
+        "label": "Gender",
+        "type": "character",
+        "original_variable": "cps19_gender",
+        "values": {
+            val: {"count": int(val_counts_gender.get(val, 0)),
+                  "percent": round(100 * val_counts_gender.get(val, 0) / len(df_clean), 2)}
+            for val in ['male', 'female', 'other']
+        },
+        "missing": int(df_clean["ses_gender"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["ses_gender"].notna().sum())
         }
     }
 
