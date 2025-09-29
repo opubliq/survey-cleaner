@@ -22,86 +22,86 @@ Total rows: 37,822
 - [x] cps19_province (-> ses_province)
 - [x] cps19_education (-> ses_education)
 - [x] cps19_demsat (-> op_democracy_satisfaction)
-- [ ] cps19_imp_iss
-- [ ] cps199
-- [ ] cps19a
-- [ ] cps19b
-- [ ] cps19c
-- [ ] cps19d
-- [ ] cps19_imp_iss_party
-- [ ] cps19_imp_iss_party_7_TEXT
-- [ ] cps198
-- [ ] cps19_imp_loc_iss
-- [ ] cps195
-- [ ] cps196
-- [ ] cps197
-- [ ] cps19_imp_loc_iss_p
-- [ ] cps19_imp_loc_iss_p_7_TEXT
-- [ ] cps194
-- [ ] cps19_interest_gen_1
-- [ ] cps19_interest_elxn_1
-- [ ] cps19_v_likely
-- [ ] cps19_v_likely_pr
-- [ ] cps19_votechoice
-- [ ] cps19_votechoice_7_TEXT
-- [ ] cps19_votechoice_pr
-- [ ] cps19_votechoice_pr_7_TEXT
-- [ ] cps19_vote_unlikely
-- [ ] cps19_vote_unlikely_7_TEXT
-- [ ] cps19_vote_unlike_pr
-- [ ] cps19_vote_unlike_pr_7_TEXT
-- [ ] cps19_v_advance
-- [ ] cps19_v_advance_7_TEXT
-- [ ] cps19_vote_lean
-- [ ] cps19_vote_lean_7_TEXT
-- [ ] cps19_vote_lean_pr
-- [ ] cps19_vote_lean_pr_7_TEXT
-- [ ] cps19_2nd_choice
-- [ ] cps19_2nd_choice_7_TEXT
-- [ ] cps19_2nd_choice_pr
-- [ ] cps19_2nd_choice_pr_7_TEXT
-- [ ] cps19_not_vote_for_1
-- [ ] cps19_not_vote_for_2
-- [ ] cps19_not_vote_for_3
-- [ ] cps19_not_vote_for_4
-- [ ] cps19_not_vote_for_5
-- [ ] cps19_not_vote_for_6
-- [ ] cps19_not_vote_for_7
-- [ ] cps19_not_vote_for_8
-- [ ] cps19_not_vote_for_9
-- [ ] cps19_not_vote_for_7_TEXT
-- [ ] cps19_fed_gov_sat
-- [ ] cps19_party_rating_23
-- [ ] cps19_party_rating_24
-- [ ] cps19_party_rating_25
-- [ ] cps19_party_rating_26
-- [ ] cps19_party_rating_27
-- [ ] cps19_party_rating_28
-- [ ] cps19_lead_rating_23
-- [ ] cps19_lead_rating_24
-- [ ] cps19_lead_rating_25
-- [ ] cps19_lead_rating_26
-- [ ] cps19_lead_rating_27
-- [ ] cps19_lead_rating_28
-- [ ] cps19_cand_rating_23
-- [ ] cps19_cand_rating_24
-- [ ] cps19_cand_rating_25
-- [ ] cps19_cand_rating_26
-- [ ] cps19_cand_rating_27
-- [ ] cps19_cand_rating_28
-- [ ] cps19_lr_scale_bef_1
-- [ ] cps19_lr_parties_1
-- [ ] cps19_lr_parties_2
-- [ ] cps19_lr_parties_3
-- [ ] cps19_lr_parties_4
-- [ ] cps19_lr_parties_5
-- [ ] cps19_lr_parties_6
-- [ ] cps19_lr_scale_aft_1
-- [ ] cps19_lead_int_113
-- [ ] cps19_lead_int_114
-- [ ] cps19_lead_int_115
-- [ ] cps19_lead_int_116
-- [ ] cps19_lead_int_117
+- [x] cps19_imp_iss (-> op_most_important_issue_text)
+- [x] cps199
+- [x] cps19a
+- [x] cps19b
+- [x] cps19c
+- [x] cps19d
+- [x] cps19_imp_iss_party (-> op_most_important_issue_text)
+- [x] cps19_imp_iss_party_7_TEXT (-> op_most_important_issue_text)
+- [x] cps198
+- [x] cps19_imp_loc_iss (-> op_most_important_local_issue_text)
+- [x] cps195
+- [x] cps196
+- [x] cps197
+- [x] cps19_imp_loc_iss_p (-> op_most_important_local_issue_text)
+- [x] cps19_imp_loc_iss_p_7_TEXT (-> op_most_important_local_issue_text)
+- [x] cps194
+- [x] cps19_interest_gen_1 (-> op_political_interest)
+- [x] cps19_interest_elxn_1 (-> op_election_interest)
+- [x] cps19_v_likely (-> behav_vote_likelihood)
+- [x] cps19_v_likely_pr (-> behav_vote_likelihood)
+- [x] cps19_votechoice (-> behav_vote_choice)
+- [x] cps19_votechoice_7_TEXT (-> behav_vote_choice)
+- [x] cps19_votechoice_pr (-> behav_vote_choice)
+- [x] cps19_votechoice_pr_7_TEXT (-> behav_vote_choice)
+- [x] cps19_vote_unlikely (-> behav_vote_unlikely_choice)
+- [x] cps19_vote_unlikely_7_TEXT (-> behav_vote_unlikely_choice)
+- [x] cps19_vote_unlike_pr (-> behav_vote_unlikely_pr_choice)
+- [x] cps19_vote_unlike_pr_7_TEXT (-> behav_vote_unlikely_pr_choice)
+- [x] cps19_v_advance (-> behav_advance_vote_choice)
+- [x] cps19_v_advance_7_TEXT (-> behav_advance_vote_choice)
+- [x] cps19_vote_lean (-> behav_vote_lean)
+- [x] cps19_vote_lean_7_TEXT (-> behav_vote_lean)
+- [x] cps19_vote_lean_pr (-> behav_vote_lean)
+- [x] cps19_vote_lean_pr_7_TEXT (-> behav_vote_lean)
+- [x] cps19_2nd_choice (-> behav_second_choice_party)
+- [x] cps19_2nd_choice_7_TEXT (-> behav_second_choice_party)
+- [x] cps19_2nd_choice_pr (-> behav_second_choice_party)
+- [x] cps19_2nd_choice_pr_7_TEXT (-> behav_second_choice_party)
+- [x] cps19_not_vote_for_1
+- [x] cps19_not_vote_for_2
+- [x] cps19_not_vote_for_3
+- [x] cps19_not_vote_for_4
+- [x] cps19_not_vote_for_5
+- [x] cps19_not_vote_for_6
+- [x] cps19_not_vote_for_7
+- [x] cps19_not_vote_for_8
+- [x] cps19_not_vote_for_9
+- [x] cps19_not_vote_for_7_TEXT (-> behav_not_vote_for_other_text)
+- [x] cps19_fed_gov_sat (-> op_federal_government_satisfaction)
+- [x] cps19_party_rating_23
+- [x] cps19_party_rating_24
+- [x] cps19_party_rating_25
+- [x] cps19_party_rating_26
+- [x] cps19_party_rating_27
+- [x] cps19_party_rating_28
+- [x] cps19_lead_rating_23
+- [x] cps19_lead_rating_24
+- [x] cps19_lead_rating_25
+- [x] cps19_lead_rating_26
+- [x] cps19_lead_rating_27
+- [x] cps19_lead_rating_28
+- [x] cps19_cand_rating_23
+- [x] cps19_cand_rating_24
+- [x] cps19_cand_rating_25
+- [x] cps19_cand_rating_26
+- [x] cps19_cand_rating_27
+- [x] cps19_cand_rating_28
+- [x] cps19_lr_scale_bef_1
+- [x] cps19_lr_parties_1
+- [x] cps19_lr_parties_2
+- [x] cps19_lr_parties_3
+- [x] cps19_lr_parties_4
+- [x] cps19_lr_parties_5
+- [x] cps19_lr_parties_6
+- [x] cps19_lr_scale_aft_1
+- [x] cps19_lead_int_113
+- [x] cps19_lead_int_114
+- [x] cps19_lead_int_115
+- [x] cps19_lead_int_116
+- [x] cps19_lead_int_117
 - [ ] cps19_lead_int_118
 - [ ] cps19_lead_int_119
 - [ ] cps19_lead_int_120
