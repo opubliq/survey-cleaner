@@ -21,7 +21,7 @@ Total rows: 37,822
 - [x] cps19_gender (-> ses_gender)
 - [x] cps19_province (-> ses_province)
 - [x] cps19_education (-> ses_education)
-- [ ] cps19_demsat
+- [x] cps19_demsat (-> op_democracy_satisfaction)
 - [ ] cps19_imp_iss
 - [ ] cps199
 - [ ] cps19a
