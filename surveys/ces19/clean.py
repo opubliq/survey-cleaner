@@ -136,6 +136,19 @@ def clean_data(df):
         12.0: np.nan  # Don't know/Prefer not to answer -> missing
     })
 
+    # Variable: cps19_demsat -> op_democracy_satisfaction
+    # Ordinal satisfaction scale (1=Very satisfied, 4=Not at all satisfied)
+    # 5 = Don't know -> NA
+    # Scale: 1-4, reversed and normalized to 0-1 (1=very satisfied=1.0, 4=not at all=0.0)
+    df_clean['op_democracy_satisfaction'] = df['cps19_demsat'].copy()
+    df_clean.loc[df_clean['op_democracy_satisfaction'] == 5.0, 'op_democracy_satisfaction'] = np.nan
+    df_clean['op_democracy_satisfaction'] = df_clean['op_democracy_satisfaction'].replace({
+        1.0: 1.0,     # Very satisfied -> 1.0
+        2.0: 0.667,   # Fairly satisfied -> 0.667
+        3.0: 0.333,   # Not very satisfied -> 0.333
+        4.0: 0.0      # Not at all satisfied -> 0.0
+    })
+
     return df_clean
 
 # ============================================================================
