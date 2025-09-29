@@ -1,8 +1,6 @@
 # Variables Processing Todo - Test Survey
 
 ## Pending
-- [ ] nom
-- [ ] age
 - [ ] sexe
 - [ ] education
 - [ ] region
@@ -16,3 +14,5 @@
 
 ## Completed
 - [x] id -> id_respondent
+- [x] nom -> EXCLUDED (confidential personal identifier)
+- [x] age -> ses_age + ses_age_category
