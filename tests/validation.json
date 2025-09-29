@@ -1,0 +1,2298 @@
+[
+  {
+    "chunk": ">gend< [return][open cb][allow 1][loc 45/1]\n[setkey <f3",
+    "chunk_number": 1
+  },
+  {
+    "chunk": "> to <skcb",
+    "chunk_number": 2
+  },
+  {
+    "chunk": ">]\n[setkey <f7",
+    "chunk_number": 3
+  },
+  {
+    "chunk": "> to <j",
+    "chunk_number": 4
+  },
+  {
+    "chunk": ">]\n[setkey <esc",
+    "chunk_number": 5
+  },
+  {
+    "chunk": "> label <callback ESC",
+    "chunk_number": 6
+  },
+  {
+    "chunk": "> to <skcb",
+    "chunk_number": 7
+  },
+  {
+    "chunk": ">]\n[define <d><8",
+    "chunk_number": 8
+  },
+  {
+    "chunk": ">][define <r><9>]\n[bold][yellow] Interviewer: Enter respondent's gender please [n][white]\n1 male\n5 female\nd don't know\n@\n[@] <1,5,d>\n<~> [goto PARTY_iposset]\n[store gend in RGENDER]",
+    "chunk_number": 9
+  },
+  {
+    "chunk": ">gend.2<\n[bold][yellow]\nInterviewer : Veuillez inscrire le sexe du(de la) répondant(e).\n\n[n][white]\n1 homme\n5 femme\nd ne sais pas\n@",
+    "chunk_number": 10
+  },
+  {
+    "chunk": ">ssss< [if BTIM is <>][settime BTIM][endif]\n[record language in INTLANG]\n[open cb]",
+    "chunk_number": 11
+  },
+  {
+    "chunk": ">ces_0< [# 2008 CPS a1]\n[r] On the whole, are you very satisfied, fairly satisfied, not very [n]\n[r] satisfied, or not satisfied at all with the way democracy works [n]\n[r] in Canada? [n]\n[bold][yellow]\nInterviewer: only if required, we mean today, in general.\n[n][white]\n1 very satisfied\n3 fairly satisfied\n5 not very satisfied\n7 not satisfied at all\nd don't know r refused\n@\n[@] <1,3,5,7,d,r>",
+    "chunk_number": 12
+  },
+  {
+    "chunk": ">ces_0.2<\n[r] Dans l'ensemble, êtes-vous très satisfait(e), assez [n]\n[r] satisfait(e), pas très satisfait(e), ou pas du tout [n]\n[r] satisfait(e) de la façon dont la démocratie fonctionne [n]\n[r] au Canada? [n]\n[bold][yellow]\nInterviewer: only if required, we mean today, in general.\n[n][white]\n1 Très satisfait(e)\n3 Assez satisfait(e)\n5 Pas très satisfait(e)\n7 Pas du tout satisfait(e)\nd ne sais pas r refus\n@",
+    "chunk_number": 13
+  },
+  {
+    "chunk": ">ces_1< [#2008 CPS a2]\n\n[r] What is the most important issue to YOU PERSONALLY in this FEDERAL [n]\n[r] election? [n]\n[bold][yellow]\nInterviewer: si nécessaire, on veut dire aujourd'hui, en général.\n[n][white]\n1 enter 1 to specify\nd don't know r refused\n@\n[@] <1",
+    "chunk_number": 14
+  },
+  {
+    "chunk": "> [specify]\n<d,r>",
+    "chunk_number": 15
+  },
+  {
+    "chunk": ">ces_1.2<\n[r] Quel est l'enjeu le plus important pour VOUS PERSONNELLEMENT [n]\n[r] dans cette élection fédérale? [n]\n[bold][yellow]\nInterviewer: Pas de relance. Acceptez une réponse d'un mot.\n[n][white]\n1 veuillez inscrire la réponse mot à mot\nd ne sais pas r refus\n@",
+    "chunk_number": 16
+  },
+  {
+    "chunk": ">int1< [#randomize order of first six categories, ]\n[define <d><8",
+    "chunk_number": 17
+  },
+  {
+    "chunk": ">][define <r><9>]\n[r] In general, how much ATTENTION do you personally usually pay to [n]\n[r] the following issues? [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 18
+  },
+  {
+    "chunk": ">int1.2<\n[r] Maintenant, QUELLE ATTENTION accordez-vous généralement aux enjeux [n]\n[r] suivants? [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 19
+  },
+  {
+    "chunk": ">ck1< [if RANDOM1 eq <1>][goto ces_2][endif][#RANDOM1 order ces_2 to ces_7]\n[if RANDOM1 eq <2>][goto ces_3][endif]\n[if RANDOM1 eq <3>][goto ces_4][endif]\n[if RANDOM1 eq <4>][goto ces_5][endif]\n\n[if RANDOM1 eq <5>][goto ces_6][endif]\n[if RANDOM1 eq <6>][goto ces_7][endif]",
+    "chunk_number": 20
+  },
+  {
+    "chunk": ">ces_2<\n[r] health care? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to health care?\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 21
+  },
+  {
+    "chunk": ">ces_2.2<\n[r] les soins de santé? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 22
+  },
+  {
+    "chunk": ">ck2< [if RANDOM1 eq <1>][goto ces_3][endif]\n[if RANDOM1 eq <2>][goto ces_8][endif]\n[if RANDOM1 eq <3>][goto ces_3][endif]\n[if RANDOM1 eq <4>][goto ces_3][endif]\n[if RANDOM1 eq <5>][goto ces_3][endif]\n[if RANDOM1 eq <6>][goto ces_3][endif]",
+    "chunk_number": 23
+  },
+  {
+    "chunk": ">ces_3<\n[r] welfare? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to welfare?\n[n][white]\n1 a lot\n3 a little\n5 no attention\n\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 24
+  },
+  {
+    "chunk": ">ces_3.2<\n[r] l'aide sociale? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 25
+  },
+  {
+    "chunk": ">ck3< [if RANDOM1 eq <1>][goto ces_4][endif]\n[if RANDOM1 eq <2>][goto ces_4][endif]\n[if RANDOM1 eq <3>][goto ces_8][endif]\n[if RANDOM1 eq <4>][goto ces_4][endif]\n[if RANDOM1 eq <5>][goto ces_4][endif]\n[if RANDOM1 eq <6>][goto ces_4][endif]",
+    "chunk_number": 26
+  },
+  {
+    "chunk": ">ces_4<\n[r] education? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to education?\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 27
+  },
+  {
+    "chunk": ">ces_4.2<\n[r] l'éducation? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\n\nd ne sais pas r refus\n@",
+    "chunk_number": 28
+  },
+  {
+    "chunk": ">ck4< [if RANDOM1 eq <1>][goto ces_5][endif]\n[if RANDOM1 eq <2>][goto ces_5][endif]\n[if RANDOM1 eq <3>][goto ces_5][endif]\n[if RANDOM1 eq <4>][goto ces_8][endif]\n[if RANDOM1 eq <5>][goto ces_5][endif]\n[if RANDOM1 eq <6>][goto ces_5][endif]",
+    "chunk_number": 29
+  },
+  {
+    "chunk": ">ces_5<\n[r] the environment? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to the environment?\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 30
+  },
+  {
+    "chunk": ">ces_5.2<\n[r] l'environnement? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 31
+  },
+  {
+    "chunk": ">ck5< [if RANDOM1 eq <1>][goto ces_6][endif]\n[if RANDOM1 eq <2>][goto ces_6][endif]\n[if RANDOM1 eq <3>][goto ces_6][endif]\n[if RANDOM1 eq <4>][goto ces_6][endif]\n[if RANDOM1 eq <5>][goto ces_8][endif]\n[if RANDOM1 eq <6>][goto ces_6][endif]",
+    "chunk_number": 32
+  },
+  {
+    "chunk": ">ces_6<\n\n[r] crime and justice? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to crime and justice?\n[n][white]\n[bold][yellow]\nInterviewer: if asked, we mean \"policies related to police,\ncourts, and jails.\"\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 33
+  },
+  {
+    "chunk": ">ces_6.2<\n[r] la criminalité et la justice? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n[bold][yellow]\nInterviewer: Si le R demande ce que c'est, dire: \"Nous voulons dire\nles politiques liées à la police, les tribunaux et les prisons.\"\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 34
+  },
+  {
+    "chunk": ">ck6n< [if RANDOM1 eq <1>][goto ces_7][endif]\n[if RANDOM1 eq <2>][goto ces_7][endif]\n[if RANDOM1 eq <3>][goto ces_7][endif]\n[if RANDOM1 eq <4>][goto ces_7][endif]\n[if RANDOM1 eq <5>][goto ces_7][endif]\n[if RANDOM1 eq <6>][goto ces_8][endif]",
+    "chunk_number": 35
+  },
+  {
+    "chunk": ">ces_7<\n[r] defense and international affairs? [n]\n[bold][cyan]\n\nDo you pay a lot, a little, or no attention to defense and\ninternational affairs?\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 36
+  },
+  {
+    "chunk": ">ces_7.2<\n[r] la défense et les affaires internationales? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 37
+  },
+  {
+    "chunk": ">ck7< [if RANDOM1 eq <1>][goto ces_8][endif]\n[if RANDOM1 eq <2>][goto ces_2][endif]\n[if RANDOM1 eq <3>][goto ces_2][endif]\n[if RANDOM1 eq <4>][goto ces_2][endif]\n[if RANDOM1 eq <5>][goto ces_2][endif]\n[if RANDOM1 eq <6>][goto ces_2][endif]",
+    "chunk_number": 38
+  },
+  {
+    "chunk": ">ces_8<\n[r] immigration and minorities? [n]\n[bold][cyan]\nDo you pay a lot, a little, or no attention to immigration and\nminorities?\n[n][white]\n1 a lot\n3 a little\n5 no attention\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 39
+  },
+  {
+    "chunk": ">ces_8.2<\n[r] l'immigration et les minorités? [n]\n[bold][cyan]\nQuelle attention accordez-vous: beaucoup, un peu, ou aucune?\n[n][white]\n1 beaucoup\n3 un peu\n5 aucune\nd ne sais pas r refus\n@",
+    "chunk_number": 40
+  },
+  {
+    "chunk": ">ces_9< [#2008 CPS a3][define <d><98",
+    "chunk_number": 41
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] How interested are you in this FEDERAL election? Using a scale [n]\n[r] from 0 to 10, where 0 means no interest at all and 10 means a [n]\n[r] great deal of interest. [n]\n0-10 enter number\nd don't know r refused\n@\n[@] <0-10,d,r>",
+    "chunk_number": 42
+  },
+  {
+    "chunk": ">ces_9.2<\n[r] Quel est votre intérêt pour cette élection fédérale? Utilisez une [n]\n[r] échelle de 0 à 10 où 0 veut dire aucun intérêt et 10 veut dire [n]\n[r] beaucoup d'intérêt. [n]\n0-10 enter number\nd ne sais pas r refus\n@",
+    "chunk_number": 43
+  },
+  {
+    "chunk": ">ces_10< [#2008 CPS b3a]\n[r] On election day, are you certain to vote, likely, unlikely, or [n]\n[r] certain not to vote? [n]\n1 certain\n3 likely\n5 unlikely\n7 certain not to vote\n0 R volunteers \"already voted in the advanced poll\"\nd don't know r refused\n@\n\n[@]<1,3,0>\n<5,d,r>[goto ces_13]\n<7>[goto ces_17]",
+    "chunk_number": 44
+  },
+  {
+    "chunk": ">ces_10.2<\n[r] Le jour de l'élection est-ce certain que vous irez voter, [n]\n[r] probable, improbable, ou certain que vous n'irez pas voter? [n]\n1 certain de voter\n3 probable\n5 improbable\n7 certain de ne pas voter\n0 R indique \"a déjà vote par anticipation\"\nd ne sais pas r refus\n@",
+    "chunk_number": 45
+  },
+  {
+    "chunk": ">ces_11< [#2008 CPS b4n, modified]\n[define <d><98",
+    "chunk_number": 46
+  },
+  {
+    "chunk": ">][define <r><99>] [define <s><0>]\n[if ces_10 ne <0>]\n[r] Which party do you think you will vote for? The Liberal Party, the [n]\n[r] Conservative Party, the NDP, [if PROV eq <24>] the Bloc Quebecois,\n[endif][n]\n[r] the Green party, or another party? [n]\n[else]\n[r] Which party did you vote for? The Liberal Party, the [n]\n[r] Conservative Party, the NDP, [if PROV eq <24>] the Bloc Quebecois,\n[endif][n]\n[r] the Green party, or another party? [n]\n[endif]\n1 Liberal (Grits)\n2 Conservatives (Tory, PCs, Conservative Party of Canada)\n3 NDP (New Democratic Party, New Democrats, Ndpers)\n[if PROV eq <24>]\n4 Bloc Quebecois (BQ, PQ, Bloc, Parti Québécois)[endif]\n5 Green Party (Greens)\ns other(specify)\n7 will not vote\n8 none of these\n9 will spoil ballot\nd don't know/undecided r refused\n@\n[@]<1-5>[goto ckq11]\n<s>[specify][goto ces_15]\n<7,9,r>[goto ces_17]\n<8,d>",
+    "chunk_number": 47
+  },
+  {
+    "chunk": ">ces_11.2<\n[if ces_10 ne <0>]\n[r] Pour quel parti pensez-vous voter? [n]\n[else]\n[r] Pour quel parti avez-vous voté? [n]\n[endif]\n[r] le Parti Libéral, le Parti conservateur, le NPD, [n]\n[r] [if PROV eq <24>]le Bloc Québécois,[endif] le Parti vert, ou un autre\nparti?[n]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau parti démocratique)\n[if PROV eq <24>]\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)[endif]\n5 Parti vert\ns autre parti\n7 ne votera pas\n8 aucun de ceux-ci\n9 annulation\nd ne sais pas/ pas décidé r refus @",
+    "chunk_number": 48
+  },
+  {
+    "chunk": ">ckq11<[allow int 2]\n[if ces_11 ge <1> and ces_11 le <5>]\n[store ces_11 in ckq11]\n[goto E0010]\n[endif] [# to compare with second choice in ces_15]",
+    "chunk_number": 49
+  },
+  {
+    "chunk": ">ces_12< [#2008 CPS b5][#no]\n[r] Is there a party you are leaning towards? [n]\n[bold][yellow]\nInterviewer: do not read list, if R answers \"yes\" ask, \"which\nparty is that?\"\n[n][white]\n1 Liberal (Grits)\n2 Conservatives (Tory, PCs, Conservative Party of Canada)\n3 NDP (New Democratic Party, New Democrats, Ndpers)\n[if PROV eq <24>]\n4 Bloc Quebecois (BQ, PQ, Bloc, Parti Québécois) [endif]\n5 Green Party (Greens)\ns other(specify)\n7 will not vote\n8 no\nd don't know/undecided r refused\n@\n\n[@]<1-5>\n<s>[specify][goto ces_15]\n<7,8,d,r>[goto ces_17]",
+    "chunk_number": 50
+  },
+  {
+    "chunk": ">ces_12.2<\n[r] Est-ce qu'il y a un parti que vous êtes tenté d'appuyer? [n]\n[bold][yellow]\nInterviewer: ne pas lire la liste, si R répond \"oui\" demandez,\n\"Quel parti?\"\n[n][white]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau parti démocratique)\n[if PROV eq <24>]\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)[endif]\n5 Parti vert\ns autre parti\n7 ne votera pas\n8 non\nd ne sais pas/ pas décidé r refus\n@",
+    "chunk_number": 51
+  },
+  {
+    "chunk": ">ckq12< [if ces_12 ge <1> and ces_12 le <5>]\n[store ces_12 in ckq11]\n[goto E0010]\n[endif] [# to compare with second choice in ces_15]",
+    "chunk_number": 52
+  },
+  {
+    "chunk": ">ces_13< [#2008 CPS b6]\n[define <d><98",
+    "chunk_number": 53
+  },
+  {
+    "chunk": ">][define <r><99>] [define <s><0>]\n[r] If you decide to vote, which party do you think you will vote for? [n]\n[r] The Liberal Party, the Conservative Party, the NDP, [n]\n[r] [if PROV eq <24>]the Bloc Quebecois,[endif] the Green party, or another\nparty?[n]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 NDP (New Democratic Party, New Democrats, Ndpers)\n[if PROV eq <24>]\n4 Bloc Quebecois (BQ, PQ, Bloc, Parti Québécois) [endif]\n5 Green Party (Greens)\ns other\n7 will not vote\n8 none of these\nd don't know/undecided r refused\n@\n\n[@] <1-5>\n<s> [specify][goto ces_15]\n<7,8,d,r> [goto ces_17]",
+    "chunk_number": 54
+  },
+  {
+    "chunk": ">ces_13.2<\n[r] Si vous décidez de voter, pour quel parti pensez-vous voter? [n]\n[r] le Parti Libéral, le Parti conservateur, le NPD, [n]\n[r] [if PROV eq <24>]le Bloc Québécois,[endif] le Parti vert, ou un autre\nparti?[n]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau Parti Démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\ns autre parti\n7 ne votera pas\n8 aucun de ceux-ci\nd ne sais pas/ pas décidé r refus\n@",
+    "chunk_number": 55
+  },
+  {
+    "chunk": ">ckq13< [if ces_13 ge <1> and ces_13 le <5>]\n[store ces_13 in ckq11]\n[goto E0010]\n[endif] [# to compare with second choice in ces_15]",
+    "chunk_number": 56
+  },
+  {
+    "chunk": ">E0010< [allow 32]\n[store <> in E0010]",
+    "chunk_number": 57
+  },
+  {
+    "chunk": ">F0010< [allow 32]\n[store <> in F0010]\n[if ces_11 is <1",
+    "chunk_number": 58
+  },
+  {
+    "chunk": ">]\n[store <Liberal Party> in E0010]\n[store <Parti Libéral> in F0010]\n[goto ces_14]\n[endif]\n[if ces_11 is <2",
+    "chunk_number": 59
+  },
+  {
+    "chunk": ">]\n[store <Conservative Party> in E0010]\n[store <Parti Conservateur> in F0010]\n[goto ces_14]\n[endif]\n[if ces_11 is <3",
+    "chunk_number": 60
+  },
+  {
+    "chunk": ">]\n[store <NDP> in E0010]\n[store <NPD> in F0010]\n[goto ces_14]\n[endif]\n[if ces_11 is <4",
+    "chunk_number": 61
+  },
+  {
+    "chunk": ">]\n\n[store <Bloc Québécois> in E0010]\n[store <Bloc Québécois> in F0010]\n[goto ces_14]\n[endif]\n[if ces_11 is <5",
+    "chunk_number": 62
+  },
+  {
+    "chunk": ">]\n[store <Green Party> in E0010]\n[store <Parti vert> in F0010]\n[goto ces_14]\n[endif]\n[if ces_12 is <1",
+    "chunk_number": 63
+  },
+  {
+    "chunk": ">]\n[store <Liberal Party> in E0010]\n[store <Parti Libéral> in F0010]\n[goto ces_14]\n[endif]\n[if ces_12 is <2",
+    "chunk_number": 64
+  },
+  {
+    "chunk": ">]\n[store <Conservative Party> in E0010]\n[store <Parti Conservateur> in F0010]\n[goto ces_14]\n[endif]\n[if ces_12 is <3",
+    "chunk_number": 65
+  },
+  {
+    "chunk": ">]\n[store <NDP> in E0010]\n[store <NPD> in F0010]\n[endif]\n[if ces_12 is <4",
+    "chunk_number": 66
+  },
+  {
+    "chunk": ">]\n[store <Bloc Québécois> in E0010]\n[store <Bloc Québécois> in F0010]\n[goto ces_14]\n[endif]\n[if ces_12 is <5",
+    "chunk_number": 67
+  },
+  {
+    "chunk": ">]\n[store <Green Party> in E0010]\n[store <Parti vert> in F0010]\n[goto ces_14]\n[endif]\n[if ces_13 is <1",
+    "chunk_number": 68
+  },
+  {
+    "chunk": ">]\n[store <Liberal Party> in E0010]\n[store <Parti Libéral> in F0010]\n[goto ces_14]\n[endif]\n[if ces_13 is <2",
+    "chunk_number": 69
+  },
+  {
+    "chunk": ">]\n[store <Conservative Party> in E0010]\n[store <Parti Conservateur> in F0010]\n[goto ces_14]\n[endif]\n[if ces_13 is <3",
+    "chunk_number": 70
+  },
+  {
+    "chunk": ">]\n[store <NDP> in E0010]\n[store <NPD> in F0010]\n[goto ces_14]\n[endif]\n[if ces_13 is <4",
+    "chunk_number": 71
+  },
+  {
+    "chunk": ">]\n[store <Bloc Québécois> in E0010]\n[store <Bloc Québécois> in F0010]\n[goto ces_14]\n[endif]\n[if ces_13 is <5",
+    "chunk_number": 72
+  },
+  {
+    "chunk": ">]\n\n[store <Green Party> in E0010]\n[store <Parti vert> in F0010]\n[goto ces_14]\n[endif]",
+    "chunk_number": 73
+  },
+  {
+    "chunk": ">ces_14< [goto ces_15][#2008 CPS b8]",
+    "chunk_number": 74
+  },
+  {
+    "chunk": ">ces_15< [#2008 CPS b9][define <d><98",
+    "chunk_number": 75
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 76
+  },
+  {
+    "chunk": ">][define <s><0>]\n[r] And which party would be your second choice? [n]\n[bold][yellow]\nInterviewer: do not read list, you can not re-enter respondent's\nfirst choice here.\n[n][white]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 NDP (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party (Greens)\ns other/multiple responses\n7 none/no second choice\nd don't know r refused\n@\n[@] <1-5,7,d,r> [reject eq ckq11 label <2nd choice is the same as the 1st\nchoice",
+    "chunk_number": 77
+  },
+  {
+    "chunk": ">]\n<s> [specify]",
+    "chunk_number": 78
+  },
+  {
+    "chunk": ">ces_15.2<\n[r] Et quel parti serait votre deuxième choix? [n]\n[bold][yellow]\nInterviewer: ne pas lire la liste, vous ne pouvez pas entrer le premier\nchoix du répondant à nouveau.\n[n][white]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau Parti Démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\ns autre parti, /plus d'une réponse\n7 aucun / pas de deuxième choix\nd ne sais pas/ pas décidé r refus\n@",
+    "chunk_number": 79
+  },
+  {
+    "chunk": ">ces_16< [#2008 CPS b10]\n\n[r] Is there a party you would absolutely not vote for? [n]\n[bold][yellow]\nInterviewer: do not read list.\nIf R answers \"yes\", ask \"which party?\"\n[n][white]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 NDP (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party (Greens)\ns other/multiple responses\n7 none/no\nd don't know r refused\n@\n[@] <1-5,7,d,r>\n<s> [specify]",
+    "chunk_number": 80
+  },
+  {
+    "chunk": ">ces_16.2<\n[r] Y a-t-il un parti pour lequel vous ne voudriez absolument pas voter?[n]\n[bold][yellow]\nInterviewer: ne pas lire la liste.\nSi le R dit \"oui\", demandez \"Lequel?\"\n[n][white]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau Parti Démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\ns autre parti/ plus d'une réponse\n7 aucun/non\nd ne sais pas/ pas décidé r refus\n@",
+    "chunk_number": 81
+  },
+  {
+    "chunk": ">ces_17< [#2008 CPS i0][define <d><8",
+    "chunk_number": 82
+  },
+  {
+    "chunk": ">][define <r><9>][#ask all respondents.]\n[r] How satisfied are you with the performance of the federal government[n]\n[r] under Stephen Harper? Are you very satisfied, fairly satisfied, not[n]\n[r] very satisfied, or not satisfied at all? [n]\n1 very satisfied\n3 fairly satisfied\n5 not very satisfied\n7 not satisfied at all\n\nd don't know r refused\n@\n[@] <1,3,5,7,d,r>",
+    "chunk_number": 83
+  },
+  {
+    "chunk": ">ces_17.2<\n[r] Quelle est votre évaluation de la performance du gouvernement [n]\n[r] fédéral sous Stephen Harper? Etes-vous très satisfait(e), assez [n]\n[r] satisfait(e), pas très satisfait(e), ou pas du tout satisfait(e)? [n]\n1 Très satisfait(e)\n3 Assez satisfait(e)\n5 Pas très satisfait(e)\n7 Pas du tout satisfait(e)\nd ne sais pas r refus\n@\n[#-------------------------------------------------------------------------]\n[# random item sequence for all party, leader,traits items]\n[# output this variable]",
+    "chunk_number": 84
+  },
+  {
+    "chunk": ">itemseq< [allow int 1 for 4]\n[randomize <1",
+    "chunk_number": 85
+  },
+  {
+    "chunk": "> to <4> into itemseq]\n[#-------------------------------------------------------------------------]\n[# ----------- start randomized PARTY section ----------------------------]",
+    "chunk_number": 86
+  },
+  {
+    "chunk": ">PARTY_itempos< [allow int 1 for 4] [# calculated - position\n[# of each question.",
+    "chunk_number": 87
+  },
+  {
+    "chunk": ">st1< [store <0> in PARTY_numitem]",
+    "chunk_number": 88
+  },
+  {
+    "chunk": ">PARTY_iposset< [add <1> to PARTY_numitem] [if PARTY_numitem eq <4> goto\nINT_PARTY]\n[if itemseq(PARTY_numitem) eq <1>]\n[store PARTY_numitem in PARTY_itempos(<1>)] [goto PARTY_iposset]\n[endif]\n[if itemseq(PARTY_numitem) eq <2>]\n[store PARTY_numitem in PARTY_itempos(<2>)] [goto PARTY_iposset]\n[endif]\n[if itemseq(PARTY_numitem) eq <3>]\n[store PARTY_numitem in PARTY_itempos(<3>)] [goto PARTY_iposset]\n[endif]\n[if itemseq(PARTY_numitem) eq <4>]\n[store PARTY_numitem in PARTY_itempos(<4>)] [goto PARTY_iposset]\n[endif]\n[goto PARTY_errorseq]",
+    "chunk_number": 89
+  },
+  {
+    "chunk": ">PARTY_errorseq<\nThis screen only arises if there is an error in the\nrandomization procedure for items Q1 through Q6.\npress enter to continue @\n[@][nodata][goto EXIT_PARTY]",
+    "chunk_number": 90
+  },
+  {
+    "chunk": ">PARTY_numitem< [allow int 1]",
+    "chunk_number": 91
+  },
+  {
+    "chunk": ">INT_PARTY< [#2008 CPS int2] [#randomize order of first four party names]\n[define <d><998>] [define <r><999>]\n[r] And now, how do you feel about the political parties? Using a scale [n]\n[r] from 0 to 100, zero means you REALLY DISLIKE the party and one [n]\n[r] hundred means you REALLY LIKE the party. [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 92
+  },
+  {
+    "chunk": ">INT_PARTY.2<\n[r] Et maintenant , que pensez-vous des partis politiques? Utilisez une [n]\n[r] échelle de ZERO à CENT. Zéro veut dire que vous N'AIMEZ VRAIMENT [n]\n[r] PAS DU TOUT un parti, et cent veut dire que vous L'AIMEZ VRAIMENT [n]\n[r] BEAUCOUP. [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 93
+  },
+  {
+    "chunk": ">PARTY_start< [loop for PARTY_numitem from <1",
+    "chunk_number": 94
+  },
+  {
+    "chunk": "> to <4>]",
+    "chunk_number": 95
+  },
+  {
+    "chunk": ">PARTY_iseq< [if itemseq(PARTY_numitem) eq <1> goto ces_18] [# Conservative]\n[if itemseq(PARTY_numitem) eq <2> goto ces_19] [# Liberal]\n[if itemseq(PARTY_numitem) eq <3> goto ces_20] [# NDP]\n[if itemseq(PARTY_numitem) eq <4> goto ces_21] [# Duceppe; Quebec\nonly]",
+    "chunk_number": 96
+  },
+  {
+    "chunk": ">ces_18< [#2008 CPS g7]\n[r] How do you feel about the FEDERAL Conservative party? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you REALLY DISLIKE\nthe party and one hundred means you REALLY LIKE the party.\n[n][white]\n0-100 enter rating\n996 don't know about any of the parties\n\nd don't know r refused\n@\n[@] <0-100,d,r> [goto PARTY_END]\n<996> [goto escape1]",
+    "chunk_number": 97
+  },
+  {
+    "chunk": ">ces_18.2<\n[r] Que pensez-vous du Parti Conservateur FÉDÉRAL? [n]\n[bold][cyan]\nUtiliser n'importe quel nombre entre 0 et 100. 0 veut dire que vous\nn'aimez vraiment pas du tout un parti, et 100 veut dire que vous l'aimez\nvraiment beaucoup. [n][white]\n0-100 inscrire le nombre\n996 ne connait aucun parti\nd ne sais pas r Refus\n@",
+    "chunk_number": 98
+  },
+  {
+    "chunk": ">ces_19< [#2008 CPS g8]\n[r] How do you feel about the FEDERAL Liberal party? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you REALLY DISLIKE\nthe party and one hundred means you REALLY LIKE the party.\n[n][white]\n0-100 enter rating\n996 don't know about any of the parties\nd don't know r refused\n@\n[@] <0-100,d,r> [goto PARTY_END]\n<996> [goto escape1]",
+    "chunk_number": 99
+  },
+  {
+    "chunk": ">ces_19.2<\n[r] Que pensez-vous du parti Libéral FÉDÉRAL? [n]\n[bold][cyan]\nUtiliser n'importe quel nombre entre 0 et 100. 0 veut dire que vous\nn'aimez vraiment pas du tout un parti, et 100 veut dire que vous l'aimez\nvraiment beaucoup.[n][white]\n0-100 inscrire le nombre\n\n996 ne connait aucun parti\nd ne sais pas r Refus\n@",
+    "chunk_number": 100
+  },
+  {
+    "chunk": ">ces_20< [#2008 CPS g9]\n[r] How do you feel about the FEDERAL NDP? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you REALLY DISLIKE\nthe party and one hundred means you REALLY LIKE the party.\n[n][white]\n0-100 enter rating\n996 don't know about any of the parties\nd don't know r refused\n@\n[@] <0-100,d,r> [goto PARTY_END]\n<996> [goto escape1]",
+    "chunk_number": 101
+  },
+  {
+    "chunk": ">ces_20.2<\n[r] Que pensez-vous du NPD fédéral? [n]\n[bold][cyan]\nUtiliser n'importe quel nombre entre 0 et 100. 0 veut dire que vous n'aimez\nvraiment pas du tout un parti, et 100 veut dire que vous l'aimez vraiment\nbeaucoup. [n][white]\n0-100 inscrire le nombre\n996 ne connait aucun parti\nd ne sais pas r refus\n@",
+    "chunk_number": 102
+  },
+  {
+    "chunk": ">ces_21< [#2008 CPS g10][if PROV ne <24>][goto PARTY_END][endif]\n[r] How do you feel about the BLOC Québécois? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you REALLY DISLIKE\nthe party and one hundred means you REALLY LIKE the party.\n[n][white]\n0-100 enter rating\n996 don't know about any of the parties\n\nd don't know r refused\n@\n[@] <0-100,d,r> [goto PARTY_END]\n<996> [goto escape1]",
+    "chunk_number": 103
+  },
+  {
+    "chunk": ">ces_21.2<\n[r] Que pensez-vous du BLOC QUÉBÉCOIS? [n]\n[bold][cyan]\nUtiliser n'importe quel nombre entre 0 et 100. 0 veut dire que vous n'aimez\nvraiment pas du tout un parti, et 100 veut dire que vous l'aimez vraiment\nbeaucoup. [n][white]\n0-100 inscrire le nombre\n996 ne connait aucun parti\nd ne sais pas r refus\n@",
+    "chunk_number": 104
+  },
+  {
+    "chunk": ">PARTY_END< [loop end PARTY_numitem]",
+    "chunk_number": 105
+  },
+  {
+    "chunk": ">EXIT_PARTY<\n[# ------------------- end randomized sequence----------------------------------\n]",
+    "chunk_number": 106
+  },
+  {
+    "chunk": ">ces_22< [#2008 CPS g11] [# Green Party always last, outside random sequence]\n[r] How do you feel about the FEDERAL Green Party? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you REALLY DISLIKE\nthe party and one hundred means you REALLY LIKE the party.\n[n][white]\n0-100 enter rating\n996 don't know about any of the parties\nd don't know r refused\n@\n[@] <0-100,d,r>\n<996>",
+    "chunk_number": 107
+  },
+  {
+    "chunk": ">ces_22.2<\n[r] Que pensez-vous du Parti vert fédéral? [n]\n\n[bold][cyan]\nUtiliser n'importe quel nombre entre 0 et 100. 0 veut dire que vous n'aimez\nvraiment pas du tout un parti, et 100 veut dire que vous l'aimez vraiment\nbeaucoup. [n][white]\n0-100 inscrire le nombre\n996 ne connait aucun parti\nd ne sais pas r refus\n@\n[# ------------------- end PARTY sequence----------------------------------]",
+    "chunk_number": 108
+  },
+  {
+    "chunk": ">escape1< [# 996 dk any PARTY]\n[# ----------- start randomized LEADER section ----------------------------]",
+    "chunk_number": 109
+  },
+  {
+    "chunk": ">LEADER_itempos< [allow int 1 for 4] [# calculated - position\n[# of each question.",
+    "chunk_number": 110
+  },
+  {
+    "chunk": ">st2< [store <0> in LEADER_numitem]",
+    "chunk_number": 111
+  },
+  {
+    "chunk": ">LEADER_iposset< [add <1> to LEADER_numitem] [if LEADER_numitem eq <4> goto\nint_leader]\n[if itemseq(LEADER_numitem) eq <1>]\n[store LEADER_numitem in LEADER_itempos(<1>)] [goto\nLEADER_iposset] [endif]\n[if itemseq(LEADER_numitem) eq <2>]\n[store LEADER_numitem in LEADER_itempos(<2>)] [goto\nLEADER_iposset] [endif]\n[if itemseq(LEADER_numitem) eq <3>]\n[store LEADER_numitem in LEADER_itempos(<3>)] [goto\nLEADER_iposset] [endif]\n[if itemseq(LEADER_numitem) eq <4>]\n[store LEADER_numitem in LEADER_itempos(<4>)] [goto\nLEADER_iposset] [endif]\n[goto LEADER_errorseq]",
+    "chunk_number": 112
+  },
+  {
+    "chunk": ">LEADER_errorseq<\nThis screen only arises if there is an error in the\nrandomization procedure for items Q1 through Q6.\npress enter to continue @\n[@][nodata][goto EXIT_LEADER]",
+    "chunk_number": 113
+  },
+  {
+    "chunk": ">LEADER_numitem< [allow int 1]",
+    "chunk_number": 114
+  },
+  {
+    "chunk": ">int_leader< [#2008 CPS int1]\n[r] Now the party leaders. On the same scale, where Zero means you [n]\n[r] REALLY DISLIKE the leader and one hundred means you REALLY LIKE [n]\n\n[r] the leader. [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 115
+  },
+  {
+    "chunk": ">int_leader.2<\n[r] Maintenant les chefs de partis. Utiliser la même échelle, où zéro [n]\n[r] veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un chef, et cent [n]\n[r] veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP. [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 116
+  },
+  {
+    "chunk": ">LEADER_start< [loop for LEADER_numitem from <1",
+    "chunk_number": 117
+  },
+  {
+    "chunk": "> to <4>]",
+    "chunk_number": 118
+  },
+  {
+    "chunk": ">LEADER_seq< [if itemseq(LEADER_numitem) eq <1> goto ces_23]\n[if itemseq(LEADER_numitem) eq <2> goto ces_24]\n[if itemseq(LEADER_numitem) eq <3> goto ces_25]\n[if itemseq(LEADER_numitem) eq <4> goto ces_26] [# Duceppe;\nQuebec only]",
+    "chunk_number": 119
+  },
+  {
+    "chunk": ">ces_23< [#2008 CPS g1] [define <d><998",
+    "chunk_number": 120
+  },
+  {
+    "chunk": ">][define <r><999>]\n[r] How do you feel about STEPHEN HARPER? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you really DISLIKE\nhim and one hundred means you really LIKE him.\n[n][white]\n0-100 enter rating\n996 don't know any of the leaders\n997 don't know who he is\nd don't know/don't know how to rate him\nr refused\n@\n[@] <0-100,997,d,r> [goto LEADER_END]\n<996> [goto ces_28]",
+    "chunk_number": 121
+  },
+  {
+    "chunk": ">ces_23.2<\n[r] Que pensez-vous de STEPHEN HARPER ? [n]\n[bold][cyan]\nUtilisez une échelle de ZERO à CENT. Zéro veut dire que vous ne L'AIMEZ\nVRAIMENT PAS DU TOUT et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP.\n[n][white]\n0-100 inscrire nombre entre 0-100\n\n996 ne connais aucun chef\n997 ne le connais pas\nd ne sais pas/ ne sais pas comment l'évaluer\nr refus\n@",
+    "chunk_number": 122
+  },
+  {
+    "chunk": ">ces_24< [#2008 CPS g2, modified][define <d><998",
+    "chunk_number": 123
+  },
+  {
+    "chunk": ">][define <r><999>]\n[r] How do you feel about MICHAEL IGNATIEFF? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you really DISLIKE\nhim and one hundred means you really LIKE him.\n[n][white]\n0-100 enter rating\n996 don't know any of the leaders\n997 don't know who he is\nd don't know/don't know how to rate him\nr refused\n@\n[@] <0-100,997,d,r> [goto LEADER_END]\n<996> [goto ces_28]",
+    "chunk_number": 124
+  },
+  {
+    "chunk": ">ces_24.2<\n[r] Que pensez-vous de MICHAEL IGNATIEFF? [n]\n[bold][cyan]\nUtilisez une échelle de ZERO à CENT. Zéro veut dire que vous ne L'AIMEZ\nVRAIMENT PAS DU TOUT et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP.\n[n][white]\n0-100 inscrire nombre entre 0-100\n996 ne connais aucun chef\n997 ne le connais pas\nd ne sais pas/ne sais pas comment l'évaluer\nr refus\n@",
+    "chunk_number": 125
+  },
+  {
+    "chunk": ">ces_25< [#2008 CPS g3][define <d><998",
+    "chunk_number": 126
+  },
+  {
+    "chunk": ">][define <r><999>]\n[r] How do you feel about JACK LAYTON? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you really DISLIKE\nhim and one hundred means you really LIKE him.\n[n][white]\n\n0-100 enter rating\n996 don't know any of the leaders\n997 don't know who he is\nd don't know/don't know how to rate him\nr refused\n@\n[@] <0-100,997,d,r> [goto LEADER_END]\n<996> [goto ces_28]",
+    "chunk_number": 127
+  },
+  {
+    "chunk": ">ces_25.2<\n[r] Que pensez-vous de JACK LAYTON? [n]\n[bold][cyan]\nUtilisez une échelle de ZERO à CENT. Zéro veut dire que vous ne L'AIMEZ\nVRAIMENT PAS DU TOUT et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP.\n[n][white]\n0-100 inscrire nombre entre 0-100\n996 ne connais aucun chef\n997 ne le connais pas\nd ne sais pas/ne sais pas comment l'évaluer\nr refus\n@",
+    "chunk_number": 128
+  },
+  {
+    "chunk": ">ces_26< [#2008 CPS g4][if PROV ne <24>][goto LEADER_END][endif][# QC ONLY]\n[define <d><998",
+    "chunk_number": 129
+  },
+  {
+    "chunk": ">][define <r><999>]\n[r] How do you feel about GILLES DUCEPPE? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you really DISLIKE\nhim and one hundred means you really LIKE him.\n[n][white]\n0-100 enter rating\n996 don't know any of the leaders\n997 don't know who he is\nd don't know/don't know how to rate him\nr refused\n@\n[@] <0-100,997,d,r> [goto LEADER_END]\n<996> [goto ces_28]",
+    "chunk_number": 130
+  },
+  {
+    "chunk": ">ces_26.2<\n[r] Que pensez-vous de GILLES DUCEPPE? [n]\n\n[bold][cyan]\nUtilisez une échelle de ZERO à CENT. Zéro veut dire que vous ne l'aimez\nvraiment pas du tout, et cent veut dire que vous l'aimez\nvraiment beaucoup. [n][white]\n0-100 Inscrire nombre entre 0-100\n996 Ne connais AUCUN chef\n997 Ne le connais pas\nd ne sais pas/ne sais pas comment l'évaluer\nr Refus\n@",
+    "chunk_number": 131
+  },
+  {
+    "chunk": ">LEADER_END< [loop end LEADER_numitem]",
+    "chunk_number": 132
+  },
+  {
+    "chunk": ">EXIT_LEADER<\n[# ------------------- end randomized sequence----------------------------------\n]",
+    "chunk_number": 133
+  },
+  {
+    "chunk": ">ces_27< [#2008 CPS g5] [# May always last, outside random sequence]\n[r] How do you feel about Elizabeth May? [n]\n[bold][cyan]\nUse any number from zero to one hundred. Zero means you really DISLIKE\nher and one hundred means you really LIKE her. [n][white]\n0-100 enter rating\n996 don't know any of the leaders\n997 don't know who she is\nd don't know/don't know how to rate her\nr refused\n@\n[@] <0-100,997,d,r>\n<996>",
+    "chunk_number": 134
+  },
+  {
+    "chunk": ">ces_27.2<\n[r] Que pensez-vous de Elizabeth May? [n]\n[bold][cyan]\nUtilisez une échelle de ZERO à CENT. Zéro veut dire que vous ne l'aimez\nvraiment pas du tout, et cent veut dire que vous l'aimez\nvraiment beaucoup. [n][white]\n0-100 Inscrire nombre entre 0-100\n996 Ne connais AUCUN chef\n997 Ne le connais pas\nd ne sais pas/ne sais pas comment l'évaluer\n\nr Refus\n@",
+    "chunk_number": 135
+  },
+  {
+    "chunk": ">ces_28< [goto ces_30int][#cut, march 25]\n[# target for 996 reponse in randomized section]\ntemp to show randomization .\n@\n[@] <1>\n[# -------------------------------------------------------------------]",
+    "chunk_number": 136
+  },
+  {
+    "chunk": ">ces_29< [goto ces_30int][#cut March 25]\n[#NEW CAMPAIGN ISSUE QUESTION, to be determined]\n@\n[@] <1>",
+    "chunk_number": 137
+  },
+  {
+    "chunk": ">ces_30int<\n[r] And now some questions about taxes. [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 138
+  },
+  {
+    "chunk": ">ces_30int.2<\n[r] Et maintenant des questions sur les impôt. [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 139
+  },
+  {
+    "chunk": ">ck_order30< [if RANDOM7 eq <1>][goto ces_30][endif]\n[if RANDOM7 eq <2>][goto ces_31][endif]",
+    "chunk_number": 140
+  },
+  {
+    "chunk": ">ces_30< [#2008 PES d1k][define <d><8>] [define <r><9>]\n[r] Should PERSONAL INCOME TAXES be increased, decreased, or kept about [n]\n[r] the same as now? [n]\n[bold][yellow]\nInterviewer: if R ask \"at which level?\", answer \"taxes at the federal level\".\n[n][white]\n\n1 increased\n3 decreased\n5 kept about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 141
+  },
+  {
+    "chunk": ">ces_30.2<\n[r] L'impôt sur le revenu des INDIVIDUS devrait-il augmenter, [n]\n[r] diminuer, ou rester à peu près comme maintenant? [n]\n[bold][yellow]\nInterviewer: si le R demande \"à quel niveau?\", répondre \"l'impôt au\nniveau fédéral\".\n[n][white]\n1 augmenter\n3 diminuer\n5 rester à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 142
+  },
+  {
+    "chunk": ">ck_order30b< [if RANDOM7 eq <1>][goto ces_31][endif]\n[if RANDOM7 eq <2>][goto int_spend][endif]",
+    "chunk_number": 143
+  },
+  {
+    "chunk": ">ces_31< [#2008 PES d1l]\n[r] Should CORPORATE taxes be increased, decreased, or kept about the [n]\n[r] same as now? [n]\n[bold][yellow]\nInterviewer: if R ask \"at which level?\", answer \"taxes at the federal level\".\n[n][white]\n1 increased\n3 decreased\n5 kept about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 144
+  },
+  {
+    "chunk": ">ces_31.2<\n[r] L'impôt des ENTREPRISES, devrait-il augmenter, diminuer, ou [n]\n[r] rester à peu près comme maintenant? [n]\n[bold][yellow]\nInterviewer: si le R demande \"à quel niveau?\", répondre \"l'impôt au\nniveau fédéral\".\n[n][white]\n\n1 augmenter\n3 diminuer\n5 rester à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 145
+  },
+  {
+    "chunk": ">ck_order30c< [if RANDOM7 eq <1>][goto int_spend][endif]\n[if RANDOM7 eq <2>][goto ces_30][endif]",
+    "chunk_number": 146
+  },
+  {
+    "chunk": ">int_spend< [#2008 PES int_pol, modified]\n[r] And now government spending. Should the federal government spend [n]\n[r] more, less, or about the same as now on the following areas? [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 147
+  },
+  {
+    "chunk": ">int_spend.2<\n[r] Et maintenant les dépenses gouvernementales. Le gouvernement [n]\n[r] fédéral devrait-il dépenser plus, moins, ou à peu près comme [n]\n[r] maintenant dans les domaines suivants? [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 148
+  },
+  {
+    "chunk": ">ck8< [if RANDOM1 eq <1>][goto ces_32][endif][#randomize order of 1st 6 areas]\n[if RANDOM1 eq <2>][goto ces_33][endif]\n[if RANDOM1 eq <3>][goto ces_34][endif]\n[if RANDOM1 eq <4>][goto ces_35][endif]\n[if RANDOM1 eq <5>][goto ces_36][endif]\n[if RANDOM1 eq <6>][goto ces_37][endif]",
+    "chunk_number": 149
+  },
+  {
+    "chunk": ">ces_32< [#2008 PES d1c]\n[r] health care? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 150
+  },
+  {
+    "chunk": ">ces_32.2<\n[r] les soins de santé? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 151
+  },
+  {
+    "chunk": ">ck9< [if RANDOM1 eq <1>][goto ces_33][endif]\n[if RANDOM1 eq <2>][goto ces_38][endif]\n[if RANDOM1 eq <3>][goto ces_33][endif]\n[if RANDOM1 eq <4>][goto ces_33][endif]\n[if RANDOM1 eq <5>][goto ces_33][endif]\n[if RANDOM1 eq <6>][goto ces_33][endif]",
+    "chunk_number": 152
+  },
+  {
+    "chunk": ">ces_33< [#2008 PES d1b]\n[r] welfare? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 153
+  },
+  {
+    "chunk": ">ces_33.2<\n[r] l'aide sociale? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\n\nd ne sais pas r refus\n@",
+    "chunk_number": 154
+  },
+  {
+    "chunk": ">ck10< [if RANDOM1 eq <1>][goto ces_34][endif]\n[if RANDOM1 eq <2>][goto ces_34][endif]\n[if RANDOM1 eq <3>][goto ces_38][endif]\n[if RANDOM1 eq <4>][goto ces_34][endif]\n[if RANDOM1 eq <5>][goto ces_34][endif]\n[if RANDOM1 eq <6>][goto ces_34][endif]",
+    "chunk_number": 155
+  },
+  {
+    "chunk": ">ces_34< [#2008 PES d1d]\n[r] education? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 156
+  },
+  {
+    "chunk": ">ces_34.2<\n[r] l'éducation? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 157
+  },
+  {
+    "chunk": ">ck11< [if RANDOM1 eq <1>][goto ces_35][endif]\n[if RANDOM1 eq <2>][goto ces_35][endif]\n[if RANDOM1 eq <3>][goto ces_35][endif]\n[if RANDOM1 eq <4>][goto ces_38][endif]\n[if RANDOM1 eq <5>][goto ces_35][endif]\n[if RANDOM1 eq <6>][goto ces_35][endif]",
+    "chunk_number": 158
+  },
+  {
+    "chunk": ">ces_35< [#2008 PES d1f]\n[r] the environment? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 159
+  },
+  {
+    "chunk": ">ces_35.2<\n[r] l'environnement? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 160
+  },
+  {
+    "chunk": ">ck12< [if RANDOM1 eq <1>][goto ces_36][endif]\n[if RANDOM1 eq <2>][goto ces_36][endif]\n[if RANDOM1 eq <3>][goto ces_36][endif]\n[if RANDOM1 eq <4>][goto ces_36][endif]\n[if RANDOM1 eq <5>][goto ces_38][endif]\n[if RANDOM1 eq <6>][goto ces_36][endif]",
+    "chunk_number": 161
+  },
+  {
+    "chunk": ">ces_36< [#NEW QUESTION]\n[r] crime and justice? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 162
+  },
+  {
+    "chunk": ">ces_36.2<\n[r] la criminalité et la justice? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 163
+  },
+  {
+    "chunk": ">ck13< [if RANDOM1 eq <1>][goto ces_37][endif]\n[if RANDOM1 eq <2>][goto ces_37][endif]\n[if RANDOM1 eq <3>][goto ces_37][endif]\n[if RANDOM1 eq <4>][goto ces_37][endif]\n[if RANDOM1 eq <5>][goto ces_37][endif]\n[if RANDOM1 eq <6>][goto ces_38][endif]",
+    "chunk_number": 164
+  },
+  {
+    "chunk": ">ces_37< [#2008 PES d1a]\n[r] defence? [n]\n[bold][cyan]\nShould the federal government spend more, less, or about the same as now?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 165
+  },
+  {
+    "chunk": ">ces_37.2<\n[r] la défense? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins, ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 166
+  },
+  {
+    "chunk": ">ck14< [if RANDOM1 eq <1>][goto ces_38][endif]\n[if RANDOM1 eq <2>][goto ces_32][endif]\n[if RANDOM1 eq <3>][goto ces_32][endif]\n[if RANDOM1 eq <4>][goto ces_32][endif]\n[if RANDOM1 eq <5>][goto ces_32][endif]\n[if RANDOM1 eq <6>][goto ces_32][endif]",
+    "chunk_number": 167
+  },
+  {
+    "chunk": ">ces_38< [#NEW QUESTION][#always last]\n[r] immigrants and minorities? [n]\n[bold][cyan]\nShould the Federal government spend more, less, or about the same as\nnow?\n[n][white]\n1 spend more\n3 spend less\n5 about the same as now\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 168
+  },
+  {
+    "chunk": ">ces_38.2<\n[r] les immigrants et les minorités? [n]\n[bold][cyan]\nLe gouvernement fédéral devrait-il dépenser plus, moins, ou a peu près\ncomme maintenant?\n[n][white]\n1 dépenser plus\n3 dépenser moins\n5 à peu près comme maintenant\nd ne sais pas r refus\n@",
+    "chunk_number": 169
+  },
+  {
+    "chunk": ">ces_39< [#NEW QUESTION]\n[r] Now the economy. [n]\n[r] Over the PAST YEAR, has CANADA's economy: gotten better, gotten [n]\n[r] worse, or stayed about the same? [n]\n\n1 better\n3 worse\n5 about the same\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 170
+  },
+  {
+    "chunk": ">ces_39.2<\n[r] Maintenant des questions sur l'économie. [n]\n[r] Depuis un an, l'économie canadienne s'est-elle AMÉLIORÉE, [n]\n[r] DÉTÉRIORÉE, ou est-elle restée à PEU PRES LA MEME? [n]\n1 amélioré\n3 détérioré\n5 restée à peu près la même\nd ne sais pas r refus\n@",
+    "chunk_number": 171
+  },
+  {
+    "chunk": ">ces_40< [#NEW QUESTION]\n[r] Have the policies of the FEDERAL government made Canada's economy [n]\n[r] better, worse, or have they not made much difference? [n]\n1 better\n3 worse\n5 not made much difference\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 172
+  },
+  {
+    "chunk": ">ces_40.2<\n[r] Les politiques du gouvernement FÉDÉRAL ont-elles amélioré [n]\n[r] l'économie canadienne, l'ont-elles détériorée, ou n'ont-elles pas [n]\n[r] changé grand chose? [n]\n1 amélioré\n3 détérioré\n5 pas changé grand chose\nd ne sais pas r refus\n@",
+    "chunk_number": 173
+  },
+  {
+    "chunk": ">ces_40b< [#NEW QUESTION]\n[r] Which party do you think would be best at managing Canada's economy? [n]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n0 Green Party\n5 none of them\n6 all about the same\n7 other/multiple response\nd don't know / not sure r refused\n@\n[@] <1-7,0,d,r>",
+    "chunk_number": 174
+  },
+  {
+    "chunk": ">ces_40b.2<\n[r] Quel parti serait le meilleur pour gérer l'économie canadienne? [n]\n1 Libéral\n2 Conservateur (Parti Conservateur, nouveau Conservateur)\n3 NPD (Nouveau parti démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n0 Parti vert\n5 aucun d'entre eux\n6 tous à peu près pareil\n7 autre / réponses multiples\nd ne sais pas r refus\n@",
+    "chunk_number": 175
+  },
+  {
+    "chunk": ">ces_41< [#NEW QUESTION]\n[r] Which party is ahead in the national polls right now? [n]\n[r] If you are not sure, just let me know. [n]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party\n6 Haven't read/heard a poll\nd don't know / not sure r refused\n@\n[@] <1-5>\n<6,d,r>[goto ces_76]",
+    "chunk_number": 176
+  },
+  {
+    "chunk": ">ces_41.2<\n[r] Quel parti est en avance dans les sondages pan-canadiens présentement?[n]\n[r] Si vous ne savez pas, veuillez simplement le dire. [n]\n1 Libéral (PLC, Grits)\n\n2 Conservateur (Tory, PCs, le Parti Conservateur)\n3 N.P.D (Nouveau Parti Démocratique, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\n6 Je n'ai pas lu/entendu de sondage\nd ne sais pas r refus\n@",
+    "chunk_number": 177
+  },
+  {
+    "chunk": ">text1< [allow 20]",
+    "chunk_number": 178
+  },
+  {
+    "chunk": ">text1f< [allow 20]\n[if ces_41 is <1",
+    "chunk_number": 179
+  },
+  {
+    "chunk": ">]\n[store <Liberal Party> in text1]\n[store <Parti Libéral> in text1f]\n[endif]\n[if ces_41 is <2",
+    "chunk_number": 180
+  },
+  {
+    "chunk": ">]\n[store <Conservative Party> in text1]\n[store <Parti Conservateur> in text1f]\n[endif]\n[if ces_41 is <3",
+    "chunk_number": 181
+  },
+  {
+    "chunk": ">]\n[store <NDP> in text1]\n[store <NPD> in text1f]\n[endif]\n[if ces_41 is <4",
+    "chunk_number": 182
+  },
+  {
+    "chunk": ">]\n[store <Bloc Québécois> in text1]\n[store <Bloc Québécois> in text1f]\n[endif]\n[if ces_41 is <5",
+    "chunk_number": 183
+  },
+  {
+    "chunk": ">]\n[store <Green Party> in text1]\n[store <Parti vert> in text1f]\n[endif]",
+    "chunk_number": 184
+  },
+  {
+    "chunk": ">ces_42< [#NEW QUESTION]\n[define <d><98",
+    "chunk_number": 185
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] What percent did the [fill text1] get in the latest polls? [n]\n[bold][yellow]\nInterviewer: if answer is not a number, read: We'd like you to try to\nanswer with a number in percentages?\n[n][white]\n1-95 Record number\n97 R volunteers: \"Haven't read/heard a poll\" or\n\"Can't remember a poll recently\"\nd don't know r refused\n@\n[@] <1-95,97,d,r>",
+    "chunk_number": 186
+  },
+  {
+    "chunk": ">ces_42.2<\n\n[r] Quel pourcentage le [fill text1f] avait-il dans les plus récents\nsondages?[n]\n[bold][yellow]\nsi la réponse n'est pas un chiffre, lisez: Nous aimerions que vous\nessayiez de répondre avec un chiffre en pourcentage?\n[n][white]\n1-95 Enregistrez le chiffre\n97 R indique \"Je n'ai pas lu/entendu de sondage\" ou\n\"Je ne peux pas me rappeler d'un récent sondage\"\nd Ne sais pas r Refus\n@",
+    "chunk_number": 187
+  },
+  {
+    "chunk": ">ces_76< [goto ces_43][#pretest skip][#2008 CPS r1]\n[#conditional on date and language]\n[r] Did you see the ENGLISH TV debate among the party leaders on date? [n]\n1 yes\n5 no\nd don't know r refused\n@\n[@] <1>\n<5,d,r>[#goto r2b]",
+    "chunk_number": 188
+  },
+  {
+    "chunk": ">ces_76.2<\n[r] Avez-vous regardé le débat télévisé en ANGLAIS entre les chefs [n]\n[r] de partis le 2 octobre? [n]\n[bold][yellow]\nInterviewer, si requis, le deuxième débat à Montréal.\n[n][white]\n1 oui\n5 non\nd ne sais pas r refus\n@",
+    "chunk_number": 189
+  },
+  {
+    "chunk": ">ces_77< [#2008 CPS r4][#conditional on date and language]\n[r] Did you see the FRENCH TV debate among the party leaders on date? [n]\n1 yes\n5 no\nd don't know r refused\n\n@\n[@] <1>\n<5,d,r>[#goto r5b]",
+    "chunk_number": 190
+  },
+  {
+    "chunk": ">ces_77.2<\n[r] Avez-vous regardé le débat télévisé en français entre les chefs de [n]\n[r] partis le premier octobre? [n]\n1 oui\n5 non\nd ne sais pas r refus\n@",
+    "chunk_number": 191
+  },
+  {
+    "chunk": ">ces_43< [#NEW QUESTION]\n[r] How many ads have you seen or heard during the campaign from the [n]\n[r] major federal parties: a lot, a few, or none? [n]\n1 a lot\n3 a few\n5 none\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 192
+  },
+  {
+    "chunk": ">ces_43.2<\n[r] Combien de publicités avez-vous vu ou entendu durant la campagne de [n]\n[r] la part des principaux partis: beaucoup, quelques unes, ou aucune? [n]\n1 beaucoup\n3 quelques unes\n5 aucune\nd ne sais pas r Refus\n@",
+    "chunk_number": 193
+  },
+  {
+    "chunk": ">ces_44< [#2008 CPS chance2][define <s><0>]\n[r] In your OWN LOCAL RIDING, which party has the best chance of [n]\n[r] winning? [n]\n[bold][yellow]\nInterviewer: If R gives both a \"don't know\" type of answer, as well as\na party name, enter party name. If R gives two parties, probe once with:\n\"What is your best guess at who will win?\"\n[n][white]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party\n6 none of these\ns other (specify)\nd don't know r refused\n@\n[@] <1-5>\n<6,d,r>[goto ces_46]\n<s>[specify][goto ces_46]",
+    "chunk_number": 194
+  },
+  {
+    "chunk": ">ces_44.2<\n[r] DANS VOTRE CIRCONSCRIPTION locale, quel parti a les meilleures [n]\n[r] chances de gagner? [n]\n[bold][yellow]\nInterviewer: si le R nomme un parti et ne sais pas, codez le parti.\nSi le R nomme deux partis, demandez une fois: \"Selon vous, lequel a les\nmeilleures chances de gagner?\"\n[n][white]\n1 Libéral\n2 Conservateur (Parti Conservateur, nouveau Conservateur)\n3 NPD (Nouveau parti démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\n97 aucun\ns autre (spécifier)\nd ne sais pas r refus\n@",
+    "chunk_number": 195
+  },
+  {
+    "chunk": ">text2< [allow 20]",
+    "chunk_number": 196
+  },
+  {
+    "chunk": ">text2f< [allow 20]\n[if ces_44 is <1",
+    "chunk_number": 197
+  },
+  {
+    "chunk": ">]\n[store <Liberal Party> in text2]\n[store <Parti Libéral> in text2f]\n[endif]\n[if ces_44 is <2",
+    "chunk_number": 198
+  },
+  {
+    "chunk": ">]\n[store <Conservative Party> in text2]\n[store <Parti Conservateur> in text2f]\n[endif]\n[if ces_44 is <3",
+    "chunk_number": 199
+  },
+  {
+    "chunk": ">]\n[store <NDP> in text2]\n[store <NPD> in text2f]\n[endif]\n[if ces_44 is <4",
+    "chunk_number": 200
+  },
+  {
+    "chunk": ">]\n[store <Bloc Québécois> in text2]\n[store <Bloc Québécois> in text2f]\n[endif]\n[if ces_44 is <5",
+    "chunk_number": 201
+  },
+  {
+    "chunk": ">]\n[store <Green Party> in text2]\n\n[store <Parti vert> in text2f]\n[endif]",
+    "chunk_number": 202
+  },
+  {
+    "chunk": ">ces_45< [#2008 CPS chance2]\n[r] After the [fill text2], which party has the next best chance of [n]\n[r] winning in your local riding? [n]\n[bold][yellow]\nInterviewer: If R gives both a \"don't know\" type of answer, as well as a\nparty name, enter party name. You can not re-enter the name of the party\nthe respondent said was most likely to win in the previous question.\n[n][white]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party\n7 no other party has a chance/none of these\ns other (specify)\nd don't know r refused\n@\n[@] <1-5> [reject eq ces_44 label <2nd chance is the same as the 1st chance",
+    "chunk_number": 203
+  },
+  {
+    "chunk": ">]\n<7,d,r>\n<s>[specify]",
+    "chunk_number": 204
+  },
+  {
+    "chunk": ">ces_45.2<\n[r] Après le [fill text2f], quel parti a les meilleures chances de gagner [n]\n[r] dans votre circonscription locale? [n]\n[bold][yellow]\nInterviewer: si le R nomme un parti et ne sais pas, codez le parti.\n[n][white]\n1 Libéral\n2 Conservateur (Parti Conservateur, nouveau Conservateur)\n3 NPD (Nouveau parti démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Parti vert\n7 aucun\ns autre (spécifier)\nd ne sais pas r refus\n@",
+    "chunk_number": 205
+  },
+  {
+    "chunk": ">ces_46< [#2008 CPS min_1]\n[r] Now, your views on minority governments. Do you think minority [n]\n[r] governments are a good thing, a bad thing, or are you not sure? [n]\n\n[bold][yellow]\nInterviewer: If asked, a minority government is when no party wins\nmore than half the seats.\n[n][white]\n1 good thing\n5 a bad thing\nd don't know/not sure r refused\n@\n[@] <1,5,d,r>",
+    "chunk_number": 206
+  },
+  {
+    "chunk": ">ces_46.2<\n[r] Pensez-vous que les gouvernements minoritaires sont une bonne [n]\n[r] chose, une mauvaise chose, ou n'êtes vous pas sûr? [n]\n[bold][yellow]\nIntervieweur: Si le R le demande, \"gouvernement minoritaire veut\ndire qu'aucun parti ne gagne plus de la moitié des sièges\".\n[n][white]\n1 une bonne\n5 une mauvaise\nd ne sais pas/pas sûr r refus\n@",
+    "chunk_number": 207
+  },
+  {
+    "chunk": ">ces_47< [#2008 CPS min_3]\n[r] What would you like the election result to be: a Liberal majority, [n]\n[r] a Liberal minority, a Conservative majority, or a Conservative [n]\n[r] minority? [n]\n[bold][yellow]\nInterviewer: If asked, a minority government is when no party wins more\nthan half the seats.\n[n][white]\n1 a Liberal majority\n2 a Liberal minority\n3 a Conservative majority\n4 a Conservative minority\n5 R volunteers a majority government (party does not matter)\n6 R volunteers a minority government (parties do not matter)\ns R prefers other outcome / other, specify\nd don't know r refused\n@\n[@] <1-6,d,r>\n\n<s>[specify]",
+    "chunk_number": 208
+  },
+  {
+    "chunk": ">ces_47.2<\n[r] Que PRÉFÉREZ-vous comme résultat de l'élection: un gouvernement [n]\n[r] libéral majoritaire, libéral minoritaire, conservateur majoritaire, [n]\n[r] ou conservateur minoritaire? [n]\n[bold][yellow]\nIntervieweur: Si le R le demande, \"gouvernement minoritaire veut\ndire qu'aucun parti ne gagne plus de la moitié des sièges\".\n[n][white]\n1 libéral majoritaire\n2 libéral minoritaire\n3 conservateur majoritaire\n4 conservateur minoritaire\n5 R dit un gouvernement majoritaire (peu importe le parti)\n6 R dit un gouvernement minoritaire (peu importe les partis)\ns autre choix, spécifier\nd ne sais pas r refus\n@",
+    "chunk_number": 209
+  },
+  {
+    "chunk": ">ces_48< [#2008 CPS min_2][define <s><0>]\n[r] What do you THINK the election result WILL BE: a Liberal majority, [n]\n[r] a Liberal minority, a Conservative majority, or a Conservative [n]\n[r] minority? [n]\n[bold][yellow]\nInterviewer: If asked, a minority government is when no party wins more\nthan half the seats.\n[n][white]\n1 Liberal majority\n2 Liberal minority\n3 Conservative majority\n4 Conservative minority\ns R volunteers another response (specify)\nd don't know/not sure r refused\n@\n[@] <1-4,5,d,r>\n<s>[specify]",
+    "chunk_number": 210
+  },
+  {
+    "chunk": ">ces_48.2<\n[r] À votre avis, quel SERA le résultat de l'élection: un gouvernement [n]\n[r] libéral majoritaire, libéral minoritaire, conservateur majoritaire, [n]\n[r] ou conservateur minoritaire? [n]\n[bold][yellow]\nIntervieweur: Si le R le demande, \"gouvernement minoritaire veut\n\ndire qu'aucun parti ne gagne plus de la moitié des sièges\".\n[n][white]\n1 libéral majoritaire\n2 libéral minoritaire\n3 conservateur majoritaire\n4 conservateur minoritaire\ns R indique autre réponse (spécifier)\nd ne sais pas r refus\n@",
+    "chunk_number": 211
+  },
+  {
+    "chunk": ">ces_49int<\n[r] What about coalition governments, that is governments made up of [n]\n[r] more than one party? [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 212
+  },
+  {
+    "chunk": ">ces_49int.2<\n[r] Qu'en est-il des gouvernements de coalition, c'est-à-dire des [n]\n[r] gouvernements qui sont composés de plusieurs partis? [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 213
+  },
+  {
+    "chunk": ">ck_ces49< [if RANDOM6 eq <2>][goto ces_50][endif]",
+    "chunk_number": 214
+  },
+  {
+    "chunk": ">ces_49< [#NEW QUESTION]\n[r] Would you support or oppose a coalition government with the [n]\n[r] Liberals, the NDP, and the Bloc Québécois sharing power together? [n]\n1 support\n5 oppose\nd don't know r refused\n@\n[@] <1,5,d,r>",
+    "chunk_number": 215
+  },
+  {
+    "chunk": ">ces_49.2<\n[r] Seriez-vous pour ou contre un gouvernement de coalition avec les [n]\n[r] Libéraux, le NPD, et le Bloc Québécois qui partagent le pouvoir [n]\n[r] ensemble? [n]\n1 pour\n5 contre\nd ne sais pas r refus\n\n@",
+    "chunk_number": 216
+  },
+  {
+    "chunk": ">ck_ces49b< [if RANDOM6 eq <2>][goto ces_51][endif]",
+    "chunk_number": 217
+  },
+  {
+    "chunk": ">ces_50< [#NEW QUESTION]\n[r] Would you support or oppose a coalition government with just [n]\n[r] the Liberals and NDP sharing power? [n]\n1 support\n5 oppose\nd don't know r refused\n@\n[@] <1,5,d,r>",
+    "chunk_number": 218
+  },
+  {
+    "chunk": ">ces_50.2<\n[r] Seriez-vous pour ou contre un gouvernement de coalition avec [n]\n[r] seulement les Libéraux et le NPD qui partagent le pouvoir? [n]\n1 pour\n5 contre\nd ne sais pas r refus\n@",
+    "chunk_number": 219
+  },
+  {
+    "chunk": ">ck_ces50< [if RANDOM6 eq <1>][goto ces_51][endif]\n[if RANDOM6 eq <2>][goto ces_49][endif]",
+    "chunk_number": 220
+  },
+  {
+    "chunk": ">ces_51< [# ces_51 cut March 25, 2011]\n[# -------------------- leader traits starts here -------------------------]\n[# ----------- start randomized TRAIT section -----------------------------]",
+    "chunk_number": 221
+  },
+  {
+    "chunk": ">TRAIT_itempos< [allow int 1 for 4] [# calculated - position\n[# of each question.",
+    "chunk_number": 222
+  },
+  {
+    "chunk": ">st3< [store <0> in TRAIT_numitem]",
+    "chunk_number": 223
+  },
+  {
+    "chunk": ">TRAIT_iposset< [add <1> to TRAIT_numitem] [if TRAIT_numitem eq <4> goto\nINT_TRAIT]\n[if itemseq(TRAIT_numitem) eq <1>]\n[store TRAIT_numitem in TRAIT_itempos(<1>)] [goto TRAIT_iposset]\n[endif]\n[if itemseq(TRAIT_numitem) eq <2>]\n[store TRAIT_numitem in TRAIT_itempos(<2>)] [goto TRAIT_iposset]\n[endif]\n\n[if itemseq(TRAIT_numitem) eq <3>]\n[store TRAIT_numitem in TRAIT_itempos(<3>)] [goto TRAIT_iposset]\n[endif]\n[if itemseq(TRAIT_numitem) eq <4>]\n[store TRAIT_numitem in TRAIT_itempos(<4>)] [goto TRAIT_iposset]\n[endif]\n[goto TRAIT_errorseq]",
+    "chunk_number": 224
+  },
+  {
+    "chunk": ">TRAIT_errorseq<\nThis screen only arises if there is an error in the\nrandomization procedure for items Q1 through Q6.\npress enter to continue @\n[@][nodata][goto EXIT_TRAIT]",
+    "chunk_number": 225
+  },
+  {
+    "chunk": ">TRAIT_numitem< [allow int 1]",
+    "chunk_number": 226
+  },
+  {
+    "chunk": ">INT_TRAIT<\n[if ces_23 eq <996> or ces_24 eq <996> or ces_25 eq <996> or ces_26 eq <996>]\n[goto ces_62][endif]\n[r] We would like to know if the following term describes the party [n]\n[r] leaders? [n]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 227
+  },
+  {
+    "chunk": ">INT_TRAIT.2<\n[r] Nous aimerions savoir si le terme suivant décrit les chefs [n]\n[r] des partis? [n]\nPress \"Enter\" to continue @",
+    "chunk_number": 228
+  },
+  {
+    "chunk": ">TRAIT_start< [loop for TRAIT_numitem from <1",
+    "chunk_number": 229
+  },
+  {
+    "chunk": "> to <4>]",
+    "chunk_number": 230
+  },
+  {
+    "chunk": ">TRAIT_iseq< [if itemseq(TRAIT_numitem) eq <1> goto HARPER]\n[if itemseq(TRAIT_numitem) eq <2> goto IGNATIEFF]\n[if itemseq(TRAIT_numitem) eq <3> goto LAYTON]\n[if itemseq(TRAIT_numitem) eq <4> goto DUCEPPE] [# Duceppe;\nQuebec only]\n[# ------------ DUCEPPE FOUR TRAITS -----------------------------------}",
+    "chunk_number": 231
+  },
+  {
+    "chunk": ">DUCEPPE< [if PROV ne <24> goto TRAIT_END] [# Duceppe; Quebec only]\n[if RANDOM5 eq <1>][goto ces_52][endif]\n[if RANDOM5 eq <2>][goto ces_52b][endif]\n[if RANDOM5 eq <3>][goto ces_57][endif]\n\n[if RANDOM5 eq <4>][goto ces_57b][endif]",
+    "chunk_number": 232
+  },
+  {
+    "chunk": ">ces_52< [#NEW QUESTION, Only in Québec][\n[if ces_26 ge <997",
+    "chunk_number": 233
+  },
+  {
+    "chunk": ">][store <8> in ces_52][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"competent\" describe Gilles Duceppe?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 234
+  },
+  {
+    "chunk": ">ces_52.2<\n[r] À quel point le terme \"compétent\" décrit-il Gilles Duceppe? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 235
+  },
+  {
+    "chunk": ">ces_52b< [if ces_26 ge <997",
+    "chunk_number": 236
+  },
+  {
+    "chunk": ">][store <8> in ces_52b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"strong leader\" describe Gilles Duceppe?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 237
+  },
+  {
+    "chunk": ">ces_52b.2<\n[r] À quel point le terme \"leader fort\" décrit-il Gilles Duceppe? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 238
+  },
+  {
+    "chunk": ">ces_57< [if ces_26 ge <997",
+    "chunk_number": 239
+  },
+  {
+    "chunk": ">][store <8> in ces_57][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"honest\" describe Gilles Duceppe?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 240
+  },
+  {
+    "chunk": ">ces_57.2<\n[r] À quel point le terme \"honnête\" décrit-il Gilles Duceppe? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 241
+  },
+  {
+    "chunk": ">ces_57b< [if ces_26 ge <997",
+    "chunk_number": 242
+  },
+  {
+    "chunk": ">][store <8> in ces_57b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n\n[r] How well does the term: \"really cares about people\" describe Gilles\n[n]\n[r] Duceppe?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 243
+  },
+  {
+    "chunk": ">ces_57b.2<\n[r] À quel point le terme \"se préoccupe vraiment des gens\" décrit-il [n]\n[r] Gilles Duceppe? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@\n[# ------------------ END DUCEPPE TRAITS -----------------------------]\n[# ------------ HARPER FOUR TRAITS -----------------------------------}",
+    "chunk_number": 244
+  },
+  {
+    "chunk": ">HARPER< [if RANDOM5 eq <1>][goto ces_53][endif]\n[if RANDOM5 eq <2>][goto ces_53b][endif]\n[if RANDOM5 eq <3>][goto ces_58][endif]\n[if RANDOM5 eq <4>][goto ces_58b][endif]",
+    "chunk_number": 245
+  },
+  {
+    "chunk": ">ces_53< [#NEW QUESTION]\n[if ces_23 ge <997",
+    "chunk_number": 246
+  },
+  {
+    "chunk": ">][store <8> in ces_53][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"competent\" describe Stephen Harper?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 247
+  },
+  {
+    "chunk": ">ces_53.2<\n[r] À quel point le terme \"compétent\" décrit-il Stephen Harper? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 248
+  },
+  {
+    "chunk": ">ces_53b< [#NEW Q]\n[if ces_23 ge <997",
+    "chunk_number": 249
+  },
+  {
+    "chunk": ">][store <8> in ces_53b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"strong leader\" describe Stephen Harper? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r>[goto TRAIT_END]",
+    "chunk_number": 250
+  },
+  {
+    "chunk": ">ces_53b.2<\n[r] À quel point le terme \"leader fort\" décrit-il Stephen Harper? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\n\nd ne sais pas r refus\n@",
+    "chunk_number": 251
+  },
+  {
+    "chunk": ">ces_58< [#NEW Q]\n[if ces_23 ge <997",
+    "chunk_number": 252
+  },
+  {
+    "chunk": ">][store <8> in ces_58][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"honest\" describe Stephen Harper?\n[n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 253
+  },
+  {
+    "chunk": ">ces_58.2<\n[r] À quel point le terme \"honnête\" décrit-il Stephen Harper? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 254
+  },
+  {
+    "chunk": ">ces_58b< [#NEW Q]\n[if ces_23 ge <997",
+    "chunk_number": 255
+  },
+  {
+    "chunk": ">][store <8> in ces_58b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term: \"really cares about people\" describe Stephen [n]\n[r] Harper? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 256
+  },
+  {
+    "chunk": ">ces_58b.2<\n[r] À quel point le terme \"se préoccupe vraiment des gens\" décrit-il [n]\n[r] Stephen Harper? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@\n[# --------------------- END HARPER TRAITS ------------------------------]\n[# ------------ IGNATIEFF FOUR TRAITS -----------------------------------}",
+    "chunk_number": 257
+  },
+  {
+    "chunk": ">IGNATIEFF< [if RANDOM5 eq <1>][goto ces_54][endif]\n[if RANDOM5 eq <2>][goto ces_54b][endif]\n[if RANDOM5 eq <3>][goto ces_59][endif]\n[if RANDOM5 eq <4>][goto ces_59b][endif]",
+    "chunk_number": 258
+  },
+  {
+    "chunk": ">ces_54< [#NEW Q]\n[if ces_24 ge <997",
+    "chunk_number": 259
+  },
+  {
+    "chunk": ">][store <8> in ces_54][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"competent\" describe Michael Ignatieff? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 260
+  },
+  {
+    "chunk": ">ces_54.2<\n[r] À quel point le terme \"compétent\" décrit-il Michael Ignatieff? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 261
+  },
+  {
+    "chunk": ">ces_54b< [#NEW QUESTION][#drop \"do you think\"]\n[if ces_24 ge <997",
+    "chunk_number": 262
+  },
+  {
+    "chunk": ">][store <8> in ces_54b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"strong leader\" describe Michael Ignatieff? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 263
+  },
+  {
+    "chunk": ">ces_54b.2<\n[r] À quel point le terme \"leader fort\" décrit-il Michael Ignatieff? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 264
+  },
+  {
+    "chunk": ">ces_59< [#NEW Q]\n[if ces_24 ge <997",
+    "chunk_number": 265
+  },
+  {
+    "chunk": ">][store <8> in ces_59][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"honest\" describe Michael Ignatieff? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 266
+  },
+  {
+    "chunk": ">ces_59.2<\n[r] À quel point le terme \"honnête\" décrit-il Michael Ignatieff? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 267
+  },
+  {
+    "chunk": ">ces_59b<[#NEW Q]\n[if ces_24 ge <997",
+    "chunk_number": 268
+  },
+  {
+    "chunk": ">][store <8> in ces_59b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term: \"really cares about people\" describe Michael [n]\n[r] Ignatieff? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 269
+  },
+  {
+    "chunk": ">ces_59b.2<\n[r] À quel point le terme \"se préoccupe vraiment des gens\" décrit-il [n]\n[r] Michael Ignatieff? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@\n\n[# ------------------ END IGNATIEFF TRAITS -----------------------------]\n[# ------------ LAYTON FOUR TRAITS -----------------------------------}",
+    "chunk_number": 270
+  },
+  {
+    "chunk": ">LAYTON< [if RANDOM5 eq <1>][goto ces_55][endif]\n[if RANDOM5 eq <2>][goto ces_55b][endif]\n[if RANDOM5 eq <3>][goto ces_60][endif]\n[if RANDOM5 eq <4>][goto ces_60b][endif]",
+    "chunk_number": 271
+  },
+  {
+    "chunk": ">ces_55< [#NEW Q]\n[if ces_25 ge <997",
+    "chunk_number": 272
+  },
+  {
+    "chunk": ">][store <8> in ces_55][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"competent\" describe Jack Layton? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 273
+  },
+  {
+    "chunk": ">ces_55.2<\n[r] À quel point le terme \"compétent\" décrit-il Jack Layton? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 274
+  },
+  {
+    "chunk": ">ces_55b< [#NEW Q]\n[if ces_25 ge <997",
+    "chunk_number": 275
+  },
+  {
+    "chunk": ">][store <8> in ces_55b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"strong leader\" describe Jack Layton? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 276
+  },
+  {
+    "chunk": ">ces_55b.2<\n[r] À quel point le terme \"leader fort\" décrit-il Jack Layton? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 277
+  },
+  {
+    "chunk": ">ces_60< [#NEW Q]\n[if ces_25 ge <997",
+    "chunk_number": 278
+  },
+  {
+    "chunk": ">][store <8> in ces_60][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term \"honest\" describe Jack Layton? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 279
+  },
+  {
+    "chunk": ">ces_60.2< [#NEW QUESTION]\n[r] À quel point le terme \"honnête\" décrit-il Jack Layton? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\n\nd ne sais pas r refus\n@",
+    "chunk_number": 280
+  },
+  {
+    "chunk": ">ces_60b<[#NEW Q]\n[if ces_25 ge <997",
+    "chunk_number": 281
+  },
+  {
+    "chunk": ">][store <8> in ces_60b][goto TRAIT_END][endif]\n[#R said dk him in rating questions]\n[r] How well does the term: \"really cares about people\" describe Jack [n]\n[r] Layton? [n]\n[bold][cyan]\nVery well, fairly well, or not well at all?\n[n][white]\n1 very well\n3 fairly well\n5 not well at all\nd don't know r refused\n@\n[@] <1,3,5,d,r> [goto TRAIT_END]",
+    "chunk_number": 282
+  },
+  {
+    "chunk": ">ces_60b.2< [#NEW QUESTION]\n[r] À quel point le terme \"se préoccupe vraiment des gens\" décrit-il [n]\n[r] Jack Layton? [n]\n[bold][cyan]\nTrès bien, assez bien, ou pas bien du tout?\n[n][white]\n1 Très bien\n3 assez bien\n5 pas bien du tout\nd ne sais pas r refus\n@\n[# ------------------ END LAYTON TRAITS -----------------------------]",
+    "chunk_number": 283
+  },
+  {
+    "chunk": ">TRAIT_END< [loop end TRAIT_numitem]",
+    "chunk_number": 284
+  },
+  {
+    "chunk": ">EXIT_TRAIT<\n[# ------------------- end randomized sequence----------------------------------\n]\n[# ------------ MAY FOUR TRAITS -----------------------------------}",
+    "chunk_number": 285
+  },
+  {
+    "chunk": ">MAY<",
+    "chunk_number": 286
+  },
+  {
+    "chunk": ">ces_56< [goto EXIT_MAY][#NEW QUESTION][#May skipped]\n\n[# ----------------------- leader traits ends here -----------------------]",
+    "chunk_number": 287
+  },
+  {
+    "chunk": ">EXIT_MAY< [# target of May trait randomization",
+    "chunk_number": 288
+  },
+  {
+    "chunk": ">ces_62< [#NEW QUESTION][define <d><8",
+    "chunk_number": 289
+  },
+  {
+    "chunk": ">][define <r><9>]\n[r] People have different views about voting. For some, voting is a [n]\n[r] DUTY. They feel that they should vote in every election. For others,[n]\n[r] voting is a CHOICE. They only vote when they feel strongly about [n]\n[r] that election. [n]\n[r] For you personally, is voting FIRST AND FOREMOST a Duty or a Choice?[n]\n[bold][yellow]\nInterviewer: if Respondent answers both, ask: \"if you had to choose,\nwhich one would you say is the most important: duty or choice?\"\n[n][white]\n1 duty\n5 choice\nd don't know r refused\n@\n[@] <1,5,d,r>",
+    "chunk_number": 290
+  },
+  {
+    "chunk": ">ces_62.2<\n[r] Les gens ont des conceptions différentes du vote. Pour certains, [n]\n[r] voter est un DEVOIR. Ils croient qu'ils devraient voter à chaque [n]\n[r] élection. Pour d'autres, voter est un CHOIX. Ils votent seulement [n]\n[r] lorsqu'une élection les préoccupe vraiment. Pour vous [n]\n[r] personnellement, est-ce que voter est SURTOUT un Devoir ou un Choix?[n]\n[bold][yellow]\nInterviewer: Si le R indique les deux, demandez: \"si vous aviez à choisir,\nlequel serait le plus important: le devoir ou le choix?\"\n[n][white]\n1 devoir\n5 choix\nd ne sais pas r refus\n@",
+    "chunk_number": 291
+  },
+  {
+    "chunk": ">ces_63< [#2008 CPS p3]\n[r] If you didn't vote in a federal election would YOU PERSONALLY [n]\n[r] feel very guilty, somewhat guilty or not guilty at all? [n]\n1 very guilty\n3 somewhat guilty\n5 not guilty at all\n\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 292
+  },
+  {
+    "chunk": ">ces_63.2<\n[r] Si VOUS ne votiez pas lors d'une élection fédérale, vous [n]\n[r] sentiriez-vous personnellement très coupable, assez coupable [n]\n[r] ou pas du tout coupable?\" [n]\n1 très coupable\n3 assez coupable\n5 pas du tout coupable\nd ne sais pas r refus\n@",
+    "chunk_number": 293
+  },
+  {
+    "chunk": ">ces_64< [#2006 CPS j7]\n[r] Do you strongly agree, somewhat agree, somewhat disagree, or [n]\n[r] strongly disagree with the following statements? [n]\n[r] Stephen Harper is just too extreme. [n]\n[bold][cyan]\nDo you strongly agree, somewhat agree, somewhat disagree, or strongly\ndisagree?\n[n][white]\n1 strongly agree\n3 somewhat agree\n5 somewhat disagree\n7 strongly disagree\nd don't know r refused\n@\n[@] <1,3,5,7,d,r>",
+    "chunk_number": 294
+  },
+  {
+    "chunk": ">ces_64.2<\n[r] Êtes-vous fortement d'accord, plutôt d'accord, plutôt en [n]\n[r] désaccord, ou fortement en désaccord avec les énoncés suivants: [n]\n[r] Stephen Harper est trop extrémiste. [n]\n[bold][cyan]\nEtes-vous fortement d'accord, plutôt d'accord, plutôt en désaccord,\nou fortement en désaccord?\n[n][white]\n1 fortement d'accord\n3 plutôt d'accord\n\n5 plutôt en désaccord\n7 fortement en désaccord\nd ne sais pas r refus\n@",
+    "chunk_number": 295
+  },
+  {
+    "chunk": ">ces_65< [# old ces_65 cut]\n[r] The Conservatives have been disrespectful towards Parliament. [n]\n[bold][cyan]\nDo you strongly agree, somewhat agree, somewhat disagree, or strongly\ndisagree?\n[n][white]\n1 strongly agree\n3 somewhat agree\n5 somewhat disagree\n7 strongly disagree\nd don't know r refused\n@\n[@] <1,3,5,7,d,r>",
+    "chunk_number": 296
+  },
+  {
+    "chunk": ">ces_65.2<\n[r] Les conservateurs ont manqué de respect envers le parlement. [n]\n[bold][cyan]\nsi nécessaire Êtes-vous fortement d'accord, plutôt d'accord, plutôt en\ndésaccord, ou fortement en désaccord.\n[n][white]\n1 fortement d'accord\n3 plutôt d'accord\n5 plutôt en désaccord\n7 fortement en désaccord\nd ne sais pas r refus\n@",
+    "chunk_number": 297
+  },
+  {
+    "chunk": ">ces_66< [#2008 CPS f1]\n[r] Over the past year, has your financial situation gotten better, [n]\n[r] gotten worse, or stayed about the same? [n]\n1 better\n3 worse\n5 about the same\nd don't know r refused\n@\n\n[@] <1,3,5,d,r>",
+    "chunk_number": 298
+  },
+  {
+    "chunk": ">ces_66.2<\n[r] Depuis un an, votre situation financière s'est-elle AMÉLIORÉE, [n]\n[r] DÉTÉRIORÉE, ou est-elle restée à peu près la même? [n]\n1 améliorée\n3 détériorée\n5 restée à peu près la même\nd ne sais pas r refus\n@",
+    "chunk_number": 299
+  },
+  {
+    "chunk": ">ces_67< [#NEW QUESTION]\n[r] Have the policies of the Federal government made your financial [n]\n[r] situation BETTER, WORSE, or have they not made much difference? [n]\n1 better\n3 worse\n5 not made much difference / just the economy, etc.\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 300
+  },
+  {
+    "chunk": ">ces_67.2<\n[r] Les politiques du gouvernement Fédéral ont-elles AMÉLIORÉ votre [n]\n[r] situation financière, l'ont-elles DÉTÉRIORÉE, ou n'ont-elles [n]\n[r] pas changé grand chose? [n]\n1 amélioré\n3 détérioré\n5 pas changé grand chose / juste l'économie, etc.\nd ne sais pas r refus\n@",
+    "chunk_number": 301
+  },
+  {
+    "chunk": ">names< [allow 35]\n[if PROV eq <10",
+    "chunk_number": 302
+  },
+  {
+    "chunk": ">][store <10 Kathy Dunderdale> in names][endif]\n[if PROV eq <11",
+    "chunk_number": 303
+  },
+  {
+    "chunk": ">][store <11 Robert Ghiz> in names][endif]\n[if PROV eq <12",
+    "chunk_number": 304
+  },
+  {
+    "chunk": ">][store <12 Darrell Dexter> in names][endif]\n[if PROV eq <13",
+    "chunk_number": 305
+  },
+  {
+    "chunk": ">][store <13 David Alward> in names][endif]\n[if PROV eq <24",
+    "chunk_number": 306
+  },
+  {
+    "chunk": ">][store <24 Jean Charest> in names][endif]\n[if PROV eq <35",
+    "chunk_number": 307
+  },
+  {
+    "chunk": ">][store <35 Dalton McGuinty> in names][endif]\n[if PROV eq <46",
+    "chunk_number": 308
+  },
+  {
+    "chunk": ">][store <46 Greg Selinger> in names][endif]\n[if PROV eq <47",
+    "chunk_number": 309
+  },
+  {
+    "chunk": ">][store <47 Brad Wall> in names][endif]\n[if PROV eq <48",
+    "chunk_number": 310
+  },
+  {
+    "chunk": ">][store <48 Ed Stelmach> in names][endif]\n[if PROV eq <59",
+    "chunk_number": 311
+  },
+  {
+    "chunk": ">][store <59 Christy Clark> in names][endif]",
+    "chunk_number": 312
+  },
+  {
+    "chunk": ">ces_68< [#2006 CPS know_1][define <d><98",
+    "chunk_number": 313
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] We would like to see how widely known some political figures are. [n]\n[r] Do you happen to recall the name of the Premier of your Province? [n]\n[bold][yellow]\nLast name is sufficient.\nProvide answer/confirmation ONLY if requested by R. Do not record as\ncorrect answer if it was provided to R by another person.\n[if PROV eq <10>]\n\"it is Kathy Dunderdale\" [endif] [if PROV eq <11>]\"it is Robert Ghiz\"[endif]\n[if PROV eq <12>]\n\"it is Darrell Dexter\" [endif] [if PROV eq <13>] \"it is David Alward\"[endif]\n[if PROV eq <24>]\n\"it is Jean Charest\" [endif][if PROV eq <35>] \"it is Dalton McGuinty\"[endif]\n[if PROV eq <46>]\n\"it is Greg Selinger\" [endif][if PROV eq <47>] \"it is Brad Wall\" [endif]\n[if PROV eq <48>]\n\"it is Ed Stelmach\" [endif][if PROV eq <59>] \"it is Christy Clark\"[endif]\n[n][white]\n[if PROV eq <35>]\n35 Dalton McGuinty/ Dalton/ McGuinty\n[else]\n[fill names][endif]\n97 any other name, no text entry required\nd don't know/no r refused @\n[@] <10,11,12,13,24,35,46,47,48,59,d,r>\n<97>",
+    "chunk_number": 314
+  },
+  {
+    "chunk": ">ces_68.2<\n[r] Nous aimerions savoir si certaines personnes sont connues. [n]\n[r] Pouvez-vous me dire quel est le nom du Premier Ministre de votre [n]\n[r] PROVINCE? [n]\n[bold][yellow]\nLe nom de famille est suffisant.\nMettez la réponse/confirmation SEULEMENT si R le demande. Ne pas\nmettre comme la correcte réponse si elle a été donnée au R par une\nautre personne.\n[fill names].\n[n][white]\n[fill names]\n97 autre réponses, pas besoinde spécifier\nd ne sais pas/non r refus\n@",
+    "chunk_number": 315
+  },
+  {
+    "chunk": ">ces_69< [#NEW QUESTION][define <d><8",
+    "chunk_number": 316
+  },
+  {
+    "chunk": ">][define <r><9>]\n\n[r] And the name of the federal Minister of Finance? [n]\n[bold][yellow]\nInterviewer: Provide answer/confirmation ONLY if requested by R. Do not\nrecord as correct answer if it was provided to R by another person.\n[n][white]\n1 correct (Jim Flaherty; Flaherty)\n3 interviewer thinks respondent means Jim Flaherty\n5 any other name, no text entry required\nd don't know/no r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 317
+  },
+  {
+    "chunk": ">ces_69.2<\n[r] Et le nom du ministre des finances fédéral? [n]\n[bold][yellow]\nDonnez la réponse/confirmation SEULEMENT si R le demande. Ne pas\nmettre comme la réponse correcte si elle a été donnée au R par une\nautre personne. Si à votre avis le répondant connait le nom mais ne\npeut pas le prononcer correctement, codez 3.\n[n][white]\n1 Correcte (Jim Flaherty; Flaherty)\n3 pense que R veut dire Jim Flaherty\n5 tous les autres noms, aucune entrée n'est requise\nd ne sais pas/non r refus\n@",
+    "chunk_number": 318
+  },
+  {
+    "chunk": ">ces_70< [#NEW QUESTION]\n[r] And the name of the Governor-General of Canada who just finished [n]\n[r] her term last December? [n]\n[bold][yellow]\nInterviewer: Provide answer/confirmation ONLY if requested by R. Do not\nrecord as correct answer if it was provided to R by another person.\nIt is Michaëlle Jean\n[n][white]\n1 correct (Jean; Michaëlle Jean; Michaëlle)\n3 interviewer thinks respondent means Michaëlle Jean\n5 any other name, no text entry required\nd don't know/no r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 319
+  },
+  {
+    "chunk": ">ces_70.2<\n\n[r] Et le nom de la gouverneure-générale du Canada qui a complété son [n]\n[r] mandat en décembre dernier? [n]\n[bold][yellow]\nDonnez la réponse/confirmation SEULEMENT si R le demande. Ne pas\nmettre comme la réponse correcte si elle a été donnée au R par une\nautre personne. Si à votre avis le répondant connait le nom mais ne\npeut pas le prononcer correctement, codez 3.\n[n][white]\n1 correcte (Jean; Michaëlle Jean; Michaëlle)\n3 pense que R veut dire Michaëlle Jean\n5 tous les autres noms, aucune entrée n?est requise\nd ne sais pas/non r refus\n@",
+    "chunk_number": 320
+  },
+  {
+    "chunk": ">ces_71< [#2008 CPS q1a] [define <s><0>]\n[r] In federal politics, do you usually think of yourself as a: Liberal,[n]\n[r] Conservative, N.D.P, [if PROV eq <24>]Bloc Québécois,[endif] [n]\n[r] Green Party, or none of these? [n]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n[if PROV eq <24>]\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois) [endif]\n5 Green Party\n6 none of these\ns other (specify)\nd don't know/no r refused\n@\n[@] <1-5>\n<s>[specify][goto ces_73]\n<6,d,r>[goto ces_73]",
+    "chunk_number": 321
+  },
+  {
+    "chunk": ">ces_71.2<\n[r] En politique fédérale, vous considérez-vous habituellement [n]\n[r] Libéral, Conservateur, NPD (Nouveau Parti Démocratique), [n]\n[r] [if PROV eq <24>]Bloc Québécois, [endif]Parti vert, ou rien de cela?[n]\n1 Libéral\n2 Conservateur\n3 NPD\n[if PROV eq <24>]\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)[endif]\n5 Parti vert\n6 rien de cela\ns autres\n\nd ne sais pas r refus\n@",
+    "chunk_number": 322
+  },
+  {
+    "chunk": ">partyb< [allow 25]",
+    "chunk_number": 323
+  },
+  {
+    "chunk": ">partybf< [allow 25]",
+    "chunk_number": 324
+  },
+  {
+    "chunk": ">ck_71< [if ces_71 eq <1",
+    "chunk_number": 325
+  },
+  {
+    "chunk": ">][store <Liberal> in partyb][endif]\n[if ces_71 eq <1",
+    "chunk_number": 326
+  },
+  {
+    "chunk": ">][store <Parti Libéral> in partybf][endif]\n[if ces_71 eq <2",
+    "chunk_number": 327
+  },
+  {
+    "chunk": ">][store <Conservative> in partyb][endif]\n[if ces_71 eq <2",
+    "chunk_number": 328
+  },
+  {
+    "chunk": ">][store <Parti Conservateur> in partybf][endif]\n[if ces_71 eq <3",
+    "chunk_number": 329
+  },
+  {
+    "chunk": ">][store <N.D.P > in partyb][endif]\n[if ces_71 eq <3",
+    "chunk_number": 330
+  },
+  {
+    "chunk": ">][store <NPD> in partybf][endif]\n[if ces_71 eq <4",
+    "chunk_number": 331
+  },
+  {
+    "chunk": ">][store <Bloc Québécois> in partyb][endif]\n[if ces_71 eq <4",
+    "chunk_number": 332
+  },
+  {
+    "chunk": ">][store <Bloc Québécois> in partybf][endif]\n[if ces_71 eq <5",
+    "chunk_number": 333
+  },
+  {
+    "chunk": ">][store <Green Party> in partyb][endif]\n[if ces_71 eq <5",
+    "chunk_number": 334
+  },
+  {
+    "chunk": ">][store <Parti vert> in partybf][endif]",
+    "chunk_number": 335
+  },
+  {
+    "chunk": ">ces_72< [#2008 CPS q2]\n[r] How strongly [fill partyb] do you feel: very strongly, [n]\n[r] fairly strongly, or not very strongly? [n]\n1 very strongly\n3 fairly strongly\n5 not very strongly\nd don't know r refused\n@\n[@] <1,3,5,d,r>",
+    "chunk_number": 336
+  },
+  {
+    "chunk": ">ces_72.2<\n[r] Vous sentez-vous très proche du [fill partybf], assez proche, ou [n]\n[r] pas très proche? [n]\n1 très proche\n3 assez proche\n5 pas très proche\nd ne sais pas r refus\n@",
+    "chunk_number": 337
+  },
+  {
+    "chunk": ">ces_73< [#2008 CPS q6a, modified]\n[r] Did you happen to vote in the last Federal election in 2008? [n]\n1 yes\n5 no\n\n7 not eligible (too young/not a Canadian Citizen)\nd don't know r refused\n@\n[@] <1>\n<5,7,d,r>[goto ces_75]",
+    "chunk_number": 338
+  },
+  {
+    "chunk": ">ces_73.2<\n[r] Avez-vous voté lors de la dernière élection fédérale en 2008? [n]\n1 oui\n5 non\n7 pas éligible (trop jeune/pas citoyen Canadien)\nd ne sais pas r refus\n@",
+    "chunk_number": 339
+  },
+  {
+    "chunk": ">ces_74< [#2008 CPS q6b][define <d><98",
+    "chunk_number": 340
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 341
+  },
+  {
+    "chunk": ">][define <s><0>]\n[r] Which party did you vote for? [n]\n[bold][yellow] Interviewer: Do not read list. [n][white]\n1 Liberal (Grits)\n2 Conservative (Tory, PCs, Conservative Party of Canada)\n3 N.D.P (New Democratic Party, New Democrats, Ndpers)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party\n9 spoiled ballot\ns other, specify\nd don't know/don't remember r refused\n@\n[@] <1-5,9,d,r>\n<s>[specify]",
+    "chunk_number": 342
+  },
+  {
+    "chunk": ">ces_74.2<\n[r] Pour quel parti avez-vous voté? [n]\n[bold][yellow] Intervieweur: Ne pas lire la liste. [n][white]\n1 Libéral\n2 Conservateur (Tory, PCs, Parti Conservateur,)\n3 NPD (Nouveau Parti Démocratique)\n4 Bloc Québécois (BQ, PQ, Bloc, Parti Québécois)\n5 Green Party\n9 annulation\ns autre (spécifiez)\nd ne sais pas r refus\n\n@",
+    "chunk_number": 343
+  },
+  {
+    "chunk": ">ces_75< [#2008 CPS q9][if PROV ne <24> goto ces_78]\n[r] Are you very favourable, somewhat favourable, somewhat opposed, or [n]\n[r] very opposed to Quebec sovereignty, that is Quebec is NO LONGER A [n]\n[r] PART OF CANADA? [n]\n1 Very favourable\n3 Somewhat favourable\n5 Somewhat opposed\n7 Very opposed\nd don't know r refused\n@\n[@] <1,3,5,7,d,r>",
+    "chunk_number": 344
+  },
+  {
+    "chunk": ">ces_75.2<\n[r] Êtes-vous très favorable, plutôt favorable, plutôt opposé(e) ou [n]\n[r] très opposé(e) a la souveraineté du Québec, c'est-a-dire que le [n]\n[r] Québec NE FAIT PLUS PARTIE DU CANADA? [n]\n1 Très favorable\n3 Plutôt favorable\n5 Plutôt opposé\n7 Très opposé\nd Ne sais pas r Refus\n@",
+    "chunk_number": 345
+  },
+  {
+    "chunk": ">ces_78< [#2008 CPS s1][define <r><9999>]\n[r] To make sure we are talking to a cross section of Canadians, we [n]\n[r] need to get a little information about your background. [n]\n[r] First, in what year were you born? [n]\n1900-1993 Enter year of birth please\nr refused\n@\n[@] <1900-1993,d,r>",
+    "chunk_number": 346
+  },
+  {
+    "chunk": ">ces_78.2<\n[r] Pour terminer l'entrevue, nous aimerions avoir quelques informations[n]\n[r] qui nous aideront à vérifier si notre échantillon représente bien [n]\n[r] l'ensemble de la population canadienne. [n]\n\n[r] D'abord, en quelle année êtes-vous né(e)? [n]\n1900-1993 Inscrivez année de naissance\nr refus\n@",
+    "chunk_number": 347
+  },
+  {
+    "chunk": ">ces_79< [#2008 CPS s3] [define <d><98",
+    "chunk_number": 348
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] What is the highest level of education that you have completed? [n]\n1 no schooling\n2 some elementary school\n3 completed elementary school\n4 some secondary / high school\n5 completed secondary / high school\n6 some technical, community college, CEGEP, College Classique\n7 completed technical, community college, CEGEP,College Classique\n8 some university\n9 bachelor's degree\n10 master's degree\n11 professional degree or doctorate\nd don't know r refused\n@\n[@] <1-11,d,r>",
+    "chunk_number": 349
+  },
+  {
+    "chunk": ">ces_79.2<\n[r] Quel est le plus haut niveau d'éducation que vous avez complété? [n]\n1 aucune scolarité\n2 quelques années à l'élémentaire\n3 école élémentaire terminée\n4 quelques années d'école secondaire\n5 école secondaire terminée\n6 quelques études au collège, au cégep, au collège classique\n7 études terminées au collège, au cégep, au collège classique\n8 quelques études universitaires\n9 baccalauréat\n10 maîtrise\n11 diplôme professionnel ou doctorat\nd ne sais pas r refus\n@",
+    "chunk_number": 350
+  },
+  {
+    "chunk": ">ces_80< [#2008 CPS s9][define <d><98",
+    "chunk_number": 351
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 352
+  },
+  {
+    "chunk": ">][define <s><97>]\n[r] Please tell me what is your religion, if you have one? [n]\n[bold][yellow]\nInterviewer: if R answers \"Protestant\" or \"Christian\" ask,\n\"which denomination is that?\"\n\n[n][white]\n1 Anglican/Church of England 11 Muslim/ Islam\n2 Baptist 12 Pentecostal/Fundamentalist/\n3 Buddhist/Buddhism Born Again/Evangelical\n4 Catholic/Roman Catholic/RC 13 Presbyterian\n5 Greek Orthodox/Ukrainian Orthodox/ 14 Protestant (only after probe)\nRussian Orthodox/Eastern Orthodox 15 Sikh/ Sikhism\n6 Hindu 16 United Church of Canada\n7 Jehovah's Witness 17 Christian (only after probe)\n8 Jewish/Judaism/Jewish Orthodox 18 Christian Reform\n9 Lutheran 19 Salvation Army\n10 Mormon/ Church of Jesus 20 Mennonite\nChrist of the Latter Day Saints\n0 none, don't have one/ Atheist\ns other (specify) d don't know/ Agnostic r refused\n@\n[@] <0,d,r>[goto ces_83]\n<1-20>\n<s> [specify]",
+    "chunk_number": 353
+  },
+  {
+    "chunk": ">ces_80.2<\n[r] Veuillez me dire quelle est votre religion, si vous en avez une ? [n]\n[bold][yellow]\nIntervieweur: Si le R répond \"Protestant\" ou \"Chrétien\", demandez \"de\nquelle dénomination?\".\n[n][white]\n1 Anglicane/Église de l'Angleterre 11 Musulmane/Islamique\n2 Baptiste 12 Pentecôtiste/Fondamentaliste/\n3 Bouddhiste/Bouddhisme Chrétien renaissant/Evangélique\n4 Catholique 13 Presbytérienne\n5 Orthodox grecque/orthodox ukrainienne/ 14 Protestante (seulement après\northodox russe/est-orthodox avoir insisté)\n6 Hindouiste 15 Sikh/Sikhisme\n7 Témoin de Jéhovah 16 Église unie du Canada\n8 Judaïsme/orthodox juive 17 Chrétien (seulement après\n9 Luthérienne avoir insisté)\n10 Mormone/Église de Jésus- 18 Réformiste-chrétien\nChrist des saints des derniers jours 19 Armée du Salut\n20 Ménnonite\n0 aucune, n'en a pas une, /athée\ns autre (préciser) d ne sait pas/agnrstie r refuse de répondre\n@",
+    "chunk_number": 354
+  },
+  {
+    "chunk": ">ces_81< [#2008 CPS s10] [define <d><8",
+    "chunk_number": 355
+  },
+  {
+    "chunk": ">][define <r><9>]\n[if ces_80 eq <3> or ces_80 eq <6> or ces_80 eq <8> or ces_80 eq <11> or ces_80\neq <15>]\n[goto ces_82][endif]\n[r] Do you believe that the bible is the actual word of God and [n]\n[r] should be taken literally word for word? [n]\n[bold][yellow]\nInterviewer: if R answers equivocally, such as mostly, more or\nless, etc., code \"no\" and continue.\n\n[n][white]\n1 yes\n5 no\nd don't know r refused\n@\n[@] <1,5,d,r>",
+    "chunk_number": 356
+  },
+  {
+    "chunk": ">ces_81.2<\n[r] Croyez-vous que la bible est la véritable parole de Dieu et devrait [n]\n[r] être acceptée littéralement mot à mot? [n]\n[bold][yellow]\nIntervieweur, si la réponse est ambivalente (plus ou moins, etc.),\ncodez 'non' et continuez.\n[n][white]\n1 oui\n5 non\nd ne sais pas r refus\n@",
+    "chunk_number": 357
+  },
+  {
+    "chunk": ">ces_82< [#2008 CPS s11]\n[r] In your life, would you say religion is VERY important, SOMEWHAT [n]\n[r] important, NOT VERY important, or NOT IMPORTANT at all? [n]\n1 very important\n3 somewhat important\n5 not very important\n7 not important at all\nd don't know r refused\n@\n[@] <1,3,5,7>\n<d,r>",
+    "chunk_number": 358
+  },
+  {
+    "chunk": ">ces_82.2<\n[r] Dans votre vie, diriez-vous que la religion est TRÈS importante, [n]\n[r] ASSEZ importante, PAS TRÈS importante, ou PAS importante DU TOUT? [n]\n1 très importante\n3 assez importante\n5 pas très importante\n7 pas importante du tout\nd ne sais pas r refus\n@",
+    "chunk_number": 359
+  },
+  {
+    "chunk": ">ces_83< [#2008 CPS s12][define <d><98",
+    "chunk_number": 360
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 361
+  },
+  {
+    "chunk": ">][define <s><97>]\n[r] In what country were you born? [n]\n0 Quebec\n1 Canada\n2 United States\n75 China, Hong Kong, Taiwan\n12 France\n13 Germany\n86 India\n16 Italy\n17 Netherlands (Holland)\n33 Poland\n18 Portugal\n19 Scotland\ns other d don't know r refused\n@\n[@] <0,1> [goto ces_85]\n<2,75,12,13,86,16,17,33,18,19,d,r>\n<s>[specify]",
+    "chunk_number": 362
+  },
+  {
+    "chunk": ">ces_83.2<\n[r] Dans quel pays êtes-vous né(e)? [n]\n0 Quebec\n1 Canada\n2 United States\n75 Chine, Hong Kong, Taiwan\n12 France\n13 Germany\n86 India\n16 Italy\n17 Netherlands (Holland)\n33 Poland\n18 Portugal\n19 Scotland\ns Autre (spécifiez) d ne sais pas r Refus\n@",
+    "chunk_number": 363
+  },
+  {
+    "chunk": ">ces_84< [#2008 CPS s13] [define <d><9998",
+    "chunk_number": 364
+  },
+  {
+    "chunk": ">][define <r><9999>]\n[r] In what year did you come to live in Canada? [n]\n[bold][yellow]\nInterviewer: if required when R came to stay permanently.\n[n][white]\n1900-2011 exact year\n\nd Don't know r Refused\n@\n[@] <1900-2011>\n<d,r>",
+    "chunk_number": 365
+  },
+  {
+    "chunk": ">ces_84.2<\n[r] En quelle année êtes-vous venu(e) vivre au Canada? [n]\n1900-2011 année exacte\nd ne sais pas r Refus\n@",
+    "chunk_number": 366
+  },
+  {
+    "chunk": ">ces_85< [#2008 CPS s14][define <d><98",
+    "chunk_number": 367
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 368
+  },
+  {
+    "chunk": ">][define <s><0>]\n[r] To what ethnic or cultural group do you belong? [n]\n[bold][yellow]\nIF NEEDED: \"Is your ethnic or cultural background English, Polish,\nChinese or something else?[n][white]\n1 Canadian 13 ENGLISH 24 Irish\n7 British 16 French 25 Italian\n8 Chinese 18 German 40 Polish\n12 Dutch 26 Indian 43 SCOTTISH\n53 Ukrainian\n94 French Canadian\n95 Inuit,Metis, Aboriginal\n96 Québécois\ns other (specify) d don't know r refused\n@\n[@] <1> [goto ces_86]\n<7,8,12,13,16,18,24,25,26,40,43,53,95> [goto ces_87]\n<s> [specify][goto ces_87]\n<94,96,d,r> [goto ces_90]",
+    "chunk_number": 369
+  },
+  {
+    "chunk": ">ces_85.2<\n[r] A quel groupe ethnique ou culturel appartenez-vous? [n]\n[bold][yellow]\nENQUETEUR : Au besoin : vos antécédents ethniques ou culturels sont-ils\nanglais, polonais, chinois ou autre? [n][white]\n1 Canadien 13 Anglais 24 Irlandais\n7 Britannique 16 Français 25 Italien\n8 Chinois 18 German 40 Polish\n12 Néerlandais 26 Indian 43 Écossais\n53 Ukrainien\n94 Canadien Français\n95 Inuit,Métis , Autochtone\n\n96 Québécois\ns autre (préciser) d ne sait pas r refuse de répondre\n@",
+    "chunk_number": 370
+  },
+  {
+    "chunk": ">ces_86< [define <d><98>] [define <r><99",
+    "chunk_number": 371
+  },
+  {
+    "chunk": ">][define <s><0>]\n[r] In addition to being Canadian, to what ethnic or cultural group did [n]\n[r] you, or your ancestors belong on first coming to this country? [n]\n[bold][yellow]\nIF NEEDED: \"Is your ethnic or cultural background English, Polish,\nChinese or something else?[n][white]\n97 No other mentions, just Canadian, etc.\n1 Canadian 13 ENGLISH 24 Irish\n7 British 16 French 25 Italian\n8 Chinese 18 German 40 Polish\n12 Dutch 26 Indian 43 SCOTTISH\n53 Ukrainian\n94 French Canadian\n95 Inuit,Metis, Aboriginal\n96 Québécois\ns other (specify) d don't know r refused\n@\n[@] <1,97> [goto ces_90] [# second time Canadian mentioned, goto language]\n<7,8,12,13,16,18,24,25,26,40,43,53,95> [goto ces_87]\n<s> [specify][goto ces_87]\n<94,96,d,r> [goto ces_90]",
+    "chunk_number": 372
+  },
+  {
+    "chunk": ">ces_86.2<\n[r] En plus d'être Canadien(ne), à quel groupe ethnique ou culturels [n]\n[r] apparteniez-vous, ou vos ancêtres appartenaient-ils, au moment [n]\n[r] d'arriver au Canada? [n]\n[bold][yellow]\nENQUETEUR : Au besoin : vos antécédents ethniques ou culturels sont-ils\nanglais, polonais, chinois ou autre? [n][white]\n97 pas d'autre mention, seulement Canadien\n1 Canadien 13 Anglais 24 Irlandais\n7 Britannique 16 Français 25 Italien\n8 Chinois 18 German 40 Polish\n12 Néerlandais 26 Indian 43 Écossais\n53 Ukrainien\n94 Canadien Français\n95 Inuit,Métis , Autochtone\n96 Québécois\ns autre (préciser) d ne sait pas r refuse de répondre\n@",
+    "chunk_number": 373
+  },
+  {
+    "chunk": ">ces_87< [#2008 CPS s16a] [define <d><98",
+    "chunk_number": 374
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 375
+  },
+  {
+    "chunk": ">][define <s><0>]\n\n[bold][yellow] Interviewer: enter SECOND mentioned group here. [n][white]\n97 No SECOND Mention\n1 Canadian 13 ENGLISH 24 Irish\n7 British 16 French 25 Italian\n8 Chinese 18 German 40 Polish\n12 Dutch 26 Indian 43 SCOTTISH\n53 Ukrainian\n94 French Canadian\n95 Inuit,Metis, Aboriginal\n96 Québécois\ns other (specify) d don't know r refused\n@\n[@] <1,7,8,12,13,16,18,24,25,26,40,43,53,95> [goto ces_88]\n<97> [goto ces_90]\n<s> [specify][goto ces_88]\n<94,96,d,r> [goto ces_90]",
+    "chunk_number": 376
+  },
+  {
+    "chunk": ">ces_87.2<\n[bold][yellow]ENQUETEUR: indiquer le SECOND groupe mentionné ici. [n][white]\n97 Aucun autre groupe mentionné\n1 Canadien 13 Anglais 24 Irlandais\n7 Britannique 16 Français 25 Italien\n8 Chinois 18 German 40 Polish\n12 Néerlandais 26 Indian 43 Écossais\n53 Ukrainien\n94 Canadien Français\n95 Inuit,Métis , Autochtone\n96 Québécois\ns autre (préciser) d ne sait pas r refuse de répondre\n@",
+    "chunk_number": 377
+  },
+  {
+    "chunk": ">ces_88< [#2008 CPS s16b] [define <d><98",
+    "chunk_number": 378
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 379
+  },
+  {
+    "chunk": ">][define <s><0>]\n[bold][yellow] Interviewer: enter THIRD mentioned group here. [n][white]\n97 No Third Mention\n1 Canadian 13 ENGLISH 24 Irish\n7 British 16 French 25 Italian\n8 Chinese 18 German 40 Polish\n12 Dutch 26 Indian 43 SCOTTISH\n53 Ukrainian\n94 French Canadian\n95 Inuit,Metis, Aboriginal\n96 Québécois\ns other (specify) d don't know r refused\n@\n\n[@] <1,7,8,12,13,16,18,24,25,26,40,43,53,95> [goto ces_89]\n<97> [goto ces_90]\n<s> [specify][goto ces_89]\n<94,96,d,r> [goto ces_90]",
+    "chunk_number": 380
+  },
+  {
+    "chunk": ">ces_88.2<\n[bold][yellow]ENQUETEUR: indiquer le TROISIEME groupe mentionné ici. [n][white]\n97 Aucun autre groupe mentionné\n1 Canadien 13 Anglais 24 Irlandais\n7 Britannique 16 Français 25 Italien\n8 Chinois 18 German 40 Polish\n12 Néerlandais 26 Indian 43 Écossais\n53 Ukrainien\n94 Canadien Français\n95 Inuit,Métis , Autochtone\n96 Québécois\ns autre (préciser) d ne sait pas r refuse de répondre\n@",
+    "chunk_number": 381
+  },
+  {
+    "chunk": ">ces_89< [#2008 CPS s16c] [define <d><98",
+    "chunk_number": 382
+  },
+  {
+    "chunk": ">][define <r><99",
+    "chunk_number": 383
+  },
+  {
+    "chunk": ">][define <s><0>]\n[bold][yellow] Interviewer: enter FOURTH mentioned group here. [n][white]\n97 No Fourth Mention\n1 Canadian 13 ENGLISH 24 Irish\n7 British 16 French 25 Italian\n8 Chinese 18 German 40 Polish\n12 Dutch 26 Indian 43 SCOTTISH\n53 Ukrainian\n94 French Canadian\n95 Inuit,Metis, Aboriginal\n96 Québécois\ns other (specify) d don't know r refused\n@\n[@] <1,7,8,12,13,16,18,24,25,26,40,43,53,95,97>\n<s",
+    "chunk_number": 384
+  },
+  {
+    "chunk": "> [specify]\n<94,96,d,r>",
+    "chunk_number": 385
+  },
+  {
+    "chunk": ">ces_89.2<\n[bold][yellow] ENQUETEUR : indiquer le QUATRIEME groupe mentionné ici.\n[n][white]\n97 Aucun autre groupe mentionn,\n1 Canadien 13 Anglais 24 Irlandais\n7 Britannique 16 Français 25 Italien\n8 Chinois 18 German 40 Polish\n\n12 Néerlandais 26 Indian 43 Écossais\n53 Ukrainien\n94 Canadien Français\n95 Inuit,Métis , Autochtone\n96 Québécois\ns autre (préciser) d ne sait pas r refuse de répondre\n@",
+    "chunk_number": 386
+  },
+  {
+    "chunk": ">ces_90< [#2008 CPS s17][define <s><97>] [define <d><98",
+    "chunk_number": 387
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] What is the first language you learned and still understand? [n]\n1 English 23 Hungarian 42 Russian\n5 French 25 Italian 44 Serbian\n8 Chinese 26 Indian, Hindi, Gujarati 47 Slovak\n9 Croatian 29 Japanese 48 Spanish\n10 Czech 30 Jewish, Hebrew, Yiddish 49 Sri Lankan\n11 Danish 31 Korean\n12 Dutch 32 Lebanese 51 Tamil\n15 Ethiopian 38 Pakistani, Punjabi, Urdu 53 Ukrainian\n17 Finnish 39 Filipino/Tagalog 54 Vietnamese\n18 German 40 Polish\n19 Greek 41 Portuguese\ns Other (specify) d Don't know r Refused @\n[@] <1,5,8,9-12,15,17,18,19,23,25,26,29-32,38-42,44,47,48,49,51,53,54>\n<s",
+    "chunk_number": 388
+  },
+  {
+    "chunk": "> [specify]\n<d,r>",
+    "chunk_number": 389
+  },
+  {
+    "chunk": ">ces_90.2<\n[r] Quel est la première langue que vous avez apprise et que vous [n]\n[r] comprenez encore? [n]\n5 Français 23 Hungarian 42 Russian\n1 Anglais 25 Italian 44 Serbian\n8 Chinese 26 Indian, Hindi, Gujarati 47 Slovak\n9 Croatian 29 Japanese 48 Spanish\n10 Czech 30 Jewish, Hebrew, Yiddish 49 Sri Lankan\n11 Danish 31 Korean\n12 Dutch 32 Lebanese else 51 Tamil\n15 Ethopian 38 Pakistani, Punjabi, Urdu 53 Ukrainian\n17 Finnish 39 Filipino/Tagalog 54 Vietnamese\n18 German 40 Polish\n19 Greek 41 Portuguese\ns autre (spécifiez) d ne sais pas r refus @",
+    "chunk_number": 390
+  },
+  {
+    "chunk": ">ces_91< [#2008 CPS s4][define <r><99",
+    "chunk_number": 391
+  },
+  {
+    "chunk": ">][define <s><0>]\n[r] Are you currently self employed, working for pay, retired, [n]\n[r] unemployed or looking for work, a student, caring for a family, [n]\n[r] or something else? [n]\n[bold][yellow]\nInterviewer: if R gives 2 answers, ask for the category that describes\n\nthem best, do NOT use other unless no other option.\n[n][white]\n1 self employed (with or without employees)\n2 working for pay (full or part time, includes on paid leave)\n3 retired\n4 unemployed/looking for work\n5 student\n6 caring for a family\n7 disabled\n8 R volunteers works at two or more jobs\n9 student and working for pay\n10 caring for family and working for pay\n11 retired and working for pay\ns other (specify),(Interviewer: only use if absolutely required.)\nr refused\n@\n[@] <1,2,3-7,8,9,10,11,r>\n<s>[specify]",
+    "chunk_number": 392
+  },
+  {
+    "chunk": ">ces_91.2<\n[r] Travaillez-vous actuellement à votre compte, pour un salaire, avez- [n]\n[r] vous pris la retraite, êtes-vous au chômage ou cherchez-vous du [n]\n[r] travail, êtes-vous étudiant, ménagère ou quelque chose d'autre ? [n]\n[bold][yellow]\nInt: si la personne interrogée donne 2 réponses, demandez le code qui la\ndécrit le mieux, N'utilisez PAS \"autre \" à moins que vous n'ayez pas de choix.\n[n][white]\n1 travaille à son compte (avec ou sans employés)\n2 travaille pour un salaire (à temps plein ou à temps partiel, inclut\ncongé payé)\n3 a pris la retraite\n4 au chômage/cherche du travail\n5 étudiant\n6 ménagère\n7 handicapé\n8 R indique que le répondant occupe deux ou plus de deux emplois remunérés\n9 R indique que le répondant est étudiant et salarié\n10 R indique que le répondant est en charge d'une famille et salarié\n11 R indique que le répondant est retraité et salarié\ns autre (préciser) r refuse de répondre @",
+    "chunk_number": 393
+  },
+  {
+    "chunk": ">ces_92< [#2008 CPS s18a] [define <d><998",
+    "chunk_number": 394
+  },
+  {
+    "chunk": ">][define <r><999>]\n[r] Could you please tell me your total household income before taxes [n]\n[r] for the year 2010? Be sure to include income FROM ALL SOURCES TO [n]\n[r] THE NEAREST THOUSAND DOLLARS. What was your TOTAL HOUSEHOLD INCOME? [n]\n[bold][yellow]\nInterviewer, enter 1 for one thousand dollars, 5 for five thousand dollars,\n10 for ten thousand dollars, 50 for fifty thousand dollars, etc.\n[n][white]\n\n0 less than $1000\n1-997 Actual income (2 for $2,000, 20 for $20,000, 120 for $120,000, etc.)\nd Don't know r Refused\n@\n[@] <1-997,0> [goto ces_94]\n<d,r>",
+    "chunk_number": 395
+  },
+  {
+    "chunk": ">ces_92.2<\n[r] Pourriez-vous me dire le revenu total de votre ménage avant impôts [n]\n[r] en 2010? Cela doit inclure les revenus DE TOUTES SOURCES ARRONDI [n]\n[r] AUX MILLIERS DE DOLLARS. Quel a été le REVENU TOTAL DE VOTRE MENAGE? [n]\n0 less than $1000\n1-997 Revenu\nd Ne sais pas r Refus\n@",
+    "chunk_number": 396
+  },
+  {
+    "chunk": ">ces_93< [#2008 CPS s18b] [define <d><98",
+    "chunk_number": 397
+  },
+  {
+    "chunk": ">][define <r><99>]\n[r] We don't need the exact amount; does it fall into one of these [n]\n[r] broad categories? [n]\n[bold][yellow]\nInterviewer, stop reading if R answers.\n[n][white]\n1...less than $30,000\n2...between $30,000 and $60,000\n3...between $60,000 and $90,000\n4...between $90,000 and $110,000\n5...more than $110,000\nd Don't know r Refused\n@\n[@] <1-5,d,r>",
+    "chunk_number": 398
+  },
+  {
+    "chunk": ">ces_93.2<\n[r] Nous n'avons pas besoin du montant exact, tombe-t-il dans l'une des [n]\n[r] catégories suivantes? ... [n]\n1...moins de $30,000\n2...entre $30,000 et $60,000\n3...entre $60,000 et $90,000\n4...entre $90,000 et $110,000\n5...plus de $110,000\n\nd Ne sais pas r Refus\n@",
+    "chunk_number": 399
+  },
+  {
+    "chunk": ">ces_94< [#2008 CPS s19][define <r><9>]\n[r] COUNTING yourself how many people live in your household? [n]\n[bold][yellow]\nInterviewer, if asked, this includes all people who live in the\nhousehold, not just family.\n[n][white]\n1-7 Enter number of people\n8 8 or more\nr refused /dk\n@\n[@] <1-7,8,r>",
+    "chunk_number": 400
+  },
+  {
+    "chunk": ">ces_94.2<\n[r] Incluant vous-même, combien de personnes vivent dans votre ménage? [n]\n[bold][yellow]\nInterviewer, ceci inclut toutes les personnes dans le ménage, pas\nseulement la famille.\n[n][white]\n1-7 Veuillez indiquer le nombre\n8 8 or more\nr refus\n@",
+    "chunk_number": 401
+  },
+  {
+    "chunk": ">ces_95< [#2008 CPS s20][if ces_94 eq <1> or ces_94 eq <9>][goto web][endif]\n[r] And how many of them are under 18? [n]\n0 none\n1-7 enter number of children\n8 8 or more\nr refused/dk\n@\n[@] <0-7,8,r>",
+    "chunk_number": 402
+  },
+  {
+    "chunk": ">ces_95.2<\n[r] Combien d'entre elles ont moins de 18 ans? [n]\n\n0 aucun\n1-7 veuillez indiquer le nombre\n8 8 or more\nr refus\n@\n[# =============== Web Survey: Collect e-mail address =================]",
+    "chunk_number": 403
+  },
+  {
+    "chunk": ">web< [# goto IN_POSTAL]\n[r] This interview is part of a bigger study about how Canadians feel [n]\n[r] about government. We hope to send you a follow-up survey after the [n]\n[r] election. We would need an email address. [n]\n[r] Can you provide me with one? [n]\n1 yes\n3 no e-mail address, no easy access to e-mail)\n5 no/ refused\n@\n[@] <1>\n<3,5>[goto end_script]",
+    "chunk_number": 404
+  },
+  {
+    "chunk": ">web.2<\n[r] Cette entrevue fait partie d'une plus grande étude sur les opinions [n]\n[r] des Canadiens. Nous espérons vous envoyer un sondage de suivi après [n]\n[r] l'élection. Nous avons besoin d'une adresse courriel. [n]\n[r] Pouvez-vous m'en fournir une? [n]\n1 oui\n3 pas d'adresse courriel, pas d'accès au courriel\n5 non/ refus\n@",
+    "chunk_number": 405
+  },
+  {
+    "chunk": ">atext< [allow 1]\n[store <@> in atext]",
+    "chunk_number": 406
+  },
+  {
+    "chunk": ">mail< [open mail][optional all]\n[bold][yellow]\nInterviewer: don't forget to add: .ca or .com or .org or .net, etc.\nas required.\n[n][white]\nE-mail @1[fill atext]@2\n\nPress \"Enter\" when done @done1\n[@1] [allow 40] [default answer <>][input format enter right][anychar]\n[@2] [allow 25] [default answer <>][input format enter left][anychar]\n[@done1] [nodata]",
+    "chunk_number": 407
+  },
+  {
+    "chunk": ">mail.2<\n[bold][yellow]\nInterviewer: n'oubliez pas d'ajouter: .ca ou .com ou .org ou .net, etc.\nau besoin.\n[n][white]\nE-mail @1[fill atext]@2\nPress \"Enter\" when done @done1",
+    "chunk_number": 408
+  },
+  {
+    "chunk": ">check< [define <d><8",
+    "chunk_number": 409
+  },
+  {
+    "chunk": ">][define <r><9>]\n[r] Just to confirm then, your email address is ... [n]\n[r] ...[fill mail@1][fill atext][fill mail@2] [n]\n[r] Is that correct? [n]\n[bold][yellow]\nInterviewer: verify with R by spelling out email.\n[n][white]\n1 yes correct\n3 no/ mistake in First part\n5 no/ mistake in Second part\n7 no/ mistake in Both parts\nd don't know r refused\n@\n[@] <1,d,r> [goto email]\n<3,5,7>",
+    "chunk_number": 410
+  },
+  {
+    "chunk": ">check.2<\n[r] Juste pour confirmer, votre adresse couriel est... [n]\n[r] ...[fill mail@1][fill atext][fill mail@2] [n]\n[r] Est-ce exact? [n]\n1 oui, correct\n3 non/ erreur dans 1ère partie\n5 non/ erreur dans 2ère partie\n7 non/ erreur dans les deux parties\n\nd ne sais pas r refus\n@",
+    "chunk_number": 411
+  },
+  {
+    "chunk": ">fix< [if check eq <3",
+    "chunk_number": 412
+  },
+  {
+    "chunk": ">]\n[store <> in check]\n[store <> in mail@1]\n[goto mail@1]\n[endif]\n[if check eq <5",
+    "chunk_number": 413
+  },
+  {
+    "chunk": ">]\n[store <> in check]\n[store <> in mail@2]\n[goto mail@2]\n[endif]\n[if check eq <7",
+    "chunk_number": 414
+  },
+  {
+    "chunk": ">]\n[store <> in check]\n[store <> in mail@1]\n[store <> in mail@2]\n[goto mail@1]\n[endif]",
+    "chunk_number": 415
+  },
+  {
+    "chunk": ">email< [allow 66]\n[make email from mail@1 atext mail@2]",
+    "chunk_number": 416
+  },
+  {
+    "chunk": ">ck< [goto end_script]\n[fill email]\nPress \"Enter\" to continue @\n[@][nodata]",
+    "chunk_number": 417
+  },
+  {
+    "chunk": ">end_script<\n[#-------------------------begin POSTAL code routine-------------------]",
+    "chunk_number": 418
+  },
+  {
+    "chunk": ">IN_POSTAL< [allow int 1]\n[if not entry mode][goto DONE_POSTAL][endif]\n[store <1> in IN_POSTAL]\n[start timer]\n[start question count]",
+    "chunk_number": 419
+  },
+  {
+    "chunk": ">timer_POSTAL< [allow int 6]",
+    "chunk_number": 420
+  },
+  {
+    "chunk": ">count_POSTAL< [allow int 2]",
+    "chunk_number": 421
+  },
+  {
+    "chunk": ">START_POSTAL< [undefine <d",
+    "chunk_number": 422
+  },
+  {
+    "chunk": ">][undefine <r>] [# core]",
+    "chunk_number": 423
+  },
+  {
+    "chunk": ">problem1< [template]\n[if PROV is <10>]\nPostal Codes in NEWFOUNDLAND must begin with: A\n\n[endif]\n[if PROV is <11>]\nPostal Codes in PRINCE EDWARD ISLAND must begin with: C\n[endif]\n[if PROV is <12>]\nPostal Codes in NOVA SCOTIA must begin with: B\n[endif]\n[if PROV is <13>]\nPostal Codes in NEW BRUNSWICK must begin with: E\n[endif]\n[if PROV is <24>]\nPostal Codes in QUEBEC must begin with: G, H, or J\n[endif]\n[if PROV is <35>]\nPostal Codes in ONTARIO must begin with: K,L,M,N,or P\n[endif]\n[if PROV is <46>]\nPostal Codes in MANITOBA must begin with: R\n[endif]\n[if PROV is <47>]\nPostal Codes in SASKATCHEWAN must begin with: S\n[endif]\n[if PROV is <48>]\nPostal Codes in ALBERTA must begin with: T\n[endif]\n[if PROV is <59>]\nPostal Codes in BRITISH COLUMBIA must begin with: V\n[endif]\n[if PROV is <60>]\nPostal Codes in YUKON must begin with: Y\n[endif]\n[if PROV is <61>]\nPostal Codes in NORTHWEST TERRITORY and NUNAVUT must begin with: X\n[endif]\n[end]",
+    "chunk_number": 424
+  },
+  {
+    "chunk": ">POSTALWINS< [window 3 destroy]\n[window 3 default]\n[window 3 size 14 rows 80 columns]\n[window 3 background blue]\n[window 3 no border]\n[window 6 destroy]\n[window 6 start row 20 column 1]\n[window 6 size 17 rows 80 columns]\n[window 6 border]\n[window 6 displays]\n[window 6 background yellow]",
+    "chunk_number": 425
+  },
+  {
+    "chunk": ">POSTAL< [display problem1 window 6]\n[open POSTAL][optional all]\n[autoadvance]\n[r] Can you tell me your postal code please? [n]\n[bold][yellow]\n\nInterviewer: Use \"d\" for don't know or refused at first item only.\n[n][white]\n@1@2@3 @4@5@6\nd\n[@1][allow 1][reject nonalpha label <only letters here",
+    "chunk_number": 426
+  },
+  {
+    "chunk": ">][anychar]\n<d> [goto POSTAL1]\n[@2][allow int 1]<0-9>\n[@3][allow 1][reject nonalpha][anychar]\n[@4][allow int 1] <0-9>\n[@5][allow 1][reject nonalpha][anychar]\n[@6][allow int 1] <0-9>",
+    "chunk_number": 427
+  },
+  {
+    "chunk": ">POSTAL.2<\n[r] Pouvez-vous me donner votre code postal, s'il-vous-plaît?\n[n]\n[bold][yellow]\nInterviewer: Use \"d\" for don't know or refused at first item only.\n[n][white]\n@1@2@3 @4@5@6\nd",
+    "chunk_number": 428
+  },
+  {
+    "chunk": ">POSTAL1< [if POSTAL@1 is <d> or POSTAL@1 is <D",
+    "chunk_number": 429
+  },
+  {
+    "chunk": ">]\n[store <9> in POSTAL@1]\n[store <9> in POSTAL@2]\n[store <9> in POSTAL@3]\n[store <9> in POSTAL@4]\n[store <9> in POSTAL@5]\n[store <9> in POSTAL@6]\n[goto FSA]\n[endif]\n[if POSTAL@2 is <d> or POSTAL@2 is <D",
+    "chunk_number": 430
+  },
+  {
+    "chunk": ">]\n[store <9> in POSTAL@1]\n[store <9> in POSTAL@2]\n[store <9> in POSTAL@3]\n[store <9> in POSTAL@4]\n[store <9> in POSTAL@5]\n[store <9> in POSTAL@6]\n[goto FSA]\n[endif]\n[if POSTAL@3 is <d> or POSTAL@3 is <D",
+    "chunk_number": 431
+  },
+  {
+    "chunk": ">]\n[store <9> in POSTAL@1]\n[store <9> in POSTAL@2]\n[store <9> in POSTAL@3]\n[store <9> in POSTAL@4]\n[store <9> in POSTAL@5]\n[store <9> in POSTAL@6]\n[goto FSA]\n[endif]",
+    "chunk_number": 432
+  },
+  {
+    "chunk": ">PCV1< [allow 7][store <> in PCV1]",
+    "chunk_number": 433
+  },
+  {
+    "chunk": ">PCV2< [allow 5][store <> in PCV2]",
+    "chunk_number": 434
+  },
+  {
+    "chunk": ">PCV3< [allow 7][store <> in PCV3]",
+    "chunk_number": 435
+  },
+  {
+    "chunk": ">PCV4< [allow 5][store <> in PCV4]",
+    "chunk_number": 436
+  },
+  {
+    "chunk": ">PCV5< [allow 7][store <> in PCV5]",
+    "chunk_number": 437
+  },
+  {
+    "chunk": ">PCV6< [allow 5] [store <> in PCV6]",
+    "chunk_number": 438
+  },
+  {
+    "chunk": ">PCV1F< [allow 8][store <> in PCV1F]",
+    "chunk_number": 439
+  },
+  {
+    "chunk": ">PCV2F< [allow 6][store <> in PCV2F]",
+    "chunk_number": 440
+  },
+  {
+    "chunk": ">PCV3F< [allow 8][store <> in PCV3F]",
+    "chunk_number": 441
+  },
+  {
+    "chunk": ">PCV4F< [allow 6][store <> in PCV4F]",
+    "chunk_number": 442
+  },
+  {
+    "chunk": ">PCV5F< [allow 8][store <> in PCV5F]",
+    "chunk_number": 443
+  },
+  {
+    "chunk": ">PCV6F< [allow 6][store <> in PCV6F]",
+    "chunk_number": 444
+  },
+  {
+    "chunk": ">LOAD1< [if POSTAL@1 is <a> or POSTAL@1 is <A",
+    "chunk_number": 445
+  },
+  {
+    "chunk": ">]\n[store <Adam> in PCV1]\n[store <Adam> in PCV1F]\n[else]\n[if POSTAL@1 is <b> or POSTAL@1 is <B",
+    "chunk_number": 446
+  },
+  {
+    "chunk": ">]\n[store <Betty> in PCV1]\n[store <Bertrand> in PCV1F]\n[else]\n[if POSTAL@1 is <c> or POSTAL@1 is <C",
+    "chunk_number": 447
+  },
+  {
+    "chunk": ">]\n[store <Charlie> in PCV1]\n[store <Charles> in PCV1F]\n[else]\n[if POSTAL@1 is <d> or POSTAL@1 is <D",
+    "chunk_number": 448
+  },
+  {
+    "chunk": ">]\n[store <David> in PCV1]\n[store <David> in PCV1F]\n[else]\n[if POSTAL@1 is <e> or POSTAL@1 is <E",
+    "chunk_number": 449
+  },
+  {
+    "chunk": ">]\n[store <Edward> in PCV1]\n[store <Edouard> in PCV1F]\n[else]\n[if POSTAL@1 is <f> or POSTAL@1 is <F",
+    "chunk_number": 450
+  },
+  {
+    "chunk": ">]\n[store <Frank> in PCV1]\n[store <Francis> in PCV1F]\n[else]\n[if POSTAL@1 is <g> or POSTAL@1 is <G",
+    "chunk_number": 451
+  },
+  {
+    "chunk": ">]\n[store <George> in PCV1]\n[store <Georges> in PCV1F]\n[else]\n[if POSTAL@1 is <h> or POSTAL@1 is <H",
+    "chunk_number": 452
+  },
+  {
+    "chunk": ">]\n[store <Henry> in PCV1]\n[store <Henri> in PCV1F]\n[else]\n[if POSTAL@1 is <i> or POSTAL@1 is <I",
+    "chunk_number": 453
+  },
+  {
+    "chunk": ">]\n[store <Indigo> in PCV1]\n[store <Indigo> in PCV1F]\n[else]\n[if POSTAL@1 is <j> or POSTAL@1 is <J",
+    "chunk_number": 454
+  },
+  {
+    "chunk": ">]\n[store <John> in PCV1]\n\n[store <Jean> in PCV1F]\n[else]\n[if POSTAL@1 is <k> or POSTAL@1 is <K",
+    "chunk_number": 455
+  },
+  {
+    "chunk": ">]\n[store <King> in PCV1]\n[store <Kevin> in PCV1F]\n[else]\n[if POSTAL@1 is <l> or POSTAL@1 is <L",
+    "chunk_number": 456
+  },
+  {
+    "chunk": ">]\n[store <Lewis> in PCV1]\n[store <Louis> in PCV1F]\n[else]\n[if POSTAL@1 is <m> or POSTAL@1 is <M",
+    "chunk_number": 457
+  },
+  {
+    "chunk": ">]\n[store <Mary> in PCV1]\n[store <Marie> in PCV1F]\n[else]\n[if POSTAL@1 is <n> or POSTAL@1 is <N",
+    "chunk_number": 458
+  },
+  {
+    "chunk": ">]\n[store <Nancy> in PCV1]\n[store <Nancy> in PCV1F]\n[else]\n[if POSTAL@1 is <o> or POSTAL@1 is <O",
+    "chunk_number": 459
+  },
+  {
+    "chunk": ">]\n[store <Otto> in PCV1]\n[store <Olivier> in PCV1F]\n[else]\n[if POSTAL@1 is <p> or POSTAL@1 is <P",
+    "chunk_number": 460
+  },
+  {
+    "chunk": ">]\n[store <Peter> in PCV1]\n[store <Pierre> in PCV1F]\n[else]\n[if POSTAL@1 is <q> or POSTAL@1 is <Q",
+    "chunk_number": 461
+  },
+  {
+    "chunk": ">]\n[store <Queen> in PCV1]\n[store <Québec> in PCV1F]\n[else]\n[if POSTAL@1 is <r> or POSTAL@1 is <R",
+    "chunk_number": 462
+  },
+  {
+    "chunk": ">]\n[store <Robert> in PCV1]\n[store <Robert> in PCV1F]\n[else]\n[if POSTAL@1 is <s> or POSTAL@1 is <S",
+    "chunk_number": 463
+  },
+  {
+    "chunk": ">]\n[store <Susan> in PCV1]\n[store <Sylvie> in PCV1F]\n[else]\n[if POSTAL@1 is <t> or POSTAL@1 is <T",
+    "chunk_number": 464
+  },
+  {
+    "chunk": ">]\n[store <Thomas> in PCV1]\n[store <Thomas> in PCV1F]\n[else]\n[if POSTAL@1 is <u> or POSTAL@1 is <U",
+    "chunk_number": 465
+  },
+  {
+    "chunk": ">]\n[store <Union> in PCV1]\n[store <Univers> in PCV1F]\n[else]\n[if POSTAL@1 is <v> or POSTAL@1 is <V",
+    "chunk_number": 466
+  },
+  {
+    "chunk": ">]\n[store <Victor> in PCV1]\n[store <Victor> in PCV1F]\n[else]\n[if POSTAL@1 is <w> or POSTAL@1 is <W",
+    "chunk_number": 467
+  },
+  {
+    "chunk": ">]\n[store <William> in PCV1]\n[store <William> in PCV1F]\n[else]\n[if POSTAL@1 is <x> or POSTAL@1 is <X",
+    "chunk_number": 468
+  },
+  {
+    "chunk": ">]\n[store <X-ray> in PCV1]\n[store <Xerox> in PCV1F]\n\n[else]\n[if POSTAL@1 is <y> or POSTAL@1 is <Y",
+    "chunk_number": 469
+  },
+  {
+    "chunk": ">]\n[store <Young> in PCV1]\n[store <Yvon> in PCV1F]\n[else]\n[if POSTAL@1 is <z> or POSTAL@1 is <Z",
+    "chunk_number": 470
+  },
+  {
+    "chunk": ">]\n[store <Zebra> in PCV1]\n[store <Zèbre> in PCV1F]\n[endif all]",
+    "chunk_number": 471
+  },
+  {
+    "chunk": ">LOAD2< [if POSTAL@2 eq <1",
+    "chunk_number": 472
+  },
+  {
+    "chunk": ">]\n[store <One> in PCV2]\n[store <Un> in PCV2F]\n[else]\n[if POSTAL@2 eq <2",
+    "chunk_number": 473
+  },
+  {
+    "chunk": ">]\n[store <Two> in PCV2]\n[store <Deux> in PCV2F]\n[else]\n[if POSTAL@2 eq <3",
+    "chunk_number": 474
+  },
+  {
+    "chunk": ">]\n[store <Three> in PCV2]\n[store <Trois> in PCV2F]\n[else]\n[if POSTAL@2 eq <4",
+    "chunk_number": 475
+  },
+  {
+    "chunk": ">]\n[store <Four> in PCV2]\n[store <Quatre> in PCV2F]\n[else]\n[if POSTAL@2 eq <5",
+    "chunk_number": 476
+  },
+  {
+    "chunk": ">]\n[store <Five> in PCV2]\n[store <Cinq> in PCV2F]\n[else]\n[if POSTAL@2 eq <6",
+    "chunk_number": 477
+  },
+  {
+    "chunk": ">]\n[store <Six> in PCV2]\n[store <Six> in PCV2F]\n[else]\n[if POSTAL@2 eq <7",
+    "chunk_number": 478
+  },
+  {
+    "chunk": ">]\n[store <Seven> in PCV2]\n[store <Sept> in PCV2F]\n[else]\n[if POSTAL@2 eq <8",
+    "chunk_number": 479
+  },
+  {
+    "chunk": ">]\n[store <Eight> in PCV2]\n[store <Huit> in PCV2F]\n[else]\n[if POSTAL@2 eq <9",
+    "chunk_number": 480
+  },
+  {
+    "chunk": ">]\n[store <Nine> in PCV2]\n[store <Neuf> in PCV2F]\n[else]\n[if POSTAL@2 eq <0",
+    "chunk_number": 481
+  },
+  {
+    "chunk": ">]\n[store <Zero> in PCV2]\n[store <Zéro> in PCV2F]\n[endif all]",
+    "chunk_number": 482
+  },
+  {
+    "chunk": ">LOAD3< [if POSTAL@3 is <a> or POSTAL@3 is <A",
+    "chunk_number": 483
+  },
+  {
+    "chunk": ">]\n[store <Adam> in PCV3]\n[store <Adam> in PCV3F]\n[else]\n[if POSTAL@3 is <b> or POSTAL@3 is <B",
+    "chunk_number": 484
+  },
+  {
+    "chunk": ">]\n[store <Betty> in PCV3]\n\n[store <Bertrand> in PCV3F]\n[else]\n[if POSTAL@3 is <c> or POSTAL@3 is <C",
+    "chunk_number": 485
+  },
+  {
+    "chunk": ">]\n[store <Charlie> in PCV3]\n[store <Charles> in PCV3F]\n[else]\n[if POSTAL@3 is <d> or POSTAL@3 is <D",
+    "chunk_number": 486
+  },
+  {
+    "chunk": ">]\n[store <David> in PCV3]\n[store <David> in PCV3F]\n[else]\n[if POSTAL@3 is <e> or POSTAL@3 is <E",
+    "chunk_number": 487
+  },
+  {
+    "chunk": ">]\n[store <Edward> in PCV3]\n[store <Edouard> in PCV3F]\n[else]\n[if POSTAL@3 is <f> or POSTAL@3 is <F",
+    "chunk_number": 488
+  },
+  {
+    "chunk": ">]\n[store <Frank> in PCV3]\n[store <Francis> in PCV3F]\n[else]\n[if POSTAL@3 is <g> or POSTAL@3 is <G",
+    "chunk_number": 489
+  },
+  {
+    "chunk": ">]\n[store <George> in PCV3]\n[store <Georges> in PCV3F]\n[else]\n[if POSTAL@3 is <h> or POSTAL@3 is <H",
+    "chunk_number": 490
+  },
+  {
+    "chunk": ">]\n[store <Henry> in PCV3]\n[store <Henri> in PCV3F]\n[else]\n[if POSTAL@3 is <i> or POSTAL@3 is <I",
+    "chunk_number": 491
+  },
+  {
+    "chunk": ">]\n[store <Indigo> in PCV3]\n[store <Indigo> in PCV3F]\n[else]\n[if POSTAL@3 is <j> or POSTAL@3 is <J",
+    "chunk_number": 492
+  },
+  {
+    "chunk": ">]\n[store <John> in PCV3]\n[store <Jean> in PCV3F]\n[else]\n[if POSTAL@3 is <k> or POSTAL@3 is <K",
+    "chunk_number": 493
+  },
+  {
+    "chunk": ">]\n[store <King> in PCV3]\n[store <Kevin> in PCV3F]\n[else]\n[if POSTAL@3 is <l> or POSTAL@3 is <L",
+    "chunk_number": 494
+  },
+  {
+    "chunk": ">]\n[store <Lewis> in PCV3]\n[store <Louis> in PCV3F]\n[else]\n[if POSTAL@3 is <m> or POSTAL@3 is <M",
+    "chunk_number": 495
+  },
+  {
+    "chunk": ">]\n[store <Mary> in PCV3]\n[store <Marie> in PCV3F]\n[else]\n[if POSTAL@3 is <n> or POSTAL@3 is <N",
+    "chunk_number": 496
+  },
+  {
+    "chunk": ">]\n[store <Nancy> in PCV3]\n[store <Nancy> in PCV3F]\n[else]\n[if POSTAL@3 is <o> or POSTAL@3 is <O",
+    "chunk_number": 497
+  },
+  {
+    "chunk": ">]\n[store <Otto> in PCV3]\n[store <Olivier> in PCV3F]\n[else]\n[if POSTAL@3 is <p> or POSTAL@3 is <P",
+    "chunk_number": 498
+  },
+  {
+    "chunk": ">]\n[store <Peter> in PCV3]\n[store <Pierre> in PCV3F]\n\n[else]\n[if POSTAL@3 is <q> or POSTAL@3 is <Q",
+    "chunk_number": 499
+  },
+  {
+    "chunk": ">]\n[store <Queen> in PCV3]\n[store <Québec> in PCV3F]\n[else]\n[if POSTAL@3 is <r> or POSTAL@3 is <R",
+    "chunk_number": 500
+  },
+  {
+    "chunk": ">]\n[store <Robert> in PCV3]\n[store <Robert> in PCV3F]\n[else]\n[if POSTAL@3 is <s> or POSTAL@3 is <S",
+    "chunk_number": 501
+  },
+  {
+    "chunk": ">]\n[store <Susan> in PCV3]\n[store <Sylvie> in PCV3F]\n[else]\n[if POSTAL@3 is <t> or POSTAL@3 is <T",
+    "chunk_number": 502
+  },
+  {
+    "chunk": ">]\n[store <Thomas> in PCV3]\n[store <Thomas> in PCV3F]\n[else]\n[if POSTAL@3 is <u> or POSTAL@3 is <U",
+    "chunk_number": 503
+  },
+  {
+    "chunk": ">]\n[store <Union> in PCV3]\n[store <Univers> in PCV3F]\n[else]\n[if POSTAL@3 is <v> or POSTAL@3 is <V",
+    "chunk_number": 504
+  },
+  {
+    "chunk": ">]\n[store <Victor> in PCV3]\n[store <Victor> in PCV3F]\n[else]\n[if POSTAL@3 is <w> or POSTAL@3 is <W",
+    "chunk_number": 505
+  },
+  {
+    "chunk": ">]\n[store <William> in PCV3]\n[store <William> in PCV3F]\n[else]\n[if POSTAL@3 is <x> or POSTAL@3 is <X",
+    "chunk_number": 506
+  },
+  {
+    "chunk": ">]\n[store <X-ray> in PCV3]\n[store <Xerox> in PCV3F]\n[else]\n[if POSTAL@3 is <y> or POSTAL@3 is <Y",
+    "chunk_number": 507
+  },
+  {
+    "chunk": ">]\n[store <Young> in PCV3]\n[store <Yvon> in PCV3F]\n[else]\n[if POSTAL@3 is <z> or POSTAL@3 is <Z",
+    "chunk_number": 508
+  },
+  {
+    "chunk": ">]\n[store <Zebra> in PCV3]\n[store <Zèbre> in PCV3F]\n[endif all]",
+    "chunk_number": 509
+  },
+  {
+    "chunk": ">LOAD4< [if POSTAL@4 eq <1",
+    "chunk_number": 510
+  },
+  {
+    "chunk": ">]\n[store <One> in PCV4]\n[store <Un> in PCV4F]\n[else]\n[if POSTAL@4 eq <2",
+    "chunk_number": 511
+  },
+  {
+    "chunk": ">]\n[store <Two> in PCV4]\n[store <Deux> in PCV4F]\n[else]\n[if POSTAL@4 eq <3",
+    "chunk_number": 512
+  },
+  {
+    "chunk": ">]\n[store <Three> in PCV4]\n[store <Trois> in PCV4F]\n[else]\n[if POSTAL@4 eq <4",
+    "chunk_number": 513
+  },
+  {
+    "chunk": ">]\n[store <Four> in PCV4]\n\n[store <Quatre> in PCV4F]\n[else]\n[if POSTAL@4 eq <5",
+    "chunk_number": 514
+  },
+  {
+    "chunk": ">]\n[store <Five> in PCV4]\n[store <Cinq> in PCV4F]\n[else]\n[if POSTAL@4 eq <6",
+    "chunk_number": 515
+  },
+  {
+    "chunk": ">]\n[store <Six> in PCV4]\n[store <Six> in PCV4F]\n[else]\n[if POSTAL@4 eq <7",
+    "chunk_number": 516
+  },
+  {
+    "chunk": ">]\n[store <Seven> in PCV4]\n[store <Sept> in PCV4F]\n[else]\n[if POSTAL@4 eq <8",
+    "chunk_number": 517
+  },
+  {
+    "chunk": ">]\n[store <Eight> in PCV4]\n[store <Huit> in PCV4F]\n[else]\n[if POSTAL@4 eq <9",
+    "chunk_number": 518
+  },
+  {
+    "chunk": ">]\n[store <Nine> in PCV4]\n[store <Neuf> in PCV4F]\n[else]\n[if POSTAL@4 eq <0",
+    "chunk_number": 519
+  },
+  {
+    "chunk": ">]\n[store <Zero> in PCV4]\n[store <Zéro> in PCV4F]\n[endif all]",
+    "chunk_number": 520
+  },
+  {
+    "chunk": ">LOAD5< [if POSTAL@5 is <a> or POSTAL@5 is <A",
+    "chunk_number": 521
+  },
+  {
+    "chunk": ">]\n[store <Adam> in PCV5]\n[store <Adam> in PCV5F]\n[else]\n[if POSTAL@5 is <b> or POSTAL@5 is <B",
+    "chunk_number": 522
+  },
+  {
+    "chunk": ">]\n[store <Betty> in PCV5]\n[store <Bertrand> in PCV5F]\n[else]\n[if POSTAL@5 is <c> or POSTAL@5 is <C",
+    "chunk_number": 523
+  },
+  {
+    "chunk": ">]\n[store <Charlie> in PCV5]\n[store <Charles> in PCV5F]\n[else]\n[if POSTAL@5 is <d> or POSTAL@5 is <D",
+    "chunk_number": 524
+  },
+  {
+    "chunk": ">]\n[store <David> in PCV5]\n[store <David> in PCV5F]\n[else]\n[if POSTAL@5 is <e> or POSTAL@5 is <E",
+    "chunk_number": 525
+  },
+  {
+    "chunk": ">]\n[store <Edward> in PCV5]\n[store <Edouard> in PCV5F]\n[else]\n[if POSTAL@5 is <f> or POSTAL@5 is <F",
+    "chunk_number": 526
+  },
+  {
+    "chunk": ">]\n[store <Frank> in PCV5]\n[store <Francis> in PCV5F]\n[else]\n[if POSTAL@5 is <g> or POSTAL@5 is <G",
+    "chunk_number": 527
+  },
+  {
+    "chunk": ">]\n[store <George> in PCV5]\n[store <Georges> in PCV5F]\n[else]\n[if POSTAL@5 is <h> or POSTAL@5 is <H",
+    "chunk_number": 528
+  },
+  {
+    "chunk": ">]\n[store <Henry> in PCV5]\n\n[store <Henri> in PCV5F]\n[else]\n[if POSTAL@5 is <i> or POSTAL@5 is <I",
+    "chunk_number": 529
+  },
+  {
+    "chunk": ">]\n[store <Indigo> in PCV5]\n[store <Indigo> in PCV5F]\n[else]\n[if POSTAL@5 is <j> or POSTAL@5 is <J",
+    "chunk_number": 530
+  },
+  {
+    "chunk": ">]\n[store <John> in PCV5]\n[store <Jean> in PCV5F]\n[else]\n[if POSTAL@5 is <k> or POSTAL@5 is <K",
+    "chunk_number": 531
+  },
+  {
+    "chunk": ">]\n[store <King> in PCV5]\n[store <Kevin> in PCV5F]\n[else]\n[if POSTAL@5 is <l> or POSTAL@5 is <L",
+    "chunk_number": 532
+  },
+  {
+    "chunk": ">]\n[store <Lewis> in PCV5]\n[store <Louis> in PCV5F]\n[else]\n[if POSTAL@5 is <m> or POSTAL@5 is <M",
+    "chunk_number": 533
+  },
+  {
+    "chunk": ">]\n[store <Mary> in PCV5]\n[store <Marie> in PCV5F]\n[else]\n[if POSTAL@5 is <n> or POSTAL@5 is <N",
+    "chunk_number": 534
+  },
+  {
+    "chunk": ">]\n[store <Nancy> in PCV5]\n[store <Nancy> in PCV5F]\n[else]\n[if POSTAL@5 is <o> or POSTAL@5 is <O",
+    "chunk_number": 535
+  },
+  {
+    "chunk": ">]\n[store <Otto> in PCV5]\n[store <Olivier> in PCV5F]\n[else]\n[if POSTAL@5 is <p> or POSTAL@5 is <P",
+    "chunk_number": 536
+  },
+  {
+    "chunk": ">]\n[store <Peter> in PCV5]\n[store <Pierre> in PCV5F]\n[else]\n[if POSTAL@5 is <q> or POSTAL@5 is <Q",
+    "chunk_number": 537
+  },
+  {
+    "chunk": ">]\n[store <Queen> in PCV5]\n[store <Québec> in PCV5F]\n[else]\n[if POSTAL@5 is <r> or POSTAL@5 is <R",
+    "chunk_number": 538
+  },
+  {
+    "chunk": ">]\n[store <Robert> in PCV5]\n[store <Robert> in PCV5F]\n[else]\n[if POSTAL@5 is <s> or POSTAL@5 is <S",
+    "chunk_number": 539
+  },
+  {
+    "chunk": ">]\n[store <Susan> in PCV5]\n[store <Sylvie> in PCV5F]\n[else]\n[if POSTAL@5 is <t> or POSTAL@5 is <T",
+    "chunk_number": 540
+  },
+  {
+    "chunk": ">]\n[store <Thomas> in PCV5]\n[store <Thomas> in PCV5F]\n[else]\n[if POSTAL@5 is <u> or POSTAL@5 is <U",
+    "chunk_number": 541
+  },
+  {
+    "chunk": ">]\n[store <Union> in PCV5]\n[store <Univers> in PCV5F]\n[else]\n[if POSTAL@5 is <v> or POSTAL@5 is <V",
+    "chunk_number": 542
+  },
+  {
+    "chunk": ">]\n[store <Victor> in PCV5]\n[store <Victor> in PCV5F]\n\n[else]\n[if POSTAL@5 is <w> or POSTAL@5 is <W",
+    "chunk_number": 543
+  },
+  {
+    "chunk": ">]\n[store <William> in PCV5]\n[store <William> in PCV5F]\n[else]\n[if POSTAL@5 is <x> or POSTAL@5 is <X",
+    "chunk_number": 544
+  },
+  {
+    "chunk": ">]\n[store <X-ray> in PCV5]\n[store <Xerox> in PCV5F]\n[else]\n[if POSTAL@5 is <y> or POSTAL@5 is <Y",
+    "chunk_number": 545
+  },
+  {
+    "chunk": ">]\n[store <Young> in PCV5]\n[store <Yvon> in PCV5F]\n[else]\n[if POSTAL@5 is <z> or POSTAL@5 is <Z",
+    "chunk_number": 546
+  },
+  {
+    "chunk": ">]\n[store <Zebra> in PCV5]\n[store <Zèbre> in PCV5F]\n[endif all]",
+    "chunk_number": 547
+  },
+  {
+    "chunk": ">LOAD6< [if POSTAL@6 eq <1",
+    "chunk_number": 548
+  },
+  {
+    "chunk": ">]\n[store <One> in PCV6]\n[store <Un> in PCV6F]\n[else]\n[if POSTAL@6 eq <2",
+    "chunk_number": 549
+  },
+  {
+    "chunk": ">]\n[store <Two> in PCV6]\n[store <Deux> in PCV6F]\n[else]\n[if POSTAL@6 eq <3",
+    "chunk_number": 550
+  },
+  {
+    "chunk": ">]\n[store <Three> in PCV6]\n[store <Trois> in PCV6F]\n[else]\n[if POSTAL@6 eq <4",
+    "chunk_number": 551
+  },
+  {
+    "chunk": ">]\n[store <Four> in PCV6]\n[store <Quatre> in PCV6F]\n[else]\n[if POSTAL@6 eq <5",
+    "chunk_number": 552
+  },
+  {
+    "chunk": ">]\n[store <Five> in PCV6]\n[store <Cinq> in PCV6F]\n[else]\n[if POSTAL@6 eq <6",
+    "chunk_number": 553
+  },
+  {
+    "chunk": ">]\n[store <Six> in PCV6]\n[store <Six> in PCV6F]\n[else]\n[if POSTAL@6 eq <7",
+    "chunk_number": 554
+  },
+  {
+    "chunk": ">]\n[store <Seven> in PCV6]\n[store <Sept> in PCV6F]\n[else]\n[if POSTAL@6 eq <8",
+    "chunk_number": 555
+  },
+  {
+    "chunk": ">]\n[store <Eight> in PCV6]\n[store <Huit> in PCV6F]\n[else]\n[if POSTAL@6 eq <9",
+    "chunk_number": 556
+  },
+  {
+    "chunk": ">]\n[store <Nine> in PCV6]\n\n[store <Neuf> in PCV6F]\n[else]\n[if POSTAL@6 eq <0",
+    "chunk_number": 557
+  },
+  {
+    "chunk": ">]\n[store <Zero> in PCV6]\n[store <Zéro> in PCV6F]\n[endif all]",
+    "chunk_number": 558
+  },
+  {
+    "chunk": ">CHECK_POSTAL< [allow int 1][autoadvance end]\n[r] So just to confirm I've entered everything correctly, your postal code is:\n[n]\n[r] [fill PCV1] [fill PCV2] [fill PCV3] [fill PCV4] [fill PCV5] [fill PCV6]\n([fill POSTAL@1] [fill POSTAL@2] [fill POSTAL@3] [fill POSTAL@4] [fill POSTAL@5]\n[fill POSTAL@6]). [n]\n[r] Is that correct?\n[n]\n1 Yes\n5 No\nr refused\n@\n[@]<1,9> [goto FSA]\n<5> [goto FIX_POSTAL]",
+    "chunk_number": 559
+  },
+  {
+    "chunk": ">CHECK_POSTAL.2<\n[r] Donc, juste pour confirmer que j'ai bien entré correctemente, votre code\n[n]\n[r] postale est:\n[n]\n[r] [fill PCV1F] [fill PCV2F] [fill PCV3F] - [fill PCV4F] [fill PCV5F] [fill\nPCV6F] ([fill POSTAL@1] [fill POSTAL@2] [fill POSTAL@3] [fill POSTAL@4] [fill\nPOSTAL@5] [fill POSTAL@6]). [n]\n[r] C'est bien ça?\n[n]\n1 Oui\n5 Non\nr refus\n@",
+    "chunk_number": 560
+  },
+  {
+    "chunk": ">FIX_POSTAL< [store <> in POSTAL@1]\n[store <> in POSTAL@2]\n[store <> in POSTAL@3]\n[store <> in POSTAL@4]\n[store <> in POSTAL@5]\n[store <> in POSTAL@6]\n\n[store <> in CHECK_POSTAL]\n[goto POSTAL]",
+    "chunk_number": 561
+  },
+  {
+    "chunk": ">FSA< [allow 3]\n[make FSA from POSTAL@1 POSTAL@2 POSTAL@3]",
+    "chunk_number": 562
+  },
+  {
+    "chunk": ">LDU< [allow 3]\n[make LDU from POSTAL@4 POSTAL@5 POSTAL@6]",
+    "chunk_number": 563
+  },
+  {
+    "chunk": ">POSTAL2< [if FSA is <999> goto DONE_POSTAL]",
+    "chunk_number": 564
+  },
+  {
+    "chunk": ">DONE_POSTAL< [window 3 destroy]\n[window 3 default]\n[window 3 background blue]\n[window 3 no border]\n[window 6 destroy]",
+    "chunk_number": 565
+  },
+  {
+    "chunk": ">OUT_POSTAL< [allow int 1]\n[if not entry mode][goto END_POSTAL][endif]\n[store <1> in OUT_POSTAL]\n[stop timer][record timer in timer_POSTAL]\n[stop question count][record question count in count_POSTAL]",
+    "chunk_number": 566
+  },
+  {
+    "chunk": ">END_POSTAL<\n[#-------------------end of POSTAL code routine-----------------------------]\n[#======================== EVALUATION ITEMS =============================]",
+    "chunk_number": 567
+  },
+  {
+    "chunk": ">make_win1< [#goto stop]\n[window 6 destroy]------------------+\n[window 6 start row 3 column 30] |\n[window 6 size 20 rows 50 columns] | interviewer check fields this\n[window 6 displays] | window\n[window 6 line top] |\n[window 6 line right] |\n[window 6 line left] |\n[window 6 line bottom] |\n[window 6 background yellow]--------+",
+    "chunk_number": 568
+  },
+  {
+    "chunk": ">int_assess1< [use window <6>] [define <d><8>]\n[bold][yellow]\nInterviewer: respondent's general level of information\nabout politics and public affairs seemed...\n[n][white]\n1 very high\n\n2 fairly high\n3 average\n4 fairly low\n5 very low\nd don't know\n@\n[@] <1-5,d>",
+    "chunk_number": 569
+  },
+  {
+    "chunk": ">int_assess1.2<\n[bold][yellow]\nIntervieweur: Le niveau général de connaissance du R\nenvers la politique and les affaires publiques était ...\n[n][white]\n1 Très haut\n2 Assez haut\n3 Moyen\n4 Assez bas\n5 Très bas\nd Ne sait pas\n@",
+    "chunk_number": 570
+  },
+  {
+    "chunk": ">int_assess2< [use window <6>] [define <d><8>]\n[bold][yellow]\nInterviewer: did respondent, at any point in the interview, say an election\nwas not needed, that it was a waste of money, etc.\n[n][white]\n1 yes\n5 no\nd don't know\n@\n[@] <1,5,d>",
+    "chunk_number": 571
+  },
+  {
+    "chunk": ">int_assess2.2<\n[bold][yellow]\nInterviewer: le répondant a-t-il, à n'importe quel moment durant l'entrevue,\ndit que l'élection n'était pas nécessaire, était un gaspillage d'argent, etc.\n[n][white]\n1 oui\n5 non\nd ne sais pas\n@",
+    "chunk_number": 572
+  },
+  {
+    "chunk": ">END_EVAL< [window 6 destroy]",
+    "chunk_number": 573
+  },
+  {
+    "chunk": ">stop< [if ETIM eq <>][settime ETIM][endif]\n[record language in INTLANG]\n[goto SET]",
+    "chunk_number": 574
+  }
+]
