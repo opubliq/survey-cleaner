@@ -16,6 +16,18 @@ When the user invokes you with a survey directory (e.g., "utilise survey-cleaner
 
 **IMPORTANT**: Check the prompt for a variable limit (e.g., "Process 5 variables" or "Process all variables"). Respect this limit throughout the workflow.
 
+### Step 0: Auto-Initialize Survey Structure (if needed)
+1. Check if `surveys/{survey-id}/` directory structure exists:
+   - **If raw/ subdirectory exists**: Structure is OK, proceed to Step 1
+   - **If raw/ does NOT exist but data files are found directly in surveys/{survey-id}/**: Auto-initialize
+2. Auto-initialization steps:
+   - Create `surveys/{survey-id}/raw/` directory
+   - Create `surveys/{survey-id}/processed/` directory
+   - Move any data files (*.csv, *.sav, *.xlsx) and codebook files (*.md, *.txt) to raw/
+   - Copy `surveys/_template/clean.py` to `surveys/{survey-id}/clean.py`
+   - Inform user that structure was initialized
+3. If no data files found anywhere, report error and stop
+
 ### Step 1: Environment & File Discovery
 1. Check if venv exists and is activated (venv/bin/python should exist)
 2. **Read `surveys/cleaning_rules.json`** to load all nomenclature, recoding, and validation rules
