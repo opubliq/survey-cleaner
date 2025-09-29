@@ -70,6 +70,16 @@ def clean_data(df):
     # Survey consent indicator (all respondents consented, value = 1)
     df_clean['tech_consent'] = df['cps19_consent'].copy()
 
+    # Variable: cps19_citizenship -> ses_citizenship
+    # Citizenship status (categorical)
+    # 4 = Canadian citizen, 5 = Permanent resident, 6 = Other (screened out)
+    df_clean['ses_citizenship'] = df['cps19_citizenship'].copy()
+    df_clean['ses_citizenship'] = df_clean['ses_citizenship'].replace({
+        4.0: 'canadian_citizen',
+        5.0: 'permanent_resident',
+        6.0: 'other'
+    })
+
     return df_clean
 
 # ============================================================================
@@ -149,6 +159,24 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["tech_consent"].notna().sum())
+        }
+    }
+
+    # ses_citizenship
+    val_counts = df_clean["ses_citizenship"].value_counts()
+    codebook["variables"]["ses_citizenship"] = {
+        "label": "Citizenship status",
+        "type": "character",
+        "original_variable": "cps19_citizenship",
+        "values": {
+            val: {"count": int(val_counts.get(val, 0)),
+                  "percent": round(100 * val_counts.get(val, 0) / len(df_clean), 2)}
+            for val in ['canadian_citizen', 'permanent_resident', 'other']
+        },
+        "missing": int(df_clean["ses_citizenship"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["ses_citizenship"].notna().sum())
         }
     }
 
