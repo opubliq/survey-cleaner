@@ -80,6 +80,15 @@ def clean_data(df):
     labels = ['age_18_to_24', 'age_25_to_34', 'age_35_to_44', 'age_45_to_54', 'age_55_and_over']
     df_clean['ses_age_category'] = pd.cut(df['age'], bins=bins, labels=labels, right=False)
 
+    # Variable: sexe -> ses_gender
+    # Type: Categorical unordered
+    # Transformation: Recode M/F to male/female
+    df_clean['ses_gender'] = df['sexe'].copy()
+    df_clean['ses_gender'] = df_clean['ses_gender'].replace({
+        'M': 'male',
+        'F': 'female'
+    })
+
     return df_clean
 
 # ============================================================================
