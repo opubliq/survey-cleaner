@@ -56,14 +56,21 @@ Process variables ONE AT A TIME until you reach the limit OR complete all pendin
 3. Search codebook.md using fuzzy matching for this variable
 4. Create a temporary Python script in surveys/{survey-id}/_explore_var.py to explore the variable
 5. Execute the script with: `source venv/bin/activate && python surveys/{survey-id}/_explore_var.py`
-6. Generate cleaning code for this variable
-7. Create a temporary validation script in surveys/{survey-id}/_validate_var.py
-8. Execute validation script to test the cleaning code
-9. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
-10. Mark variable as [x] Completed in variables_todo.md
-11. Delete temporary scripts (_explore_var.py, _validate_var.py)
-12. **Git commit**: Stage and commit clean.py and variables_todo.md with message: "Clean variable: {variable_name} -> {cleaned_name}"
-13. Increment variable counter and loop back to step 1
+6. **Fuzzy search across existing codebooks**:
+   - Glob all `surveys/*/processed/codebook.json` files (exclude current survey)
+   - For each codebook, search for variables with similar labels/descriptions
+   - Use fuzzy matching (fuzzywuzzy) with threshold > 80%
+   - If similar variable found, suggest using the same cleaned name for consistency
+   - If multiple matches, present top 3 to user for selection
+   - If no match, proceed with standard naming convention
+7. Generate cleaning code for this variable (using suggested/selected name if applicable)
+8. Create a temporary validation script in surveys/{survey-id}/_validate_var.py
+9. Execute validation script to test the cleaning code
+10. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
+11. Mark variable as [x] Completed in variables_todo.md
+12. Delete temporary scripts (_explore_var.py, _validate_var.py)
+13. **Git commit**: Stage and commit clean.py and variables_todo.md with message: "Clean variable: {variable_name} -> {cleaned_name}"
+14. Increment variable counter and loop back to step 1
 
 ### Step 4: Finalization
 1. Run complete clean.py script to generate data_cleaned.csv
