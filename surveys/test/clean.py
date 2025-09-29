@@ -89,6 +89,17 @@ def clean_data(df):
         'F': 'female'
     })
 
+    # Variable: education -> ses_education
+    # Type: Categorical unordered
+    # Transformation: Recode to English descriptive names
+    df_clean['ses_education'] = df['education'].copy()
+    df_clean['ses_education'] = df_clean['ses_education'].replace({
+        'Primaire': 'elementary_school',
+        'Secondaire': 'high_school',
+        'Collegial': 'college_cegep',
+        'Universitaire': 'university'
+    })
+
     return df_clean
 
 # ============================================================================
