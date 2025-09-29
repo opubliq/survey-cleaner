@@ -62,6 +62,10 @@ def clean_data(df):
     df_clean['tech_survey_end_date'] = df['cps19_EndDate'].astype(str)
     df_clean.loc[df['cps19_EndDate'].isna(), 'tech_survey_end_date'] = np.nan
 
+    # Variable: cps19_ResponseId -> id_respondent
+    # Unique respondent identifier
+    df_clean['id_respondent'] = df['cps19_ResponseId'].copy()
+
     return df_clean
 
 # ============================================================================
@@ -114,6 +118,20 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["tech_survey_end_date"].notna().sum())
+        }
+    }
+
+    # id_respondent
+    codebook["variables"]["id_respondent"] = {
+        "label": "Unique respondent identifier",
+        "type": "character",
+        "original_variable": "cps19_ResponseId",
+        "unique": True,
+        "missing": int(df_clean["id_respondent"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["id_respondent"].notna().sum()),
+            "n_unique": int(df_clean["id_respondent"].nunique())
         }
     }
 
