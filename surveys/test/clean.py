@@ -135,6 +135,13 @@ def clean_data(df):
     df_clean['op_environment_importance'] = df_clean['op_environment_importance'].replace({99: np.nan})
     df_clean['op_environment_importance'] = (df_clean['op_environment_importance'] - 1) / 4
 
+    # Variable: satisfaction_gouv -> op_government_satisfaction
+    # Type: Likert scale (1-5)
+    # Transformation: Normalize to 0-1 scale
+    df_clean['op_government_satisfaction'] = df['satisfaction_gouv'].copy()
+    df_clean['op_government_satisfaction'] = df_clean['op_government_satisfaction'].replace({99: np.nan})
+    df_clean['op_government_satisfaction'] = (df_clean['op_government_satisfaction'] - 1) / 4
+
     return df_clean
 
 # ============================================================================
