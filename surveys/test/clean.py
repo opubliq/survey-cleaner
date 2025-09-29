@@ -114,6 +114,13 @@ def clean_data(df):
         'Longueuil': 'longueuil'
     })
 
+    # Variable: opinion_immigration -> op_immigration_opinion
+    # Type: Likert scale (1-5)
+    # Transformation: Normalize to 0-1 scale
+    df_clean['op_immigration_opinion'] = df['opinion_immigration'].copy()
+    df_clean['op_immigration_opinion'] = df_clean['op_immigration_opinion'].replace({99: np.nan})
+    df_clean['op_immigration_opinion'] = (df_clean['op_immigration_opinion'] - 1) / 4
+
     return df_clean
 
 # ============================================================================
