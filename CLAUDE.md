@@ -1,5 +1,35 @@
 # CLAUDE.md
 
+## ⚠️ IMPORTANT: Setup de l'environnement AVANT de commencer
+
+**Tout code Python dans ce projet doit s'exécuter dans le virtual environment.**
+
+### Setup initial (une seule fois)
+
+```bash
+./setup.sh
+```
+
+OU manuellement:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Activation (à chaque session)
+
+```bash
+source venv/bin/activate
+```
+
+Vérifier que le venv est actif:
+
+```bash
+which python  # Devrait pointer vers venv/bin/python
+```
+
 ## Objectif
 
 Permettre l'importation rapide et standardisée de fichiers de sondages (CSV/SAV) dans notre moteur de recherche en automatisant:
@@ -49,13 +79,15 @@ mcp__n8n-mcp__update_workflow --workflowId EuQL3RwAz5ULPxjP
 
 ## Dépendances
 
-Python:
+Python (voir `requirements.txt`):
 ```
-streamlit
-flask
-anthropic
-pandas
-pyreadstat
+pandas>=2.3.2
+numpy>=2.3.3
+pyreadstat>=1.3.1
+openpyxl>=3.1.5
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.27.1
+matplotlib>=3.10.6
 ```
 
 R:
@@ -95,19 +127,32 @@ model <- "claude-3-opus-20240229" # Ou autre version appropriée
 
 ## Installation
 
-1. Cloner le dépôt dans l'arborescence existante
+1. Cloner le dépôt
 ```bash
-git clone [URL] bot_nettoyage
+git clone [URL] survey-cleaner
+cd survey-cleaner
 ```
 
-2. Installer les dépendances
+2. Setup automatique (recommandé)
 ```bash
-pip install -r bot_nettoyage/requirements.txt
+./setup.sh
+```
+
+Ou installation manuelle:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
 3. Configurer l'API key Claude
 ```bash
 echo "ANTHROPIC_API_KEY=your_key_here" > .env
+```
+
+4. Activer l'environnement pour chaque session
+```bash
+source venv/bin/activate
 ```
 
 ## Exemples de prompts
