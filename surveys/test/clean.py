@@ -72,6 +72,14 @@ def clean_data(df):
     # Transformation: Rename with id_ prefix
     df_clean['id_respondent'] = df['id'].copy()
 
+    # Variable: age -> ses_age (continuous) + ses_age_category (grouped)
+    # Type: Numeric continuous
+    # Transformation: Keep continuous + create categorical bins
+    df_clean['ses_age'] = df['age'].copy()
+    bins = [0, 25, 35, 45, 55, 100]
+    labels = ['age_18_to_24', 'age_25_to_34', 'age_35_to_44', 'age_45_to_54', 'age_55_and_over']
+    df_clean['ses_age_category'] = pd.cut(df['age'], bins=bins, labels=labels, right=False)
+
     return df_clean
 
 # ============================================================================
