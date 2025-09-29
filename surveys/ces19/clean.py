@@ -66,6 +66,10 @@ def clean_data(df):
     # Unique respondent identifier
     df_clean['id_respondent'] = df['cps19_ResponseId'].copy()
 
+    # Variable: cps19_consent -> tech_consent
+    # Survey consent indicator (all respondents consented, value = 1)
+    df_clean['tech_consent'] = df['cps19_consent'].copy()
+
     return df_clean
 
 # ============================================================================
@@ -132,6 +136,19 @@ def create_codebook(df_clean, df_raw):
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["id_respondent"].notna().sum()),
             "n_unique": int(df_clean["id_respondent"].nunique())
+        }
+    }
+
+    # tech_consent
+    codebook["variables"]["tech_consent"] = {
+        "label": "Survey consent indicator",
+        "type": "numeric",
+        "original_variable": "cps19_consent",
+        "note": "All respondents in dataset consented (value = 1)",
+        "missing": int(df_clean["tech_consent"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["tech_consent"].notna().sum())
         }
     }
 
