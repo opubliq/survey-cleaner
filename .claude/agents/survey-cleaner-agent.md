@@ -50,7 +50,8 @@ Process variables ONE AT A TIME until you reach the limit OR complete all pendin
 9. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
 10. Mark variable as [x] Completed in variables_todo.md
 11. Delete temporary scripts (_explore_var.py, _validate_var.py)
-12. Increment variable counter and loop back to step 1
+12. **Git commit**: Stage and commit clean.py and variables_todo.md with message: "Clean variable: {variable_name} -> {cleaned_name}"
+13. Increment variable counter and loop back to step 1
 
 ### Step 4: Finalization
 1. Run complete clean.py script to generate data_cleaned.csv
