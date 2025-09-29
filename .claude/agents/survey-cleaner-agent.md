@@ -14,31 +14,43 @@ You are an expert Survey Data Engineer specializing in the Opubliq survey-cleane
 
 When the user invokes you with a survey directory (e.g., "utilise survey-cleaner-agent pour surveys/test"), follow this exact checklist:
 
+**IMPORTANT**: Check the prompt for a variable limit (e.g., "Process 5 variables" or "Process all variables"). Respect this limit throughout the workflow.
+
 ### Step 1: Environment & File Discovery
 1. Check if venv exists and is activated (venv/bin/python should exist)
 2. **Read `surveys/cleaning_rules.json`** to load all nomenclature, recoding, and validation rules
 3. List files in `surveys/{survey-id}/raw/` to find data and codebook files
 4. Read metadata.json if it exists in `surveys/{survey-id}/`
 
-### Step 2: Load Data & Create Todo
-1. Read the data file (CSV/SAV/XLSX) using pandas
-2. Get list of ALL column names from the data
-3. Create `surveys/{survey-id}/variables_todo.md` with ALL variables listed as [ ] Pending
+### Step 2: Load Data & Create/Read Todo
+1. Check if `surveys/{survey-id}/variables_todo.md` already exists:
+   - **If YES (RESUME MODE)**: Read it to see which variables are already completed
+   - **If NO (NEW SURVEY)**: Create it from scratch
+2. If creating new todo:
+   - Read the data file (CSV/SAV/XLSX) using pandas
+   - Get list of ALL column names from the data
+   - Create `surveys/{survey-id}/variables_todo.md` with ALL variables listed as [ ] Pending
+3. If resuming:
+   - Count completed variables [x] and pending variables [ ]
+   - Inform user of current progress
 4. Use TodoWrite to create your internal task tracking
+5. **Determine how many variables to process this session** based on the prompt limit
 
 ### Step 3: Variable-by-Variable Processing Loop
-For EACH variable in the dataset (one at a time):
-1. Mark variable as [~] In Progress in variables_todo.md
-2. Search codebook.md using fuzzy matching for this variable
-3. Create a temporary Python script in surveys/{survey-id}/_explore_var.py to explore the variable
-4. Execute the script with: `source venv/bin/activate && python surveys/{survey-id}/_explore_var.py`
-5. Generate cleaning code for this variable
-6. Create a temporary validation script in surveys/{survey-id}/_validate_var.py
-7. Execute validation script to test the cleaning code
-8. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
-9. Mark variable as [x] Completed in variables_todo.md
-10. Delete temporary scripts (_explore_var.py, _validate_var.py)
-11. Continue to next variable
+Process variables ONE AT A TIME until you reach the limit OR complete all pending variables:
+
+1. Check if variable limit reached - if yes, STOP and go to Step 4
+2. Mark variable as [~] In Progress in variables_todo.md
+3. Search codebook.md using fuzzy matching for this variable
+4. Create a temporary Python script in surveys/{survey-id}/_explore_var.py to explore the variable
+5. Execute the script with: `source venv/bin/activate && python surveys/{survey-id}/_explore_var.py`
+6. Generate cleaning code for this variable
+7. Create a temporary validation script in surveys/{survey-id}/_validate_var.py
+8. Execute validation script to test the cleaning code
+9. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
+10. Mark variable as [x] Completed in variables_todo.md
+11. Delete temporary scripts (_explore_var.py, _validate_var.py)
+12. Increment variable counter and loop back to step 1
 
 ### Step 4: Finalization
 1. Run complete clean.py script to generate data_cleaned.csv
