@@ -20,7 +20,7 @@ Total rows: 37,822
 - [x] cps19_yob_2001_age (-> tech_age_screening)
 - [x] cps19_gender (-> ses_gender)
 - [x] cps19_province (-> ses_province)
-- [~] cps19_education
+- [x] cps19_education (-> ses_education)
 - [ ] cps19_demsat
 - [ ] cps19_imp_iss
 - [ ] cps199

@@ -118,6 +118,24 @@ def clean_data(df):
         26.0: 'territory_yukon'
     })
 
+    # Variable: cps19_education -> ses_education
+    # Highest level of education completed
+    df_clean['ses_education'] = df['cps19_education'].copy()
+    df_clean['ses_education'] = df_clean['ses_education'].replace({
+        1.0: 'no_schooling',
+        2.0: 'some_elementary',
+        3.0: 'completed_elementary',
+        4.0: 'some_secondary',
+        5.0: 'completed_secondary',
+        6.0: 'some_technical_college',
+        7.0: 'completed_technical_college',
+        8.0: 'some_university',
+        9.0: 'bachelor_degree',
+        10.0: 'master_degree',
+        11.0: 'professional_or_doctorate',
+        12.0: np.nan  # Don't know/Prefer not to answer -> missing
+    })
+
     return df_clean
 
 # ============================================================================
@@ -277,6 +295,25 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["ses_province"].notna().sum())
+        }
+    }
+
+    # ses_education
+    val_counts_education = df_clean["ses_education"].value_counts()
+    codebook["variables"]["ses_education"] = {
+        "label": "Highest level of education completed",
+        "type": "character",
+        "original_variable": "cps19_education",
+        "note": "Original value 12 (Don't know/Prefer not to answer) recoded to missing",
+        "values": {
+            val: {"count": int(val_counts_education.get(val, 0)),
+                  "percent": round(100 * val_counts_education.get(val, 0) / len(df_clean), 2)}
+            for val in val_counts_education.index
+        },
+        "missing": int(df_clean["ses_education"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["ses_education"].notna().sum())
         }
     }
 
