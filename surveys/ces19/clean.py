@@ -80,6 +80,15 @@ def clean_data(df):
         6.0: 'other'
     })
 
+    # Variable: cps19_yob -> tech_yob_quota
+    # Technical quota variable (not actual year of birth, values 1-82)
+    df_clean['tech_yob_quota'] = df['cps19_yob'].copy()
+
+    # Variable: cps19_yob_2001_age -> tech_age_screening
+    # Age screening for people born in 2001 (1=17, 2=18)
+    # Most values are missing (only filled for people born in 2001)
+    df_clean['tech_age_screening'] = df['cps19_yob_2001_age'].copy()
+
     return df_clean
 
 # ============================================================================
@@ -177,6 +186,32 @@ def create_codebook(df_clean, df_raw):
         "stats": {
             "n": int(len(df_clean)),
             "n_valid": int(df_clean["ses_citizenship"].notna().sum())
+        }
+    }
+
+    # tech_yob_quota
+    codebook["variables"]["tech_yob_quota"] = {
+        "label": "Year of birth quota variable (technical, not actual YOB)",
+        "type": "numeric",
+        "original_variable": "cps19_yob",
+        "note": "Quota variable with values 1-82, not actual year of birth",
+        "missing": int(df_clean["tech_yob_quota"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["tech_yob_quota"].notna().sum())
+        }
+    }
+
+    # tech_age_screening
+    codebook["variables"]["tech_age_screening"] = {
+        "label": "Age screening question for respondents born in 2001",
+        "type": "numeric",
+        "original_variable": "cps19_yob_2001_age",
+        "note": "1=17 years old (screened out), 2=18 years old. Mostly missing (only for people born in 2001)",
+        "missing": int(df_clean["tech_age_screening"].isna().sum()),
+        "stats": {
+            "n": int(len(df_clean)),
+            "n_valid": int(df_clean["tech_age_screening"].notna().sum())
         }
     }
 
