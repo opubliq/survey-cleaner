@@ -1,0 +1,12 @@
+{
+  "name": "clean-survey",
+  "description": "Lance l'agent autonome de nettoyage de sondage",
+  "arguments": [
+    {
+      "name": "survey_name",
+      "description": "Nom du dossier du sondage dans surveys/",
+      "required": false
+    }
+  ],
+  "prompt": "Tu vas lancer l'agent autonome de nettoyage de sondage.\n\n## Étapes:\n\n1. Si survey_name n'est pas fourni, liste les sondages disponibles dans surveys/ et demande lequel traiter\n\n2. Vérifier que le sondage existe et contient:\n   - raw/codebook.* (un fichier codebook)\n   - raw/data.* (un fichier de données)\n   - metadata.json\n\n3. Lire les instructions complètes dans `.claude/agents/survey-cleaner-agent.md`\n\n4. Lancer l'agent general-purpose avec Task tool:\n   - Passer les instructions de survey-cleaner-agent.md\n   - Indiquer le dossier du sondage à traiter\n   - Préciser que l'agent doit suivre le workflow variable-par-variable\n   - L'agent doit modifier clean.py, l'exécuter, valider, puis passer à la variable suivante\n\n5. Surveiller le progress de l'agent et rapporter au user:\n   - Nombre de variables traitées\n   - Variables avec warnings/erreurs\n   - État d'avancement\n\n6. Quand l'agent termine, présenter le résumé final au user\n\nIMPORTANT: L'agent doit être autonome. Ne pas interrompre son travail sauf en cas d'erreur bloquante."
+}
