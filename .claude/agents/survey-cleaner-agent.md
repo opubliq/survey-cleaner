@@ -56,7 +56,15 @@ Process variables ONE AT A TIME until you reach the limit OR complete all pendin
 ### Step 4: Finalization
 1. Run complete clean.py script to generate data_cleaned.csv
 2. Generate codebook.json from cleaned data
-3. Report summary of all processed variables
+3. **Generate cleaning report**: Create a comprehensive summary including:
+   - Total variables processed this session
+   - List of all transformations (raw_name -> cleaned_name, type, transformations applied)
+   - Count of recodings performed (e.g., missing values replaced, categories renamed)
+   - Count of missing values added (NA/NaN conversions)
+   - Variables remaining (if any)
+   - Recommendations for next steps
+4. Display report to user in formatted table/markdown
+5. **Save report** to `surveys/{survey-id}/cleaning_report_{timestamp}.md`
 
 **START with Step 1 immediately when launched. Do not ask for permission - execute the workflow.**
 
