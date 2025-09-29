@@ -1,0 +1,256 @@
+{
+  "variables": {
+    "id_respondent": {
+      "label": "Identifiant unique du répondant",
+      "type": "numeric",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "min": 1,
+        "max": 20
+      }
+    },
+    "name_respondent": {
+      "label": "Nom complet du répondant",
+      "type": "OPEN_TEXT",
+      "encoding": "utf-8",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
+    "ses_age": {
+      "label": "Age du répondant (continuous)",
+      "type": "numeric",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "mean": 42.9,
+        "min": 28,
+        "max": 61
+      }
+    },
+    "ses_age_category": {
+      "label": "Age du répondant (grouped)",
+      "type": "character",
+      "values": {
+        "age_45_to_54": {
+          "count": 6,
+          "percent": 30.0
+        },
+        "age_35_to_44": {
+          "count": 6,
+          "percent": 30.0
+        },
+        "age_25_to_34": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "age_55_to_64": {
+          "count": 3,
+          "percent": 15.0
+        }
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
+    "ses_gender": {
+      "label": "Genre du répondant",
+      "type": "character",
+      "values": {
+        "male": {
+          "count": 10,
+          "percent": 50.0
+        },
+        "female": {
+          "count": 10,
+          "percent": 50.0
+        }
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
+    "ses_education": {
+      "label": "Niveau d'éducation le plus élevé",
+      "type": "character",
+      "values": {
+        "bachelor_degree": {
+          "count": 7,
+          "percent": 35.0
+        },
+        "college_cegep": {
+          "count": 6,
+          "percent": 30.0
+        },
+        "high_school": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "elementary_school": {
+          "count": 2,
+          "percent": 10.0
+        }
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
+    "ses_region": {
+      "label": "Région de résidence",
+      "type": "character",
+      "values": {
+        "city_quebec": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "city_montreal": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "city_laval": {
+          "count": 3,
+          "percent": 15.0
+        },
+        "city_gatineau": {
+          "count": 2,
+          "percent": 10.0
+        },
+        "city_sherbrooke": {
+          "count": 2,
+          "percent": 10.0
+        },
+        "city_trois_rivieres": {
+          "count": 2,
+          "percent": 10.0
+        },
+        "city_longueuil": {
+          "count": 1,
+          "percent": 5.0
+        }
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
+    "op_immigration_stance": {
+      "label": "Opinion sur l'immigration au Québec",
+      "type": "numeric",
+      "scale": "0-1 (0=très défavorable, 1=très favorable)",
+      "original_scale": "1-5 likert",
+      "values": {
+        "0.0": "très défavorable",
+        "0.25": "défavorable",
+        "0.5": "neutre",
+        "0.75": "favorable",
+        "1.0": "très favorable"
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "mean": 0.537,
+        "sd": 0.347
+      }
+    },
+    "op_economy_assessment": {
+      "label": "Opinion sur la situation économique actuelle",
+      "type": "numeric",
+      "scale": "0-1 (0=très mauvaise, 1=très bonne)",
+      "original_scale": "1-5 likert",
+      "values": {
+        "0.0": "très mauvaise",
+        "0.25": "mauvaise",
+        "0.5": "neutre",
+        "0.75": "bonne",
+        "1.0": "très bonne"
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "mean": 0.588,
+        "sd": 0.296
+      }
+    },
+    "op_environment_importance": {
+      "label": "Importance accordée aux enjeux environnementaux",
+      "type": "numeric",
+      "scale": "0-1 (0=pas important, 1=très important)",
+      "original_scale": "1-5 likert",
+      "values": {
+        "0.0": "pas important",
+        "0.25": "peu important",
+        "0.5": "moyennement important",
+        "0.75": "important",
+        "1.0": "très important"
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "mean": 0.662,
+        "sd": 0.306
+      }
+    },
+    "op_government_satisfaction": {
+      "label": "Satisfaction envers le gouvernement actuel",
+      "type": "numeric",
+      "scale": "0-1 (0=très insatisfait, 1=très satisfait)",
+      "original_scale": "1-5 likert",
+      "values": {
+        "0.0": "très insatisfait",
+        "0.25": "insatisfait",
+        "0.5": "neutre",
+        "0.75": "satisfait",
+        "1.0": "très satisfait"
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20,
+        "mean": 0.537,
+        "sd": 0.327
+      }
+    },
+    "behav_vote_intention": {
+      "label": "Intention de vote aux prochaines élections",
+      "type": "character",
+      "values": {
+        "coalition_avenir_quebec": {
+          "count": 6,
+          "percent": 30.0
+        },
+        "parti_liberal_quebec": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "parti_quebecois": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "quebec_solidaire": {
+          "count": 4,
+          "percent": 20.0
+        }
+      },
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    }
+  }
+}

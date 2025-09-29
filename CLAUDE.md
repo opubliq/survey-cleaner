@@ -155,6 +155,65 @@ echo "ANTHROPIC_API_KEY=your_key_here" > .env
 source venv/bin/activate
 ```
 
+## Utilisation de l'agent survey-cleaner
+
+### Commande rapide
+
+Pour nettoyer un sondage automatiquement:
+```
+/clean-survey [nom_du_sondage]
+```
+
+OU utiliser la phrase naturelle:
+```
+utilise survey-cleaner-agent pour surveys/test
+```
+
+### Ce que l'agent fait automatiquement
+
+Quand tu lances l'agent (via `/clean-survey` ou "utilise survey-cleaner-agent pour surveys/X"):
+
+1. **Setup**: Vérifie l'environnement Python (venv)
+2. **Discovery**: Trouve les fichiers dans `surveys/{nom}/raw/`
+3. **Variables**: Liste toutes les variables du dataset
+4. **Todo**: Crée `variables_todo.md` pour tracking
+5. **Processing**: Pour CHAQUE variable:
+   - Cherche dans le codebook (fuzzy matching)
+   - Explore les données (frequencies, distributions)
+   - Génère le code de nettoyage
+   - Execute et valide
+   - Ajoute au script `clean.py`
+6. **Output**: Génère `clean.py`, `data_cleaned.csv`, `codebook.json`
+
+### Structure des fichiers attendue
+
+```
+surveys/
+  {nom_du_sondage}/
+    raw/
+      data.csv         # ou .sav, .xlsx
+      codebook.md      # ou .txt (sera converti)
+    metadata.json      # optionnel
+    clean.py           # généré par l'agent
+    variables_todo.md  # généré par l'agent
+    processed/
+      data_cleaned.csv # généré par l'agent
+      codebook.json    # généré par l'agent
+```
+
+### Invocation programmatique
+
+Si tu veux lancer l'agent depuis Claude (pas via commande slash):
+
+```python
+# Utilise Task tool avec:
+subagent_type = "survey-cleaner-agent"
+description = "Clean survey {nom}"
+prompt = "Process survey in surveys/{nom}/ following your complete workflow. Report summary when done."
+```
+
+**IMPORTANT**: L'agent a toutes les instructions dans `.claude/agents/survey-cleaner-agent.md`. Pas besoin de répéter les instructions dans le prompt.
+
 ## Exemples de prompts
 
 ### Analyse de structure
