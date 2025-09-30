@@ -51,6 +51,8 @@ When the user invokes you with a survey directory (e.g., "utilise survey-cleaner
 ### Step 3: Variable-by-Variable Processing Loop
 Process variables ONE AT A TIME until you reach the limit OR complete all pending variables:
 
+#### Phase A: Exploration (Read-only)
+
 1. Check if variable limit reached - if yes, STOP and go to Step 4
 2. Mark variable as [~] In Progress in variables_todo.md
 3. Search codebook.md using fuzzy matching for this variable
@@ -63,14 +65,51 @@ Process variables ONE AT A TIME until you reach the limit OR complete all pendin
    - If similar variable found, suggest using the same cleaned name for consistency
    - If multiple matches, present top 3 to user for selection
    - If no match, proceed with standard naming convention
-7. Generate cleaning code for this variable (using suggested/selected name if applicable)
-8. Create a temporary validation script in surveys/{survey-id}/_validate_var.py
-9. Execute validation script to test the cleaning code
-10. Add validated code INSIDE clean_data(df) function in clean.py (use surveys/_template/clean.py on first variable)
-11. Mark variable as [x] Completed in variables_todo.md
-12. Delete temporary scripts (_explore_var.py, _validate_var.py)
-13. **Git commit**: Stage and commit clean.py and variables_todo.md with message: "Clean variable: {variable_name} -> {cleaned_name}"
-14. Increment variable counter and loop back to step 1
+
+#### Phase B: Plan Mode (Request Approval)
+
+7. **ENTER PLAN MODE**: Use TodoWrite to create a detailed plan for THIS variable including:
+   - **Analysis section**:
+     - Variable name (raw → cleaned)
+     - Type detected (categorical, numeric scale, continuous, text, binary)
+     - Value range from exploration (unique values, min/max, sample)
+     - Missing values count/percentage
+     - Codebook information found (if any)
+   - **Strategy section**:
+     - Recoding method chosen (`.map()` for categorical, normalize for scales, preserve for text)
+     - Rationale for the chosen method
+     - Handling of missing values / "Don't know" codes
+     - **For categorical variables**: List proposed value labels (verify they are simple and concise)
+   - **Proposed code section**:
+     - Show the exact Python code to be used
+     - **CRITICAL**: Use `.map()` for categorical variables (NOT `.copy() + .replace()`)
+     - **CRITICAL**: For numeric normalization, create NaN vector first, then fill valid values
+     - **CRITICAL**: For categorical values, use simple labels without variable name repetition
+       - ses_province: "quebec", "ontario" (NOT "province_quebec")
+       - behav_vote_choice: "liberal", "ndp", "bloc" (NOT "liberal_party_canada")
+   - **Validation checklist**:
+     - Compare value_counts before/after
+     - Verify no unmapped values leaked through
+     - Confirm total observations preserved
+     - Check missing values are intentional
+     - Verify categorical values are simple and concise (no variable name prefix)
+
+8. **EXIT PLAN MODE**: Call ExitPlanMode tool and wait for user approval before proceeding
+
+#### Phase C: Execution (After Approval)
+
+9. Create a temporary validation script in surveys/{survey-id}/_validate_var.py with the approved code
+10. **CRITICAL**: Execute validation script and **DISPLAY comparison tables**:
+    - Print "BEFORE (raw):" with df[raw_var].value_counts(dropna=False)
+    - Print "AFTER (cleaned):" with df_clean[cleaned_var].value_counts(dropna=False)
+    - Print missing values comparison
+    - **STOP if any unexpected values appear** (values not in map, unexpected numeric leaks)
+11. If validation passes: Add validated code INSIDE clean_data(df) function in clean.py
+12. **Update codebook.json incrementally**: Add entry for this cleaned variable (don't wait for finalization)
+13. Mark variable as [x] Completed in variables_todo.md
+14. Delete temporary scripts (_explore_var.py, _validate_var.py)
+15. **Git commit**: Stage and commit clean.py, codebook.json, and variables_todo.md with message: "Clean variable: {variable_name} -> {cleaned_name}"
+16. Increment variable counter and loop back to step 1
 
 ### Step 4: Finalization
 1. Run complete clean.py script to generate data_cleaned.csv
@@ -163,10 +202,34 @@ Project structure:
 
 **Summary of key rules:**
 - **Nomenclature**: snake_case, lowercase, descriptive names
-  - Socioeconomic: `ses_` prefix (e.g., ses_age, ses_gender)
+  - Socioeconomic: `ses_` prefix (e.g., ses_age, ses_gender, ses_province)
   - Opinion: `op_` prefix (e.g., op_satisfaction, op_trust)
-  - Behaviour: `behav_` prefix (e.g., behav_vote_frequency)
-  - All categories also in lowercase_snake_case
+  - Behaviour: `behav_` prefix (e.g., behav_vote_choice, behav_voted)
+  - Technical: `tech_` prefix (e.g., tech_survey_start_date, tech_consent)
+  - Identifiers: `id_` prefix (e.g., id_respondent)
+
+- **Categorical values - CRITICAL RULE**: NEVER repeat the variable name in the category values
+  - **General principle**: If variable is `ses_X`, values should NOT contain "X_something"
+  - Keep values simple, concise, descriptive
+  - The variable name provides context; values just identify the category
+
+  **Examples:**
+  - ✅ CORRECT: `ses_province` → values: "quebec", "ontario", "alberta"
+  - ❌ WRONG: `ses_province` → values: "province_quebec", "province_ontario"
+
+  - ✅ CORRECT: `behav_vote_choice` → values: "liberal", "conservative", "ndp", "bloc"
+  - ❌ WRONG: `behav_vote_choice` → values: "liberal_party", "conservative_party"
+
+  - ✅ CORRECT: `ses_education` → values: "high_school", "bachelor", "master"
+  - ❌ WRONG: `ses_education` → values: "education_high_school", "education_bachelor"
+
+  - ✅ CORRECT: `op_issue_priority` → values: "economy", "healthcare", "environment"
+  - ❌ WRONG: `op_issue_priority` → values: "issue_economy", "priority_healthcare"
+
+  **Specific conventions:**
+  - Political parties: Use short English names (liberal, conservative, ndp, bloc, green, ppc)
+  - Geography: Use simple names (quebec, ontario, alberta, british_columbia, NOT province_X)
+  - Education: Use degree names (high_school, bachelor, master, NOT education_X)
 
 - **Variable types & encoding**:
   - **Likert/ordinal**: Numeric 0-1 scale (e.g., 1-5 → 0, 0.25, 0.5, 0.75, 1.0)
@@ -222,6 +285,113 @@ def clean_data(df):
 
 # CRITICAL: ALL cleaning logic goes INSIDE clean_data(df) function
 # This ensures AWS compatibility while keeping local testing capability
+```
+
+### Safe Recoding Patterns
+
+**CRITICAL**: Use these patterns to prevent raw values from leaking into cleaned data.
+
+#### Pattern 1: Categorical Variables (Use `.map()`)
+
+**❌ UNSAFE - DO NOT USE:**
+```python
+# This can leak unmapped values into cleaned data!
+df_clean['ses_gender'] = df['raw_gender'].copy()
+df_clean['ses_gender'] = df_clean['ses_gender'].replace({
+    1.0: 'male',
+    2.0: 'female',
+    3.0: 'other'
+})
+# If df['raw_gender'] contains 4.0, it will appear as 4.0 in ses_gender!
+```
+
+**✅ SAFE - USE THIS:**
+```python
+# Any unmapped values automatically become NaN
+df_clean['ses_gender'] = df['raw_gender'].map({
+    1.0: 'male',
+    2.0: 'female',
+    3.0: 'other'
+})
+# If df['raw_gender'] contains 4.0, it will be NaN in ses_gender
+
+# Province example (simple values, no prefix):
+df_clean['ses_province'] = df['raw_province'].map({
+    1.0: 'quebec',
+    2.0: 'ontario',
+    3.0: 'alberta',
+    4.0: 'british_columbia'
+})
+
+# Political party example (use English abbreviations):
+df_clean['behav_vote_choice'] = df['raw_vote'].map({
+    1.0: 'liberal',      # NOT 'liberal_party_canada'
+    2.0: 'conservative', # NOT 'conservative_party_canada'
+    3.0: 'ndp',
+    4.0: 'bloc',
+    5.0: 'green',
+    6.0: 'ppc',
+    7.0: 'other',
+    9.0: np.nan  # Don't know
+})
+```
+
+#### Pattern 2: Numeric Scale Normalization (0-100 → 0-1, 0-10 → 0-1)
+
+**❌ UNSAFE - DO NOT USE:**
+```python
+# Can propagate invalid values through division!
+df_clean['op_rating'] = df['raw_rating'].copy()
+df_clean.loc[df_clean['op_rating'] == 999, 'op_rating'] = np.nan
+df_clean['op_rating'] = df_clean['op_rating'] / 100.0
+# If we missed code 998 or 777, it becomes 9.98 or 7.77!
+```
+
+**✅ SAFE - USE THIS:**
+```python
+# Initialize with NaN, then ONLY fill valid values
+df_clean['op_rating'] = np.nan
+mask = (df['raw_rating'] >= 0) & (df['raw_rating'] <= 100)
+df_clean.loc[mask, 'op_rating'] = df.loc[mask, 'raw_rating'] / 100.0
+# Only values in range [0, 100] are normalized, everything else stays NaN
+```
+
+#### Pattern 3: Ordinal with Reversal + Normalization
+
+**✅ SAFE - USE THIS:**
+```python
+# Map directly to final normalized values
+df_clean['op_satisfaction'] = df['raw_satisfaction'].map({
+    1.0: 1.0,      # Very satisfied
+    2.0: 0.667,    # Satisfied
+    3.0: 0.333,    # Dissatisfied
+    4.0: 0.0,      # Very dissatisfied
+    5.0: np.nan    # Don't know
+})
+# Clear, explicit, no intermediate steps, unmapped values become NaN
+```
+
+#### Pattern 4: Binary Indicators
+
+**✅ SAFE - USE THIS:**
+```python
+# Map to 0/1, everything else becomes NaN
+df_clean['behav_voted'] = df['raw_voted'].map({
+    1.0: 1,  # Yes
+    2.0: 0   # No
+})
+# Code 9 (Don't know) automatically becomes NaN
+```
+
+#### Pattern 5: Text/Open-ended
+
+**✅ SAFE - USE THIS:**
+```python
+# Preserve as string, empty/missing → NaN
+df_clean['op_comment'] = df['raw_comment'].astype(str)
+df_clean.loc[df['raw_comment'].isna(), 'op_comment'] = np.nan
+# Or for truly empty strings:
+df_clean.loc[df['raw_comment'].astype(str).str.strip() == '', 'op_comment'] = np.nan
 ```
 
 ### Codebook JSON Format
