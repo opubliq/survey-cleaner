@@ -49,20 +49,65 @@ def clean_data(df):
     # VARIABLE PROCESSING
     # ============================================================================
     # Pour chaque variable, ajouter le code de nettoyage ici.
-    # Pattern:
-    #   1. Explorer la variable raw: df['raw_var']
-    #   2. Nettoyer et créer nouvelle variable: df_clean['new_var'] = ...
-    #   3. Ne jamais modifier df directement
     #
-    # Exemple:
-    # # Variable: age
-    # df_clean['ses_age'] = df['Q1_age'].copy()
-    # df_clean['ses_age'] = df_clean['ses_age'].replace({-99: np.nan, -98: np.nan})
+    # RÈGLES CRITIQUES:
+    #   1. Ne JAMAIS copier puis replace: df_clean['x'] = df['y'].copy() + .replace()
+    #   2. TOUJOURS utiliser .map() pour catégorielles (unmapped → NaN automatique)
+    #   3. Pour normalisation: créer vecteur NaN, puis remplir valeurs valides seulement
+    #   4. Ne jamais modifier df directement
+    #   5. Valeurs catégorielles: simples et concises (pas de répétition du nom de variable)
+    #      - ses_province: "quebec", "ontario" (PAS "province_quebec", "province_ontario")
+    #      - behav_vote_choice: "liberal", "conservative", "ndp" (abréviations anglaises OK)
     #
-    # # Variable: satisfaction (Likert 1-5 -> 0-1)
-    # df_clean['op_satisfaction'] = df['Q5_satisfaction'].copy()
-    # df_clean['op_satisfaction'] = df_clean['op_satisfaction'].replace({-99: np.nan})
-    # df_clean['op_satisfaction'] = (df_clean['op_satisfaction'] - 1) / 4
+    # EXEMPLES SÉCURISÉS:
+    #
+    # # Categorical (USE .map(), NOT .copy() + .replace()):
+    # df_clean['ses_gender'] = df['Q1_gender'].map({
+    #     1.0: 'male',
+    #     2.0: 'female',
+    #     3.0: 'other'
+    # })
+    # # Unmapped values automatically become NaN
+    #
+    # # Province (simple values, no prefix):
+    # df_clean['ses_province'] = df['Q2_province'].map({
+    #     1.0: 'quebec',
+    #     2.0: 'ontario',
+    #     3.0: 'alberta',
+    #     4.0: 'british_columbia'
+    # })
+    #
+    # # Political parties (use short English abbreviations):
+    # df_clean['behav_vote_choice'] = df['Q10_vote'].map({
+    #     1.0: 'liberal',      # Liberal Party
+    #     2.0: 'conservative', # Conservative Party
+    #     3.0: 'ndp',          # New Democratic Party
+    #     4.0: 'bloc',         # Bloc Québécois
+    #     5.0: 'green',        # Green Party
+    #     6.0: 'ppc',          # People's Party of Canada
+    #     7.0: 'other',
+    #     9.0: np.nan          # Don't know
+    # })
+    #
+    # # Ordinal scale (map directly to normalized values):
+    # df_clean['op_satisfaction'] = df['Q5_satisfaction'].map({
+    #     1.0: 1.0,    # Very satisfied
+    #     2.0: 0.75,
+    #     3.0: 0.5,
+    #     4.0: 0.25,
+    #     5.0: 0.0,    # Very dissatisfied
+    #     9.0: np.nan  # Don't know
+    # })
+    #
+    # # Numeric normalization (0-100 → 0-1, safe pattern):
+    # df_clean['op_party_rating'] = np.nan
+    # mask = (df['Q10_rating'] >= 0) & (df['Q10_rating'] <= 100)
+    # df_clean.loc[mask, 'op_party_rating'] = df.loc[mask, 'Q10_rating'] / 100.0
+    # # Only valid range [0-100] is normalized, everything else stays NaN
+    #
+    # # Text/open-ended:
+    # df_clean['op_comment'] = df['Q20_comment'].astype(str)
+    # df_clean.loc[df['Q20_comment'].isna(), 'op_comment'] = np.nan
     # ============================================================================
 
     # TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous
@@ -91,22 +136,62 @@ def load_data():
     return df
 
 def create_codebook(df_clean):
-    """Créer le codebook standardisé (local mode only)"""
+    """Créer le codebook standardisé dynamiquement (local mode only)
+
+    Génère automatiquement:
+    - Type de variable (numeric vs character)
+    - Value counts pour variables catégorielles
+    - Statistiques descriptives pour variables numériques
+    - Counts de valeurs manquantes
+    """
     codebook = {
+        "survey": "[NOM_SONDAGE]",  # TODO: Remplacer par nom réel
         "variables": {}
     }
 
     for col in df_clean.columns:
-        codebook["variables"][col] = {
-            "label": col,  # TODO: Ajouter les vrais labels
-            "type": str(df_clean[col].dtype),
-            "values": {},  # TODO: Ajouter les valeurs et labels si applicable
+        # Détection automatique du type
+        dtype = df_clean[col].dtype
+        is_numeric = pd.api.types.is_numeric_dtype(dtype)
+        is_string = pd.api.types.is_string_dtype(dtype) or dtype == 'object'
+
+        # Base metadata
+        var_info = {
+            "label": col,  # TODO: Enrichir avec vrais labels depuis codebook
+            "type": "numeric" if is_numeric else "character",
+            "original_variable": f"[RAW_{col}]",  # TODO: Mapper variable originale
             "missing": int(df_clean[col].isna().sum()),
             "stats": {
                 "n": int(len(df_clean)),
                 "n_valid": int(df_clean[col].notna().sum())
             }
         }
+
+        # Pour variables catégorielles: ajouter value_counts
+        if is_string or (is_numeric and df_clean[col].nunique() <= 20):
+            value_counts = df_clean[col].value_counts(dropna=True)
+            total_valid = df_clean[col].notna().sum()
+
+            var_info["values"] = {}
+            for value, count in value_counts.items():
+                var_info["values"][str(value)] = {
+                    "count": int(count),
+                    "percent": round(float(count) / total_valid * 100, 2) if total_valid > 0 else 0
+                }
+
+        # Pour variables numériques continues: ajouter stats descriptives
+        if is_numeric and df_clean[col].nunique() > 20:
+            series = df_clean[col].dropna()
+            if len(series) > 0:
+                var_info["stats"].update({
+                    "mean": round(float(series.mean()), 3),
+                    "sd": round(float(series.std()), 3),
+                    "min": round(float(series.min()), 3),
+                    "max": round(float(series.max()), 3),
+                    "median": round(float(series.median()), 3)
+                })
+
+        codebook["variables"][col] = var_info
 
     return codebook
 
