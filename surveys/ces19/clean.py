@@ -117,6 +117,12 @@ def clean_data(df):
     df_clean['id_respondent'] = df['cps19_ResponseId'].astype(str)
     df_clean.loc[df['cps19_ResponseId'].isna(), 'id_respondent'] = np.nan
 
+    # ========== Technical Variables ==========
+    # cps19_consent -> tech_consent (binary: all respondents consented)
+    df_clean['tech_consent'] = df['cps19_consent'].map({
+        1.0: 1  # Consented
+    })
+
     return df_clean
 
 # ============================================================================
