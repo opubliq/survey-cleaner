@@ -123,6 +123,14 @@ def clean_data(df):
         1.0: 1  # Consented
     })
 
+    # ========== Socioeconomic/Demographic Variables ==========
+    # cps19_citizenship -> ses_citizenship
+    df_clean['ses_citizenship'] = df['cps19_citizenship'].map({
+        4.0: 'canadian_citizen',
+        5.0: 'permanent_resident'
+        # 6.0 = Other (screened out, not in final data)
+    })
+
     return df_clean
 
 # ============================================================================

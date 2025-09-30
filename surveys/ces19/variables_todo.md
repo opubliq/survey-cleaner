@@ -1,7 +1,6 @@
 # Variables Processing Todo - CES19
 
 ## Pending
-- [ ] cps19_citizenship
 - [ ] cps19_yob
 - [ ] cps19_yob_2001_age
 - [ ] cps19_gender
@@ -639,6 +638,7 @@
 
 - [x] cps19_ResponseId -> id_respondent (unique identifier)
 - [x] cps19_consent -> tech_consent (binary consent flag)
+- [x] cps19_citizenship -> ses_citizenship (categorical: citizen/permanent resident)
 
 ## Skipped
 
