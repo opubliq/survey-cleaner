@@ -1,18 +1,23 @@
-# Variables Processing Todo - Test Survey
-
-## Pending
-
-## In Progress
+# Variables Processing Todo - test
+**Total variables**: 11
+**Completed**: 0
+**Remaining**: 11
 
 ## Completed
-- [x] id -> id_respondent
-- [x] nom -> EXCLUDED (confidential personal identifier)
-- [x] age -> ses_age + ses_age_category
-- [x] sexe -> ses_gender
-- [x] education -> ses_education
-- [x] region -> ses_region
-- [x] opinion_immigration -> op_immigration_opinion (0-1 scale)
-- [x] opinion_economie -> op_economy_opinion (0-1 scale)
-- [x] opinion_environnement -> op_environment_importance (0-1 scale)
-- [x] satisfaction_gouv -> op_government_satisfaction (0-1 scale)
-- [x] vote_intention -> behav_vote_intention
+
+## In Progress
+- [~] id
+
+## Questions (need human input)
+
+## Pending
+- [ ] nom
+- [ ] age
+- [ ] sexe
+- [ ] education
+- [ ] region
+- [ ] opinion_immigration
+- [ ] opinion_economie
+- [ ] opinion_environnement
+- [ ] satisfaction_gouv
+- [ ] vote_intention
