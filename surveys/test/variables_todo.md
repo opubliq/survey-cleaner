@@ -1,12 +1,12 @@
 # Variables Processing Todo - test
 **Total variables**: 11
-**Completed**: 1
-**Remaining**: 10
+**Completed**: 0
+**Remaining**: 11
 
 ## Completed
-- [x] id → id_respondent
 
 ## In Progress
+- [~] id
 
 ## Questions (need human input)
 
