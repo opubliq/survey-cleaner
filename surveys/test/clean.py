@@ -112,7 +112,7 @@ def clean_data(df):
 
     # TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous
 
-    # id -> id_respondent: Unique respondent identifier
+    # id → id_respondent: Unique respondent identifier
     df_clean['id_respondent'] = df['id'].copy()
 
     return df_clean
