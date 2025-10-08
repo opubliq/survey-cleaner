@@ -19,11 +19,12 @@ import re
 import os
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 import logging
 from anthropic import Anthropic
 from dotenv import load_dotenv
 from agent_tools import TOOL_DEFINITIONS, execute_tool
+from cost_calculator import CostTracker, MODEL_ALIASES
 
 # Load environment variables from .env file
 load_dotenv()
@@ -94,7 +95,14 @@ def _format_tool_detail(tool_name: str, tool_input: dict) -> str:
         return f"{tool_name}: {tool_input}"
 
 
-def call_agent(agent_name: str, prompt: str, logger=None, context: dict = None) -> str:
+def call_agent(
+    agent_name: str,
+    prompt: str,
+    logger=None,
+    context: dict = None,
+    model: str = "sonnet",
+    cost_tracker: Optional[CostTracker] = None
+) -> str:
     """Call agent via Anthropic API with agentic tool use loop
 
     This function implements an agentic workflow where:
@@ -108,27 +116,47 @@ def call_agent(agent_name: str, prompt: str, logger=None, context: dict = None) 
         prompt: User prompt for the agent
         logger: Optional logger for output
         context: Optional dict of context to inject into system prompt (e.g., cleaning_rules)
+        model: Model to use ("sonnet" or "haiku", default: "sonnet")
+        cost_tracker: Optional CostTracker instance for cost monitoring
 
     Returns:
         Final agent response as string
     """
+    # Resolve model alias to full name
+    model_name = MODEL_ALIASES.get(model, model)
+
     if logger:
-        logger.info(f"Calling {agent_name} via API with tool use...")
+        logger.info(f"Calling {agent_name} via API ({model}) with tool use...")
 
     # Load agent instructions
     instructions = load_agent_instructions(agent_name)
 
-    # Inject context if provided
-    if context:
-        context_str = "\n\n## Context provided by orchestrator\n\n"
-        if "cleaning_rules" in context:
-            context_str += "### Cleaning Rules (surveys/cleaning_rules.json)\n\n"
-            context_str += "```json\n"
-            context_str += json.dumps(context["cleaning_rules"], indent=2)
-            context_str += "\n```\n\n"
-            context_str += "**Note**: You already have access to cleaning_rules.json above. Do NOT read it again via tools.\n"
+    # Build system prompt with prompt caching
+    # Structure: base instructions + context (both cached)
+    system_blocks = [
+        {
+            "type": "text",
+            "text": instructions,
+            "cache_control": {"type": "ephemeral"}
+        }
+    ]
 
-        instructions = instructions + context_str
+    # Inject context if provided (also cached)
+    if context and "cleaning_rules" in context:
+        context_str = "\n\n## Context: Cleaning Rules (surveys/cleaning_rules.json)\n\n"
+        context_str += "```json\n"
+        context_str += json.dumps(context["cleaning_rules"], indent=2)
+        context_str += "\n```\n\n"
+        context_str += "**Note**: You already have access to cleaning_rules.json above. Do NOT read it again via tools.\n"
+
+        system_blocks.append({
+            "type": "text",
+            "text": context_str,
+            "cache_control": {"type": "ephemeral"}
+        })
+
+    # Use system blocks instead of single string for caching
+    system = system_blocks
 
     # Initialize Anthropic client
     api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -151,14 +179,18 @@ def call_agent(agent_name: str, prompt: str, logger=None, context: dict = None) 
             if logger:
                 logger.info(f"  API call {iteration}...")
 
-            # Call API with tools
+            # Call API with tools and caching
             response = client.messages.create(
-                model="claude-sonnet-4-5-20250929",
+                model=model_name,
                 max_tokens=8000,
-                system=instructions,
+                system=system,
                 messages=messages,
                 tools=TOOL_DEFINITIONS
             )
+
+            # Track cost if tracker provided
+            if cost_tracker and hasattr(response, 'usage'):
+                cost_tracker.add_call(response.usage.__dict__, model_name)
 
             # Check stop reason
             if response.stop_reason == "end_turn":
@@ -250,6 +282,9 @@ class SurveyOrchestrator:
 
         # Load cleaning rules once (cached for all variables)
         self.cleaning_rules = self._load_cleaning_rules()
+
+        # Initialize cost tracking
+        self.cost_tracker = CostTracker(survey_name)
 
     def _load_cleaning_rules(self) -> dict:
         """Load cleaning rules from JSON file (cached)
@@ -355,12 +390,14 @@ class SurveyOrchestrator:
             self.logger.info("Survey already initialized (variables_todo.md and pending_vars.txt exist)")
             return True
 
-        # Call survey-init-agent via API
+        # Call survey-init-agent via API (use Haiku for simple task)
         try:
             result = call_agent(
                 agent_name="survey-init-agent",
                 prompt=f"Initialize survey surveys/{self.survey_name}",
-                logger=self.logger
+                logger=self.logger,
+                model="haiku",
+                cost_tracker=self.cost_tracker
             )
 
             # Log agent output
@@ -395,13 +432,15 @@ class SurveyOrchestrator:
         if self.cleaning_rules:
             context["cleaning_rules"] = self.cleaning_rules
 
-        # Call survey-variable-cleaner-agent via API
+        # Call survey-variable-cleaner-agent via API (use Sonnet for complex task)
         try:
             result = call_agent(
                 agent_name="survey-variable-cleaner-agent",
                 prompt=f"Process ONLY variable '{variable}' in surveys/{self.survey_name}",
                 logger=self.logger,
-                context=context
+                context=context,
+                model="sonnet",
+                cost_tracker=self.cost_tracker
             )
 
             # Log agent output (truncated)
@@ -640,6 +679,10 @@ VARIABLES PROCESSED:
         report_file = self.survey_dir / f"cleaning_report_{start_time.strftime('%Y-%m-%d_%H-%M')}.md"
         report_file.write_text(report)
         self.logger.info(f"Report saved to {report_file}")
+
+        # Save and display cost report
+        self.cost_tracker.save_report()
+        self.cost_tracker.print_summary()
 
 
 def main():
