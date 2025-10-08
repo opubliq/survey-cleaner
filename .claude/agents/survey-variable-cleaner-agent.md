@@ -50,10 +50,30 @@ From the already-loaded `variables_todo.md`:
 1. **Find target variable** in the list
 2. **Check current status**:
    - If `[x]` completed → report "Already completed" and EXIT
+   - If `[-]` skipped → report "Already skipped" and EXIT
    - If `[~]` in progress → continue (may be retry)
    - If `[ ]` pending → continue
    - If `[?]` has question → report "Needs human input" and EXIT
+
 3. **Mark as in progress**: Update `variables_todo.md` to `[~] {variable_name}`
+
+   **CRITICAL - File structure rules**:
+   - The file has EXACTLY these sections (in order): `## Completed`, `## In Progress`, `## Questions (need human input)`, `## Skipped (PII / not applicable)`, `## Pending`
+   - **NEVER create duplicate sections** - reuse existing sections
+   - To mark in progress: Move `[ ] variable` from `## Pending` to `## In Progress` and change to `[~]`
+   - Example edit:
+     ```markdown
+     ## In Progress
+     - [~] age
+
+     ## Questions (need human input)
+
+     ## Skipped (PII / not applicable)
+
+     ## Pending
+     - [ ] sexe
+     ```
+   - **DO NOT** add extra `## In Progress` or `## Questions` headers
 
 ### Step 3: Codebook Search
 
@@ -119,15 +139,48 @@ Analyze the output to understand variable structure.
 
 ### Step 5: Decision Point - Can Clean or Need Question?
 
-Based on exploration and codebook analysis, determine:
+Based on exploration, codebook analysis, and **cleaning_rules.json**, determine:
 
-**IF you need human input** (ambiguous type, unclear binning, interpretation needed):
+**CHECK CLEANING_RULES FIRST** - Many common cases are already defined:
+
+1. **Numeric continuous (age, income, etc.)**:
+   - cleaning_rules.json specifies **DUAL OUTPUT** for these variables
+   - Create TWO variables: `{prefix}_{name}` (continuous) + `{prefix}_{name}_category` (binned)
+   - Use bins from cleaning_rules examples (e.g., age: [18, 25, 35, 45, 55, 65, 100])
+   - **DO NOT ask user** - rules are defined in cleaning_rules.json
+   - Example: `age` → create `ses_age` (numeric) + `ses_age_category` (character with bins)
+
+2. **PII (Personally Identifiable Information)**:
+   - Names, addresses, emails, phone numbers, unique IDs beyond respondent_id
+   - **SKIP automatically** - Do NOT add to clean.py, Do NOT ask user
+   - Mark as `[-] {variable} - SKIPPED: PII ({specific_type})`
+   - Example: `[-] nom - SKIPPED: PII (personal names)`
+   - Increment "Completed" count (variable processed, even if skipped)
+   - DELETE temporary exploration script
+   - EXIT successfully (this is NOT an error)
+
+3. **Standard categoricals (gender, province, education, vote)**:
+   - Check cleaning_rules.json for common mappings
+   - Apply standard values (e.g., gender: "male", "female", "other")
+   - Province: use simple names "quebec", "ontario", "british_columbia" (NO prefix)
+
+**IF truly ambiguous** (NOT covered by cleaning_rules):
 1. Mark variable as `[?] {variable_name}: QUESTION: {your_question_here}`
-2. Example: `[?] cps19_age_custom: QUESTION: Found custom age ranges. Use bins [18-25, 26-35, 36+] or standard [18-24, 25-34, ...]?`
-3. DELETE temporary exploration script
-4. EXIT successfully (not an error - orchestrator will skip and continue)
+2. DELETE temporary exploration script
+3. EXIT successfully (orchestrator will skip and continue)
 
-**IF you can clean** (clear variable type and structure):
+**IMPORTANT - File structure when marking question**:
+- Move variable from `## Pending` or `## In Progress` to `## Questions (need human input)`
+- Use existing `## Questions` section - **DO NOT create duplicates**
+- Format: `- [?] {var}: QUESTION: {question}`
+
+**IMPORTANT - File structure when marking PII as skipped**:
+- Move variable from `## In Progress` to `## Skipped (PII / not applicable)`
+- Use existing `## Skipped` section - **DO NOT create duplicates**
+- Format: `- [-] {var} - SKIPPED: PII ({type})`
+- Increment "Completed" count at top (variable processed)
+
+**IF can clean** (type clear OR defined in cleaning_rules):
 1. Proceed to Step 6
 
 ### Step 6: Generate Cleaning Code
@@ -146,8 +199,9 @@ df_clean['{cleaned_name}'] = df['{raw_name}'].map({
 **CRITICAL - Category naming rules**:
 - NEVER repeat variable name in category values
 - Keep values simple, concise, descriptive
-- ses_province: "quebec", "ontario" (NOT "province_quebec")
-- behav_vote_choice: "liberal", "conservative", "ndp", "bloc" (NOT "liberal_party_canada")
+- ses_province: "quebec", "ontario", "british_columbia" (simple names, no prefix)
+- ses_gender: "male", "female", "other" (simple names)
+- behav_vote_choice: "liberal", "conservative", "ndp", "bloc", "green" (party short names)
 
 #### Pattern 2: Numeric Normalization (safe pattern)
 ```python
@@ -173,6 +227,26 @@ df_clean['{cleaned_name}'] = df['{raw_name}'].map({
 df_clean['{cleaned_name}'] = df['{raw_name}'].astype(str)
 df_clean.loc[df['{raw_name}'].isna(), '{cleaned_name}'] = np.nan
 ```
+
+#### Pattern 5: Numeric Continuous with Categories (DUAL OUTPUT)
+For age, income, etc. - create TWO variables per cleaning_rules.json:
+
+```python
+# Continuous variable (numeric, keep original scale)
+df_clean['ses_age'] = df['age'].copy()
+df_clean.loc[df['age'] < 0, 'ses_age'] = np.nan  # Handle missing codes
+
+# Categorical variable (binned)
+df_clean['ses_age_category'] = pd.cut(
+    df['age'],
+    bins=[0, 25, 35, 45, 55, 65, 150],
+    labels=['age_18_to_24', 'age_25_to_34', 'age_35_to_44', 'age_45_to_54', 'age_55_to_64', 'age_65_and_over'],
+    include_lowest=True
+).astype(str)
+df_clean.loc[df_clean['ses_age_category'] == 'nan', 'ses_age_category'] = np.nan
+```
+
+**Use bins from cleaning_rules.json examples** - do NOT ask user for bin preferences.
 
 ### Step 7: Validation (CRITICAL)
 
@@ -278,14 +352,38 @@ Example:
 
 ### Step 10: Mark Completed and Git Commit (batch together)
 
-**Execute these bash commands together in one tool call:**
+**First, edit variables_todo.md to mark completed:**
 
-1. **Update variables_todo.md**:
-   - Move variable from "In Progress" or "Pending" to "Completed"
-   - Format: `- [x] {raw_var} → {cleaned_var}`
-   - Update counts at top
+**CRITICAL - File structure rules** (same as Step 2):
+- The file has EXACTLY these sections: `## Completed`, `## In Progress`, `## Questions (need human input)`, `## Skipped (PII / not applicable)`, `## Pending`
+- **NEVER create duplicate sections**
+- To mark completed: Move `[~] variable` from `## In Progress` to `## Completed` and change to `[x] {raw} → {cleaned}`
+- Update counts at top: increment "Completed", decrement "Remaining"
+- Example:
+  ```markdown
+  # Variables Processing Todo - test
+  **Total variables**: 11
+  **Completed**: 3
+  **Remaining**: 8
 
-2. **Delete temporary scripts**: `rm surveys/{survey-id}/_explore_var.py surveys/{survey-id}/_validate_var.py`
+  ## Completed
+  - [x] id → id_respondent
+  - [x] age → ses_age, ses_age_category
+
+  ## In Progress
+
+  ## Questions (need human input)
+
+  ## Skipped (PII / not applicable)
+  - [-] nom - SKIPPED: PII (personal names)
+
+  ## Pending
+  - [ ] sexe
+  ```
+
+**Then execute bash commands together:**
+
+1. **Delete temporary scripts**: `rm surveys/{survey-id}/_explore_var.py surveys/{survey-id}/_validate_var.py`
 
 3. **Git commit**:
 ```bash

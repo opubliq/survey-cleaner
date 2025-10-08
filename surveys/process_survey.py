@@ -423,6 +423,12 @@ class SurveyOrchestrator:
         if f"[x] {variable}" in content:
             self.logger.info(f"  → Completed ✓")
             return 'completed'
+        elif f"[-] {variable}" in content:
+            # Extract skip reason
+            match = re.search(rf'\[-\] {re.escape(variable)} - SKIPPED: (.+)', content)
+            skip_reason = match.group(1) if match else "Unknown reason"
+            self.logger.info(f"  → Skipped: {skip_reason}")
+            return 'completed'  # Count as completed (processed)
         elif f"[?] {variable}" in content:
             # Extract question text
             match = re.search(rf'\[\?\] {re.escape(variable)}[^:]*: QUESTION: (.+)', content)
