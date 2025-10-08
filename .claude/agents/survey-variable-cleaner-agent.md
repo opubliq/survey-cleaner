@@ -31,36 +31,39 @@ Example: `"Process ONLY variable 'cps19_age' in surveys/ces19"`
 
 ## Workflow
 
-### Step 1: Environment Setup
+### Step 1: Initial Discovery (batch tools together)
 
-1. **Verify venv**: `which python` should point to venv/bin/python
-2. **Load cleaning rules**: Read `surveys/cleaning_rules.json` (CRITICAL - contains all nomenclature and encoding rules)
-3. **Identify data file format**: Run `ls surveys/{survey-id}/raw/` to find data file (csv/sav/xlsx)
+**Note**: `cleaning_rules.json` is provided in your system context - do NOT read it via tools.
+
+**Execute these in PARALLEL in a single tool call:**
+1. **Verify venv**: `which python` (should point to venv/bin/python)
+2. **Find data file**: `ls surveys/{survey-id}/raw/` to find data file (csv/sav/xlsx)
+
+**Then in next call, read all necessary files together:**
+1. Read `surveys/{survey-id}/variables_todo.md`
+2. Read `surveys/{survey-id}/raw/codebook.md` (if exists)
 
 ### Step 2: Variable Discovery and Status
 
-1. **Read variables_todo.md** to find the target variable
+From the already-loaded `variables_todo.md`:
+
+1. **Find target variable** in the list
 2. **Check current status**:
    - If `[x]` completed → report "Already completed" and EXIT
    - If `[~]` in progress → continue (may be retry)
    - If `[ ]` pending → continue
    - If `[?]` has question → report "Needs human input" and EXIT
-3. **Mark as in progress**: Update to `[~] {variable_name}`
+3. **Mark as in progress**: Update `variables_todo.md` to `[~] {variable_name}`
 
-### Step 3: Codebook Search (Fuzzy Matching)
+### Step 3: Codebook Search
 
-1. **Search local codebook** (`surveys/{survey-id}/raw/codebook.md`):
-   - Use fuzzy matching (fuzzywuzzy) to find variable
+From the already-loaded `codebook.md`:
+
+1. **Search for variable description**:
+   - Look for exact match first
+   - If not found, use fuzzy matching (fuzzywuzzy) on variable name
    - Extract: label, type, response choices, frequency table
-   - Note if variable not found in codebook
-
-2. **Cross-survey fuzzy search** (for naming consistency):
-   - Glob all `surveys/*/processed/codebook.json` (exclude current survey)
-   - For each codebook, fuzzy match variable description/label
-   - If match found with similarity > 80%:
-     - Suggest using the same cleaned variable name
-     - Report: "Similar variable found in {other_survey}: {cleaned_name}"
-   - If no match, proceed with standard naming convention
+   - Note if variable not found in codebook (will use data exploration only)
 
 ### Step 4: Data Exploration
 
@@ -228,13 +231,19 @@ Execute: `source venv/bin/activate && python surveys/{survey-id}/_validate_var.p
 
 If validation passes, proceed to Step 8.
 
-### Step 8: Update clean.py
+### Step 8 & 9: Update clean.py and codebook.json (batch together)
 
-1. **Read** `surveys/{survey-id}/clean.py`
-2. **Find** the `clean_data(df)` function
-3. **Locate** the comment `# TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous`
-4. **Insert** your validated cleaning code just above the `return df_clean` line
-5. **Add** inline comment: `# {raw_var} → {cleaned_var}: {brief_description}`
+**First, read both files together in one tool call:**
+1. Read `surveys/{survey-id}/clean.py`
+2. Read `surveys/{survey-id}/processed/codebook.json` (if exists)
+
+**Then prepare updates:**
+
+**For clean.py:**
+1. **Find** the `clean_data(df)` function
+2. **Locate** the comment `# TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous`
+3. **Insert** your validated cleaning code just above the `return df_clean` line
+4. **Add** inline comment: `# {raw_var} → {cleaned_var}: {brief_description}`
 
 Example:
 ```python
@@ -243,17 +252,15 @@ Example:
     df_clean.loc[df['cps19_age'] < 0, 'ses_age'] = np.nan
 ```
 
-### Step 9: Update codebook.json (incremental)
-
-1. **Check** if `surveys/{survey-id}/processed/codebook.json` exists
-2. **If NOT exists**: Create with base structure:
+**For codebook.json:**
+1. **If file doesn't exist**: Create with base structure:
    ```json
    {
      "survey": "{survey-id}",
      "variables": {}
    }
    ```
-3. **Add/Update** entry for this variable:
+2. **Add/Update** entry for this variable:
    ```json
    "{cleaned_var}": {
      "label": "{description}",
@@ -265,12 +272,25 @@ Example:
    }
    ```
 
-### Step 10: Git Commit
+**Then execute both updates together in one tool call:**
+1. Edit `clean.py` with new variable code
+2. Write updated `codebook.json`
 
-Execute:
+### Step 10: Mark Completed and Git Commit (batch together)
+
+**Execute these bash commands together in one tool call:**
+
+1. **Update variables_todo.md**:
+   - Move variable from "In Progress" or "Pending" to "Completed"
+   - Format: `- [x] {raw_var} → {cleaned_var}`
+   - Update counts at top
+
+2. **Delete temporary scripts**: `rm surveys/{survey-id}/_explore_var.py surveys/{survey-id}/_validate_var.py`
+
+3. **Git commit**:
 ```bash
-cd surveys/{survey-id}
-git add clean.py processed/codebook.json variables_todo.md
+cd surveys/{survey-id} && \
+git add clean.py processed/codebook.json variables_todo.md && \
 git commit -m "Clean variable: {raw_var} -> {cleaned_var}
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
@@ -278,21 +298,17 @@ git commit -m "Clean variable: {raw_var} -> {cleaned_var}
 Co-Authored-By: Claude <noreply@anthropic.com>"
 ```
 
-### Step 11: Mark Completed and Cleanup
+### Step 11: Report and Exit
 
-1. **Update** `variables_todo.md`:
-   - Move variable from "In Progress" or "Pending" to "Completed"
-   - Format: `- [x] {raw_var} → {cleaned_var}`
-   - Update counts at top
-2. **Delete** temporary scripts: `_explore_var.py`, `_validate_var.py`
-3. **Report** success:
-   ```
-   ✓ Variable cleaned: {raw_var} → {cleaned_var}
-   - Type: {type}
-   - Missing: {n_missing} ({percent}%)
-   - Committed: {commit_hash}
-   ```
-4. **EXIT** successfully
+**Report** success:
+```
+✓ Variable cleaned: {raw_var} → {cleaned_var}
+- Type: {type}
+- Missing: {n_missing} ({percent}%)
+- Committed: {commit_hash}
+```
+
+**EXIT** successfully
 
 ## Error Handling
 
@@ -309,13 +325,14 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 - **SAFE PATTERNS ONLY**: Use .map() for categorical, mask for numeric
 - **CATEGORY VALUES**: Simple and concise, NO variable name repetition
 - **COMMIT PER VARIABLE**: Essential for traceability
+- **BATCH TOOLS**: Always execute multiple independent tools in a single API call (e.g., read multiple files together, execute bash commands in parallel)
 
 ## Technical Capabilities
 
-- **Fuzzy matching**: Use fuzzywuzzy/rapidfuzz for codebook search
-- **Cross-survey search**: Glob and search all existing codebooks for consistency
+- **Fuzzy matching**: Use fuzzywuzzy/rapidfuzz for codebook search (local codebook only)
 - **Python execution**: All code runs in venv via `source venv/bin/activate && python ...`
-- **Temporary scripts**: Create, execute, delete (avoid approval prompts)
+- **Temporary scripts**: Create, execute, delete for exploration/validation
+- **Tool batching**: Execute multiple independent tools in single API call to minimize roundtrips
 
 ## Communication Style
 
