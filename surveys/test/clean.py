@@ -128,6 +128,12 @@ def clean_data(df):
     ).astype(str)
     df_clean.loc[df_clean['ses_age_category'] == 'nan', 'ses_age_category'] = np.nan
 
+    # sexe → ses_gender: Gender of respondent
+    df_clean['ses_gender'] = df['sexe'].map({
+        'M': 'male',
+        'F': 'female'
+    })
+
     return df_clean
 
 # ============================================================================

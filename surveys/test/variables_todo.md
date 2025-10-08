@@ -1,11 +1,12 @@
 # Variables Processing Todo - test
 **Total variables**: 11
-**Completed**: 3
-**Remaining**: 8
+**Completed**: 4
+**Remaining**: 7
 
 ## Completed
 - [x] id → id_respondent
 - [x] age → ses_age, ses_age_category
+- [x] sexe → ses_gender
 
 ## In Progress
 
@@ -15,7 +16,6 @@
 - [-] nom - SKIPPED: PII (personal names)
 
 ## Pending
-- [ ] sexe
 - [ ] education
 - [ ] region
 - [ ] opinion_immigration
