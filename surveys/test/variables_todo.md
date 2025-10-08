@@ -19,7 +19,16 @@
 ## Skipped (PII / not applicable)
 - [-] nom - SKIPPED: PII (personal names)
 
+## Completed
+- [x] id → id_respondent
+- [x] age → demo_age, demo_age_category
+- [x] sexe → demo_gender
+- [x] education → demo_education
+- [x] region → demo_region
+- [x] opinion_immigration → op_immigration
+- [x] opinion_economie → op_economy
+- [x] opinion_environnement → op_environment
+
 ## Pending
-- [ ] opinion_environnement
 - [ ] satisfaction_gouv
 - [ ] vote_intention

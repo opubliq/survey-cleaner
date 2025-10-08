@@ -1,50 +1,27 @@
 {
   "survey": "test",
   "variables": {
-    "op_economy": {
-      "label": "Opinion on current economic situation",
+    "op_environment": {
+      "label": "Opinion on Environmental Issues",
       "type": "numeric",
-      "original_variable": "opinion_economie",
-      "description": "Normalized opinion on current economic situation from very bad (0) to very good (1)",
+      "original_variable": "opinion_environnement",
+      "description": "Normalized opinion on environmental importance from not important (0) to very important (1)",
       "missing": 0,
       "stats": {
         "n": 20,
         "n_valid": 20,
-        "mean": 0.550,
-        "sd": 0.330,
+        "mean": 0.725,
+        "sd": 0.290,
         "min": 0.000,
         "max": 1.000,
-        "median": 0.500
+        "median": 0.750
       },
       "values": {
         "0.00": {"count": 1, "percent": 5.0},
-        "0.25": {"count": 4, "percent": 20.0},
-        "0.50": {"count": 6, "percent": 30.0},
-        "0.75": {"count": 5, "percent": 25.0},
-        "1.00": {"count": 4, "percent": 20.0}
-      }
-    },
-    "op_immigration": {
-      "label": "Opinion on Immigration",
-      "type": "numeric",
-      "original_variable": "opinion_immigration",
-      "description": "Standardized opinion on immigration from very unfavorable (0) to very favorable (1)",
-      "missing": 0,
-      "stats": {
-        "n": 20,
-        "n_valid": 20,
-        "mean": 0.500,
-        "sd": 0.300,
-        "min": 0.000,
-        "max": 1.000,
-        "median": 0.500
-      },
-      "values": {
-        "0.00": {"count": 3, "percent": 15.0},
-        "0.25": {"count": 4, "percent": 20.0},
+        "0.25": {"count": 3, "percent": 15.0},
         "0.50": {"count": 4, "percent": 20.0},
-        "0.75": {"count": 5, "percent": 25.0},
-        "1.00": {"count": 4, "percent": 20.0}
+        "0.75": {"count": 6, "percent": 30.0},
+        "1.00": {"count": 6, "percent": 30.0}
       }
     }
   }
