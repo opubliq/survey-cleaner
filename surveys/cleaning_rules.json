@@ -120,9 +120,9 @@
         }
       },
       "region": {
-        "standardize_to": "descriptive_full_name_with_province_prefix",
-        "examples": ["province_quebec", "province_ontario", "province_british_columbia", "province_alberta", "province_nova_scotia"],
-        "note": "Use full descriptive names with 'province_' prefix for Canadian provinces"
+        "standardize_to": "simple_province_name",
+        "examples": ["quebec", "ontario", "british_columbia", "alberta", "nova_scotia", "new_brunswick", "manitoba", "saskatchewan", "prince_edward_island", "newfoundland_and_labrador"],
+        "note": "Use simple province names without prefix (variable name already indicates it's a province)"
       },
       "education": {
         "standardize_to": "descriptive_education_level",
