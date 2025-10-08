@@ -115,6 +115,19 @@ def clean_data(df):
     # id → id_respondent: Unique respondent identifier
     df_clean['id_respondent'] = df['id'].copy()
 
+    # age → ses_age, ses_age_category: Age in years (continuous + categorical)
+    df_clean['ses_age'] = df['age'].copy()
+    df_clean.loc[df['age'] < 0, 'ses_age'] = np.nan  # Handle missing codes
+    
+    # Categorical variable (binned)
+    df_clean['ses_age_category'] = pd.cut(
+        df['age'],
+        bins=[0, 25, 35, 45, 55, 65, 150],
+        labels=['age_18_to_24', 'age_25_to_34', 'age_35_to_44', 'age_45_to_54', 'age_55_to_64', 'age_65_and_over'],
+        include_lowest=True
+    ).astype(str)
+    df_clean.loc[df_clean['ses_age_category'] == 'nan', 'ses_age_category'] = np.nan
+
     return df_clean
 
 # ============================================================================
