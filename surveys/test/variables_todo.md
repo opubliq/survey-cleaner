@@ -17,8 +17,12 @@
 ## Skipped (PII / not applicable)
 - [-] nom - SKIPPED: PII (personal names)
 
+## Completed
+- [x] opinion_immigration → op_immigration
+
+## In Progress
+
 ## Pending
-- [ ] opinion_immigration
 - [ ] opinion_economie
 - [ ] opinion_environnement
 - [ ] satisfaction_gouv

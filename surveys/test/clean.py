@@ -46,8 +46,14 @@ def clean_data(df):
     df_clean = pd.DataFrame(index=df.index)
 
     # ============================================================================
+    # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
+    df_clean['op_immigration'] = np.nan
+    df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
     # VARIABLE PROCESSING
     # ============================================================================
+    # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
+    df_clean['op_immigration'] = np.nan
+    df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
     # Pour chaque variable, ajouter le code de nettoyage ici.
     #
     # RÈGLES CRITIQUES:
@@ -109,6 +115,9 @@ def clean_data(df):
     # df_clean['op_comment'] = df['Q20_comment'].astype(str)
     # df_clean.loc[df['Q20_comment'].isna(), 'op_comment'] = np.nan
     # ============================================================================
+    # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
+    df_clean['op_immigration'] = np.nan
+    df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
 
     # id → id_respondent: Unique respondent identifier
     df_clean['id_respondent'] = df['id'].copy()
@@ -154,8 +163,14 @@ def clean_data(df):
     return df_clean
 
 # ============================================================================
+    # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
+    df_clean['op_immigration'] = np.nan
+    df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
 # LOCAL MODE FUNCTIONS (not used by AWS lambda)
 # ============================================================================
+    # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
+    df_clean['op_immigration'] = np.nan
+    df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
 
 def load_data():
     """Charger les données brutes (local mode only)"""
