@@ -1,25 +1,21 @@
 # Variables Processing Todo - Test Survey
 **Total variables**: 11
-**Completed**: 2
-**Remaining**: 9
+**Completed**: 3
+**Remaining**: 8
 
 ## Completed
+- [x] id → id_respondent
+- [x] age → demo_age, demo_age_category
+- [x] sexe → demo_gender
 
 ## In Progress
 
 ## Questions (need human input)
 
-## Completed
-- [x] id → id_respondent
-
 ## Skipped (PII / not applicable)
 - [-] nom - SKIPPED: PII (personal names)
 
-## Completed
-- [x] age → demo_age, demo_age_category
-
 ## Pending
-- [ ] sexe
 - [ ] education
 - [ ] region
 - [ ] opinion_immigration
