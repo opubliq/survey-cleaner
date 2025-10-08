@@ -54,7 +54,14 @@ def clean_data(df):
     # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
     df_clean['op_immigration'] = np.nan
     df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
-    # Pour chaque variable, ajouter le code de nettoyage ici.
+    # opinion_environnement → op_environment: Normalized environmental opinion
+df_clean['op_environment'] = df['opinion_environnement'].map({
+    1.0: 0.0,   # Pas important
+    2.0: 0.25,
+    3.0: 0.5,   # Neutre
+    4.0: 0.75,
+    5.0: 1.0    # Très important
+})
 
     # opinion_economie → op_economy: Opinion on current economic situation
     df_clean['op_economy'] = df['opinion_economie'].map({
