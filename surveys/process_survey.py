@@ -53,7 +53,48 @@ def load_agent_instructions(agent_name: str) -> str:
     return content
 
 
-def call_agent(agent_name: str, prompt: str, logger=None) -> str:
+def _format_tool_detail(tool_name: str, tool_input: dict) -> str:
+    """Format tool call for logging with relevant details
+
+    Args:
+        tool_name: Name of tool
+        tool_input: Tool parameters
+
+    Returns:
+        Formatted string for logging
+    """
+    if tool_name == "bash":
+        cmd = tool_input.get("command", "")
+        # Truncate long commands
+        if len(cmd) > 60:
+            cmd = cmd[:57] + "..."
+        return f"bash: {cmd}"
+
+    elif tool_name == "read_file":
+        path = tool_input.get("file_path", "")
+        # Show just filename if in surveys dir
+        if path.startswith("surveys/"):
+            path = path.replace("surveys/", "")
+        return f"read: {path}"
+
+    elif tool_name == "write_file":
+        path = tool_input.get("file_path", "")
+        content_len = len(tool_input.get("content", ""))
+        if path.startswith("surveys/"):
+            path = path.replace("surveys/", "")
+        return f"write: {path} ({content_len} chars)"
+
+    elif tool_name == "edit_file":
+        path = tool_input.get("file_path", "")
+        if path.startswith("surveys/"):
+            path = path.replace("surveys/", "")
+        return f"edit: {path}"
+
+    else:
+        return f"{tool_name}: {tool_input}"
+
+
+def call_agent(agent_name: str, prompt: str, logger=None, context: dict = None) -> str:
     """Call agent via Anthropic API with agentic tool use loop
 
     This function implements an agentic workflow where:
@@ -66,6 +107,7 @@ def call_agent(agent_name: str, prompt: str, logger=None) -> str:
         agent_name: Name of agent to call
         prompt: User prompt for the agent
         logger: Optional logger for output
+        context: Optional dict of context to inject into system prompt (e.g., cleaning_rules)
 
     Returns:
         Final agent response as string
@@ -75,6 +117,18 @@ def call_agent(agent_name: str, prompt: str, logger=None) -> str:
 
     # Load agent instructions
     instructions = load_agent_instructions(agent_name)
+
+    # Inject context if provided
+    if context:
+        context_str = "\n\n## Context provided by orchestrator\n\n"
+        if "cleaning_rules" in context:
+            context_str += "### Cleaning Rules (surveys/cleaning_rules.json)\n\n"
+            context_str += "```json\n"
+            context_str += json.dumps(context["cleaning_rules"], indent=2)
+            context_str += "\n```\n\n"
+            context_str += "**Note**: You already have access to cleaning_rules.json above. Do NOT read it again via tools.\n"
+
+        instructions = instructions + context_str
 
     # Initialize Anthropic client
     api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -130,7 +184,9 @@ def call_agent(agent_name: str, prompt: str, logger=None) -> str:
                     if block.type == "tool_use":
                         tool_count += 1
                         if logger:
-                            logger.info(f"    Executing tool: {block.name}")
+                            # Log tool with details
+                            tool_detail = _format_tool_detail(block.name, block.input)
+                            logger.info(f"    Tool {tool_count}: {tool_detail}")
 
                         # Execute tool locally
                         result = execute_tool(block.name, block.input)
@@ -143,7 +199,7 @@ def call_agent(agent_name: str, prompt: str, logger=None) -> str:
                         })
 
                 if logger:
-                    logger.info(f"    Executed {tool_count} tools")
+                    logger.info(f"    ✓ Executed {tool_count} tools")
 
                 # Add assistant message to conversation
                 messages.append({"role": "assistant", "content": response.content})
@@ -191,6 +247,29 @@ class SurveyOrchestrator:
 
         # Setup logging
         self.setup_logging()
+
+        # Load cleaning rules once (cached for all variables)
+        self.cleaning_rules = self._load_cleaning_rules()
+
+    def _load_cleaning_rules(self) -> dict:
+        """Load cleaning rules from JSON file (cached)
+
+        Returns:
+            Dict with cleaning rules, or empty dict if file not found
+        """
+        rules_file = Path("surveys/cleaning_rules.json")
+        if rules_file.exists():
+            try:
+                with open(rules_file, 'r', encoding='utf-8') as f:
+                    rules = json.load(f)
+                self.logger.info("✓ Loaded cleaning_rules.json (cached for all variables)")
+                return rules
+            except Exception as e:
+                self.logger.warning(f"Failed to load cleaning_rules.json: {e}")
+                return {}
+        else:
+            self.logger.warning("cleaning_rules.json not found")
+            return {}
 
     def setup_logging(self):
         """Setup logging to both file and console"""
@@ -311,12 +390,18 @@ class SurveyOrchestrator:
         """
         self.logger.info(f"Processing variable: {variable}")
 
+        # Prepare context with cleaning rules (avoid re-reading file)
+        context = {}
+        if self.cleaning_rules:
+            context["cleaning_rules"] = self.cleaning_rules
+
         # Call survey-variable-cleaner-agent via API
         try:
             result = call_agent(
                 agent_name="survey-variable-cleaner-agent",
                 prompt=f"Process ONLY variable '{variable}' in surveys/{self.survey_name}",
-                logger=self.logger
+                logger=self.logger,
+                context=context
             )
 
             # Log agent output (truncated)
