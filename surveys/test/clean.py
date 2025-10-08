@@ -153,6 +153,16 @@ def clean_data(df):
         'Longueuil': 'longueuil'
     })
 
+    # opinion_immigration → op_immigration: Opinion on immigration (Likert 1-5 normalized to 0-1)
+    df_clean['op_immigration'] = df['opinion_immigration'].map({
+        1.0: 0.0,      # Very unfavorable
+        2.0: 0.25,
+        3.0: 0.5,
+        4.0: 0.75,
+        5.0: 1.0,      # Very favorable
+        99.0: np.nan   # Don't know/Refused
+    })
+
     return df_clean
 
 # ============================================================================
