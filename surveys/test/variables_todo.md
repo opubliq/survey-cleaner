@@ -4,6 +4,7 @@
 **Remaining**: 6
 
 ## Completed
+- [x] vote_intention → vote_intention
 - [x] id → id_respondent
 - [x] age → demo_age, demo_age_category
 - [x] sexe → demo_gender
@@ -20,6 +21,7 @@
 - [-] nom - SKIPPED: PII (personal names)
 
 ## Completed
+- [x] vote_intention → vote_intention
 - [x] id → id_respondent
 - [x] age → demo_age, demo_age_category
 - [x] sexe → demo_gender
@@ -29,8 +31,9 @@
 - [x] opinion_economie → op_economy
 - [x] opinion_environnement → op_environment
 
-## Pending
-- [ ] vote_intention
+## In Progress
+- 
 
 ## Completed
+- [x] vote_intention → vote_intention
 - [x] satisfaction_gouv → op_satisfaction_gov
