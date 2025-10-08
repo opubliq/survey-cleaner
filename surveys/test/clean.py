@@ -51,6 +51,13 @@ def clean_data(df):
     df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
     # VARIABLE PROCESSING
     # ============================================================================
+    # vote_intention: Mapping political party
+    df_clean['vote_intention'] = df['vote_intention'].map({
+        'PLQ': 'liberal',
+        'CAQ': 'coalition_avenir_quebec',
+        'PQ': 'parti_quebecois',
+        'QS': 'quebec_solidaire'
+    }).astype(str)
     # opinion_immigration → op_immigration: Opinion on immigration (normalized Likert)
     df_clean['op_immigration'] = np.nan
     df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
