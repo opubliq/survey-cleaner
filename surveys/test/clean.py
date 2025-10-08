@@ -183,6 +183,16 @@ def clean_data(df):
         99.0: np.nan   # Don't know / Refused
     })
 
+    # satisfaction_gouv → op_government_satisfaction: Satisfaction with current government (1-5 Likert, normalized 0-1)
+    df_clean['op_government_satisfaction'] = df['satisfaction_gouv'].map({
+        1.0: 0.0,      # Very dissatisfied
+        2.0: 0.25,     # Dissatisfied
+        3.0: 0.5,      # Neutral
+        4.0: 0.75,     # Satisfied
+        5.0: 1.0,      # Very satisfied
+        99.0: np.nan   # Missing
+    })
+
     return df_clean
 
 # ============================================================================
