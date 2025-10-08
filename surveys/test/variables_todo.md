@@ -1,7 +1,7 @@
 # Variables Processing Todo - test
 **Total variables**: 11
-**Completed**: 10
-**Remaining**: 1
+**Completed**: 11
+**Remaining**: 0
 
 ## Completed
 - [x] id → id_respondent
@@ -13,6 +13,7 @@
 - [x] opinion_economie → op_economy
 - [x] opinion_environnement → op_environment
 - [x] satisfaction_gouv → op_government_satisfaction
+- [x] vote_intention → behav_vote_choice
 
 ## In Progress
 
@@ -22,4 +23,3 @@
 - [-] nom - SKIPPED: PII (personal names)
 
 ## Pending
-- [ ] vote_intention
