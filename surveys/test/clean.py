@@ -134,6 +134,14 @@ def clean_data(df):
         'F': 'female'
     })
 
+    # education → ses_education: Education level (highest completed)
+    df_clean['ses_education'] = df['education'].map({
+        'Primaire': 'elementary_school',
+        'Secondaire': 'high_school',
+        'Collegial': 'college_cegep',
+        'Universitaire': 'bachelor_degree'
+    })
+
     return df_clean
 
 # ============================================================================
