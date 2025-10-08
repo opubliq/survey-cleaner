@@ -173,6 +173,16 @@ def clean_data(df):
         99.0: np.nan   # Missing
     })
 
+    # opinion_environnement → op_environment: Opinion on environmental issues importance (Likert 1-5 normalized to 0-1)
+    df_clean['op_environment'] = df['opinion_environnement'].map({
+        1.0: 0.0,      # Pas important
+        2.0: 0.25,
+        3.0: 0.5,
+        4.0: 0.75,
+        5.0: 1.0,      # Très important
+        99.0: np.nan   # Don't know / Refused
+    })
+
     return df_clean
 
 # ============================================================================
