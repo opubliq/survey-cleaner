@@ -193,6 +193,16 @@ def clean_data(df):
         99.0: np.nan   # Missing
     })
 
+    # vote_intention → behav_vote_choice: Voting intention for Quebec provincial election
+    df_clean['behav_vote_choice'] = df['vote_intention'].map({
+        'PLQ': 'liberal_party_quebec',
+        'CAQ': 'coalition_avenir_quebec',
+        'PQ': 'parti_quebecois',
+        'QS': 'quebec_solidaire',
+        99: np.nan,
+        '99': np.nan
+    })
+
     return df_clean
 
 # ============================================================================
