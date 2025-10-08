@@ -1,7 +1,7 @@
 # Variables Processing Todo - test
 **Total variables**: 11
-**Completed**: 1
-**Remaining**: 10
+**Completed**: 2
+**Remaining**: 9
 
 ## Completed
 - [x] id → id_respondent
@@ -10,8 +10,10 @@
 
 ## Questions (need human input)
 
+## Skipped (PII / not applicable)
+- [-] nom - SKIPPED: PII (personal names)
+
 ## Pending
-- [ ] nom
 - [ ] age
 - [ ] sexe
 - [ ] education
