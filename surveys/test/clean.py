@@ -139,6 +139,18 @@ def clean_data(df):
         'Universitaire': 'bachelor_degree'
     })
 
+    # region → demo_region: Standardized region names
+    region_mapping = {
+        'Quebec': 'quebec',
+        'Montreal': 'montreal',
+        'Laval': 'laval',
+        'Gatineau': 'gatineau', 
+        'Sherbrooke': 'sherbrooke',
+        'Trois-Rivieres': 'trois_rivieres', 
+        'Longueuil': 'longueuil'
+    }
+    df_clean['demo_region'] = df['region'].map(region_mapping)
+
     return df_clean
 
 # ============================================================================

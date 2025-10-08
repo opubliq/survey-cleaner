@@ -8,6 +8,7 @@
 - [x] age → demo_age, demo_age_category
 - [x] sexe → demo_gender
 - [x] education → demo_education
+- [x] region → demo_region
 
 ## In Progress
 
@@ -17,7 +18,6 @@
 - [-] nom - SKIPPED: PII (personal names)
 
 ## Pending
-- [ ] region
 - [ ] opinion_immigration
 - [ ] opinion_economie
 - [ ] opinion_environnement
