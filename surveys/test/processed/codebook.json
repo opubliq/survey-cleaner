@@ -1,6 +1,16 @@
 {
   "survey": "test",
   "variables": {
+    "id_respondent": {
+      "label": "Unique Respondent Identifier",
+      "type": "numeric",
+      "original_variable": "id",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      }
+    },
     "demo_age": {
       "label": "Respondent's Age",
       "type": "numeric",
@@ -53,6 +63,30 @@
         "female": {
           "count": 10,
           "percent": 50.0
+        }
+      }
+    },
+    "demo_education": {
+      "label": "Respondent's Education Level",
+      "type": "character", 
+      "original_variable": "education",
+      "missing": 0,
+      "values": {
+        "bachelor_degree": {
+          "count": 7,
+          "percent": 35.0
+        },
+        "college_cegep": {
+          "count": 6, 
+          "percent": 30.0
+        },
+        "high_school": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "elementary_school": {
+          "count": 2,
+          "percent": 10.0
         }
       }
     }

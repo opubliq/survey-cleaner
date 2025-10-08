@@ -131,6 +131,14 @@ def clean_data(df):
         'F': 'female'
     })
 
+    # education → demo_education: Standardized education categories
+    df_clean['demo_education'] = df['education'].map({
+        'Primaire': 'elementary_school',
+        'Secondaire': 'high_school', 
+        'Collegial': 'college_cegep',
+        'Universitaire': 'bachelor_degree'
+    })
+
     return df_clean
 
 # ============================================================================
