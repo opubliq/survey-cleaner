@@ -432,14 +432,14 @@ class SurveyOrchestrator:
         if self.cleaning_rules:
             context["cleaning_rules"] = self.cleaning_rules
 
-        # Call survey-variable-cleaner-agent via API (use Sonnet for complex task)
+        # Call survey-variable-cleaner-agent via API (test with Haiku for cost savings)
         try:
             result = call_agent(
                 agent_name="survey-variable-cleaner-agent",
                 prompt=f"Process ONLY variable '{variable}' in surveys/{self.survey_name}",
                 logger=self.logger,
                 context=context,
-                model="sonnet",
+                model="haiku",  # Testing Haiku - 80% cheaper than Sonnet
                 cost_tracker=self.cost_tracker
             )
 
