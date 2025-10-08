@@ -2,38 +2,198 @@
   "survey": "test",
   "variables": {
     "id_respondent": {
-      "label": "Unique respondent identifier",
-      "original_variable": "id",
+      "label": "id_respondent",
       "type": "numeric",
+      "original_variable": "[RAW_id_respondent]",
+      "missing": 0,
       "stats": {
         "n": 20,
-        "n_valid": 20,
-        "min": 1,
-        "max": 20,
-        "median": 10.5,
-        "mean": 10.5
+        "n_valid": 20
       },
-      "missing": 0
+      "values": {
+        "1": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "2": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "3": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "4": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "5": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "6": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "7": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "8": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "9": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "10": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "11": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "12": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "13": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "14": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "15": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "16": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "17": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "18": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "19": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "20": {
+          "count": 1,
+          "percent": 5.0
+        }
+      }
     },
     "ses_age": {
-      "label": "Age in years (continuous)",
-      "original_variable": "age",
+      "label": "ses_age",
       "type": "numeric",
+      "original_variable": "[RAW_ses_age]",
+      "missing": 0,
       "stats": {
         "n": 20,
-        "n_valid": 20,
-        "min": 28,
-        "max": 61,
-        "median": 42.5,
-        "mean": 42.9,
-        "sd": 9.963
+        "n_valid": 20
       },
-      "missing": 0
+      "values": {
+        "34.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "28.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "45.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "52.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "39.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "61.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "33.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "47.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "56.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "29.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "38.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "43.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "50.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "35.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "42.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "57.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "31.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "48.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "54.0": {
+          "count": 1,
+          "percent": 5.0
+        },
+        "36.0": {
+          "count": 1,
+          "percent": 5.0
+        }
+      }
     },
     "ses_age_category": {
-      "label": "Age in years (categorical bins)",
-      "original_variable": "age",
+      "label": "ses_age_category",
       "type": "character",
+      "original_variable": "[RAW_ses_age_category]",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      },
       "values": {
         "age_25_to_34": {
           "count": 6,
@@ -51,17 +211,17 @@
           "count": 3,
           "percent": 15.0
         }
-      },
+      }
+    },
+    "ses_gender": {
+      "label": "ses_gender",
+      "type": "character",
+      "original_variable": "[RAW_ses_gender]",
+      "missing": 0,
       "stats": {
         "n": 20,
         "n_valid": 20
       },
-      "missing": 0
-    },
-    "ses_gender": {
-      "label": "Gender of respondent",
-      "original_variable": "sexe",
-      "type": "character",
       "values": {
         "male": {
           "count": 10,
@@ -71,17 +231,17 @@
           "count": 10,
           "percent": 50.0
         }
-      },
+      }
+    },
+    "ses_education": {
+      "label": "ses_education",
+      "type": "character",
+      "original_variable": "[RAW_ses_education]",
+      "missing": 0,
       "stats": {
         "n": 20,
         "n_valid": 20
       },
-      "missing": 0
-    },
-    "ses_education": {
-      "label": "Education level (highest completed)",
-      "original_variable": "education",
-      "type": "character",
       "values": {
         "bachelor_degree": {
           "count": 7,
@@ -99,17 +259,17 @@
           "count": 2,
           "percent": 10.0
         }
-      },
+      }
+    },
+    "ses_region": {
+      "label": "ses_region",
+      "type": "character",
+      "original_variable": "[RAW_ses_region]",
+      "missing": 0,
       "stats": {
         "n": 20,
         "n_valid": 20
       },
-      "missing": 0
-    },
-    "ses_region": {
-      "label": "Region of residence (Quebec cities/regions)",
-      "original_variable": "region",
-      "type": "character",
       "values": {
         "quebec_city": {
           "count": 5,
@@ -139,21 +299,25 @@
           "count": 1,
           "percent": 5.0
         }
-      },
+      }
+    },
+    "op_immigration": {
+      "label": "op_immigration",
+      "type": "numeric",
+      "original_variable": "[RAW_op_immigration]",
+      "missing": 0,
       "stats": {
         "n": 20,
         "n_valid": 20
       },
-      "missing": 0
-    },
-    "op_immigration": {
-      "label": "Opinion on immigration (1=very unfavorable to 5=very favorable, normalized to 0-1)",
-      "original_variable": "opinion_immigration",
-      "type": "numeric",
       "values": {
-        "0.0": {
-          "count": 3,
-          "percent": 15.0
+        "0.75": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "1.0": {
+          "count": 4,
+          "percent": 20.0
         },
         "0.25": {
           "count": 4,
@@ -163,38 +327,22 @@
           "count": 4,
           "percent": 20.0
         },
-        "0.75": {
-          "count": 5,
-          "percent": 25.0
-        },
-        "1.0": {
-          "count": 4,
-          "percent": 20.0
+        "0.0": {
+          "count": 3,
+          "percent": 15.0
         }
-      },
-      "stats": {
-        "n": 20,
-        "n_valid": 20,
-        "min": 0.0,
-        "max": 1.0,
-        "mean": 0.538,
-        "median": 0.5
-      },
-      "missing": 0
+      }
     },
     "op_economy": {
-      "label": "Opinion on current economic situation (1=very bad to 5=very good, normalized to 0-1)",
-      "original_variable": "opinion_economie",
+      "label": "op_economy",
       "type": "numeric",
+      "original_variable": "[RAW_op_economy]",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      },
       "values": {
-        "0.0": {
-          "count": 1,
-          "percent": 5.0
-        },
-        "0.25": {
-          "count": 4,
-          "percent": 20.0
-        },
         "0.5": {
           "count": 6,
           "percent": 30.0
@@ -203,97 +351,93 @@
           "count": 5,
           "percent": 25.0
         },
+        "0.25": {
+          "count": 4,
+          "percent": 20.0
+        },
         "1.0": {
           "count": 4,
           "percent": 20.0
-        }
-      },
-      "stats": {
-        "n": 20,
-        "n_valid": 20,
-        "min": 0.0,
-        "max": 1.0,
-        "mean": 0.588,
-        "median": 0.5
-      },
-      "missing": 0
-    },
-    "op_environment": {
-      "label": "Opinion on environmental issues importance (1=not important to 5=very important, normalized to 0-1)",
-      "original_variable": "opinion_environnement",
-      "type": "numeric",
-      "values": {
+        },
         "0.0": {
           "count": 1,
           "percent": 5.0
-        },
-        "0.25": {
-          "count": 3,
-          "percent": 15.0
-        },
-        "0.5": {
-          "count": 4,
-          "percent": 20.0
+        }
+      }
+    },
+    "op_environment": {
+      "label": "op_environment",
+      "type": "numeric",
+      "original_variable": "[RAW_op_environment]",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      },
+      "values": {
+        "1.0": {
+          "count": 6,
+          "percent": 30.0
         },
         "0.75": {
           "count": 6,
           "percent": 30.0
         },
-        "1.0": {
-          "count": 6,
-          "percent": 30.0
+        "0.5": {
+          "count": 4,
+          "percent": 20.0
+        },
+        "0.25": {
+          "count": 3,
+          "percent": 15.0
+        },
+        "0.0": {
+          "count": 1,
+          "percent": 5.0
         }
-      },
-      "stats": {
-        "n": 20,
-        "n_valid": 20,
-        "min": 0.0,
-        "max": 1.0,
-        "mean": 0.663,
-        "median": 0.75
-      },
-      "missing": 0
+      }
     },
     "op_government_satisfaction": {
-      "label": "Satisfaction with current government (1=very dissatisfied to 5=very satisfied, normalized to 0-1)",
-      "original_variable": "satisfaction_gouv",
+      "label": "op_government_satisfaction",
       "type": "numeric",
+      "original_variable": "[RAW_op_government_satisfaction]",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      },
       "values": {
+        "0.5": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "0.25": {
+          "count": 5,
+          "percent": 25.0
+        },
+        "0.75": {
+          "count": 4,
+          "percent": 20.0
+        },
+        "1.0": {
+          "count": 4,
+          "percent": 20.0
+        },
         "0.0": {
           "count": 2,
           "percent": 10.0
-        },
-        "0.25": {
-          "count": 5,
-          "percent": 25.0
-        },
-        "0.5": {
-          "count": 5,
-          "percent": 25.0
-        },
-        "0.75": {
-          "count": 4,
-          "percent": 20.0
-        },
-        "1.0": {
-          "count": 4,
-          "percent": 20.0
         }
-      },
-      "stats": {
-        "n": 20,
-        "n_valid": 20,
-        "min": 0.0,
-        "max": 1.0,
-        "mean": 0.538,
-        "median": 0.5
-      },
-      "missing": 0
+      }
     },
     "behav_vote_choice": {
-      "label": "Voting intention for Quebec provincial election",
-      "original_variable": "vote_intention",
+      "label": "behav_vote_choice",
       "type": "character",
+      "original_variable": "[RAW_behav_vote_choice]",
+      "missing": 0,
+      "stats": {
+        "n": 20,
+        "n_valid": 20
+      },
       "values": {
         "coalition_avenir_quebec": {
           "count": 6,
@@ -311,12 +455,7 @@
           "count": 4,
           "percent": 20.0
         }
-      },
-      "stats": {
-        "n": 20,
-        "n_valid": 20
-      },
-      "missing": 0
+      }
     }
   }
 }
