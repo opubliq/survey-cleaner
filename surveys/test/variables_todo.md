@@ -30,5 +30,7 @@
 - [x] opinion_environnement → op_environment
 
 ## Pending
-- [ ] satisfaction_gouv
 - [ ] vote_intention
+
+## Completed
+- [x] satisfaction_gouv → op_satisfaction_gov
