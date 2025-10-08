@@ -163,6 +163,16 @@ def clean_data(df):
         99.0: np.nan   # Don't know/Refused
     })
 
+    # opinion_economie → op_economy: Opinion on current economic situation (1=very bad to 5=very good, normalized to 0-1)
+    df_clean['op_economy'] = df['opinion_economie'].map({
+        1.0: 0.0,      # Très mauvaise
+        2.0: 0.25,     # Mauvaise
+        3.0: 0.5,      # Neutre
+        4.0: 0.75,     # Bonne
+        5.0: 1.0,      # Très bonne
+        99.0: np.nan   # Missing
+    })
+
     return df_clean
 
 # ============================================================================
