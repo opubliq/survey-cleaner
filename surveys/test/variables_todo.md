@@ -15,8 +15,10 @@
 ## Skipped (PII / not applicable)
 - [-] nom - SKIPPED: PII (personal names)
 
+## Completed
+- [x] age → demo_age, demo_age_category
+
 ## Pending
-- [ ] age
 - [ ] sexe
 - [ ] education
 - [ ] region

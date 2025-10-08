@@ -113,6 +113,18 @@ def clean_data(df):
     # id → id_respondent: Unique respondent identifier
     df_clean['id_respondent'] = df['id'].copy()
 
+    # age → demo_age (continuous), demo_age_category (binned)
+    df_clean['demo_age'] = df['age'].copy()
+    df_clean.loc[df['age'] < 0, 'demo_age'] = np.nan
+
+    df_clean['demo_age_category'] = pd.cut(
+        df['age'],
+        bins=[0, 25, 35, 45, 55, 65, 150],
+        labels=['age_18_to_24', 'age_25_to_34', 'age_35_to_44', 'age_45_to_54', 'age_55_to_64', 'age_65_and_over'],
+        include_lowest=True
+    ).astype(str)
+    df_clean.loc[df_clean['demo_age_category'] == 'nan', 'demo_age_category'] = np.nan
+
     return df_clean
 
 # ============================================================================
