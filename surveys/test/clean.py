@@ -177,6 +177,16 @@ df_clean['op_environment'] = df['opinion_environnement'].map({
     }
     df_clean['demo_region'] = df['region'].map(region_mapping)
 
+    # satisfaction_gouv → op_satisfaction_gov: Normalized government satisfaction
+    df_clean['op_satisfaction_gov'] = df['satisfaction_gouv'].map({
+        1.0: 0.0,    # Very unsatisfied
+        2.0: 0.25,
+        3.0: 0.5,    # Neutral
+        4.0: 0.75,
+        5.0: 1.0,    # Very satisfied
+        99.0: np.nan # Missing values
+    })
+
     return df_clean
 
 # ============================================================================
