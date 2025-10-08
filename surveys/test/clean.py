@@ -142,6 +142,17 @@ def clean_data(df):
         'Universitaire': 'bachelor_degree'
     })
 
+    # region → ses_region: Region of residence (Quebec cities/regions)
+    df_clean['ses_region'] = df['region'].map({
+        'Quebec': 'quebec_city',
+        'Montreal': 'montreal',
+        'Laval': 'laval',
+        'Gatineau': 'gatineau',
+        'Sherbrooke': 'sherbrooke',
+        'Trois-Rivieres': 'trois_rivieres',
+        'Longueuil': 'longueuil'
+    })
+
     return df_clean
 
 # ============================================================================
