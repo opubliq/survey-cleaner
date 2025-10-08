@@ -55,6 +55,16 @@ def clean_data(df):
     df_clean['op_immigration'] = np.nan
     df_clean.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'op_immigration'] = (df.loc[df['opinion_immigration'].isin([1,2,3,4,5]), 'opinion_immigration'] - 1) / 4.0
     # Pour chaque variable, ajouter le code de nettoyage ici.
+
+    # opinion_economie → op_economy: Opinion on current economic situation
+    df_clean['op_economy'] = df['opinion_economie'].map({
+        1.0: 0.0,   # Very bad
+        2.0: 0.25,  # Bad
+        3.0: 0.5,   # Neutral
+        4.0: 0.75,  # Good
+        5.0: 1.0,   # Very good
+        99.0: np.nan  # Missing
+    })
     #
     # RÈGLES CRITIQUES:
     #   1. Ne JAMAIS copier puis replace: df_clean['x'] = df['y'].copy() + .replace()
