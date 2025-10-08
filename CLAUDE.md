@@ -125,190 +125,212 @@ api_key <- Sys.getenv("ANTHROPIC_API_KEY")
 model <- "claude-3-opus-20240229" # Ou autre version appropriée
 ```
 
-## Installation
+## Installation et Quick Start
 
-1. Cloner le dépôt
-```bash
-git clone [URL] survey-cleaner
-cd survey-cleaner
-```
+### Setup (une fois)
 
-2. Setup automatique (recommandé)
 ```bash
+# 1. Setup automatique
 ./setup.sh
-```
 
-Ou installation manuelle:
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-3. Configurer l'API key Claude
-```bash
+# 2. Configurer API key
 echo "ANTHROPIC_API_KEY=your_key_here" > .env
+
+# 3. Tester
+./surveys/run_cleaner.sh test --limit 3
 ```
 
-4. Activer l'environnement pour chaque session
+### Utilisation quotidienne
+
 ```bash
-source venv/bin/activate
+# Nettoyer un sondage complet
+./surveys/run_cleaner.sh mon_sondage
+
+# Limiter à N variables pour tests
+./surveys/run_cleaner.sh mon_sondage --limit 10
 ```
 
-## Utilisation de l'agent survey-cleaner
-
-### Commande rapide
-
-Pour nettoyer un sondage automatiquement:
+**Structure minimale requise:**
 ```
-/clean-survey [nom_du_sondage]
-```
-
-OU utiliser la phrase naturelle:
-```
-utilise survey-cleaner-agent pour surveys/test
+surveys/mon_sondage/
+  raw/
+    data.csv        # ou .sav, .xlsx
+    codebook.md     # ou .txt
 ```
 
-### Ce que l'agent fait automatiquement
+Le système génère automatiquement tout le reste.
 
-Quand tu lances l'agent (via `/clean-survey` ou "utilise survey-cleaner-agent pour surveys/X"):
+## Architecture du système de nettoyage
 
-1. **Setup**: Vérifie l'environnement Python (venv)
-2. **Discovery**: Trouve les fichiers dans `surveys/{nom}/raw/`
-3. **Variables**: Liste toutes les variables du dataset
-4. **Todo**: Crée `variables_todo.md` pour tracking
-5. **Processing**: Pour CHAQUE variable:
-   - Cherche dans le codebook (fuzzy matching)
-   - Explore les données (frequencies, distributions)
-   - Génère le code de nettoyage
-   - Execute et valide
-   - Ajoute au script `clean.py`
-6. **Output**: Génère `clean.py`, `data_cleaned.csv`, `codebook.json`
+### Système agentic via API Anthropic (mode principal)
 
-### Structure des fichiers attendue
+Le système utilise des **appels API directs** à Claude avec tool use pour automatiser le nettoyage de sondages. Contrairement aux commandes slash interactives, ce mode permet l'exécution en batch, background, et dans des pipelines CI/CD.
+
+**Composants:**
+1. **`surveys/run_cleaner.sh`** - Wrapper qui active venv et lance l'orchestrateur
+2. **`surveys/process_survey.py`** - Orchestrateur Python principal
+3. **`surveys/agent_tools.py`** - Définitions et exécutions des tools
+4. **`.claude/agents/*.md`** - Instructions pour chaque agent spécialisé
+
+**Agents spécialisés:**
+- **`survey-init-agent`**: Initialise structure et crée `variables_todo.md`
+- **`survey-variable-cleaner-agent`**: Nettoie UNE variable à la fois
+
+**Flow agentic:**
+```
+User lance run_cleaner.sh
+  ↓
+process_survey.py charge instructions agent depuis .md
+  ↓
+Appelle API Anthropic avec tools (bash, read_file, write_file, edit_file)
+  ↓
+LOOP jusqu'à end_turn:
+  - Agent demande tools (stop_reason=tool_use)
+  - Exécution locale des tools
+  - Résultats renvoyés à l'agent
+  ↓
+Agent termine (stop_reason=end_turn)
+```
+
+### Utilisation (mode API - recommandé)
+
+**Commande simple:**
+```bash
+./surveys/run_cleaner.sh test              # Nettoie tout le sondage
+./surveys/run_cleaner.sh ces19 --limit 10  # Limite à 10 variables
+```
+
+**Ce que le script fait automatiquement:**
+
+1. **Initialisation** (via `survey-init-agent`):
+   - Crée `raw/` et `processed/`
+   - Liste toutes les variables du dataset
+   - Crée `variables_todo.md` (tracking)
+   - Crée `pending_vars.txt` (liste pour loop)
+   - Copie template `clean.py`
+
+2. **Processing variable par variable** (via `survey-variable-cleaner-agent`):
+   - Explore la variable (frequencies, distributions)
+   - Fuzzy matching dans codebook
+   - Génère code de nettoyage sécurisé
+   - Valide transformation
+   - Ajoute au `clean.py`
+   - Met à jour `codebook.json`
+   - Commit git
+   - Marque comme complété dans `variables_todo.md`
+
+3. **Finalisation**:
+   - Exécute `clean.py`
+   - Génère `data_cleaned.csv` et `codebook.json`
+   - Rapport final
+
+**Logs:**
+- Console: progression en temps réel
+- `surveys/{nom}/process.log`: log détaillé
+
+### Commandes slash (mode interactif)
+
+Pour usage interactif depuis Claude Code (moins courant):
+```bash
+/init-survey [nom]       # Initialise structure
+/clean-var [nom] [var]   # Nettoie 1 variable
+/finalize-survey [nom]   # Validation finale
+```
+
+Ces commandes utilisent le même système agentic mais via Task tool de Claude Code.
+
+### Structure des fichiers
 
 ```
 surveys/
   {nom_du_sondage}/
     raw/
-      data.csv         # ou .sav, .xlsx
-      codebook.md      # ou .txt (sera converti)
-    metadata.json      # optionnel
-    clean.py           # généré par l'agent
-    variables_todo.md  # généré par l'agent
+      data.csv           # ou .sav, .xlsx
+      codebook.md        # ou .txt
+    clean.py             # Script dual-mode (AWS + local)
+    variables_todo.md    # Tracking: [x] done, [~] in progress, [ ] pending
+    pending_vars.txt     # Liste pour loop shell
+    process.log          # Log du processing
     processed/
-      data_cleaned.csv # généré par l'agent
-      codebook.json    # généré par l'agent
+      data_cleaned.csv   # Output nettoyé
+      codebook.json      # Codebook standardisé
 ```
 
-### Invocation programmatique
+## Script clean.py (dual-mode)
 
-Si tu veux lancer l'agent depuis Claude (pas via commande slash):
+Chaque sondage génère un script `clean.py` qui fonctionne en deux modes:
 
+**Mode AWS (fonction exportée):**
 ```python
-# Utilise Task tool avec:
-subagent_type = "survey-cleaner-agent"
-description = "Clean survey {nom}"
-prompt = "Process survey in surveys/{nom}/ following your complete workflow. Report summary when done."
+from surveys.test.clean import clean_data
+
+df_clean = clean_data(df_raw)  # Appelé par lambda_raffineur_nettoyage
 ```
 
-**IMPORTANT**: L'agent a toutes les instructions dans `.claude/agents/survey-cleaner-agent.md`. Pas besoin de répéter les instructions dans le prompt.
-
-## Exemples de prompts
-
-### Analyse de structure
-
-```
-Analyse ce fichier de sondage. Identifie:
-1. Variables démographiques
-2. Variables d'opinion
-3. Variables techniques/métadonnées
-4. Problèmes potentiels (valeurs manquantes, encodage)
-
-Format des données:
-{données_exemple}
-
-Format du codebook (si disponible):
-{codebook_exemple}
+**Mode local (exécution standalone):**
+```bash
+python surveys/test/clean.py  # Génère processed/data_cleaned.csv
 ```
 
-### Génération de script R
-
-```
-Génère un script R pour nettoyer ce sondage selon notre format standard.
-Le script doit:
-1. Importer les données correctement
-2. Renommer les variables selon notre convention
-3. Recoder les valeurs manquantes
-4. Harmoniser les échelles des variables d'opinion
-5. Exporter en format .rds
-
-Voici nos conventions:
-- Préfixe démographique: demo_
-- Préfixe opinion: op_
-- Encodage NA: NA pour toutes les valeurs manquantes
-- Échelles standardisées: 0-1 pour toutes les variables d'opinion
-
-Données originales:
-{données_exemple}
-```
-
-## Pipeline de traitement
-
-1. Envoi du fichier → Claude analyse
-2. Claude génère script R initial
-3. Exécution test du script → feedback erreurs
-4. Claude corrige et optimise
-5. Validation utilisateur → finalisation
+Le script s'enrichit variable par variable pendant le processing. Chaque bloc suit un pattern sécurisé validé par l'agent.
 
 ## Structure du projet
 
 ```
 survey-cleaner/
-├── tests/            # Tests et scripts utilitaires
-│   ├── test_codebook.txt  # Fichier de test codebook TXT
-│   ├── test_codebook.csv  # Fichier de test codebook CSV
-│   ├── test_survey.csv    # Fichier de test données
-│   ├── start_mvp.sh       # Script de démarrage MVP
-│   └── quick_test.sh      # Tests rapides
-├── templates/        # Templates de prompts
-│   ├── analysis.txt
-│   └── cleaning.txt
-├── utils/
-│   ├── parsers.py    # Parsers CSV/SAV/PDF
-│   └── validators.py # Validation des outputs
-├── schemas/          # Schémas et documentation
-│   ├── plan.md       # Plan détaillé du projet
-│   └── n8n/          # Schémas des workflows n8n
-│       ├── survey-cleaner-mvp.json  # Workflow principal
-│       └── codebook-reader.json     # Workflow codebook reader
-└── CLAUDE.md         # Instructions du projet
+├── .claude/
+│   ├── agents/                        # Instructions agents agentic
+│   │   ├── survey-init-agent.md       # Agent d'initialisation
+│   │   └── survey-variable-cleaner-agent.md  # Agent de nettoyage variable
+│   └── commands/                      # Commandes slash (mode interactif)
+│       ├── init-survey.md
+│       ├── clean-var.md
+│       └── finalize-survey.md
+├── surveys/
+│   ├── run_cleaner.sh                 # ⭐ Script principal (wrapper)
+│   ├── process_survey.py              # ⭐ Orchestrateur agentic API
+│   ├── agent_tools.py                 # ⭐ Tools pour agents (bash, read, write, edit)
+│   ├── cleaning_rules.json            # Règles de nettoyage
+│   ├── _template/                     # Template pour nouveaux sondages
+│   │   └── clean.py                   # Template script dual-mode
+│   ├── test/                          # Sondage de test
+│   │   ├── raw/
+│   │   ├── clean.py
+│   │   ├── variables_todo.md
+│   │   └── process.log
+│   └── ces19/                         # Canadian Election Study 2019
+│       └── ...
+├── tests/                             # Tests et scripts utilitaires
+│   ├── test_codebook.txt
+│   ├── test_survey.csv
+│   └── start_mvp.sh
+├── schemas/                           # Schémas et documentation
+│   ├── plan.md                        # Plan détaillé du projet
+│   └── n8n/                           # Workflows n8n (legacy/complémentaire)
+│       ├── survey-cleaner-mvp.json
+│       └── codebook-reader.json
+├── setup.sh                           # Setup venv et dépendances
+├── requirements.txt                   # Dépendances Python
+└── CLAUDE.md                          # ⭐ Instructions du projet
 ```
 
 ## Tests et développement
 
-Tous les scripts de test et utilitaires sont dans le dossier `tests/`:
-- `start_mvp.sh`: Script de vérification n8n et instructions d'utilisation
-- `test_codebook.txt`: Fichier de test pour le codebook (format markdown)
-- `test_survey.csv`: Fichier de test pour les données de sondage
-- `quick_test.sh`: Tests rapides du workflow
+**Tester le système rapidement:**
+```bash
+./surveys/run_cleaner.sh test --limit 3  # Nettoie 3 variables du sondage test
+```
 
-## Utilisation
+**Fichiers de test:**
+- `surveys/test/`: Sondage minimal pour tests
+- `tests/test_codebook.txt`: Codebook de test
+- `tests/test_survey.csv`: Données de test
 
-### Mode n8n form upload
+**Modes d'intégration:**
 
-1. Démarrer n8n : `npm run start` ou `docker-compose up`
-2. Vérifier le setup : `./tests/start_mvp.sh`
-3. Aller sur http://localhost:5678
-4. Ouvrir le workflow `survey-cleaner-mvp`
-5. Utiliser le form trigger intégré pour uploader:
-   - **Codebook**: fichier TXT/PDF/CSV/XLSX (requis)
-   - **Données**: fichier CSV/SAV/XLSX (optionnel)
-
-### Workflow actuel
-
-Le workflow traite actuellement les codebooks TXT en les convertissant en markdown.
-Les autres formats (PDF, CSV, XLSX) ont des placeholders à implémenter.
+1. **Mode standalone** (actuel): `./surveys/run_cleaner.sh {nom}`
+2. **Mode n8n** (complémentaire): Workflow `survey-cleaner-mvp` pour upload via UI
+3. **Mode AWS Lambda**: Script `clean.py` exposé via `clean_data(df)` pour pipeline_sondages
 
 ## Limitations
 
@@ -329,17 +351,27 @@ Utiliser ces métriques pour améliorer les prompts.
 
 ## Tips pour développement
 
-- Les prompts de Claude sont dans `/templates/`
-- Logs d'exécution dans `/logs/`
-- Pour débugger, activer le mode verbose: `python process.py --verbose`
-- Structure du pipeline existant dans `create_survey_bd`
+- **Logs**: `surveys/{nom}/process.log` contient tous les appels API et résultats
+- **Debug agent**: Modifier `.claude/agents/{agent}.md` puis relancer `run_cleaner.sh`
+- **Tools**: Tous les tools sont dans `agent_tools.py` (bash, read, write, edit)
+- **Limiter variables**: `--limit N` pour tester sur N variables seulement
+- **Règles de nettoyage**: `surveys/cleaning_rules.json` contient patterns communs
+
+**Développer un nouvel agent:**
+1. Créer `.claude/agents/mon-agent.md` avec instructions
+2. Ajouter fonction dans `process_survey.py` qui appelle `call_agent("mon-agent", prompt)`
+3. L'agent aura accès aux 4 tools définis dans `agent_tools.py`
 
 ## Roadmap
 
 - **MVP 1**: ✅ Form upload n8n + traitement codebook TXT
-- **MVP 2**: Implémentation parseurs PDF, CSV, XLSX pour codebooks
-- **MVP 3**: Traitement des données de sondage + génération script R  
-- **MVP 4**: Intégration avec API Claude pour génération automatique
+- **MVP 2**: ✅ Système agentic via API avec tool use
+- **MVP 3**: ✅ Processing variable-par-variable avec validation
+- **MVP 4**: ✅ Script dual-mode (AWS + local)
+- **Next**:
+  - Améliorer fuzzy matching cross-survey
+  - Détection automatique de variables similaires entre sondages
+  - Dashboard de monitoring (taux de succès, temps par variable)
 
 ## Intégration avec le projet parent
 
