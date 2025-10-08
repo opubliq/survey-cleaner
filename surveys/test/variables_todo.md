@@ -7,11 +7,11 @@
 - [x] id → id_respondent
 
 ## In Progress
+- [~] nom
 
 ## Questions (need human input)
 
 ## Pending
-- [ ] nom
 - [ ] age
 - [ ] sexe
 - [ ] education

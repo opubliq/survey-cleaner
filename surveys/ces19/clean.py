@@ -110,8 +110,6 @@ def clean_data(df):
     # df_clean.loc[df['Q20_comment'].isna(), 'op_comment'] = np.nan
     # ============================================================================
 
-    # TODO: Ajouter le code de nettoyage pour chaque variable ci-dessous
-
     # ========== ID Variables ==========
     # cps19_ResponseId -> id_respondent
     df_clean['id_respondent'] = df['cps19_ResponseId'].astype(str)
@@ -139,14 +137,18 @@ def clean_data(df):
 
 def load_data():
     """Charger les données brutes (local mode only)"""
-    # TODO: Adapter selon le format (CSV, SAV, XLSX)
-    data_file = list(RAW_DIR.glob("data.*"))[0]
+    # Find data file
+    data_files = list(RAW_DIR.glob("*.csv")) + list(RAW_DIR.glob("*.sav")) + list(RAW_DIR.glob("*.xlsx"))
+    if not data_files:
+        raise FileNotFoundError("No data file found in raw/")
+    data_file = data_files[0]
 
     if data_file.suffix == ".csv":
         df = pd.read_csv(data_file)
     elif data_file.suffix == ".sav":
         import pyreadstat
-        df, meta = pyreadstat.read_sav(data_file)
+        # CES 2019 has encoding issues, use latin1
+        df, meta = pyreadstat.read_sav(data_file, encoding='latin1')
     elif data_file.suffix in [".xlsx", ".xls"]:
         df = pd.read_excel(data_file)
     else:

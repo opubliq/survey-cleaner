@@ -1,6 +1,18 @@
-# Variables Processing Todo - CES19
+# Variables Processing Todo - CES 2019
+**Total variables**: 634
+**Completed**: 3
+**Remaining**: 631
+
+## Completed
+- [x] cps19_ResponseId → id_respondent
+- [x] cps19_consent → tech_consent
+- [x] cps19_citizenship → ses_citizenship
+
+## In Progress
+- [~] cps19_StartDate
 
 ## Pending
+- [ ] cps19_EndDate
 - [ ] cps19_yob
 - [ ] cps19_yob_2001_age
 - [ ] cps19_gender
@@ -630,17 +642,3 @@
 - [ ] cps19_weight_general_restricted
 - [ ] pes19_weight_general_all
 - [ ] pes19_weight_general_restricted
-
-
-## In Progress
-
-## Completed
-
-- [x] cps19_ResponseId -> id_respondent (unique identifier)
-- [x] cps19_consent -> tech_consent (binary consent flag)
-- [x] cps19_citizenship -> ses_citizenship (categorical: citizen/permanent resident)
-
-## Skipped
-
-- [S] cps19_StartDate - date variable - skipped per user request
-- [S] cps19_EndDate - date variable - skipped per user request
