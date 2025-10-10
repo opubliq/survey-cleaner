@@ -73,24 +73,43 @@ def count_variables(filepath, filetype):
             # Retirer les doublons tout en préservant l'ordre
             encodings = list(dict.fromkeys([e for e in encodings if e]))
 
+            # Essayer différents séparateurs
+            separators = [',', ';', '\t', '|']
+
             df = None
             last_error = None
+            best_result = None
 
             for encoding in encodings:
-                try:
-                    df = pd.read_csv(filepath, nrows=1, encoding=encoding, low_memory=False)
-                    n_vars = len(df.columns)
-                    # Pour le nombre de lignes, on lit tout avec le même encodage
-                    df_full = pd.read_csv(filepath, encoding=encoding, low_memory=False)
-                    n_rows = len(df_full)
-                    print(f"   Encodage utilisé avec succès: {encoding}")
-                    return n_vars, n_rows
-                except (UnicodeDecodeError, UnicodeError) as e:
-                    last_error = e
-                    continue
-                except Exception as e:
-                    last_error = e
-                    continue
+                for sep in separators:
+                    try:
+                        df = pd.read_csv(filepath, nrows=1, encoding=encoding, sep=sep,
+                                       low_memory=False, on_bad_lines='warn')
+                        n_vars = len(df.columns)
+
+                        # Garder le meilleur résultat (le plus de colonnes)
+                        if best_result is None or n_vars > best_result['n_vars']:
+                            # Pour le nombre de lignes, on lit tout avec le même encodage et séparateur
+                            df_full = pd.read_csv(filepath, encoding=encoding, sep=sep,
+                                                 low_memory=False, on_bad_lines='warn')
+                            n_rows = len(df_full)
+                            best_result = {
+                                'n_vars': n_vars,
+                                'n_rows': n_rows,
+                                'encoding': encoding,
+                                'sep': sep
+                            }
+                    except (UnicodeDecodeError, UnicodeError) as e:
+                        last_error = e
+                        continue
+                    except Exception as e:
+                        last_error = e
+                        continue
+
+            # Si on a trouvé au moins un résultat
+            if best_result and best_result['n_vars'] > 1:
+                print(f"   Encodage utilisé: {best_result['encoding']}, Séparateur: {repr(best_result['sep'])}")
+                return best_result['n_vars'], best_result['n_rows']
 
             # Si tous les encodages ont échoué
             if last_error:
