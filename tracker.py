@@ -144,6 +144,21 @@ def count_variables(filepath, filetype):
 
     return None, None
 
+def check_if_cleaned(folder_name):
+    """
+    Vérifie si le dataset a été nettoyé (existe dans surveys/)
+    Retourne True si le dossier existe avec un clean.py
+    """
+    survey_path = Path("surveys") / folder_name
+    if survey_path.exists() and survey_path.is_dir():
+        # Vérifier si clean.py existe
+        clean_py = survey_path / "clean.py"
+        if clean_py.exists():
+            return "✅ Done"
+        else:
+            return "🔧 In Progress"
+    return "❌ Not Started"
+
 def main():
     base_path = Path("SharedFolder_data_produit")
 
@@ -161,6 +176,9 @@ def main():
     for folder in folders:
         dataset_file, filetype = identify_dataset_file(folder)
 
+        # Vérifier si le dataset a été nettoyé
+        cleaned_status = check_if_cleaned(folder.name)
+
         if dataset_file is None:
             print(f"⚠️  {folder.name}: Aucun dataset trouvé")
             results.append({
@@ -169,11 +187,12 @@ def main():
                 'file_type': 'N/A',
                 'n_variables': 'N/A',
                 'n_rows': 'N/A',
-                'status': 'NOT_FOUND'
+                'status': 'NOT_FOUND',
+                'cleaned': cleaned_status
             })
             continue
 
-        print(f"📊 {folder.name}")
+        print(f"📊 {folder.name} {cleaned_status}")
         print(f"   Fichier: {dataset_file.name} ({filetype})")
 
         n_vars, n_rows = count_variables(dataset_file, filetype)
@@ -194,14 +213,15 @@ def main():
             'file_type': filetype,
             'n_variables': n_vars if n_vars is not None else 'ERROR',
             'n_rows': n_rows if n_rows is not None else 'ERROR',
-            'status': status
+            'status': status,
+            'cleaned': cleaned_status
         })
 
     # Créer un DataFrame avec les résultats
     df_results = pd.DataFrame(results)
 
     # Sauvegarder en CSV
-    output_file = "dataset_variables_count.csv"
+    output_file = "dataset_tracker.csv"
     df_results.to_csv(output_file, index=False)
     print(f"✅ Résultats sauvegardés dans {output_file}")
 
@@ -217,6 +237,22 @@ def main():
     if any(r['status'] == 'OK' for r in results):
         total_vars = sum(r['n_variables'] for r in results if isinstance(r['n_variables'], int))
         print(f"\nTotal de variables (tous datasets): {total_vars}")
+
+    # Statistiques de nettoyage
+    print("\n" + "="*80)
+    print("STATUT DE NETTOYAGE")
+    print("="*80)
+    done = len([r for r in results if r['cleaned'] == '✅ Done'])
+    in_progress = len([r for r in results if r['cleaned'] == '🔧 In Progress'])
+    not_started = len([r for r in results if r['cleaned'] == '❌ Not Started'])
+
+    print(f"✅ Done: {done}/{len(results)}")
+    print(f"🔧 In Progress: {in_progress}/{len(results)}")
+    print(f"❌ Not Started: {not_started}/{len(results)}")
+
+    if len(results) > 0:
+        progress_pct = (done / len(results)) * 100
+        print(f"\nProgression globale: {progress_pct:.1f}%")
 
 if __name__ == "__main__":
     main()
