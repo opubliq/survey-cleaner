@@ -1,0 +1,745 @@
+{
+  "survey": "elxnqc_particip_egp_2018",
+  "variables": {
+    "behav_vote_turnout_provincial_2018": {
+      "label": "behav_vote_turnout_provincial_2018",
+      "type": "numeric",
+      "original_variable": "[RAW_behav_vote_turnout_provincial_2018]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "1.0": {
+          "count": 1636,
+          "percent": 75.22
+        },
+        "0.0": {
+          "count": 539,
+          "percent": 24.78
+        }
+      }
+    },
+    "ses_region_administrative": {
+      "label": "ses_region_administrative",
+      "type": "character",
+      "original_variable": "[RAW_ses_region_administrative]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "montreal": {
+          "count": 406,
+          "percent": 18.67
+        },
+        "monteregie": {
+          "count": 299,
+          "percent": 13.75
+        },
+        "saguenay_lac_saint_jean": {
+          "count": 272,
+          "percent": 12.51
+        },
+        "capitale_nationale": {
+          "count": 153,
+          "percent": 7.03
+        },
+        "abitibi_temiscamingue": {
+          "count": 131,
+          "percent": 6.02
+        },
+        "bas_saint_laurent": {
+          "count": 120,
+          "percent": 5.52
+        },
+        "laurentides": {
+          "count": 110,
+          "percent": 5.06
+        },
+        "outaouais": {
+          "count": 107,
+          "percent": 4.92
+        },
+        "gaspesie_iles_madeleine": {
+          "count": 84,
+          "percent": 3.86
+        },
+        "laval": {
+          "count": 73,
+          "percent": 3.36
+        },
+        "lanaudiere": {
+          "count": 72,
+          "percent": 3.31
+        },
+        "chaudiere_appalaches": {
+          "count": 71,
+          "percent": 3.26
+        },
+        "mauricie_bois_franc": {
+          "count": 71,
+          "percent": 3.26
+        },
+        "centre_du_quebec": {
+          "count": 67,
+          "percent": 3.08
+        },
+        "estrie": {
+          "count": 65,
+          "percent": 2.99
+        },
+        "cote_nord": {
+          "count": 63,
+          "percent": 2.9
+        },
+        "nord_du_quebec": {
+          "count": 11,
+          "percent": 0.51
+        }
+      }
+    },
+    "ses_region_grouped": {
+      "label": "ses_region_grouped",
+      "type": "character",
+      "original_variable": "[RAW_ses_region_grouped]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "elsewhere": {
+          "count": 1248,
+          "percent": 57.38
+        },
+        "montreal": {
+          "count": 753,
+          "percent": 34.62
+        },
+        "quebec": {
+          "count": 174,
+          "percent": 8.0
+        }
+      }
+    },
+    "ses_zone_type": {
+      "label": "ses_zone_type",
+      "type": "character",
+      "original_variable": "[RAW_ses_zone_type]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "urban": {
+          "count": 804,
+          "percent": 36.97
+        },
+        "intermediate": {
+          "count": 704,
+          "percent": 32.37
+        },
+        "rural": {
+          "count": 667,
+          "percent": 30.67
+        }
+      }
+    },
+    "ses_age_category": {
+      "label": "ses_age_category",
+      "type": "character",
+      "original_variable": "[RAW_ses_age_category]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "25_34": {
+          "count": 514,
+          "percent": 23.63
+        },
+        "55_64": {
+          "count": 427,
+          "percent": 19.63
+        },
+        "65_plus": {
+          "count": 397,
+          "percent": 18.25
+        },
+        "45_54": {
+          "count": 392,
+          "percent": 18.02
+        },
+        "35_44": {
+          "count": 291,
+          "percent": 13.38
+        },
+        "18_24": {
+          "count": 154,
+          "percent": 7.08
+        }
+      }
+    },
+    "behav_vote_intention_type": {
+      "label": "behav_vote_intention_type",
+      "type": "character",
+      "original_variable": "[RAW_behav_vote_intention_type]",
+      "missing": 0,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2175
+      },
+      "values": {
+        "voted": {
+          "count": 1636,
+          "percent": 75.22
+        },
+        "did_not_vote_no_intention": {
+          "count": 282,
+          "percent": 12.97
+        },
+        "usually_vote_but_not_this_time": {
+          "count": 147,
+          "percent": 6.76
+        },
+        "thought_about_voting_but_did_not": {
+          "count": 110,
+          "percent": 5.06
+        }
+      }
+    },
+    "behav_vote_decision_timing": {
+      "label": "behav_vote_decision_timing",
+      "type": "character",
+      "original_variable": "[RAW_behav_vote_decision_timing]",
+      "missing": 70,
+      "stats": {
+        "n": 2175,
+        "n_valid": 2105
+      },
+      "values": {
+        "more_than_month_before": {
+          "count": 1245,
+          "percent": 59.14
+        },
+        "election_day": {
+          "count": 325,
+          "percent": 15.44
+        },
+        "few_days_before": {
+          "count": 272,
+          "percent": 12.92
+        },
+        "few_weeks_before": {
+          "count": 263,
+          "percent": 12.49
+        }
+      }
+    },
+    "op_nonvoting_reason_a": {
+      "label": "op_nonvoting_reason_a",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_a]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 337,
+          "percent": 62.52
+        },
+        "1.0": {
+          "count": 202,
+          "percent": 37.48
+        }
+      }
+    },
+    "op_nonvoting_reason_b": {
+      "label": "op_nonvoting_reason_b",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_b]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 352,
+          "percent": 65.31
+        },
+        "1.0": {
+          "count": 187,
+          "percent": 34.69
+        }
+      }
+    },
+    "op_nonvoting_reason_c": {
+      "label": "op_nonvoting_reason_c",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_c]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 307,
+          "percent": 56.96
+        },
+        "1.0": {
+          "count": 232,
+          "percent": 43.04
+        }
+      }
+    },
+    "op_nonvoting_reason_d": {
+      "label": "op_nonvoting_reason_d",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_d]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 424,
+          "percent": 78.66
+        },
+        "1.0": {
+          "count": 115,
+          "percent": 21.34
+        }
+      }
+    },
+    "op_nonvoting_reason_e": {
+      "label": "op_nonvoting_reason_e",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_e]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "1.0": {
+          "count": 309,
+          "percent": 57.33
+        },
+        "0.0": {
+          "count": 230,
+          "percent": 42.67
+        }
+      }
+    },
+    "op_nonvoting_reason_f": {
+      "label": "op_nonvoting_reason_f",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_f]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 468,
+          "percent": 86.83
+        },
+        "1.0": {
+          "count": 71,
+          "percent": 13.17
+        }
+      }
+    },
+    "op_nonvoting_reason_g": {
+      "label": "op_nonvoting_reason_g",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_g]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 385,
+          "percent": 71.43
+        },
+        "1.0": {
+          "count": 154,
+          "percent": 28.57
+        }
+      }
+    },
+    "op_nonvoting_reason_h": {
+      "label": "op_nonvoting_reason_h",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_h]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 461,
+          "percent": 85.53
+        },
+        "1.0": {
+          "count": 78,
+          "percent": 14.47
+        }
+      }
+    },
+    "op_nonvoting_reason_i": {
+      "label": "op_nonvoting_reason_i",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_i]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 455,
+          "percent": 84.42
+        },
+        "1.0": {
+          "count": 84,
+          "percent": 15.58
+        }
+      }
+    },
+    "op_nonvoting_reason_j": {
+      "label": "op_nonvoting_reason_j",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_j]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 470,
+          "percent": 87.2
+        },
+        "1.0": {
+          "count": 69,
+          "percent": 12.8
+        }
+      }
+    },
+    "op_nonvoting_reason_k": {
+      "label": "op_nonvoting_reason_k",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_k]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 420,
+          "percent": 77.92
+        },
+        "1.0": {
+          "count": 119,
+          "percent": 22.08
+        }
+      }
+    },
+    "op_nonvoting_reason_l": {
+      "label": "op_nonvoting_reason_l",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_l]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 462,
+          "percent": 85.71
+        },
+        "1.0": {
+          "count": 77,
+          "percent": 14.29
+        }
+      }
+    },
+    "op_nonvoting_reason_m": {
+      "label": "op_nonvoting_reason_m",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_m]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 507,
+          "percent": 94.06
+        },
+        "1.0": {
+          "count": 32,
+          "percent": 5.94
+        }
+      }
+    },
+    "op_nonvoting_reason_n": {
+      "label": "op_nonvoting_reason_n",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_n]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 397,
+          "percent": 73.65
+        },
+        "1.0": {
+          "count": 142,
+          "percent": 26.35
+        }
+      }
+    },
+    "op_nonvoting_reason_o": {
+      "label": "op_nonvoting_reason_o",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_o]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 414,
+          "percent": 76.81
+        },
+        "1.0": {
+          "count": 125,
+          "percent": 23.19
+        }
+      }
+    },
+    "op_nonvoting_reason_p": {
+      "label": "op_nonvoting_reason_p",
+      "type": "numeric",
+      "original_variable": "[RAW_op_nonvoting_reason_p]",
+      "missing": 1636,
+      "stats": {
+        "n": 2175,
+        "n_valid": 539
+      },
+      "values": {
+        "0.0": {
+          "count": 453,
+          "percent": 84.04
+        },
+        "1.0": {
+          "count": 86,
+          "percent": 15.96
+        }
+      }
+    },
+    "op_voting_reason_a": {
+      "label": "op_voting_reason_a",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_a]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 1537,
+          "percent": 93.95
+        },
+        "0.0": {
+          "count": 99,
+          "percent": 6.05
+        }
+      }
+    },
+    "op_voting_reason_b": {
+      "label": "op_voting_reason_b",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_b]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 1200,
+          "percent": 73.35
+        },
+        "0.0": {
+          "count": 436,
+          "percent": 26.65
+        }
+      }
+    },
+    "op_voting_reason_c": {
+      "label": "op_voting_reason_c",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_c]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 977,
+          "percent": 59.72
+        },
+        "0.0": {
+          "count": 659,
+          "percent": 40.28
+        }
+      }
+    },
+    "op_voting_reason_d": {
+      "label": "op_voting_reason_d",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_d]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 851,
+          "percent": 52.02
+        },
+        "0.0": {
+          "count": 785,
+          "percent": 47.98
+        }
+      }
+    },
+    "op_voting_reason_e": {
+      "label": "op_voting_reason_e",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_e]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "0.0": {
+          "count": 1206,
+          "percent": 73.72
+        },
+        "1.0": {
+          "count": 430,
+          "percent": 26.28
+        }
+      }
+    },
+    "op_voting_reason_f": {
+      "label": "op_voting_reason_f",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_f]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 1417,
+          "percent": 86.61
+        },
+        "0.0": {
+          "count": 219,
+          "percent": 13.39
+        }
+      }
+    },
+    "op_voting_reason_g": {
+      "label": "op_voting_reason_g",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_g]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 1217,
+          "percent": 74.39
+        },
+        "0.0": {
+          "count": 419,
+          "percent": 25.61
+        }
+      }
+    },
+    "op_voting_reason_h": {
+      "label": "op_voting_reason_h",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_h]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "1.0": {
+          "count": 1299,
+          "percent": 79.4
+        },
+        "0.0": {
+          "count": 337,
+          "percent": 20.6
+        }
+      }
+    },
+    "op_voting_reason_i": {
+      "label": "op_voting_reason_i",
+      "type": "numeric",
+      "original_variable": "[RAW_op_voting_reason_i]",
+      "missing": 539,
+      "stats": {
+        "n": 2175,
+        "n_valid": 1636
+      },
+      "values": {
+        "0.0": {
+          "count": 946,
+          "percent": 57.82
+        },
+        "1.0": {
+          "count": 690,
+          "percent": 42.18
+        }
+      }
+    }
+  }
+}

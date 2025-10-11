@@ -1,0 +1,3138 @@
+================================================================================
+RAPPORT D'ANALYSE DES VARIABLES - elxnqc_particip_egp_2018
+================================================================================
+
+--------------------------------------------------------------------------------
+VARIABLE: QUESTIONNAIRE
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 2175
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Continue ou multi-catégorielle
+SUGGESTION: Vérifier si continue (créer bins) ou catégorielle (mapper)
+
+Statistiques descriptives:
+  count: 2175.00
+  mean: 38784.69
+  std: 27450.04
+  min: 27.00
+  25%: 21874.00
+  50%: 33967.00
+  75%: 36752.50
+  max: 91947.00
+
+Premiers exemples de valeurs:
+  [np.int64(27), np.int64(74), np.int64(86), np.int64(151), np.int64(157), np.int64(158), np.int64(169), np.int64(279), np.int64(282), np.int64(287)]
+
+--------------------------------------------------------------------------------
+VARIABLE: VOT1
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 2
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1: 1636 (75.2%)
+  2: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: REGIO
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 17
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 120 (5.5%)
+  2: 272 (12.5%)
+  3: 153 (7.0%)
+  4: 71 (3.3%)
+  5: 65 (3.0%)
+  6: 406 (18.7%)
+  7: 107 (4.9%)
+  8: 131 (6.0%)
+  9: 63 (2.9%)
+  10: 11 (0.5%)
+  11: 84 (3.9%)
+  12: 71 (3.3%)
+  13: 73 (3.4%)
+  14: 72 (3.3%)
+  15: 110 (5.1%)
+  16: 299 (13.7%)
+  17: 67 (3.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: REGIX
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 753 (34.6%)
+  2: 174 (8.0%)
+  3: 1248 (57.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: ZONE
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 804 (37.0%)
+  2: 704 (32.4%)
+  3: 667 (30.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q2
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 6
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 154 (7.1%)
+  2: 514 (23.6%)
+  3: 291 (13.4%)
+  4: 392 (18.0%)
+  5: 427 (19.6%)
+  6: 397 (18.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q2B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 1
+Valeurs manquantes: 2021 (92.9%)
+
+TYPE DÉTECTÉ: Constante (une seule valeur)
+SUGGESTION: SKIP - pas de variabilité
+Valeur unique: 1.0
+
+--------------------------------------------------------------------------------
+VARIABLE: Q3
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 1
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Constante (une seule valeur)
+SUGGESTION: SKIP - pas de variabilité
+Valeur unique: 1
+
+--------------------------------------------------------------------------------
+VARIABLE: Q4
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 282 (13.0%)
+  2: 110 (5.1%)
+  3: 147 (6.8%)
+  4: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q5
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1245 (57.2%)
+  2: 263 (12.1%)
+  3: 272 (12.5%)
+  4: 325 (14.9%)
+  9: 70 (3.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6A
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 202 (9.3%)
+  2.0: 337 (15.5%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 187 (8.6%)
+  2.0: 352 (16.2%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6C
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 232 (10.7%)
+  2.0: 307 (14.1%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6D
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 115 (5.3%)
+  2.0: 424 (19.5%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6E
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 309 (14.2%)
+  2.0: 230 (10.6%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6F
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 71 (3.3%)
+  2.0: 468 (21.5%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6G
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 154 (7.1%)
+  2.0: 385 (17.7%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6H
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 78 (3.6%)
+  2.0: 461 (21.2%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6I
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 84 (3.9%)
+  2.0: 455 (20.9%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6J
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 69 (3.2%)
+  2.0: 470 (21.6%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6K
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 119 (5.5%)
+  2.0: 420 (19.3%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6L
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 77 (3.5%)
+  2.0: 462 (21.2%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6M
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 32 (1.5%)
+  2.0: 507 (23.3%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6N
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 142 (6.5%)
+  2.0: 397 (18.3%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 125 (5.7%)
+  2.0: 414 (19.0%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q6P
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 86 (4.0%)
+  2.0: 453 (20.8%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M1
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 19
+Valeurs manquantes: 1636 (75.2%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  0.0: 37 (1.7%)
+  1.0: 50 (2.3%)
+  2.0: 14 (0.6%)
+  3.0: 12 (0.6%)
+  4.0: 10 (0.5%)
+  5.0: 29 (1.3%)
+  6.0: 19 (0.9%)
+  7.0: 15 (0.7%)
+  8.0: 13 (0.6%)
+  9.0: 7 (0.3%)
+  10.0: 6 (0.3%)
+  11.0: 30 (1.4%)
+  12.0: 6 (0.3%)
+  13.0: 3 (0.1%)
+  14.0: 6 (0.3%)
+  15.0: 2 (0.1%)
+  16.0: 6 (0.3%)
+  97.0: 57 (2.6%)
+  99.0: 217 (10.0%)
+  nan: 1636 (75.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 293
+Valeurs manquantes: 1850 (85.1%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Texte libre (open-ended) - conserver tel quel ou SKIP si PII
+
+Exemples (premiers 5):
+  1. JAURAIS VOULU AVOIR LE GOÛT DAVOIR DAVOIR UN BON CANDIDAT ET AUSSI PAS UN PAR
+  2. C.EST TOUT DU PAREIL AU MEME !!! MORDU PAR UN CHIEN OU MORDU PAR UN CHAT, T,EST 
+  3. J'AI ETE PAR ANTICIPATION ET L'ATTENTE ETAIT TROP LONGUE SEULEMENT UN BUREAU POU
+  4. IF THE CONSERVATIVE PARTY HAD HAD A CHANCE OF WINNING
+  5. QU'UN DES CHEFS DE PARTI MÉRITE MA CONFIANCE ET QUE JE SOIS CONVAINCUE QUE SON É
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 10
+Valeurs manquantes: 2144 (98.6%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 3 (0.1%)
+  3.0: 3 (0.1%)
+  4.0: 3 (0.1%)
+  6.0: 4 (0.2%)
+  7.0: 3 (0.1%)
+  8.0: 1 (0.0%)
+  9.0: 1 (0.0%)
+  11.0: 4 (0.2%)
+  13.0: 5 (0.2%)
+  97.0: 4 (0.2%)
+  nan: 2144 (98.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M2O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 2173 (99.9%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  5.0: 1 (0.0%)
+  13.0: 1 (0.0%)
+  nan: 2173 (99.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M3O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M4O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M5O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M6
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M7
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M7O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M8
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q7M8O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8A
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 1537 (70.7%)
+  2.0: 99 (4.6%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 1200 (55.2%)
+  2.0: 436 (20.0%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8C
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 977 (44.9%)
+  2.0: 659 (30.3%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8D
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 851 (39.1%)
+  2.0: 785 (36.1%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8E
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 430 (19.8%)
+  2.0: 1206 (55.4%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8F
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 1417 (65.1%)
+  2.0: 219 (10.1%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8G
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 1217 (56.0%)
+  2.0: 419 (19.3%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8H
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 1299 (59.7%)
+  2.0: 337 (15.5%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q8I
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 690 (31.7%)
+  2.0: 946 (43.5%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q9A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1729 (79.5%)
+  2: 286 (13.1%)
+  8: 76 (3.5%)
+  9: 84 (3.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q9B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1738 (79.9%)
+  2: 313 (14.4%)
+  8: 57 (2.6%)
+  9: 67 (3.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q9C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1515 (69.7%)
+  2: 550 (25.3%)
+  8: 42 (1.9%)
+  9: 68 (3.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10A
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 539 (24.8%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 829 (38.1%)
+  2.0: 801 (36.8%)
+  9.0: 6 (0.3%)
+  nan: 539 (24.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM1
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 9
+Valeurs manquantes: 1374 (63.2%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 616 (28.3%)
+  2.0: 71 (3.3%)
+  3.0: 68 (3.1%)
+  4.0: 30 (1.4%)
+  5.0: 3 (0.1%)
+  8.0: 5 (0.2%)
+  9.0: 2 (0.1%)
+  10.0: 2 (0.1%)
+  97.0: 4 (0.2%)
+  nan: 1374 (63.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 13
+Valeurs manquantes: 2161 (99.4%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2161 (99.4%)
+  'COLOCATAIRE': 2 (0.1%)
+  'MA PETITE FILLE DE 12 ANS': 1 (0.0%)
+  'UN BÉNÉVOLE CAR JE SUIS PRÉSENTEMENT À MOBILITÉ RÉ': 1 (0.0%)
+  'FRERE': 1 (0.0%)
+  'AUTRE MEMBRE DE LA FAMILLE': 1 (0.0%)
+  'FRÈRE ET BELLE-SOEUR': 1 (0.0%)
+  'BÉNÉVOLE': 1 (0.0%)
+  'SOEUR': 1 (0.0%)
+  'PETITE FILLE': 1 (0.0%)
+  'SIBLINGS': 1 (0.0%)
+  'MARI': 1 (0.0%)
+  'BOYFRIEND': 1 (0.0%)
+  'SISTER': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 6
+Valeurs manquantes: 2072 (95.3%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 1 (0.0%)
+  2.0: 5 (0.2%)
+  3.0: 88 (4.0%)
+  4.0: 4 (0.2%)
+  5.0: 4 (0.2%)
+  97.0: 1 (0.0%)
+  nan: 2072 (95.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM2O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'UN TRANSPORTEUR': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 2170 (99.8%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  3.0: 2 (0.1%)
+  5.0: 1 (0.0%)
+  97.0: 2 (0.1%)
+  nan: 2170 (99.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM3O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 2
+Valeurs manquantes: 2173 (99.9%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2173 (99.9%)
+  'BELLE MERE': 1 (0.0%)
+  'TANTE': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM4O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10BM5O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10C
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 2017 (92.7%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 96 (4.4%)
+  2.0: 62 (2.9%)
+  nan: 2017 (92.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q10D
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 2079 (95.6%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  1.0: 60 (2.8%)
+  2.0: 36 (1.7%)
+  nan: 2079 (95.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q11
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1619 (74.4%)
+  2: 369 (17.0%)
+  3: 93 (4.3%)
+  4: 54 (2.5%)
+  5: 40 (1.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q12A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 11
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  0: 152 (7.0%)
+  1: 62 (2.9%)
+  2: 95 (4.4%)
+  3: 94 (4.3%)
+  4: 92 (4.2%)
+  5: 253 (11.6%)
+  6: 202 (9.3%)
+  7: 284 (13.1%)
+  8: 374 (17.2%)
+  9: 230 (10.6%)
+  10: 337 (15.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q12B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 11
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  0: 158 (7.3%)
+  1: 56 (2.6%)
+  2: 90 (4.1%)
+  3: 78 (3.6%)
+  4: 100 (4.6%)
+  5: 225 (10.3%)
+  6: 190 (8.7%)
+  7: 269 (12.4%)
+  8: 361 (16.6%)
+  9: 235 (10.8%)
+  10: 413 (19.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q13
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1136 (52.2%)
+  2: 881 (40.5%)
+  9: 158 (7.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q14
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 387 (17.8%)
+  2: 1185 (54.5%)
+  3: 473 (21.7%)
+  4: 100 (4.6%)
+  9: 30 (1.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q15
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 204 (9.4%)
+  2: 1022 (47.0%)
+  3: 652 (30.0%)
+  4: 210 (9.7%)
+  9: 87 (4.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 507 (23.3%)
+  2: 1197 (55.0%)
+  3: 287 (13.2%)
+  4: 82 (3.8%)
+  5: 102 (4.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 510 (23.4%)
+  2: 991 (45.6%)
+  3: 387 (17.8%)
+  4: 147 (6.8%)
+  5: 140 (6.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 480 (22.1%)
+  2: 881 (40.5%)
+  3: 587 (27.0%)
+  4: 96 (4.4%)
+  5: 131 (6.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16D
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 224 (10.3%)
+  2: 922 (42.4%)
+  3: 623 (28.6%)
+  4: 243 (11.2%)
+  5: 163 (7.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16E
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 361 (16.6%)
+  2: 714 (32.8%)
+  3: 603 (27.7%)
+  4: 412 (18.9%)
+  5: 85 (3.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16F
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 408 (18.8%)
+  2: 1015 (46.7%)
+  3: 487 (22.4%)
+  4: 198 (9.1%)
+  5: 67 (3.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16G
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 498 (22.9%)
+  2: 917 (42.2%)
+  3: 559 (25.7%)
+  4: 102 (4.7%)
+  5: 99 (4.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16H
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 137 (6.3%)
+  2: 877 (40.3%)
+  3: 760 (34.9%)
+  4: 283 (13.0%)
+  5: 118 (5.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16I
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 584 (26.9%)
+  2: 1019 (46.9%)
+  3: 426 (19.6%)
+  4: 52 (2.4%)
+  5: 94 (4.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16J
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 276 (12.7%)
+  2: 623 (28.6%)
+  3: 846 (38.9%)
+  4: 354 (16.3%)
+  5: 76 (3.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16K
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 232 (10.7%)
+  2: 984 (45.2%)
+  3: 616 (28.3%)
+  4: 202 (9.3%)
+  5: 141 (6.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16L
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 736 (33.8%)
+  2: 902 (41.5%)
+  3: 335 (15.4%)
+  4: 75 (3.4%)
+  5: 127 (5.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16M
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1414 (65.0%)
+  2: 500 (23.0%)
+  3: 124 (5.7%)
+  4: 72 (3.3%)
+  5: 65 (3.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16N
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 874 (40.2%)
+  2: 902 (41.5%)
+  3: 191 (8.8%)
+  4: 80 (3.7%)
+  5: 128 (5.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q16O
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 319 (14.7%)
+  2: 390 (17.9%)
+  3: 571 (26.3%)
+  4: 751 (34.5%)
+  5: 144 (6.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q17A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1423 (65.4%)
+  2: 707 (32.5%)
+  9: 45 (2.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q17B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 984 (45.2%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 123 (5.7%)
+  2.0: 1060 (48.7%)
+  9.0: 8 (0.4%)
+  nan: 984 (45.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q17C
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 1943 (89.3%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 34 (1.6%)
+  2.0: 191 (8.8%)
+  9.0: 7 (0.3%)
+  nan: 1943 (89.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 962 (44.2%)
+  2: 1159 (53.3%)
+  9: 54 (2.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM1
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 10
+Valeurs manquantes: 1212 (55.7%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 138 (6.3%)
+  2.0: 119 (5.5%)
+  3.0: 479 (22.0%)
+  4.0: 191 (8.8%)
+  5.0: 11 (0.5%)
+  6.0: 9 (0.4%)
+  7.0: 3 (0.1%)
+  8.0: 6 (0.3%)
+  9.0: 3 (0.1%)
+  11.0: 4 (0.2%)
+  nan: 1212 (55.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 5
+Valeurs manquantes: 2170 (99.8%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2170 (99.8%)
+  'LORS DE LA SOIRÉE D'INVESTITURE .': 1 (0.0%)
+  'FEUILLET D'INFORMATION LAISSÉ À LA PORTE': 1 (0.0%)
+  'À SON BUREAU ÉLECTORAL': 1 (0.0%)
+  'ILS SONT VENUS A L'ENTREPRISE MÊME': 1 (0.0%)
+  'AU TRAVAIL': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 9
+Valeurs manquantes: 1656 (76.1%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  2.0: 28 (1.3%)
+  3.0: 120 (5.5%)
+  4.0: 264 (12.1%)
+  5.0: 49 (2.3%)
+  6.0: 32 (1.5%)
+  7.0: 12 (0.6%)
+  8.0: 10 (0.5%)
+  10.0: 2 (0.1%)
+  11.0: 2 (0.1%)
+  nan: 1656 (76.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM2O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 4
+Valeurs manquantes: 2171 (99.8%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2171 (99.8%)
+  'PAR LA DÉPUTÉE ELLE MÊME': 1 (0.0%)
+  'EN PERSONNE': 1 (0.0%)
+  'TéLéPHONE PAS RéPONDU': 1 (0.0%)
+  'TEL': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 8
+Valeurs manquantes: 1954 (89.8%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  2.0: 1 (0.0%)
+  3.0: 19 (0.9%)
+  4.0: 54 (2.5%)
+  5.0: 59 (2.7%)
+  6.0: 50 (2.3%)
+  7.0: 22 (1.0%)
+  8.0: 14 (0.6%)
+  97.0: 2 (0.1%)
+  nan: 1954 (89.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM3O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 5
+Valeurs manquantes: 2170 (99.8%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2170 (99.8%)
+  'DÉPLIANT DANS MA BOÎTE À LETTRES.': 1 (0.0%)
+  'PUBLICITÉ POSTALE': 1 (0.0%)
+  'JOURNEAUX': 1 (0.0%)
+  'POSTE': 1 (0.0%)
+  'SPOTIFY ADS': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 7
+Valeurs manquantes: 2080 (95.6%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  2.0: 1 (0.0%)
+  4.0: 11 (0.5%)
+  5.0: 14 (0.6%)
+  6.0: 27 (1.2%)
+  7.0: 36 (1.7%)
+  8.0: 5 (0.2%)
+  97.0: 1 (0.0%)
+  nan: 2080 (95.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM4O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'TÉLÉVISION ET JOURNAUX': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 4
+Valeurs manquantes: 2142 (98.5%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  5.0: 2 (0.1%)
+  6.0: 10 (0.5%)
+  7.0: 14 (0.6%)
+  8.0: 7 (0.3%)
+  nan: 2142 (98.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM5O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM6
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 2164 (99.5%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  6.0: 1 (0.0%)
+  7.0: 7 (0.3%)
+  8.0: 3 (0.1%)
+  nan: 2164 (99.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM7
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM7O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM8
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM8O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM9
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM9O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM10
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18BM10O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM1
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 12
+Valeurs manquantes: 1213 (55.8%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 28 (1.3%)
+  2.0: 59 (2.7%)
+  3.0: 520 (23.9%)
+  4.0: 237 (10.9%)
+  5.0: 26 (1.2%)
+  6.0: 12 (0.6%)
+  7.0: 18 (0.8%)
+  8.0: 4 (0.2%)
+  9.0: 3 (0.1%)
+  10.0: 1 (0.0%)
+  97.0: 14 (0.6%)
+  99.0: 40 (1.8%)
+  nan: 1213 (55.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 53
+Valeurs manquantes: 2120 (97.5%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Texte libre (open-ended) - conserver tel quel ou SKIP si PII
+
+Exemples (premiers 5):
+  1. SE PRÉSENTER
+  2. INVITATION À VOTER POUR LUI
+  3. OFFRIR DU TRANSPORT LORS DE LA JOURNÉE DE VOTE.
+  4. PAS DONNÉ LE TEMPS DE PARLER.
+  5. ME RENSEIGNER SUR LEUR PARCOURS, LEURS BUTS ET LEURS INTENTIONS
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 9
+Valeurs manquantes: 1886 (86.7%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 26 (1.2%)
+  2.0: 24 (1.1%)
+  3.0: 125 (5.7%)
+  4.0: 82 (3.8%)
+  5.0: 19 (0.9%)
+  7.0: 6 (0.3%)
+  8.0: 1 (0.0%)
+  10.0: 2 (0.1%)
+  97.0: 4 (0.2%)
+  nan: 1886 (86.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM2O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 15
+Valeurs manquantes: 2160 (99.3%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2160 (99.3%)
+  'ALLER VOTER': 1 (0.0%)
+  'M'INVITER À ALLER VOTER LE JOUR DU SCRUTIN': 1 (0.0%)
+  'M'INCITER À VOTER PAR ANTICIPATION POUR FAVORISER ': 1 (0.0%)
+  'M'INCITER À ALLER VOTER': 1 (0.0%)
+  'VENIR VOTER': 1 (0.0%)
+  'CLARIFIER DES ZONES NÉBULEUSES': 1 (0.0%)
+  'ENREGISTREMENT DE LEGAULT, J'AI RACCROCHÉ EN ENTEN': 1 (0.0%)
+  'LES APPUYER': 1 (0.0%)
+  'SIGNER UN BULLETIN DE CANDIDATURE': 1 (0.0%)
+  'ME DEMANDÉ SI J'AVAIS VOTÉ': 1 (0.0%)
+  'TRANSPORT POUR ALLER VOTER': 1 (0.0%)
+  'VOTER POUR LUI/ELLE': 1 (0.0%)
+  'MESSAGE ENREGISTRÉ PAR LE CHEF DU PARTI.': 1 (0.0%)
+  'TRAVAILLER AU ÉLECTION': 1 (0.0%)
+  'POUR M'OFFRIR UN MOYEN DE TRANSPORT POUR ALLER VOT': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 7
+Valeurs manquantes: 2102 (96.6%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 18 (0.8%)
+  2.0: 12 (0.6%)
+  3.0: 19 (0.9%)
+  4.0: 17 (0.8%)
+  5.0: 5 (0.2%)
+  6.0: 1 (0.0%)
+  7.0: 1 (0.0%)
+  nan: 2102 (96.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM3O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 2
+Valeurs manquantes: 2173 (99.9%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2173 (99.9%)
+  'POUR SE PRÉSENTER TOUT SIMPLEMENT ET SE FAIRE CONN': 1 (0.0%)
+  'ALLER VOTER': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 5
+Valeurs manquantes: 2164 (99.5%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 2 (0.1%)
+  2.0: 2 (0.1%)
+  3.0: 1 (0.0%)
+  4.0: 5 (0.2%)
+  7.0: 1 (0.0%)
+  nan: 2164 (99.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM4O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'M'INVITER À PARTICIPER À DES ACTIVITÉS DANS LE CAD': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Constante (une seule valeur)
+SUGGESTION: SKIP - pas de variabilité
+Valeur unique: 97.0
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM5O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM6
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM7
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM7O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM8
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q18CM8O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q19A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 3
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1481 (68.1%)
+  2: 672 (30.9%)
+  9: 22 (1.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q19B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 694 (31.9%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 1263 (58.1%)
+  2.0: 188 (8.6%)
+  9.0: 30 (1.4%)
+  nan: 694 (31.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM1
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 9
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 599 (27.5%)
+  2: 113 (5.2%)
+  3: 31 (1.4%)
+  4: 7 (0.3%)
+  5: 23 (1.1%)
+  6: 1 (0.0%)
+  97: 2 (0.1%)
+  98: 1375 (63.2%)
+  99: 24 (1.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 13
+Valeurs manquantes: 2162 (99.4%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2162 (99.4%)
+  'MOI MEME': 1 (0.0%)
+  'PAS BESOIN, TOUT LE MONDE SAIT QUE JE VOTE': 1 (0.0%)
+  'PARTI POLITIQUE': 1 (0.0%)
+  'NOUS NE PARLONS PAS POLITIQUE , C'EST UN CHOIX PER': 1 (0.0%)
+  'PUBLICITÉ TÉLÉVISÉE': 1 (0.0%)
+  'PAS BESOIN D'ENCOURAGEMENTS': 1 (0.0%)
+  'JE N'AI PAS EU À ÊTRE ENCOURAGÉ, J'ÉTAIS DÉJÀ CERT': 1 (0.0%)
+  'JE L'AI DÉCIDER MOI MÊME': 1 (0.0%)
+  'C'EST MON DEVOIR': 1 (0.0%)
+  'CONJOINT': 1 (0.0%)
+  'NON': 1 (0.0%)
+  'JE SUIS LA PERSONNE QUI DIT AUX AUTRES QUE C'EST I': 1 (0.0%)
+  'REPRÉSENTANT': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 6
+Valeurs manquantes: 1866 (85.8%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 1 (0.0%)
+  2.0: 203 (9.3%)
+  3.0: 69 (3.2%)
+  4.0: 13 (0.6%)
+  5.0: 22 (1.0%)
+  97.0: 1 (0.0%)
+  nan: 1866 (85.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM2O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'DGE': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 5
+Valeurs manquantes: 2026 (93.1%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  2.0: 2 (0.1%)
+  3.0: 100 (4.6%)
+  4.0: 18 (0.8%)
+  5.0: 28 (1.3%)
+  97.0: 1 (0.0%)
+  nan: 2026 (93.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM3O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'INFLUENCEUR': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 2123 (97.6%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  4.0: 20 (0.9%)
+  5.0: 31 (1.4%)
+  97.0: 1 (0.0%)
+  nan: 2123 (97.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM4O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'PASTOR': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 2
+Valeurs manquantes: 2159 (99.3%)
+
+TYPE DÉTECTÉ: Binaire (oui/non)
+SUGGESTION: Mapper 1.0→1.0, 2.0→0.0 (ou yes/no en texte)
+
+Distribution:
+  5.0: 14 (0.6%)
+  6.0: 2 (0.1%)
+  nan: 2159 (99.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM5O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 2
+Valeurs manquantes: 2173 (99.9%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2173 (99.9%)
+  'MÉDIAS': 1 (0.0%)
+  'MÉDIAS, ARTISTE, ORGANISMES ENVIRONNEMENTAUX, SYND': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM6
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Constante (une seule valeur)
+SUGGESTION: SKIP - pas de variabilité
+Valeur unique: 97.0
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM7
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM7O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM8
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20AM8O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM1
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 7
+Valeurs manquantes: 1575 (72.4%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 265 (12.2%)
+  2.0: 240 (11.0%)
+  3.0: 44 (2.0%)
+  4.0: 41 (1.9%)
+  5.0: 4 (0.2%)
+  6.0: 3 (0.1%)
+  97.0: 3 (0.1%)
+  nan: 1575 (72.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM1O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 10
+Valeurs manquantes: 2164 (99.5%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2164 (99.5%)
+  'COUSIN': 2 (0.1%)
+  'COUSINS, COUSINES': 1 (0.0%)
+  'BEAU-FRÈRE': 1 (0.0%)
+  'TANTE': 1 (0.0%)
+  'GRAND MÈRE': 1 (0.0%)
+  'ONCLE OU TANTE': 1 (0.0%)
+  'FILLE': 1 (0.0%)
+  'COUSINE': 1 (0.0%)
+  'ONCLE': 1 (0.0%)
+  'BOYFRIENDS PARENTS': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM2
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 6
+Valeurs manquantes: 2023 (93.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 1 (0.0%)
+  2.0: 88 (4.0%)
+  3.0: 33 (1.5%)
+  4.0: 28 (1.3%)
+  6.0: 1 (0.0%)
+  97.0: 1 (0.0%)
+  nan: 2023 (93.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM2O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 1
+Valeurs manquantes: 2174 (100.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2174 (100.0%)
+  'ONCLE, TANTE': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM3
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 2144 (98.6%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  2.0: 1 (0.0%)
+  3.0: 12 (0.6%)
+  4.0: 18 (0.8%)
+  nan: 2144 (98.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM3O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM4
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 1
+Valeurs manquantes: 2173 (99.9%)
+
+TYPE DÉTECTÉ: Constante (une seule valeur)
+SUGGESTION: SKIP - pas de variabilité
+Valeur unique: 4.0
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM4O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM5
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM5O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM6
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM6O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM7
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM7O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM8
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q20BM8O
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 0
+Valeurs manquantes: 2175 (100.0%)
+
+
+--------------------------------------------------------------------------------
+VARIABLE: Q21
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 463 (21.3%)
+  2: 793 (36.5%)
+  3: 601 (27.6%)
+  4: 280 (12.9%)
+  9: 38 (1.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q22
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 492 (22.6%)
+  2: 975 (44.8%)
+  3: 500 (23.0%)
+  4: 197 (9.1%)
+  9: 11 (0.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 203 (9.3%)
+  2: 491 (22.6%)
+  3: 449 (20.6%)
+  4: 967 (44.5%)
+  9: 65 (3.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 484 (22.3%)
+  2: 450 (20.7%)
+  3: 207 (9.5%)
+  4: 952 (43.8%)
+  9: 82 (3.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 178 (8.2%)
+  2: 257 (11.8%)
+  3: 188 (8.6%)
+  4: 1493 (68.6%)
+  9: 59 (2.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23D
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 42 (1.9%)
+  2: 143 (6.6%)
+  3: 183 (8.4%)
+  4: 1767 (81.2%)
+  9: 40 (1.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23E
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 72 (3.3%)
+  2: 99 (4.6%)
+  3: 135 (6.2%)
+  4: 1828 (84.0%)
+  9: 41 (1.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23F
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 82 (3.8%)
+  2: 151 (6.9%)
+  3: 195 (9.0%)
+  4: 1703 (78.3%)
+  9: 44 (2.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23G
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 70 (3.2%)
+  2: 123 (5.7%)
+  3: 131 (6.0%)
+  4: 1797 (82.6%)
+  9: 54 (2.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q23H
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 52 (2.4%)
+  2: 117 (5.4%)
+  3: 123 (5.7%)
+  4: 1844 (84.8%)
+  9: 39 (1.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q24A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 892 (41.0%)
+  2: 614 (28.2%)
+  3: 468 (21.5%)
+  4: 201 (9.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q24B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 667 (30.7%)
+  2: 598 (27.5%)
+  3: 642 (29.5%)
+  4: 268 (12.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q24C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 485 (22.3%)
+  2: 643 (29.6%)
+  3: 686 (31.5%)
+  4: 361 (16.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q24D
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 504 (23.2%)
+  2: 593 (27.3%)
+  3: 535 (24.6%)
+  4: 543 (25.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q24E
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 552 (25.4%)
+  2: 662 (30.4%)
+  3: 688 (31.6%)
+  4: 273 (12.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 94 (4.3%)
+  2: 192 (8.8%)
+  3: 320 (14.7%)
+  4: 1423 (65.4%)
+  9: 146 (6.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1232 (56.6%)
+  2: 709 (32.6%)
+  3: 97 (4.5%)
+  4: 54 (2.5%)
+  9: 83 (3.8%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1265 (58.2%)
+  2: 660 (30.3%)
+  3: 103 (4.7%)
+  4: 60 (2.8%)
+  9: 87 (4.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25D
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 976 (44.9%)
+  2: 864 (39.7%)
+  3: 163 (7.5%)
+  4: 77 (3.5%)
+  9: 95 (4.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25E
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 993 (45.7%)
+  2: 905 (41.6%)
+  3: 128 (5.9%)
+  4: 58 (2.7%)
+  9: 91 (4.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25F
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1121 (51.5%)
+  2: 815 (37.5%)
+  3: 111 (5.1%)
+  4: 47 (2.2%)
+  9: 81 (3.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25G
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 184 (8.5%)
+  2: 335 (15.4%)
+  3: 419 (19.3%)
+  4: 948 (43.6%)
+  9: 289 (13.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25H
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 221 (10.2%)
+  2: 348 (16.0%)
+  3: 463 (21.3%)
+  4: 962 (44.2%)
+  9: 181 (8.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q25I
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 303 (13.9%)
+  2: 439 (20.2%)
+  3: 393 (18.1%)
+  4: 792 (36.4%)
+  9: 248 (11.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q26A
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 1507 (69.3%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 199 (9.1%)
+  2.0: 443 (20.4%)
+  9.0: 26 (1.2%)
+  nan: 1507 (69.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q26B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 3
+Valeurs manquantes: 1507 (69.3%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 181 (8.3%)
+  2.0: 474 (21.8%)
+  9.0: 13 (0.6%)
+  nan: 1507 (69.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q27A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 865 (39.8%)
+  2: 569 (26.2%)
+  3: 275 (12.6%)
+  4: 302 (13.9%)
+  5: 164 (7.5%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q27B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 404 (18.6%)
+  2: 504 (23.2%)
+  3: 613 (28.2%)
+  4: 531 (24.4%)
+  5: 123 (5.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q27C
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 144 (6.6%)
+  2: 267 (12.3%)
+  3: 576 (26.5%)
+  4: 1065 (49.0%)
+  5: 123 (5.7%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q28
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 189 (8.7%)
+  2: 204 (9.4%)
+  3: 1732 (79.6%)
+  9: 50 (2.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q29
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 932 (42.9%)
+  2: 1237 (56.9%)
+  3: 3 (0.1%)
+  4: 3 (0.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q30
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 11
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 22 (1.0%)
+  2: 179 (8.2%)
+  3: 436 (20.0%)
+  4: 210 (9.7%)
+  5: 366 (16.8%)
+  6: 150 (6.9%)
+  7: 540 (24.8%)
+  8: 213 (9.8%)
+  9: 44 (2.0%)
+  98: 2 (0.1%)
+  99: 13 (0.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q31
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 16
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1192 (54.8%)
+  2: 46 (2.1%)
+  3: 100 (4.6%)
+  4: 65 (3.0%)
+  5: 32 (1.5%)
+  6: 561 (25.8%)
+  7: 27 (1.2%)
+  8: 75 (3.4%)
+  9: 16 (0.7%)
+  10: 11 (0.5%)
+  11: 3 (0.1%)
+  12: 6 (0.3%)
+  13: 2 (0.1%)
+  97: 2 (0.1%)
+  98: 9 (0.4%)
+  99: 28 (1.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q31O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 34
+Valeurs manquantes: 2136 (98.2%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Texte libre (open-ended) - conserver tel quel ou SKIP si PII
+
+Exemples (premiers 5):
+  1. PROPRIÉTAIRE IMMOBILIER
+  2. PROCHE AIDANT
+  3. CSST MALADIE
+  4. FEMME AU FOYER
+  5. SEMI RETRAITE
+
+--------------------------------------------------------------------------------
+VARIABLE: Q32
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 690 (31.7%)
+  2: 1349 (62.0%)
+  3: 119 (5.5%)
+  8: 3 (0.1%)
+  9: 14 (0.6%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q33
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 8
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 141 (6.5%)
+  2: 69 (3.2%)
+  3: 309 (14.2%)
+  4: 239 (11.0%)
+  5: 399 (18.3%)
+  6: 1006 (46.3%)
+  8: 5 (0.2%)
+  9: 7 (0.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q34
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 5
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1971 (90.6%)
+  2: 162 (7.4%)
+  97: 32 (1.5%)
+  98: 4 (0.2%)
+  99: 6 (0.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q34O
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 20
+Valeurs manquantes: 2143 (98.5%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Catégorielle textuelle - mapper vers valeurs standardisées
+
+Distribution:
+  'nan': 2143 (98.5%)
+  'ARABE': 4 (0.2%)
+  'ESPAGNOL': 4 (0.2%)
+  'ITALIAN': 2 (0.1%)
+  'VIETNAMIEN': 2 (0.1%)
+  'SPANISH': 2 (0.1%)
+  'GREEK': 2 (0.1%)
+  'HEBREW': 2 (0.1%)
+  'MANDARIN': 2 (0.1%)
+  'BULGARE': 1 (0.0%)
+  'PORTUGAIS': 1 (0.0%)
+  'POLONAIS': 1 (0.0%)
+  '50% FRANÇAIS, 50% ANGLAIS': 1 (0.0%)
+  'CANTONESE': 1 (0.0%)
+  'CREE': 1 (0.0%)
+  'KABYLE': 1 (0.0%)
+  'RUSSIAN': 1 (0.0%)
+  'ESPAGNOL;': 1 (0.0%)
+  'ARABIC': 1 (0.0%)
+  'CHINOIS': 1 (0.0%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q35
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 1388 (63.8%)
+  2: 690 (31.7%)
+  3: 73 (3.4%)
+  9: 24 (1.1%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q36A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 680 (31.3%)
+  2: 1168 (53.7%)
+  3: 211 (9.7%)
+  4: 116 (5.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q36B
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 7
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  0: 1508 (69.3%)
+  1: 288 (13.2%)
+  2: 255 (11.7%)
+  3: 87 (4.0%)
+  4: 21 (1.0%)
+  5: 7 (0.3%)
+  9: 9 (0.4%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q37A
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 2001 (92.0%)
+  2: 62 (2.9%)
+  3: 108 (5.0%)
+  9: 4 (0.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q37B
+--------------------------------------------------------------------------------
+Type: float64
+Valeurs uniques: 5
+Valeurs manquantes: 2005 (92.2%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1.0: 3 (0.1%)
+  2.0: 6 (0.3%)
+  3.0: 12 (0.6%)
+  4.0: 24 (1.1%)
+  5.0: 125 (5.7%)
+  nan: 2005 (92.2%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q38
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 4
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 55 (2.5%)
+  2: 2091 (96.1%)
+  8: 23 (1.1%)
+  9: 6 (0.3%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Q39
+--------------------------------------------------------------------------------
+Type: int64
+Valeurs uniques: 10
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Catégorielle ordinale ou nominale
+SUGGESTION: Utiliser .map() avec labels descriptifs
+
+Distribution:
+  1: 197 (9.1%)
+  2: 344 (15.8%)
+  3: 372 (17.1%)
+  4: 318 (14.6%)
+  5: 264 (12.1%)
+  6: 179 (8.2%)
+  7: 128 (5.9%)
+  8: 134 (6.2%)
+  98: 23 (1.1%)
+  99: 216 (9.9%)
+
+--------------------------------------------------------------------------------
+VARIABLE: Pondération
+--------------------------------------------------------------------------------
+Type: object
+Valeurs uniques: 209
+Valeurs manquantes: 0 (0.0%)
+
+TYPE DÉTECTÉ: Texte/Objet
+SUGGESTION: Texte libre (open-ended) - conserver tel quel ou SKIP si PII
+
+Exemples (premiers 5):
+  1. 5,81480217
+  2. 0,98674732
+  3. 0,86757064
+  4. 0,74508673
+  5. 0,97106183
