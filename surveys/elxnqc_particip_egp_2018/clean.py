@@ -139,6 +139,79 @@ def clean_data(df):
             2.0: 0.0   # Non
         })
 
+    # Q9A-Q9C - Participation à des élections passées (binaire: voted/did not vote)
+    # 1 = Oui (a voté), 2 = Non (n'a pas voté)
+    # 8 = N'avait pas le droit de vote, 9 = Ne sait pas
+
+    # Q9A - Participation à une élection passée (type A)
+    df_clean['behav_past_election_voted_a'] = df['Q9A'].map({
+        1: 1.0,      # Oui, a voté
+        2: 0.0,      # Non, n'a pas voté
+        8: np.nan,   # N'avait pas droit de vote
+        9: np.nan    # Ne sait pas
+    })
+
+    # Q9B - Participation à une élection passée (type B)
+    df_clean['behav_past_election_voted_b'] = df['Q9B'].map({
+        1: 1.0,      # Oui, a voté
+        2: 0.0,      # Non, n'a pas voté
+        8: np.nan,   # N'avait pas droit de vote
+        9: np.nan    # Ne sait pas
+    })
+
+    # Q9C - Participation à une élection passée (type C)
+    df_clean['behav_past_election_voted_c'] = df['Q9C'].map({
+        1: 1.0,      # Oui, a voté
+        2: 0.0,      # Non, n'a pas voté
+        8: np.nan,   # N'avait pas droit de vote
+        9: np.nan    # Ne sait pas
+    })
+
+    # Q10A - A voté seul(e) ou accompagné(e)? (Base: votants seulement)
+    df_clean['behav_voted_alone_or_accompanied'] = df['Q10A'].map({
+        1.0: 'alone',         # Seul(e)
+        2.0: 'accompanied',   # Accompagné(e)
+        9.0: np.nan           # Préfère ne pas répondre
+    })
+
+    # Q10BM1-M5 - Qui a accompagné au vote (multi-réponses, très high missing >75%)
+    # SKIP ces variables car:
+    # 1. Très peu remplies (>75% missing)
+    # 2. Multi-réponses complexes avec valeurs hétérogènes
+    # 3. Variables ouvertes associées (Q10BM*O) sont texte libre
+
+    # Q10C - Variable conditionnelle (92.7% missing) - SKIP
+    # Q10D - Variable conditionnelle (95.6% missing) - SKIP
+
+    # Q11 - Importance (échelle ordinale 4 niveaux + don't know)
+    # Contexte probable: importance du vote ou de la participation électorale
+    # Normalisation: 1=Très important → 1.0, 4=Pas du tout important → 0.0
+    df_clean['op_importance_voting'] = df['Q11'].map({
+        1: 1.0,      # Très important
+        2: 0.67,     # Assez important
+        3: 0.33,     # Peu important
+        4: 0.0,      # Pas du tout important
+        5: np.nan    # Je ne sais pas
+    })
+
+    # Q12A-Q12B - Échelles d'intérêt (0-10)
+    # 0 = Aucun intérêt, 10 = Beaucoup d'intérêt
+    # Normalisation: diviser par 10 pour obtenir [0.0, 1.0]
+
+    # Q12A - Niveau d'intérêt (sujet A)
+    df_clean['op_interest_level_a'] = df['Q12A'] / 10.0
+
+    # Q12B - Niveau d'intérêt (sujet B)
+    df_clean['op_interest_level_b'] = df['Q12B'] / 10.0
+
+    # Q13 - Question binaire (Oui/Non/Ne sais pas)
+    # Distribution équilibrée (52% Oui, 40% Non)
+    df_clean['behav_generic_binary_q13'] = df['Q13'].map({
+        1: 1.0,      # Oui
+        2: 0.0,      # Non
+        9: np.nan    # Ne sais pas
+    })
+
     return df_clean
 
 # ============================================================================
