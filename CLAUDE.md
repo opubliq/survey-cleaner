@@ -274,6 +274,139 @@ python surveys/test/clean.py  # Génère processed/data_cleaned.csv
 
 Le script s'enrichit variable par variable pendant le processing. Chaque bloc suit un pattern sécurisé validé par l'agent.
 
+## Documentation des labels de questions et choix de réponse
+
+**IMPORTANT**: Les labels de questions et choix de réponse sont essentiels pour l'interprétation sémantique des données par les LLMs dans les marts downstream (pipeline_sondages → OpenSearch).
+
+### Pourquoi documenter les labels?
+
+Sans labels, le `codebook.json` contient seulement:
+```json
+"op_satisfaction_gov": {
+  "values": {
+    "0.0": {"count": 2, "percent": 10.0}  // ❌ Pas de label - LLM ne sait pas ce que 0.0 signifie
+  }
+}
+```
+
+Avec labels:
+```json
+"op_satisfaction_gov": {
+  "question_label": "Dans quelle mesure êtes-vous satisfait du gouvernement actuel?",
+  "values": {
+    "0.0": {"count": 2, "percent": 10.0, "label": "Très insatisfait"}  // ✅ LLM comprend
+  }
+}
+```
+
+### Workflow manuel en 2 étapes
+
+#### Étape 1: Standardisation du codebook source (une fois par sondage)
+
+Convertir le codebook original (PPTX, PDF, TXT) en format Markdown standardisé:
+
+```
+raw/codebook.pptx (source hétérogène)
+    ↓
+[Lecture humaine + copier-coller]
+    ↓
+raw/codebook.md (format standardisé)
+```
+
+**Template disponible**: `surveys/_template/codebook.md`
+
+**Format recommandé pour chaque variable**:
+```markdown
+### op_satisfaction_gov
+
+**Question**: Dans quelle mesure êtes-vous satisfait du gouvernement actuel?
+
+**Type**: Échelle Likert (5 points)
+
+**Variable brute**: `satisfaction_gouv` ou `Q10_satisfaction`
+
+**Choix de réponse**:
+- 1 = Très insatisfait
+- 2 = Plutôt insatisfait
+- 3 = Neutre
+- 4 = Plutôt satisfait
+- 5 = Très satisfait
+- 99 = Ne sait pas / Refuse
+
+**Mapping recommandé**:
+```python
+1.0: 0.0,    # Très insatisfait
+2.0: 0.25,   # Plutôt insatisfait
+3.0: 0.5,    # Neutre
+4.0: 0.75,   # Plutôt satisfait
+5.0: 1.0,    # Très satisfait
+99.0: np.nan
+```
+
+**Entrée VARIABLE_METADATA**:
+```python
+'op_satisfaction_gov': {
+    'question_label': "Dans quelle mesure êtes-vous satisfait du gouvernement actuel?",
+    'value_labels': {
+        0.0: "Très insatisfait",
+        0.25: "Plutôt insatisfait",
+        0.5: "Neutre",
+        0.75: "Plutôt satisfait",
+        1.0: "Très satisfait"
+    }
+}
+```
+
+#### Étape 2: Transcription pendant le cleaning (variable par variable)
+
+Pendant que vous nettoyez chaque variable dans `clean.py`:
+
+**1. Ajoutez le code de transformation dans `clean_data()`**:
+```python
+def clean_data(df):
+    df_clean = pd.DataFrame(index=df.index)
+
+    # Nettoyage de la variable
+    df_clean['op_satisfaction_gov'] = df['satisfaction_gouv'].map({
+        1.0: 0.0,
+        2.0: 0.25,
+        3.0: 0.5,
+        4.0: 0.75,
+        5.0: 1.0,
+        99.0: np.nan
+    })
+
+    return df_clean
+```
+
+**2. Ajoutez l'entrée correspondante dans `VARIABLE_METADATA`** (en haut du fichier):
+```python
+VARIABLE_METADATA = {
+    'op_satisfaction_gov': {
+        'question_label': "Dans quelle mesure êtes-vous satisfait du gouvernement actuel?",
+        'value_labels': {
+            0.0: "Très insatisfait",
+            0.25: "Plutôt insatisfait",
+            0.5: "Neutre",
+            0.75: "Plutôt satisfait",
+            1.0: "Très satisfait"
+        }
+    },
+    # Ajoutez d'autres variables au fur et à mesure...
+}
+```
+
+**3. Exécutez `python clean.py`**:
+- Génère automatiquement `processed/codebook.json` enrichi avec les labels
+- Les labels seront utilisés par pipeline_sondages pour l'indexation sémantique
+
+### Notes importantes
+
+- **Optionnel mais recommandé**: Si vous n'ajoutez pas les labels, le `codebook.json` sera quand même généré avec les stats de base
+- **Progressif**: Enrichissez au fur et à mesure, pas besoin de tout faire d'un coup
+- **Un seul endroit**: Tout dans `clean.py`, pas de fichier séparé à maintenir
+- **Format final**: Le `codebook.json` enrichi est le format utilisé par les marts et les LLMs downstream
+
 ## Structure du projet
 
 ```
@@ -292,7 +425,8 @@ survey-cleaner/
 │   ├── agent_tools.py                 # ⭐ Tools pour agents (bash, read, write, edit)
 │   ├── cleaning_rules.json            # Règles de nettoyage
 │   ├── _template/                     # Template pour nouveaux sondages
-│   │   └── clean.py                   # Template script dual-mode
+│   │   ├── clean.py                   # Template script dual-mode
+│   │   └── codebook.md                # Template codebook standardisé
 │   ├── test/                          # Sondage de test
 │   │   ├── raw/
 │   │   ├── clean.py

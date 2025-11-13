@@ -28,6 +28,46 @@ BASE_DIR = Path(__file__).parent
 RAW_DIR = BASE_DIR / "raw"
 PROCESSED_DIR = BASE_DIR / "processed"
 
+# ============================================================================
+# VARIABLE METADATA (pour enrichir codebook.json)
+# ============================================================================
+# Ce dictionnaire permet d'ajouter les labels des questions et choix de réponse
+# au codebook.json final. Ces labels seront utilisés par les LLMs dans les marts
+# pour interpréter sémantiquement les données.
+#
+# WORKFLOW:
+# 1. Consultez raw/codebook.md pour la question et les choix de réponse
+# 2. Nettoyez la variable dans clean_data() ci-dessous
+# 3. Ajoutez l'entrée correspondante ici avec question_label et value_labels
+#
+# NOTE: C'est OPTIONNEL - si vous n'ajoutez pas les labels, codebook.json sera
+#       quand même généré avec les stats de base.
+#
+# EXEMPLE:
+# VARIABLE_METADATA = {
+#     'op_satisfaction_gov': {
+#         'question_label': "Dans quelle mesure êtes-vous satisfait du gouvernement actuel?",
+#         'value_labels': {
+#             0.0: "Très insatisfait",
+#             0.25: "Plutôt insatisfait",
+#             0.5: "Neutre",
+#             0.75: "Plutôt satisfait",
+#             1.0: "Très satisfait"
+#         }
+#     },
+#     'ses_province': {
+#         'question_label': "Dans quelle province habitez-vous?",
+#         'value_labels': {
+#             'quebec': "Québec",
+#             'ontario': "Ontario",
+#             'british_columbia': "Colombie-Britannique"
+#         }
+#     }
+# }
+VARIABLE_METADATA = {
+    # Ajoutez vos variables ici au fur et à mesure du cleaning
+}
+
 def clean_data(df):
     """Nettoyer et standardiser les données
 
@@ -143,6 +183,7 @@ def create_codebook(df_clean):
     - Value counts pour variables catégorielles
     - Statistiques descriptives pour variables numériques
     - Counts de valeurs manquantes
+    - Labels de questions et choix de réponse (depuis VARIABLE_METADATA)
     """
     codebook = {
         "survey": "[NOM_SONDAGE]",  # TODO: Remplacer par nom réel
@@ -157,7 +198,7 @@ def create_codebook(df_clean):
 
         # Base metadata
         var_info = {
-            "label": col,  # TODO: Enrichir avec vrais labels depuis codebook
+            "label": col,
             "type": "numeric" if is_numeric else "character",
             "original_variable": f"[RAW_{col}]",  # TODO: Mapper variable originale
             "missing": int(df_clean[col].isna().sum()),
@@ -167,6 +208,12 @@ def create_codebook(df_clean):
             }
         }
 
+        # Enrichir avec metadata si présentes (question_label et value_labels)
+        if col in VARIABLE_METADATA:
+            meta = VARIABLE_METADATA[col]
+            if 'question_label' in meta:
+                var_info['question_label'] = meta['question_label']
+
         # Pour variables catégorielles: ajouter value_counts
         if is_string or (is_numeric and df_clean[col].nunique() <= 20):
             value_counts = df_clean[col].value_counts(dropna=True)
@@ -174,10 +221,20 @@ def create_codebook(df_clean):
 
             var_info["values"] = {}
             for value, count in value_counts.items():
-                var_info["values"][str(value)] = {
+                value_str = str(value)
+                value_entry = {
                     "count": int(count),
                     "percent": round(float(count) / total_valid * 100, 2) if total_valid > 0 else 0
                 }
+
+                # Enrichir avec value_label si disponible dans VARIABLE_METADATA
+                if col in VARIABLE_METADATA and 'value_labels' in VARIABLE_METADATA[col]:
+                    # Convertir la clé pour lookup (numeric ou string)
+                    lookup_key = float(value_str) if is_numeric else value
+                    if lookup_key in VARIABLE_METADATA[col]['value_labels']:
+                        value_entry['label'] = VARIABLE_METADATA[col]['value_labels'][lookup_key]
+
+                var_info["values"][value_str] = value_entry
 
         # Pour variables numériques continues: ajouter stats descriptives
         if is_numeric and df_clean[col].nunique() > 20:
