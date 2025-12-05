@@ -1,73 +1,60 @@
 ---
-description: Run final clean.py and validate survey outputs
-argument-hint: [survey_name]
+description: Finalize survey by validating completeness and marking as ready
+argument-hint: [survey_id]
 autoApprove:
   - Bash(*)
+  - Task(*)
 ---
 
-Finalize a survey by running the complete clean.py script and validating outputs.
+Finalize a survey by validating completeness and marking as ready for upload to AWS.
 
 ## Arguments:
-- $1: Survey name (required) - e.g., "test", "ces19"
+- $1: Survey ID (required) - e.g., "test", "ces2019"
 
 ## What this does:
 
-1. Verifies that `clean.py` exists and has cleaning code
-2. Runs `python surveys/$1/clean.py` to generate final outputs:
-   - `processed/data_cleaned.csv` - All cleaned variables
-   - `processed/codebook.json` - Complete metadata
-3. Validates outputs exist and are non-empty
-4. Generates final report with statistics
+1. Validates that survey has cleaned variables
+2. Launches **finalize-survey** agent via Task tool to:
+   - Check SURVEY_METADATA completeness
+   - Check CODEBOOK_VARIABLES completeness
+   - Test clean.py execution
+   - Generate codebook.json
+   - Update surveys/status.json to "completed"
+3. Reports finalization results
 
 ## Usage:
 
 ```
 /finalize-survey test
-/finalize-survey ces19
+/finalize-survey ces2019
 ```
 
 ## Steps:
 
 1. **Validate arguments**:
-   - If $1 is missing, report error and exit
-   - Check that `surveys/$1/clean.py` exists
+   - If $1 is missing, prompt for survey ID and exit
+   - If `surveys/$1/` doesn't exist, report error and exit
 
-2. **Check variables_todo.md status**:
-   - Count completed variables
-   - Count pending variables
-   - Count questions needing human input
-   - Warn if there are pending variables
+2. **Launch finalize-survey agent**:
+   - Use Task tool with:
+     - subagent_type: "finalize-survey"
+     - description: "Finalize survey $1"
+     - prompt: "Finalize survey $1"
 
-3. **Run clean.py**:
-   - Activate venv: `source venv/bin/activate`
-   - Execute: `python surveys/$1/clean.py`
-   - Capture output and errors
+3. **Report results**:
+   - Display validation checks
+   - Show pass/fail status
+   - List files ready for upload
 
-4. **Validate outputs**:
-   - Check `processed/data_cleaned.csv` exists
-   - Check `processed/codebook.json` exists
-   - Verify file sizes are non-zero
-   - If codebook.json exists, count variables in it
+## Next steps:
 
-5. **Generate report**:
-   ```
-   ✓ Survey finalized: $1
+If finalization passed:
+1. Review codebook.json for accuracy
+2. Upload to sandbox: `python upload_to_pipeline.py $1 --stage sandbox`
+3. Verify results in AWS S3
+4. Upload to production when ready
 
-   Variables processed: X/Y
-   - Completed: X
-   - Questions: Y
-   - Pending: Z
-
-   Outputs:
-   - processed/data_cleaned.csv (N rows, M columns)
-   - processed/codebook.json (M variables)
-
-   Ready for deployment!
-   ```
-
-## Notes:
-
-- Safe to run multiple times (overwrites outputs)
-- Will warn if pending variables exist but still runs
-- Questions in variables_todo.md should be reviewed manually
-- This is the final step after all variables are processed
+If finalization failed:
+- Fix reported issues
+- Continue cleaning variables
+- Re-run finalization
