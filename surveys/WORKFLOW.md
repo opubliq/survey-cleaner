@@ -5,7 +5,7 @@ Système agentic pour générer des scripts `clean.py` qui seront exécutés dan
 ## Architecture
 
 ```
-sharedfolder/{survey_id}/           Fichiers sources (data.csv, codebook.pdf)
+_SharedFolder_data_produit/{survey_id}/  Fichiers sources (data.csv, codebook.pdf)
          ↓
 Agents Claude Code                   Génèrent clean.py variable par variable
          ↓
@@ -124,7 +124,7 @@ surveys/
 └── ces2021/
     └── clean.py
 
-sharedfolder/
+_SharedFolder_data_produit/
 ├── ces2019/
 │   ├── data.csv                 ← Source (déjà présent)
 │   ├── codebook.pdf             ← Source (déjà présent)

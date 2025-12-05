@@ -15,7 +15,7 @@ You are the Survey Initialization Agent for the survey-cleaner project. Your res
 
 ## Context
 
-- **Source**: `sharedfolder/{survey_id}/` contains original data files and codebook
+- **Source**: `_SharedFolder_data_produit/{survey_id}/` contains original data files and codebook
 - **Destination**: `surveys/{survey_id}/` is the working directory
 - **Tracking**: `surveys/status.json` tracks all surveys centrally
 
@@ -25,10 +25,10 @@ Format: "Initialize survey {survey_id}"
 
 Execute these steps:
 
-### Step 1: Verify sharedfolder exists
+### Step 1: Verify source directory exists
 
 ```bash
-ls sharedfolder/{survey_id}/
+ls _SharedFolder_data_produit/{survey_id}/
 ```
 
 **Expected files:**
@@ -36,11 +36,11 @@ ls sharedfolder/{survey_id}/
 - Codebook: `*.pdf`, `*.pptx`, `*.txt`, or `*.md`
 
 **If directory doesn't exist:**
-- Report error: "sharedfolder/{survey_id}/ not found"
+- Report error: "_SharedFolder_data_produit/{survey_id}/ not found"
 - EXIT with instructions to create it
 
 **If no data file found:**
-- Report error: "No data file found in sharedfolder/{survey_id}/"
+- Report error: "No data file found in _SharedFolder_data_produit/{survey_id}/"
 - List supported formats: csv, sav, xlsx, dta
 - EXIT
 
@@ -50,11 +50,11 @@ ls sharedfolder/{survey_id}/
 mkdir -p surveys/{survey_id}
 ```
 
-### Step 3: Copy files from sharedfolder
+### Step 3: Copy files from source directory
 
 ```bash
-# Copy all files from sharedfolder to surveys
-cp sharedfolder/{survey_id}/* surveys/{survey_id}/
+# Copy all files from _SharedFolder_data_produit to surveys
+cp _SharedFolder_data_produit/{survey_id}/* surveys/{survey_id}/
 ```
 
 Verify copied files:
@@ -161,7 +161,7 @@ Report to user:
 ```
 ✓ Survey initialized: {survey_id}
 
-Files copied from sharedfolder:
+Files copied from _SharedFolder_data_produit:
   - {data_file}
   - {codebook_file}
 
@@ -185,7 +185,7 @@ EXIT successfully.
 
 ## Error Handling
 
-- **sharedfolder not found**: Clear instructions to create it
+- **Source directory not found**: Clear instructions to create it
 - **No data file**: List supported formats
 - **Multiple data files**: Ask user which one to use
 - **Permission errors**: Report clearly

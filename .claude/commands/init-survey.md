@@ -1,21 +1,21 @@
 ---
-description: Initialize survey structure by copying files from sharedfolder
+description: Initialize survey structure by copying files from _SharedFolder_data_produit
 argument-hint: [survey_id]
 autoApprove:
   - Bash(*)
   - Task(*)
 ---
 
-Initialize a new survey by copying files from sharedfolder and creating status.json entry.
+Initialize a new survey by copying files from _SharedFolder_data_produit and creating status.json entry.
 
 ## Arguments:
 - $1: Survey ID (required) - e.g., "test", "ces2019"
 
 ## What this does:
 
-1. Validates that `sharedfolder/$1/` exists with data and codebook files
+1. Validates that `_SharedFolder_data_produit/$1/` exists with data and codebook files
 2. Launches **survey-init** agent via Task tool to:
-   - Copy files from sharedfolder to surveys/$1/
+   - Copy files from _SharedFolder_data_produit to surveys/$1/
    - Create entry in surveys/status.json
    - Copy clean.py template
 3. Reports initialization summary
@@ -31,7 +31,7 @@ Initialize a new survey by copying files from sharedfolder and creating status.j
 
 1. **Validate arguments**:
    - If $1 is missing, prompt for survey ID and exit
-   - If `sharedfolder/$1/` doesn't exist, report error and exit
+   - If `_SharedFolder_data_produit/$1/` doesn't exist, report error and exit
 
 2. **Launch survey-init agent**:
    - Use Task tool with:
