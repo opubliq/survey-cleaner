@@ -7,4 +7,5 @@ Pour chaque variable:
     4. Utiliser **agent validate-cleaning** qui va exécuter le code de cleaning de cette variable et le comparer à la distribution raw.
     5. Utiliser **agent generate-codebook-entry** pour générer le code qui map les valeurs de la variable nettoyée à leur labels dans le codebook json (liste)
 
-6. Une fois le script de cleaning généré, updater le document nécessaire pour que le tracking automatique se fasse.
+6. Une fois le script de cleaning généré, updater le document nécessaire pour que le tracking automatique se fasse. Pour chaque dossier dans le sharedfolder, vérifier:
+    - Fichier status.md dans 
