@@ -50,21 +50,9 @@ ls _SharedFolder_data_produit/{survey_id}/
 mkdir -p surveys/{survey_id}
 ```
 
-### Step 3: Copy files from source directory
+**Note:** Files are NOT copied from _SharedFolder_data_produit. Data remains in the source directory and is accessed directly.
 
-```bash
-# Copy all files from _SharedFolder_data_produit to surveys
-cp _SharedFolder_data_produit/{survey_id}/* surveys/{survey_id}/
-```
-
-Verify copied files:
-```bash
-ls surveys/{survey_id}/
-```
-
-Report what was copied.
-
-### Step 4: Identify data file details
+### Step 3: Identify data file details
 
 Use Python to get data summary:
 
@@ -73,14 +61,15 @@ import pandas as pd
 import sys
 from pathlib import Path
 
-survey_dir = Path("surveys/{survey_id}")
+# Data remains in _SharedFolder_data_produit
+data_dir = Path("_SharedFolder_data_produit/{survey_id}")
 
 # Find data file
 data_files = (
-    list(survey_dir.glob("*.csv")) +
-    list(survey_dir.glob("*.sav")) +
-    list(survey_dir.glob("*.xlsx")) +
-    list(survey_dir.glob("*.dta"))
+    list(data_dir.glob("*.csv")) +
+    list(data_dir.glob("*.sav")) +
+    list(data_dir.glob("*.xlsx")) +
+    list(data_dir.glob("*.dta"))
 )
 
 if not data_files:
@@ -161,14 +150,13 @@ Report to user:
 ```
 ✓ Survey initialized: {survey_id}
 
-Files copied from _SharedFolder_data_produit:
-  - {data_file}
-  - {codebook_file}
-
-Survey structure:
-  surveys/{survey_id}/
+Data source:
+  _SharedFolder_data_produit/{survey_id}/
     ├── {data_file}         ({n_obs} obs, {n_vars} vars)
-    ├── {codebook_file}     (raw codebook)
+    └── {codebook_file}     (codebook source)
+
+Survey structure created:
+  surveys/{survey_id}/
     └── clean.py            (template ready)
 
 Status tracking:

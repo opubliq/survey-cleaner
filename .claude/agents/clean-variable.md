@@ -47,11 +47,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-survey_dir = Path("surveys/{survey_id}")
-
-# Load data
-data_files = list(survey_dir.glob("*.csv")) + list(survey_dir.glob("*.sav")) + list(survey_dir.glob("*.xlsx"))
-data_file = data_files[0]
+# Use data file path provided by orchestrator
+data_file = Path("{data_file}")
 
 if data_file.suffix == ".csv":
     df = pd.read_csv(data_file)
@@ -217,27 +214,51 @@ with open("surveys/status.json", "w") as f:
 print(f"Updated status: {status['surveys'][survey_id]['variables']['cleaned']}/{status['surveys'][survey_id]['variables']['total']} variables cleaned")
 ```
 
-### Step 9: Report completion
+### Step 9: Return structured output
 
-Report to user:
+**CRITICAL:** Return a JSON object with the generated code for validation.
 
+Format:
+
+```json
+{
+  "success": true,
+  "variable_name": "{original_variable_name}",
+  "standard_name": "{standard_variable_name}",
+  "type": "{categorical|likert|numeric|binary}",
+  "transformation_code": "df_clean['{standard_name}'] = df['{original_name}'].map({...})",
+  "metadata": {
+    "original_variable": "{original_name}",
+    "question_label": "{question text}",
+    "type": "{type}",
+    "value_labels": {...}
+  },
+  "summary": "✓ Variable cleaned: {variable_name} → {standard_name}\nType: {type}\nStrategy: {brief_description}\nCode added to: surveys/{survey_id}/clean.py"
+}
 ```
-✓ Variable cleaned: {variable_name} → {standard_name}
 
-Type: {type}
-Strategy: {brief_description}
+**Important:**
+- `transformation_code` must be a single executable Python statement
+- Include the full `.map()` dictionary or transformation logic
+- This code will be used for immediate validation (without executing entire clean.py)
 
-Code added to: surveys/{survey_id}/clean.py
-  - Transformation: df_clean['{standard_name}'] = ...
-  - Metadata: CODEBOOK_VARIABLES['{standard_name}'] = ...
+Example:
 
-Progress: {cleaned}/{total} variables ({percent}%)
-Status: {status}
-
-Next steps:
-  1. Review generated code for correctness
-  2. Run validate-cleaning to test transformation
-  3. Continue with next variable
+```json
+{
+  "success": true,
+  "variable_name": "Q2_province",
+  "standard_name": "ses_province",
+  "type": "categorical",
+  "transformation_code": "df_clean['ses_province'] = df['Q2_province'].map({1.0: 'qc', 2.0: 'on', 3.0: 'bc', 99.0: np.nan})",
+  "metadata": {
+    "original_variable": "Q2_province",
+    "question_label": "Province de résidence",
+    "type": "categorical",
+    "value_labels": {"qc": "Québec", "on": "Ontario", "bc": "Colombie-Britannique"}
+  },
+  "summary": "✓ Variable cleaned: Q2_province → ses_province\nType: categorical\nStrategy: Map numeric codes to province abbreviations"
+}
 ```
 
 EXIT successfully.

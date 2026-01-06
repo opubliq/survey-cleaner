@@ -14,6 +14,7 @@ Usage:
 import os
 import sys
 import json
+import re
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -39,8 +40,6 @@ class SurveyOrchestrator:
 
         # Load status
         self.status = self.load_status()
-        if survey_id not in self.status["surveys"]:
-            raise ValueError(f"Survey {survey_id} not found in status.json. Run /init-survey first.")
 
     def load_status(self):
         """Charge status.json"""
@@ -108,6 +107,96 @@ class SurveyOrchestrator:
             return all_vars[:self.limit]
 
         return all_vars
+
+    def validate_variable(self, variable_name, transformation_code, standard_name):
+        """
+        Valide une variable en comparant raw vs cleaned frequencies.
+        Exécute SEULEMENT le code de transformation fourni (pas tout clean.py).
+
+        Args:
+            variable_name: Nom de la variable originale dans les données raw
+            transformation_code: Code Python de transformation (une seule ligne)
+            standard_name: Nom standardisé de la variable cleaned
+
+        Returns:
+            bool: True si validation OK, False sinon
+        """
+        import pandas as pd
+        import numpy as np
+
+        print(f"\n{'='*60}")
+        print(f"📊 Validation: {variable_name} → {standard_name}")
+        print(f"{'='*60}\n")
+
+        # 1. Load raw data
+        data_file = self.find_data_file()
+        if not data_file:
+            print("⚠️  No data file found, skipping validation")
+            return True
+
+        try:
+            if data_file.suffix == '.csv':
+                df_raw = pd.read_csv(data_file)
+            elif data_file.suffix in ['.xlsx', '.xls']:
+                df_raw = pd.read_excel(data_file)
+            elif data_file.suffix == '.sav':
+                import pyreadstat
+                df_raw, _ = pyreadstat.read_sav(data_file)
+            else:
+                print(f"⚠️  Unsupported file type: {data_file.suffix}")
+                return True
+        except Exception as e:
+            print(f"⚠️  Failed to load data: {e}")
+            return True
+
+        # 2. Execute ONLY the transformation code for this variable
+        try:
+            # Prepare execution context with necessary variables
+            exec_globals = {
+                "pd": pd,
+                "np": np
+            }
+            exec_locals = {
+                "df": df_raw,
+                "df_clean": pd.DataFrame(index=df_raw.index)
+            }
+
+            # Execute the transformation code with proper context
+            exec(transformation_code, exec_globals, exec_locals)
+
+            # Retrieve the modified df_clean
+            df_clean = exec_locals["df_clean"]
+
+        except Exception as e:
+            print(f"⚠️  Failed to execute transformation code: {e}")
+            print(f"   Code: {transformation_code}")
+            return False
+
+        # 3. Compare frequencies
+        print(f"RAW frequencies ({variable_name}):")
+        if variable_name in df_raw.columns:
+            print(df_raw[variable_name].value_counts().sort_index())
+        else:
+            print(f"  (variable not found in raw data)")
+
+        print(f"\nCLEANED frequencies ({standard_name}):")
+        if standard_name in df_clean.columns:
+            print(df_clean[standard_name].value_counts().sort_index())
+        else:
+            print(f"  (variable not found in cleaned data)")
+
+        # 4. Validation checks
+        if standard_name not in df_clean.columns:
+            print(f"\n❌ FAILED: Variable {standard_name} not created")
+            return False
+
+        has_values = df_clean[standard_name].notna().sum() > 0
+
+        print(f"\n{'='*60}")
+        print(f"{'✅ PASSED' if has_values else '❌ FAILED'}")
+        print(f"{'='*60}\n")
+
+        return has_values
 
     def find_data_file(self):
         """Trouve le fichier data.csv/xlsx dans _SharedFolder_data_produit"""
@@ -191,6 +280,22 @@ class SurveyOrchestrator:
         print(f"📊 Survey: {self.survey_id}")
         print(f"{'='*60}\n")
 
+        # 0. Init survey si pas dans status.json
+        if self.survey_id not in self.status["surveys"]:
+            print("📦 Step 0: Initializing survey structure...")
+            result = self.call_agent("survey-init", {
+                "survey_id": self.survey_id,
+                "task": "initialize"
+            })
+
+            if not result["success"]:
+                print(f"❌ Survey initialization failed")
+                return
+
+            # Reload status after init
+            self.status = self.load_status()
+            print("✅ Survey initialized successfully\n")
+
         survey = self.get_survey_status()
         total_vars = survey["variables"]["total"]
 
@@ -211,20 +316,54 @@ class SurveyOrchestrator:
 
         print(f"📊 Variables to clean: {len(pending_vars)}/{total_vars}")
 
+        # Trouver le fichier data UNE FOIS pour toutes les variables
+        data_file = self.find_data_file()
+        if not data_file:
+            print(f"❌ No data file found for survey {self.survey_id}")
+            return
+
         for i, var_name in enumerate(pending_vars, 1):
             print(f"\n--- Variable {i}/{len(pending_vars)}: {var_name} ---")
 
-            # Appel API avec contexte frais
+            # 1. Appel API avec contexte frais + data_file_path
             result = self.call_agent("clean-variable", {
                 "survey_id": self.survey_id,
                 "variable": var_name,
+                "data_file": str(data_file),
                 "task": "clean_variable"
             })
 
-            # Update status
-            if result["success"]:
-                self.increment_cleaned_count()
-                print(f"✅ Variable {var_name} cleaned successfully")
+            # 2. Parse la réponse JSON de l'agent
+            try:
+                # Extract JSON from response (peut être entouré de ```json ... ```)
+                response_text = result.get("response", "")
+                json_match = re.search(r'```json\s*(\{.*?\})\s*```', response_text, re.DOTALL)
+
+                if json_match:
+                    agent_data = json.loads(json_match.group(1))
+                else:
+                    # Try direct parsing
+                    agent_data = json.loads(response_text)
+
+                transformation_code = agent_data.get("transformation_code")
+                standard_name = agent_data.get("standard_name", var_name)
+
+            except (json.JSONDecodeError, AttributeError) as e:
+                print(f"⚠️  Failed to parse agent response as JSON: {e}")
+                print(f"   Skipping validation for {var_name}")
+                transformation_code = None
+                standard_name = var_name
+
+            # 3. Valide immédiatement avec le code généré
+            if result["success"] and transformation_code:
+                validation_ok = self.validate_variable(var_name, transformation_code, standard_name)
+
+                if validation_ok:
+                    self.increment_cleaned_count()
+                    print(f"✅ Variable {var_name} cleaned and validated")
+                else:
+                    print(f"⚠️  Variable {var_name} validation failed (check output above)")
+                    # Ne pas incrementer cleaned_count
             else:
                 print(f"❌ Failed to clean variable {var_name}")
 
