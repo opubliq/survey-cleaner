@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 from anthropic import Anthropic
 
 # Load environment variables from .env
-load_dotenv()
+load_dotenv(override=True)
 
 
 # ========================================================================
@@ -472,7 +472,7 @@ class SurveyOrchestrator:
             # Appel API avec tool use et prompt caching
             response = self.client.messages.create(
                 model="claude-sonnet-4-20250514",
-                max_tokens=8000,
+                max_tokens=16000,
                 system=[{
                     "type": "text",
                     "text": agent_instructions,
@@ -532,6 +532,12 @@ class SurveyOrchestrator:
                 # Add tool results to conversation
                 messages.append({"role": "user", "content": tool_results})
 
+            elif response.stop_reason == "max_tokens":
+                # Agent hit token limit mid-response — ask it to continue
+                messages.append({"role": "assistant", "content": response.content})
+                messages.append({"role": "user", "content": "Continue where you left off."})
+                print(f"  (max_tokens hit, continuing...)")
+
             else:
                 # Unexpected stop reason
                 print(f"WARNING: Unexpected stop_reason: {response.stop_reason}")
@@ -563,13 +569,54 @@ class SurveyOrchestrator:
         total_vars = survey["variables"]["total"]
 
         # 1. Transform codebook (si pas déjà fait)
-        codebook_md = self.base_path.parent / "_SharedFolder_data_produit" / self.survey_id / "codebook.md"
+        shared_folder = self.base_path.parent / "_SharedFolder_data_produit" / self.survey_id
+        codebook_md = shared_folder / "codebook.md"
         if not codebook_md.exists():
             print("Step 1: Transforming codebook...")
-            self.call_agent("transform-codebook", {
-                "survey_id": self.survey_id,
-                "task": "transform_codebook"
-            })
+
+            # Chercher un codebook source automatiquement
+            codebook_extensions = ['.pdf', '.pptx', '.txt', '.md', '.docx']
+            codebook_files = []
+            for ext in codebook_extensions:
+                codebook_files.extend(shared_folder.glob(f"*codebook*{ext}"))
+                codebook_files.extend(shared_folder.glob(f"*Codebook*{ext}"))
+                codebook_files.extend(shared_folder.glob(f"*questionnaire*{ext}"))
+
+            if codebook_files:
+                # Codebook trouvé, transformer directement
+                result = self.call_agent("transform-codebook", {
+                    "survey_id": self.survey_id,
+                    "shared_folder": str(shared_folder),
+                    "codebook_source": str(codebook_files[0]),
+                    "task": "transform_codebook"
+                })
+            else:
+                # Pas de codebook trouvé — demander à l'utilisateur
+                print(f"\nNo codebook file found in {shared_folder}")
+                print(f"Files available:")
+                for f in sorted(shared_folder.iterdir()):
+                    print(f"  - {f.name}")
+
+                print(f"\nOptions:")
+                print(f"  - Enter a sheet name/number (e.g. 'sheet:2', 'sheet:Codebook')")
+                print(f"  - Enter a file path")
+                print(f"  - Type 'skip' to continue without codebook")
+
+                hint = input("\nWhere is the codebook? > ").strip()
+
+                if hint.lower() == 'skip':
+                    print("Skipping codebook transformation, continuing without...")
+                else:
+                    result = self.call_agent("transform-codebook", {
+                        "survey_id": self.survey_id,
+                        "shared_folder": str(shared_folder),
+                        "codebook_hint": hint,
+                        "task": "transform_codebook"
+                    })
+
+                    # Vérifier si le codebook a été créé
+                    if not codebook_md.exists():
+                        print("WARNING: Codebook was not created. Continuing without...")
         else:
             print("Step 1: Codebook already exists, skipping...")
 
@@ -588,13 +635,18 @@ class SurveyOrchestrator:
         for i, var_name in enumerate(pending_vars, 1):
             print(f"\n--- Variable {i}/{len(pending_vars)}: {var_name} ---")
 
-            # 1. Appel API avec contexte frais + data_file_path
-            result = self.call_agent("clean-variable", {
+            # 1. Appel API avec contexte frais + data_file_path + codebook
+            codebook_path = self.base_path.parent / "_SharedFolder_data_produit" / self.survey_id / "codebook.md"
+            context = {
                 "survey_id": self.survey_id,
                 "variable": var_name,
                 "data_file": str(data_file),
                 "task": "clean_variable"
-            })
+            }
+            if codebook_path.exists():
+                context["codebook_file"] = str(codebook_path)
+
+            result = self.call_agent("clean-variable", context)
 
             # 2. Parse la réponse JSON de l'agent
             try:

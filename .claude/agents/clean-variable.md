@@ -84,17 +84,19 @@ Execute with venv, capture output, analyze.
 
 ### Step 3: Search codebook for variable
 
-Read `surveys/{survey_id}/codebook.md` and search for:
-- Exact match: `### {variable_name}`
-- Partial match: Variable mentioned in text
-- Similar names (fuzzy matching)
+If `codebook_file` is provided in the context, **grep** the file for the variable name — do NOT read the entire codebook. Extract only the relevant section.
+
+```bash
+grep -A 30 "{variable_name}" {codebook_file}
+```
+
+If no `codebook_file` is provided, check for `codebook.md` in the same directory as the data file.
 
 **If found:**
-- Extract question text, response options, value labels
+- Extract question text, response options, value labels from the grep output
 - Note any special instructions (skip patterns, etc.)
 
 **If not found:**
-- Report: "Variable not documented in codebook"
 - Proceed with best-effort cleaning based on data exploration
 - Add note in generated code
 
