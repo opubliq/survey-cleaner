@@ -13,8 +13,9 @@ You are the Variable Cleaning Agent for the survey-cleaner project. Your respons
 
 ## Context
 
-- **Input**: Variable name from raw data
-- **Reference**: `surveys/{survey_id}/codebook.md` for variable documentation
+- **Input**: Variable name from raw data + `data_file` path + optional `codebook_excerpt` (all provided in context JSON)
+- **Reference**: Codebook excerpt at `codebook_excerpt` (~30 lines around the variable, already extracted by orchestrator)
+- **Data**: Raw data at path provided in `data_file` (in `_SharedFolder_data_produit/`)
 - **Output**:
   - Transformation code in `surveys/{survey_id}/clean.py`
   - Metadata entry in CODEBOOK_VARIABLES
@@ -30,13 +31,13 @@ Execute these steps:
 
 Check that these exist:
 - `surveys/{survey_id}/clean.py`
-- `surveys/{survey_id}/codebook.md`
-- `surveys/{survey_id}/data.*`
 - `surveys/status.json`
+- The `data_file` path provided in the context JSON (in `_SharedFolder_data_produit/`)
 
-**If missing:**
-- Report what's missing
-- EXIT with instructions (run survey-init or transform-codebook first)
+**IMPORTANT:** Data is in `_SharedFolder_data_produit/`, NOT in `surveys/`. Always use the exact path from the context JSON.
+
+**If clean.py missing:**
+- EXIT with instructions (run survey-init first)
 
 ### Step 2: Explore the raw variable
 
@@ -82,21 +83,14 @@ if df[var_name].dtype in ['int64', 'float64']:
 
 Execute with venv, capture output, analyze.
 
-### Step 3: Search codebook for variable
+### Step 3: Parse codebook excerpt
 
-If `codebook_file` is provided in the context, **grep** the file for the variable name — do NOT read the entire codebook. Extract only the relevant section.
-
-```bash
-grep -A 30 "{variable_name}" {codebook_file}
-```
-
-If no `codebook_file` is provided, check for `codebook.md` in the same directory as the data file.
-
-**If found:**
-- Extract question text, response options, value labels from the grep output
+If `codebook_excerpt` is provided in the context (already extracted by orchestrator):
+- Extract question text, response options, value labels from the excerpt
 - Note any special instructions (skip patterns, etc.)
+- The excerpt contains ~30 lines around the variable name
 
-**If not found:**
+If no `codebook_excerpt` is provided:
 - Proceed with best-effort cleaning based on data exploration
 - Add note in generated code
 
