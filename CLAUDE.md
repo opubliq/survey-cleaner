@@ -130,18 +130,41 @@ L'orchestrateur exécute 4 étapes automatiquement:
 ### Structure des fichiers
 
 ```
-_SharedFolder_data_produit/          # ⭐ Données sources (jamais modifiées)
-└── {survey_id}/
-    ├── data.csv                     # Données brutes
-    └── codebook.md                  # Codebook (généré par transform-codebook)
-
-surveys/                             # ⭐ Scripts générés
-├── orchestrator.py                  # Point d'entrée unique
-├── status.json                      # Tracking centralisé
-├── _template/
-│   └── clean.py                     # Template script
-└── {survey_id}/
-    └── clean.py                     # Script généré progressivement
+survey-cleaner/
+├── _SharedFolder_data_produit/      # ⭐ Données sources (57 surveys, jamais modifiées)
+│   ├── _archives/
+│   └── {survey_id}/                 # Ex: eeq_2022/, govcan_2023/, etc.
+│       ├── data.csv|xlsx|sav|dta    # Données brutes
+│       └── codebook.md|pdf|pptx     # Codebook (source ou généré)
+│
+├── surveys/                         # ⭐ Scripts générés + orchestrateur
+│   ├── orchestrator.py              # Point d'entrée unique
+│   ├── status.json                  # Tracking centralisé
+│   ├── INSTRUCTIONS.MD              # Instructions de workflow
+│   ├── WORKFLOW.md                  # Workflow détaillé
+│   ├── _template/
+│   │   └── clean.py                 # Template script
+│   └── {survey_id}/
+│       └── clean.py                 # Script généré progressivement
+│
+├── council/                         # 🗳️ Multi-LLM decision council
+│   ├── council.sh                   # Script d'orchestration (propose→critique→vote→verdict)
+│   ├── config.sh                    # Modèles et paramètres
+│   ├── templates/                   # Templates de prompts par phase
+│   └── sessions/                    # Sessions de délibération
+│
+├── refactoring/                     # 📋 Docs stratégie et rapports
+│   ├── strategie_finale.md          # Stratégie adoptée
+│   ├── strategie_cleaning_hybride.md
+│   └── rapport_experience_cleaning_manuel.md
+│
+├── tests/                           # Données de test et codebooks sample
+│
+├── .claude/agents/                  # Agents Claude (voir ci-dessous)
+├── .beads/                          # Issue tracking (bd)
+├── requirements.txt
+├── setup.sh
+└── CLAUDE.md                        # Ce fichier
 ```
 
 ### Agents (instructions)
@@ -151,6 +174,7 @@ surveys/                             # ⭐ Scripts générés
 ├── survey-init.md               # Initialisation (crée clean.py, status.json)
 ├── transform-codebook.md        # Parse codebook → Markdown
 ├── clean-variable.md            # Nettoie 1 variable
+├── validate-cleaning.md         # Valide transformation (compare raw vs cleaned)
 └── finalize-survey.md           # Finalisation
 ```
 
@@ -487,6 +511,7 @@ ERROR: Variable 'Q99' not found in data
 - ✅ **MVP 1:** Système orchestrator.py avec API + caching
 - ✅ **MVP 2:** Auto-init + validation variable par variable
 - ✅ **MVP 3:** Data reste dans _SharedFolder_data_produit (pas de copie)
+- ✅ **MVP 3.5:** Multi-LLM council pour décisions techniques (`council/council.sh`)
 - 🔄 **MVP 4:** Threading pour paralléliser cleaning de 2-3 surveys simultanés
 - 📋 **MVP 5:** Dashboard web pour monitoring (status, logs, coûts)
 - 📋 **MVP 6:** Auto-detection de variables similaires entre surveys (cross-survey matching)
@@ -494,5 +519,4 @@ ERROR: Variable 'Q99' not found in data
 ## Références
 
 - **Stratégie complète:** Voir `refactoring/strategie_finale.md`
-- **Plan détaillé:** Voir `schemas/plan.md`
-- **Métriques performance:** Voir `tests/rapport_experience_cleaning_manuel.md`
+- **Métriques performance:** Voir `refactoring/rapport_experience_cleaning_manuel.md`
