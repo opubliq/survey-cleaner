@@ -2,13 +2,14 @@
 """
 Survey Cleaning Orchestrator
 
-Exécute le workflow complet de WORKFLOW.md via appels API Anthropic directs.
+Exécute le workflow complet via LiteLLM (multi-provider: Claude, Gemini, DeepSeek, Groq, etc.)
 Chaque agent = 1 call API avec contexte frais → pas de limite de contexte.
 
 Usage:
     python surveys/orchestrator.py <survey_id>
     python surveys/orchestrator.py <survey_id> --limit 10
     python surveys/orchestrator.py <survey_id> --only-var <var_name>
+    python surveys/orchestrator.py <survey_id> --model gemini/gemini-2.0-flash
 """
 
 import os
@@ -19,8 +20,35 @@ import argparse
 import subprocess
 from datetime import datetime
 from pathlib import Path
+import warnings
+import logging
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+logging.getLogger("LiteLLM").setLevel(logging.CRITICAL)
+logging.getLogger("litellm").setLevel(logging.CRITICAL)
+logging.getLogger("httpx").setLevel(logging.CRITICAL)
+logging.getLogger("asyncio").setLevel(logging.CRITICAL)
+import litellm
+litellm.suppress_debug_info = True
+litellm.set_verbose = False
+litellm.telemetry = False
+
+# Suppress asyncio "Task was destroyed but it is pending!" stderr spam
+import sys, io
+class _StderrFilter(io.TextIOWrapper):
+    """Wraps stderr to suppress asyncio task destruction messages."""
+    def __init__(self, stream):
+        self._stream = stream
+    def write(self, msg):
+        if "Task was destroyed but it is pending" in msg or "coroutine" in msg and "was never awaited" in msg:
+            return len(msg)
+        return self._stream.write(msg)
+    def flush(self):
+        return self._stream.flush()
+    def __getattr__(self, name):
+        return getattr(self._stream, name)
+sys.stderr = _StderrFilter(sys.stderr)
 from dotenv import load_dotenv
-from anthropic import Anthropic
+from litellm import completion
 
 # Load environment variables from .env
 load_dotenv(override=True)
@@ -101,7 +129,7 @@ def edit_file_tool(file_path: str, old_string: str, new_string: str) -> str:
 class SurveyOrchestrator:
     """Orchestrateur principal qui exécute les 5 agents du workflow"""
 
-    def __init__(self, survey_id, limit=None, only_var=None):
+    def __init__(self, survey_id, limit=None, only_var=None, model=None):
         self.survey_id = survey_id
         self.limit = limit
         self.only_var = only_var
@@ -109,11 +137,14 @@ class SurveyOrchestrator:
         self.survey_path = self.base_path / survey_id
         self.status_file = self.base_path / "status.json"
 
-        # API client
-        api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise ValueError("ANTHROPIC_API_KEY not found in environment")
-        self.client = Anthropic(api_key=api_key)
+        # Model config (CLI override > .env > default)
+        self.model = model or os.getenv("DEFAULT_MODEL", "anthropic/claude-sonnet-4-20250514")
+        fallbacks_env = os.getenv("FALLBACK_MODELS", "")
+        self.fallback_models = [m.strip() for m in fallbacks_env.split(",") if m.strip()]
+
+        print(f"Model: {self.model}")
+        if self.fallback_models:
+            print(f"Fallbacks: {self.fallback_models}")
 
         # Load status
         self.status = self.load_status()
@@ -138,11 +169,17 @@ class SurveyOrchestrator:
         self.status["surveys"][self.survey_id]["last_updated"] = datetime.now().isoformat()
         self.save_status()
 
-    def increment_cleaned_count(self):
-        """Incrémente le compteur de variables nettoyées"""
+    def increment_cleaned_count(self, variable_name):
+        """Incrémente le compteur de variables nettoyées et enregistre le nom"""
         survey = self.status["surveys"][self.survey_id]
         survey["variables"]["cleaned"] += 1
         survey["variables"]["pending"] -= 1
+
+        # Track which variables are done
+        if "cleaned_variables" not in survey["variables"]:
+            survey["variables"]["cleaned_variables"] = []
+        if variable_name not in survey["variables"]["cleaned_variables"]:
+            survey["variables"]["cleaned_variables"].append(variable_name)
 
         # Passe en in_progress si c'était not_started
         if survey["status"] == "not_started":
@@ -184,11 +221,19 @@ class SurveyOrchestrator:
                 raise ValueError(f"Variable {self.only_var} not found in dataset")
             return [self.only_var]
 
+        # Filtrer les variables déjà nettoyées
+        survey = self.status["surveys"].get(self.survey_id, {})
+        cleaned = survey.get("variables", {}).get("cleaned_variables", [])
+        pending_vars = [v for v in all_vars if v not in cleaned]
+
+        if cleaned:
+            print(f"Skipping {len(cleaned)} already cleaned variables")
+
         # Appliquer limit
         if self.limit:
-            return all_vars[:self.limit]
+            return pending_vars[:self.limit]
 
-        return all_vars
+        return pending_vars
 
     def validate_variable(self, variable_name, transformation_code, standard_name):
         """
@@ -364,10 +409,70 @@ class SurveyOrchestrator:
 
         return True
 
+    def reset_survey(self):
+        """
+        Remet un survey à zéro: supprime clean.py généré, remet le template,
+        reset status.json, supprime codebook.md et processed/.
+        """
+        import shutil
+
+        print(f"\nResetting survey: {self.survey_id}")
+
+        # 1. Remplacer clean.py par le template
+        template_file = self.base_path / "_template" / "clean.py"
+        target_file = self.survey_path / "clean.py"
+        if template_file.exists() and self.survey_path.exists():
+            shutil.copy(template_file, target_file)
+            print(f"  Reset clean.py from template")
+
+        # 2. Supprimer processed/
+        processed_dir = self.survey_path / "processed"
+        if processed_dir.exists():
+            shutil.rmtree(processed_dir)
+            print(f"  Removed processed/")
+
+        # 3. Nettoyer le shared folder (codebook.md + fichiers parasites des agents)
+        shared_folder = self.base_path.parent / "_SharedFolder_data_produit" / self.survey_id
+        codebook_md = shared_folder / "codebook.md"
+        if codebook_md.exists():
+            codebook_md.unlink()
+            print(f"  Removed codebook.md")
+
+        # Supprimer les .py et .csv parasites créés par les agents
+        data_filename = self.status.get("surveys", {}).get(self.survey_id, {}).get("data_file", "")
+        for pattern in ["*.py", "*.csv"]:
+            for f in shared_folder.glob(pattern):
+                if f.name != data_filename:
+                    f.unlink()
+                    print(f"  Removed parasite: {f.name}")
+
+        # 4. Reset status.json
+        if self.survey_id in self.status["surveys"]:
+            survey = self.status["surveys"][self.survey_id]
+            total = survey["variables"]["total"]
+            survey["status"] = "not_started"
+            survey["variables"]["cleaned"] = 0
+            survey["variables"]["pending"] = total
+            survey["variables"]["cleaned_variables"] = []
+            survey["last_updated"] = datetime.now().isoformat()
+            self.save_status()
+            print(f"  Reset status.json (0/{total} variables)")
+
+        print(f"Survey {self.survey_id} reset complete\n")
+
     def find_data_file(self):
-        """Trouve le fichier data.csv/xlsx/sav/dta dans _SharedFolder_data_produit"""
+        """Trouve le fichier data depuis status.json, sinon fallback glob"""
         shared_folder = self.base_path.parent / "_SharedFolder_data_produit" / self.survey_id
 
+        # Utiliser le data_file enregistré dans status.json (source de vérité)
+        if self.survey_id in self.status.get("surveys", {}):
+            data_filename = self.status["surveys"][self.survey_id].get("data_file")
+            if data_filename:
+                path = shared_folder / data_filename
+                if path.exists():
+                    return path
+
+        # Fallback: glob (pour init seulement)
         for ext in ['.csv', '.xlsx', '.xls', '.sav', '.dta']:
             files = list(shared_folder.glob(f"*{ext}"))
             if files:
@@ -393,6 +498,34 @@ class SurveyOrchestrator:
         with open(agent_file) as f:
             agent_instructions = f.read()
 
+        # ========================================================================
+        # Optimisation: Extraire seulement l'extrait du codebook pertinent
+        # ========================================================================
+        # Si codebook_file est fourni, faire grep pour n'envoyer que ~30 lignes
+        # autour de la variable, au lieu du fichier entier
+        if context.get("codebook_file") and context.get("variable"):
+            import subprocess
+            codebook_path = context["codebook_file"]
+            var_name = context["variable"]
+
+            # Chercher le nom de variable dans le codebook (fuzzy matching: 30 lignes après match)
+            result = subprocess.run(
+                f"grep -A 30 '{var_name}' '{codebook_path}'",
+                shell=True,
+                capture_output=True,
+                text=True
+            )
+
+            if result.stdout.strip():
+                # Codebook excerpt trouvé - remplacer codebook_file par l'extrait
+                context["codebook_excerpt"] = result.stdout
+                del context["codebook_file"]
+                print(f"  → Extracted {len(result.stdout.splitlines())} lines from codebook for '{var_name}'")
+            else:
+                # Pas trouvé dans le codebook - avertir mais continuer
+                print(f"  ⚠️  Variable '{var_name}' not found in codebook")
+                del context["codebook_file"]
+
         # Prépare le prompt pour l'agent
         user_prompt = json.dumps(context, indent=2, ensure_ascii=False)
 
@@ -401,53 +534,65 @@ class SurveyOrchestrator:
         print(f"Context: {list(context.keys())}")
         print(f"{'='*60}\n")
 
-        # Définir les tools disponibles
+        # Définir les tools disponibles (OpenAI format for LiteLLM)
         tools = [
             {
-                "name": "bash",
-                "description": "Execute a bash command and return output",
-                "input_schema": {
-                    "type": "object",
-                    "properties": {
-                        "command": {"type": "string", "description": "The bash command to execute"}
-                    },
-                    "required": ["command"]
+                "type": "function",
+                "function": {
+                    "name": "bash",
+                    "description": "Execute a bash command and return output",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "command": {"type": "string", "description": "The bash command to execute"}
+                        },
+                        "required": ["command"]
+                    }
                 }
             },
             {
-                "name": "read_file",
-                "description": "Read a file and return its contents",
-                "input_schema": {
-                    "type": "object",
-                    "properties": {
-                        "file_path": {"type": "string", "description": "Path to the file to read"}
-                    },
-                    "required": ["file_path"]
+                "type": "function",
+                "function": {
+                    "name": "read_file",
+                    "description": "Read a file and return its contents",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "file_path": {"type": "string", "description": "Path to the file to read"}
+                        },
+                        "required": ["file_path"]
+                    }
                 }
             },
             {
-                "name": "write_file",
-                "description": "Write content to a file",
-                "input_schema": {
-                    "type": "object",
-                    "properties": {
-                        "file_path": {"type": "string", "description": "Path to the file to write"},
-                        "content": {"type": "string", "description": "Content to write to the file"}
-                    },
-                    "required": ["file_path", "content"]
+                "type": "function",
+                "function": {
+                    "name": "write_file",
+                    "description": "Write content to a file",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "file_path": {"type": "string", "description": "Path to the file to write"},
+                            "content": {"type": "string", "description": "Content to write to the file"}
+                        },
+                        "required": ["file_path", "content"]
+                    }
                 }
             },
             {
-                "name": "edit_file",
-                "description": "Edit a file by replacing old_string with new_string",
-                "input_schema": {
-                    "type": "object",
-                    "properties": {
-                        "file_path": {"type": "string", "description": "Path to the file to edit"},
-                        "old_string": {"type": "string", "description": "String to find and replace"},
-                        "new_string": {"type": "string", "description": "String to replace with"}
-                    },
-                    "required": ["file_path", "old_string", "new_string"]
+                "type": "function",
+                "function": {
+                    "name": "edit_file",
+                    "description": "Edit a file by replacing old_string with new_string",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "file_path": {"type": "string", "description": "Path to the file to edit"},
+                            "old_string": {"type": "string", "description": "String to find and replace"},
+                            "new_string": {"type": "string", "description": "String to replace with"}
+                        },
+                        "required": ["file_path", "old_string", "new_string"]
+                    }
                 }
             }
         ]
@@ -460,88 +605,109 @@ class SurveyOrchestrator:
             "edit_file": edit_file_tool
         }
 
-        # Conversation messages
-        messages = [{
-            "role": "user",
-            "content": user_prompt
-        }]
+        def _clean_assistant_msg(message):
+            """Strip provider-specific fields (e.g. annotations) to keep only standard OpenAI fields."""
+            msg = {"role": "assistant"}
+            if message.content:
+                msg["content"] = message.content
+            if message.tool_calls:
+                msg["tool_calls"] = [
+                    {
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {
+                            "name": tc.function.name,
+                            "arguments": tc.function.arguments
+                        }
+                    }
+                    for tc in message.tool_calls
+                ]
+            return msg
+
+        # Conversation messages (OpenAI format)
+        messages = [
+            {"role": "system", "content": agent_instructions},
+            {"role": "user", "content": user_prompt}
+        ]
 
         # Loop until agent finishes
         max_turns = 50
         for turn in range(max_turns):
-            # Appel API avec tool use et prompt caching
-            response = self.client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=16000,
-                system=[{
-                    "type": "text",
-                    "text": agent_instructions,
-                    "cache_control": {"type": "ephemeral"}
-                }],
-                tools=tools,
-                messages=messages
-            )
+            # Appel API via LiteLLM (universal format)
+            api_kwargs = {
+                "model": self.model,
+                "max_tokens": 16000,
+                "messages": messages,
+                "tools": tools,
+            }
 
-            # Check stop reason
-            if response.stop_reason == "end_turn":
+            # Fallbacks si configurés
+            if self.fallback_models:
+                api_kwargs["fallbacks"] = self.fallback_models
+
+            try:
+                response = completion(**api_kwargs)
+            except Exception as e:
+                error_msg = str(e).split('\n')[0][:200]
+                print(f"\nERROR: API call failed on turn {turn + 1}: {error_msg}")
+                return {"success": False, "response": f"API error: {error_msg}"}
+
+            choice = response.choices[0]
+            finish_reason = choice.finish_reason
+
+            if finish_reason == "stop":
                 # Agent finished
-                result_text = ""
-                for block in response.content:
-                    if block.type == "text":
-                        result_text += block.text
+                result_text = choice.message.content or ""
 
                 print(f"\nAgent {agent_name} completed after {turn + 1} turns")
                 print(f"Response preview: {result_text[:200]}...")
 
+                usage = response.usage
                 return {
                     "success": True,
                     "response": result_text,
                     "usage": {
-                        "input_tokens": response.usage.input_tokens,
-                        "output_tokens": response.usage.output_tokens,
-                        "cache_read_tokens": getattr(response.usage, 'cache_read_input_tokens', 0),
-                        "cache_creation_tokens": getattr(response.usage, 'cache_creation_input_tokens', 0)
+                        "input_tokens": getattr(usage, 'prompt_tokens', 0),
+                        "output_tokens": getattr(usage, 'completion_tokens', 0),
+                        "cache_read_tokens": getattr(usage, 'cache_read_input_tokens', 0),
+                        "cache_creation_tokens": getattr(usage, 'cache_creation_input_tokens', 0)
                     }
                 }
 
-            elif response.stop_reason == "tool_use":
+            elif finish_reason == "tool_calls":
                 # Agent wants to use tools
-                messages.append({"role": "assistant", "content": response.content})
+                messages.append(_clean_assistant_msg(choice.message))
 
                 # Execute all tool calls
-                tool_results = []
-                for block in response.content:
-                    if block.type == "tool_use":
-                        tool_name = block.name
-                        tool_input = block.input
+                for tool_call in choice.message.tool_calls:
+                    tool_name = tool_call.function.name
+                    tool_input = json.loads(tool_call.function.arguments)
 
-                        print(f"  Tool: {tool_name}({list(tool_input.keys())})")
+                    print(f"  Tool: {tool_name}({list(tool_input.keys())})")
 
-                        # Execute tool
-                        if tool_name in tool_map:
-                            result = tool_map[tool_name](**tool_input)
-                        else:
-                            result = f"ERROR: Unknown tool {tool_name}"
+                    # Execute tool
+                    if tool_name in tool_map:
+                        result = tool_map[tool_name](**tool_input)
+                    else:
+                        result = f"ERROR: Unknown tool {tool_name}"
 
-                        tool_results.append({
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": result
-                        })
+                    # Add tool result (OpenAI format)
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": result
+                    })
 
-                # Add tool results to conversation
-                messages.append({"role": "user", "content": tool_results})
-
-            elif response.stop_reason == "max_tokens":
+            elif finish_reason == "length":
                 # Agent hit token limit mid-response — ask it to continue
-                messages.append({"role": "assistant", "content": response.content})
+                messages.append(_clean_assistant_msg(choice.message))
                 messages.append({"role": "user", "content": "Continue where you left off."})
                 print(f"  (max_tokens hit, continuing...)")
 
             else:
                 # Unexpected stop reason
-                print(f"WARNING: Unexpected stop_reason: {response.stop_reason}")
-                return {"success": False, "response": f"Unexpected stop: {response.stop_reason}"}
+                print(f"WARNING: Unexpected finish_reason: {finish_reason}")
+                return {"success": False, "response": f"Unexpected stop: {finish_reason}"}
 
         # Max turns reached
         print(f"WARNING: Agent {agent_name} reached max turns ({max_turns})")
@@ -674,11 +840,53 @@ class SurveyOrchestrator:
                 validation_ok = self.validate_variable(var_name, transformation_code, standard_name)
 
                 if validation_ok:
-                    self.increment_cleaned_count()
-                    print(f"Variable {var_name} cleaned and validated")
+                    # Demander confirmation à l'utilisateur (auto-accept après 30s)
+                    print(f"\n{var_name} → {standard_name}")
+                    print(f"Code: {transformation_code[:120]}...")
+                    import select
+                    print("\n[enter] accept / [s] skip / or type feedback to retry (auto-accept 30s) > ", end="", flush=True)
+                    ready, _, _ = select.select([sys.stdin], [], [], 5)
+                    feedback = sys.stdin.readline().strip() if ready else ""
+                    if not ready:
+                        print("(auto-accepted after 5s)")
+
+                    if feedback == "" or feedback.lower() == "y":
+                        self.increment_cleaned_count(var_name)
+                        print(f"Variable {var_name} accepted")
+                    elif feedback.lower() == "s":
+                        print(f"Skipped {var_name}")
+                    else:
+                        # Retry avec le feedback comme instruction supplémentaire
+                        print(f"Retrying {var_name} with feedback...")
+                        context["feedback"] = feedback
+                        retry_result = self.call_agent("clean-variable", context)
+
+                        # Re-parse et re-validate
+                        try:
+                            retry_text = retry_result.get("response", "")
+                            json_match = re.search(r'```json\s*(\{.*?\})\s*```', retry_text, re.DOTALL)
+                            if json_match:
+                                retry_data = json.loads(json_match.group(1))
+                            else:
+                                retry_data = json.loads(retry_text)
+                            retry_code = retry_data.get("transformation_code")
+                            retry_name = retry_data.get("standard_name", var_name)
+                        except (json.JSONDecodeError, AttributeError):
+                            retry_code = None
+                            retry_name = var_name
+
+                        if retry_result["success"] and retry_code:
+                            retry_valid = self.validate_variable(var_name, retry_code, retry_name)
+                            if retry_valid:
+                                self.increment_cleaned_count(var_name)
+                                print(f"Variable {var_name} accepted (after retry)")
+                            else:
+                                print(f"WARNING: Retry validation failed for {var_name}")
+                        else:
+                            print(f"ERROR: Retry failed for {var_name}")
+                        context.pop("feedback", None)
                 else:
                     print(f"WARNING: Variable {var_name} validation failed (check output above)")
-                    # Ne pas incrementer cleaned_count
             else:
                 print(f"ERROR: Failed to clean variable {var_name}")
 
@@ -705,6 +913,8 @@ def main():
     parser.add_argument("survey_id", help="Survey ID to clean")
     parser.add_argument("--limit", type=int, help="Limit number of variables to clean")
     parser.add_argument("--only-var", help="Clean only this specific variable")
+    parser.add_argument("--model", help="LiteLLM model identifier (e.g. anthropic/claude-sonnet-4-20250514, gemini/gemini-2.0-flash)")
+    parser.add_argument("--reset", action="store_true", help="Reset survey to initial state (template clean.py, status reset)")
 
     args = parser.parse_args()
 
@@ -713,8 +923,12 @@ def main():
         print("WARNING: Virtual environment not activated. Run 'source venv/bin/activate' first.")
         sys.exit(1)
 
-    orchestrator = SurveyOrchestrator(args.survey_id, limit=args.limit, only_var=args.only_var)
-    orchestrator.run_workflow()
+    orchestrator = SurveyOrchestrator(args.survey_id, limit=args.limit, only_var=args.only_var, model=args.model)
+
+    if args.reset:
+        orchestrator.reset_survey()
+    else:
+        orchestrator.run_workflow()
 
 
 if __name__ == "__main__":
