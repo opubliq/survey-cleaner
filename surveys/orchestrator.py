@@ -54,6 +54,7 @@ load_dotenv(override=True)
 
 from surveys.codebook_parser.parser import CodebookParser
 from surveys.codebook_parser.schemas import CodebookSchema, VariableSchema
+from surveys.validation import CleanValidator
 from surveys.llm_processors import (
     Batch,
     BatchingResult,
@@ -82,6 +83,8 @@ CONFIG = {
     "verbose": True,
 }
 
+GLM_LIGHT_MODEL = os.getenv("GLM_LIGHT_MODEL", "anthropic/claude-3-5-haiku-20241022")
+
 
 @dataclass
 class VariableState:
@@ -94,6 +97,8 @@ class VariableState:
     code: Optional[str] = None
     error: Optional[str] = None
     processed_at: Optional[str] = None
+    needs_review: bool = False
+    validation: Optional[dict] = None
 
 
 @dataclass
@@ -124,6 +129,8 @@ class SurveyState:
                     "code": v.code,
                     "error": v.error,
                     "processed_at": v.processed_at,
+                    "needs_review": v.needs_review,
+                    "validation": v.validation,
                 }
                 for k, v in self.variables.items()
             },
@@ -162,6 +169,8 @@ class SurveyState:
                             code=vdata.get("code"),
                             error=vdata.get("error"),
                             processed_at=vdata.get("processed_at"),
+                            needs_review=vdata.get("needs_review", False),
+                            validation=vdata.get("validation"),
                         )
         return state
 
@@ -278,25 +287,13 @@ class OrchestratorV2:
         return None
 
     def _load_data(self, data_file: Path) -> pd.DataFrame:
-        import pandas as pd
+        from surveys.io import read_survey_file
 
         self._log(f"Loading data: {data_file}")
-        suffix = data_file.suffix.lower()
-
-        if suffix == ".csv":
-            return pd.read_csv(data_file)
-        elif suffix == ".sav":
-            import pyreadstat
-
-            df, _ = pyreadstat.read_sav(data_file)
-            return df
-        elif suffix == ".dta":
-            df = pd.read_stata(data_file)
-            return df if isinstance(df, pd.DataFrame) else df.read()
-        elif suffix in [".xlsx", ".xls"]:
-            return pd.read_excel(data_file)
-        else:
-            raise ValueError(f"Unsupported file type: {suffix}")
+        df, meta = read_survey_file(data_file)
+        if meta.encoding or meta.sep:
+            self._log(f"  → format={meta.format} encoding={meta.encoding} sep={meta.sep!r}")
+        return df
 
     def _initialize_survey(self, data_file: Path, df: pd.DataFrame) -> SurveyState:
         state = SurveyState(
@@ -427,6 +424,124 @@ class OrchestratorV2:
         )
         return result.python_code
 
+    def _llm_semantic_check(
+        self,
+        var_name: str,
+        var_schema: VariableSchema,
+        code: str,
+        df: pd.DataFrame,
+    ) -> dict:
+        """GLM-5 light semantic check for Tier 1 variables that fail validation.
+
+        Performs a minimal LLM call to verify semantic correctness (inverted
+        mappings, wrong labels) before escalating to Tier 2/3.
+
+        Returns a dict with keys: passed (bool), issues (list[str]).
+        """
+        sample_values = df[var_name].dropna().sample(
+            min(10, len(df)), random_state=42
+        ).tolist()
+
+        prompt = (
+            f"Variable: {var_name}\n"
+            f"Label: {var_schema.var_label}\n"
+            f"Sample raw values: {sample_values}\n\n"
+            f"Generated code snippet:\n{code[:500]}\n\n"
+            "Does this code correctly map the raw values to cleaned values? "
+            "Check for: inverted mappings, wrong labels, missing categories.\n"
+            "Respond with JSON: {\"passed\": true/false, \"issues\": [\"...\"]}"
+        )
+
+        try:
+            response = litellm.completion(
+                model=GLM_LIGHT_MODEL,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a survey data quality auditor. "
+                            "Validate the semantic correctness of survey cleaning code. "
+                            "Respond ONLY with valid JSON."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=300,
+                temperature=0.0,
+            )
+            import json as _json
+            import re as _re
+            text = response.choices[0].message.content or ""
+            match = _re.search(r"\{[\s\S]*\}", text)
+            if match:
+                return _json.loads(match.group())
+        except Exception as e:
+            self._log(f"    GLM-5 semantic check error for {var_name}: {e}")
+
+        return {"passed": True, "issues": []}
+
+    def _validate_variable_code(
+        self,
+        var_name: str,
+        var_schema: VariableSchema,
+        var_state: VariableState,
+        df: pd.DataFrame,
+        tier: int,
+    ) -> None:
+        """Run per-variable dynamic validation and update var_state in place.
+
+        For Tier 1 failures, also runs a GLM-5 semantic check.
+        """
+        if not var_state.code:
+            return
+
+        clean_var_name = var_state.clean_var_name or var_name
+        raw_series: pd.Series = df[var_name]  # type: ignore[assignment]
+
+        # Build a minimal cleaned series by exec-ing the code snippet
+        try:
+            import pandas as _pd
+            import numpy as _np
+            _df_clean = _pd.DataFrame(index=df.index)
+            exec(var_state.code, {"df": df, "df_clean": _df_clean, "pd": _pd, "np": _np})
+            clean_series = _df_clean.get(clean_var_name, _pd.Series(dtype=object))
+        except Exception as e:
+            var_state.needs_review = True
+            var_state.validation = {"error": f"Execution error during validation: {e}"}
+            self._log(f"    Validation exec error {var_name}: {e}")
+            return
+
+        validator = CleanValidator(
+            source_data=df,
+            variable_schemas=[var_schema] if var_schema else None,
+        )
+        var_validation = validator.validate_variable(
+            var_name=var_name,
+            clean_var_name=clean_var_name,
+            code=var_state.code,
+            raw_series=raw_series,  # type: ignore[arg-type]
+            clean_series=clean_series,  # type: ignore[arg-type]
+        )
+
+        validation_dict = {
+            "is_valid": var_validation.is_valid,
+            "issues": [i.to_dict() for i in var_validation.issues],
+        }
+
+        if not var_validation.is_valid and tier == 1:
+            self._log(f"    Tier 1 validation failed for {var_name}, running GLM-5 semantic check")
+            semantic = self._llm_semantic_check(var_name, var_schema, var_state.code, df)
+            validation_dict["semantic_check"] = semantic
+            if not semantic.get("passed", True):
+                var_state.needs_review = True
+                self._log(
+                    f"    GLM-5 flagged {var_name}: {semantic.get('issues', [])}"
+                )
+        elif not var_validation.is_valid:
+            var_state.needs_review = True
+
+        var_state.validation = validation_dict
+
     def _process_all(
         self,
         classified: dict[str, tuple[VariableSchema, ClassificationResult]],
@@ -485,6 +600,15 @@ class OrchestratorV2:
                 var_state.processed_at = datetime.now().isoformat()
                 survey_state.variables[var_name] = var_state
                 tier1_vars_done += 1
+
+                # Étape 2: validation dynamique par variable (Tier 1)
+                if code and not error:
+                    try:
+                        self._validate_variable_code(
+                            var_name, var_schema, var_state, df, tier=1
+                        )
+                    except Exception as ve:
+                        self._log(f"    Validation error {var_name}: {ve}")
 
             # Sauvegarde après chaque batch Tier 1
             self._update_survey_state(survey_state)
@@ -661,14 +785,51 @@ class OrchestratorV2:
         if done_count == total_count:
             survey_state.status = "completed"
             clean_py = self._assemble_clean_py(survey_state)
+
+            # Étape 1: validation statique post-assemblage
+            validator = CleanValidator(
+                variable_schemas=list(self.codebook.variables) if self.codebook else None,
+            )
+            static_result = validator.validate_code(clean_py)
+
+            if static_result.has_errors:
+                self._log(
+                    f"\nValidation statique: {len(static_result.errors)} erreur(s) détectée(s)"
+                )
+                # Build reverse index: clean_var_name → raw var_name
+                clean_to_raw = {
+                    vs.clean_var_name: vn
+                    for vn, vs in survey_state.variables.items()
+                    if vs.clean_var_name
+                }
+                for err in static_result.errors:
+                    self._log(f"  [{err.code}] {err.message}")
+                    # Marquer les variables concernées needs_review=True
+                    # err.variable_name peut être le clean_var_name ou le raw var_name
+                    target = err.variable_name
+                    if target:
+                        raw_name = clean_to_raw.get(target, target)
+                        if raw_name in survey_state.variables:
+                            survey_state.variables[raw_name].needs_review = True
+            if static_result.has_warnings:
+                self._log(
+                    f"  Avertissements: {len(static_result.warnings)}"
+                )
+
             target = self.survey_path / "clean.py"
             with open(target, "w") as f:
                 f.write(clean_py)
             self._log(f"Generated: {target}")
+
+            # Persister la validation statique dans status.json APRÈS _update_survey_state
+            self._update_survey_state(survey_state)
+            self.state.setdefault("surveys", {})[self.survey_id].setdefault(
+                "validation", {}
+            )["static"] = static_result.to_dict()
+            self._save_state()
         else:
             survey_state.status = "in_progress"
-
-        self._update_survey_state(survey_state)
+            self._update_survey_state(survey_state)
         self._log(f"\n{'='*60}")
         self._log(f"Done: {survey_state.status}")
         self._log(f"{'='*60}\n")

@@ -430,6 +430,9 @@ class CleanValidator:
             return
 
         values = clean_series.dropna()
+        if not pd.api.types.is_numeric_dtype(values):
+            return  # cannot compare ranges on non-numeric series
+
         out_of_range: set[Any] = set()
 
         if range_min is not None:
