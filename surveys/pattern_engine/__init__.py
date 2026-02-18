@@ -28,6 +28,12 @@ from surveys.pattern_engine.rule_generator import (
     generate_rule,
     generate_rule_from_match,
 )
+from surveys.pattern_engine.rule_validator import (
+    RuleValidator,
+    ValidationError,
+    ValidationResult,
+    validate_rule,
+)
 from surveys.pattern_engine.patterns import (
     BasePattern,
     BinaryPresentPattern,
@@ -57,6 +63,11 @@ __all__ = [
     "GeneratedRule",
     "generate_rule",
     "generate_rule_from_match",
+    # Rule validator
+    "RuleValidator",
+    "ValidationResult",
+    "ValidationError",
+    "validate_rule",
     # Base classes
     "BasePattern",
     "ClassificationResult",
