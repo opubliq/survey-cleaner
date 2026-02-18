@@ -94,8 +94,9 @@ def test_classifier_tier_3_text():
     series = pd.Series(["Open response text", "Another answer", "Free form"])
     result = classify(series)
 
-    assert result.tier == 3, f"Text data should be Tier 3, got {result.tier}"
-    assert "text" in result.reason.lower() or "open-ended" in result.reason.lower()
+    assert result.tier == 1, f"Text data matches open_ended_text pattern, got Tier {result.tier}"
+    assert result.pattern_id == "open_ended_text"
+    assert result.confidence >= 0.8
 
 
 def test_missing_code_detection():
