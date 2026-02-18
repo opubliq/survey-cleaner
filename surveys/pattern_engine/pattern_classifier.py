@@ -105,7 +105,13 @@ def classify(
             return validation_result
 
     # Step 4: Fast path to Tier 3 for clearly complex variables
+    # NOTE: On calcule quand même all_confidences pour l'analyse pattern
     if _is_tier_3_candidate(effective_series, n_unique, min_val, max_val):
+        patterns = get_all_patterns()
+        all_confidences = {
+            p.pattern_id: p.matches(effective_series, var, missing_info)
+            for p in patterns
+        }
         return ClassificationResult(
             tier=3,
             pattern_id=None,
@@ -113,13 +119,14 @@ def classify(
             reason=_tier_3_reason(effective_series, n_unique, min_val, max_val),
             missing_codes=missing_info,
             effective_n_unique=n_unique,
+            all_confidences=all_confidences,
         )
 
     # Step 5: Match against all patterns
     patterns = get_all_patterns()
     best_pattern = None
     best_confidence = 0.0
-    all_confidences = {}
+    all_confidences: dict[str, float] = {}
 
     for pattern in patterns:
         confidence = pattern.matches(effective_series, var, missing_info)
@@ -144,6 +151,7 @@ def classify(
                 reason=f"Pattern {best_pattern.pattern_id} matched with confidence {best_confidence:.2f}",
                 missing_codes=missing_info,
                 effective_n_unique=n_unique,
+                all_confidences=all_confidences,
             )
 
     # Step 8: Tier 2: semi-standard or ambiguous
@@ -154,6 +162,7 @@ def classify(
         reason=_tier_2_reason(best_pattern, best_confidence, n_unique, var),
         missing_codes=missing_info,
         effective_n_unique=n_unique,
+        all_confidences=all_confidences,
     )
 
 
@@ -171,6 +180,7 @@ def _empty_series_result(missing_info: MissingCodeInfo) -> ClassificationResult:
         reason="Series contains only missing values or NaN",
         missing_codes=missing_info,
         effective_n_unique=0,
+        all_confidences={},
     )
 
 
@@ -197,6 +207,7 @@ def _cross_validate(
                 reason=f"Codebook says 'likert' but data has {data_n_unique} unique values (too many for Likert)",
                 missing_codes=MissingCodeInfo(),
                 effective_n_unique=n_unique,
+                all_confidences={},
             )
 
         if var.scale_type == "binary" and data_n_unique != 2:
@@ -207,6 +218,7 @@ def _cross_validate(
                 reason=f"Codebook says 'binary' but data has {data_n_unique} unique values (expected 2)",
                 missing_codes=MissingCodeInfo(),
                 effective_n_unique=n_unique,
+                all_confidences={},
             )
 
     # Check range mismatch (if codebook specifies range)
@@ -219,6 +231,7 @@ def _cross_validate(
                 reason=f"Data min ({min_val}) below codebook range_min ({var.range_min}) - codebook may be incorrect",
                 missing_codes=MissingCodeInfo(),
                 effective_n_unique=n_unique,
+                all_confidences={},
             )
 
     return None

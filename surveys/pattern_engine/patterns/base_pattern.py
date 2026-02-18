@@ -56,6 +56,7 @@ class ClassificationResult:
     reason: str  # human-readable explanation
     missing_codes: MissingCodeInfo = field(default_factory=MissingCodeInfo)
     effective_n_unique: Optional[int] = None  # n_unique after removing missing codes
+    all_confidences: dict[str, float] = field(default_factory=dict)  # score par pattern
 
 
 # ---------------------------------------------------------------------------
