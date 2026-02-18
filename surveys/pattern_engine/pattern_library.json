@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "title": "Survey Cleaner Pattern Library",
+  "description": "Persistent patterns for variable classification and cleaning",
+  "type": "object",
+  "properties": {
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pattern_id": {
+            "type": "string",
+            "description": "Unique identifier for this pattern (e.g., likert_5_agree)",
+            "examples": ["likert_5_agree", "binary_yes_no", "province_qc"]
+          },
+          "pattern_name": {
+            "type": "string",
+            "description": "Human-readable name for this pattern",
+            "examples": ["Likert 5 points - Accord/Désaccord", "Binaire Oui/Non", "Province Québec"]
+          },
+          "pattern_type": {
+            "type": "string",
+            "enum": ["likert", "demographic", "binary", "scale", "ordinal"],
+            "description": "Type of pattern"
+          },
+          "detection_criteria": {
+            "type": "object",
+            "description": "Rules to automatically match variables to this pattern",
+            "properties": {
+              "unique_values": {
+                "type": "array",
+                "items": {"type": "number"},
+                "description": "Expected unique values (e.g., [1, 2, 3, 4, 5] for Likert 5)"
+              },
+              "range_min": {
+                "type": "number",
+                "description": "Minimum value in range (for numeric/scale patterns)"
+              },
+              "range_max": {
+                "type": "number",
+                "description": "Maximum value in range (for numeric/scale patterns)"
+              },
+              "n_unique": {
+                "type": "number",
+                "description": "Expected number of unique values (for categorical patterns)"
+              },
+              "name_keywords": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Keywords in variable name to help matching (e.g., ['age', 'sex', 'province'])"
+              }
+            }
+          },
+          "transformation_template": {
+            "type": "string",
+            "description": "Python code template for transformation, uses placeholders: {var_name}, {codebook_entry}",
+            "examples": [
+              "df_clean['{var_name}'] = df['{original_var}'].map({{mapping}})"
+            ]
+          },
+          "examples_used": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of survey IDs where this pattern has been successfully applied"
+          },
+          "validated": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this pattern has been human-validated"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "source_survey": {"type": "string"},
+              "created_date": {"type": "string", "format": "date"},
+              "notes": {"type": "string"}
+            }
+          }
+        },
+        "required": ["pattern_id", "pattern_name", "pattern_type", "detection_criteria", "transformation_template"],
+        "additionalProperties": false
+      }
+    }
+  }
+}
