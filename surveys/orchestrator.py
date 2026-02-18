@@ -427,6 +427,144 @@ class OrchestratorV2:
         )
         return result.python_code
 
+    def _process_all(
+        self,
+        classified: dict[str, tuple[VariableSchema, ClassificationResult]],
+        survey_state: SurveyState,
+        df: pd.DataFrame,
+        pending_vars: list[str],
+    ) -> None:
+        """Passe 2: traitement par tier avec vrai batching Tier 2.
+
+        - Tier 1: traitement immédiat (déterministe)
+        - Tier 2: regroupé via create_batches() → lots de 10-20 → un appel LLM par lot
+        - Tier 3: traitement individuel (Claude Haiku)
+
+        status.json est sauvegardé après chaque lot (pas après chaque variable).
+        """
+        # Filtrer les classified selon pending_vars
+        pending_classified = {
+            k: v for k, v in classified.items() if k in pending_vars
+        }
+
+        batching = create_batches(pending_classified)
+        stats = get_batch_stats(batching)
+        self._log(
+            f"Batching: T1={stats['tier_1']['n_variables']} vars, "
+            f"T2={stats['tier_2']['n_variables']} vars en {stats['tier_2']['n_batches']} lots, "
+            f"T3={stats['tier_3']['n_variables']} vars"
+        )
+
+        if self.dry_run:
+            for var_name, (_, classification) in pending_classified.items():
+                self._log(
+                    f"  [DRY RUN] {var_name}: tier={classification.tier}, "
+                    f"pattern={classification.pattern_id}, confidence={classification.confidence:.2f}"
+                )
+            return
+
+        # --- Tier 1: traitement immédiat ---
+        tier1_vars_done = 0
+        for batch in batching.tier_1_batches:
+            for var_name, var_schema, classification in batch.variables:
+                var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                var_state.status = "in_progress"
+                survey_state.variables[var_name] = var_state
+
+                code: Optional[str] = None
+                error: Optional[str] = None
+                try:
+                    code = self._process_tier1(var_name, var_schema, classification, df)
+                except Exception as e:
+                    error = str(e)
+                    self._log(f"  Tier 1 ERROR {var_name}: {error}")
+
+                var_state.code = code
+                var_state.error = error
+                var_state.status = "done" if code and not error else "error"
+                var_state.processed_at = datetime.now().isoformat()
+                survey_state.variables[var_name] = var_state
+                tier1_vars_done += 1
+
+            # Sauvegarde après chaque batch Tier 1
+            self._update_survey_state(survey_state)
+            self._log(f"  Tier 1: {tier1_vars_done} variables traitées")
+
+        # --- Tier 2: batching réel ---
+        for batch in batching.tier_2_batches:
+            batch_var_names = [v[0] for v in batch.variables]
+            self._log(f"\n  Tier 2 lot {batch.batch_index + 1}/{len(batching.tier_2_batches)}: {len(batch_var_names)} variables")
+
+            # Marquer toutes les variables du lot in_progress
+            for var_name, var_schema, classification in batch.variables:
+                var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                var_state.status = "in_progress"
+                survey_state.variables[var_name] = var_state
+
+            try:
+                results = self._process_tier2_batch(batch)
+
+                # results est keyé par clean_var_name; construire index inversé par original_var_name
+                by_original: dict[str, VariableCode] = {
+                    vc.original_var_name: vc
+                    for vc in results.values()
+                    if vc.original_var_name
+                }
+
+                for var_name, var_schema, classification in batch.variables:
+                    var_state = survey_state.variables[var_name]
+                    vc = by_original.get(var_name) or results.get(var_name)
+                    if vc:
+                        var_state.code = vc.code
+                        var_state.clean_var_name = vc.clean_var_name
+                        var_state.status = "done"
+                        self._log(f"    ✓ {var_name}")
+                    else:
+                        var_state.error = "No result from batch processor"
+                        var_state.status = "error"
+                        self._log(f"    ✗ {var_name}: no result")
+                    var_state.processed_at = datetime.now().isoformat()
+                    survey_state.variables[var_name] = var_state
+
+            except Exception as e:
+                error_msg = str(e)
+                self._log(f"  Tier 2 lot ERROR: {error_msg}")
+                for var_name, _, _ in batch.variables:
+                    var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                    var_state.error = error_msg
+                    var_state.status = "error"
+                    var_state.processed_at = datetime.now().isoformat()
+                    survey_state.variables[var_name] = var_state
+
+            # Sauvegarde après chaque lot Tier 2
+            self._update_survey_state(survey_state)
+
+        # --- Tier 3: traitement individuel ---
+        for i, batch in enumerate(batching.tier_3_batches, 1):
+            var_name, var_schema, classification = batch.variables[0]
+            self._log(f"\n  Tier 3 [{i}/{len(batching.tier_3_batches)}] {var_name}")
+
+            var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+            var_state.status = "in_progress"
+            survey_state.variables[var_name] = var_state
+
+            code = None
+            error = None
+            try:
+                code = self._process_tier3_variable(var_name, var_schema, classification, df)
+            except Exception as e:
+                error = str(e)
+                self._log(f"    ERROR: {error}")
+
+            var_state.code = code
+            var_state.error = error
+            var_state.status = "done" if code and not error else "error"
+            var_state.processed_at = datetime.now().isoformat()
+            survey_state.variables[var_name] = var_state
+
+            # Sauvegarde après chaque variable Tier 3
+            self._update_survey_state(survey_state)
+
     def _assemble_clean_py(self, survey_state: SurveyState) -> str:
         lines = [
             '"""Auto-generated cleaning script."""',
@@ -512,51 +650,9 @@ class OrchestratorV2:
         elif self.limit:
             pending_vars = pending_vars[:self.limit]
 
-        self._log(f"Processing {len(pending_vars)} variables...")
+        self._log(f"Processing {len(pending_vars)} variables (two-pass: classify → batch)...")
 
-        for i, var_name in enumerate(pending_vars, 1):
-            var_schema, classification = classified[var_name]
-            var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
-
-            self._log(f"\n[{i}/{len(pending_vars)}] {var_name} (Tier {classification.tier})")
-
-            if self.dry_run:
-                self._log(f"  [DRY RUN] Classified: tier={classification.tier}, pattern={classification.pattern_id}, confidence={classification.confidence:.2f}")
-                continue
-
-            var_state.status = "in_progress"
-            survey_state.variables[var_name] = var_state
-            self._update_survey_state(survey_state)
-
-            code: Optional[str] = None
-            error: Optional[str] = None
-
-            try:
-                if classification.tier == 1:
-                    code = self._process_tier1(var_name, var_schema, classification, df)
-                elif classification.tier == 2:
-                    batch = Batch(
-                        tier=2,
-                        batch_index=0,
-                        variables=[(var_name, var_schema, classification)],
-                    )
-                    results = self._process_tier2_batch(batch)
-                    if var_name in results:
-                        code = results[var_name].code
-                        var_state.clean_var_name = results[var_name].clean_var_name
-                else:
-                    code = self._process_tier3_variable(var_name, var_schema, classification, df)
-
-            except Exception as e:
-                error = str(e)
-                self._log(f"  ERROR: {error}")
-
-            var_state.code = code
-            var_state.error = error
-            var_state.status = "done" if code and not error else "error"
-            var_state.processed_at = datetime.now().isoformat()
-            survey_state.variables[var_name] = var_state
-            self._update_survey_state(survey_state)
+        self._process_all(classified, survey_state, df, pending_vars)
 
         done_count = sum(1 for v in survey_state.variables.values() if v.status == "done")
         total_count = len(survey_state.variables)
