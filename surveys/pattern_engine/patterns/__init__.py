@@ -46,6 +46,9 @@ from surveys.pattern_engine.patterns.scales import (
     CountScalePattern,
 )
 
+# Open-ended / free text
+from surveys.pattern_engine.patterns.open_ended import OpenEndedPattern
+
 # Base classes (for custom patterns)
 from surveys.pattern_engine.patterns.base_pattern import (
     BasePattern,
@@ -78,12 +81,15 @@ __all__ = [
     "Thermometer0to10Pattern",
     "PercentageScalePattern",
     "CountScalePattern",
+    # Open-ended
+    "OpenEndedPattern",
 ]
 
 # Helper: get all pattern instances (for pattern matcher)
 def get_all_patterns() -> list[BasePattern]:
     """Return list of all pattern instances for pattern matching."""
     return [
+        OpenEndedPattern(),
         Likert3AgreePattern(),
         Likert4AgreePattern(),
         Likert5AgreePattern(),

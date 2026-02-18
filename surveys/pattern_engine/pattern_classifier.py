@@ -38,6 +38,7 @@ if TYPE_CHECKING:
 # Higher priority patterns are checked first and preferred in ties
 
 _PATTERN_PRIORITY = {
+    "open_ended_text": 110,
     "binary_yes_no": 100,
     "binary_true_false": 100,
     "binary_present": 95,
@@ -230,19 +231,8 @@ def _is_tier_3_candidate(
     max_val: Optional[float],
 ) -> bool:
     """Quick check for clearly complex/complex variables."""
-    # Text data (dtype 'object' or 'str' in pandas 3)
-    if str(series.dtype) in ("object", "str", "string"):
-        # Check if first non-null value is a string
-        _dropped = series.dropna()
-        first_non_null = _dropped.iloc[0] if len(_dropped) > 0 else None  # type: ignore[arg-type]
-        if first_non_null is not None and isinstance(first_non_null, str):
-            return True
-
-    # Too many unique values
     if n_unique > TIER_2_MAX_N_UNIQUE:
         return True
-
-    # Numeric but with huge range (not a scale)
     if min_val is not None and max_val is not None:
         range_span = max_val - min_val
         if range_span > 1000 and n_unique > 50:
@@ -258,11 +248,6 @@ def _tier_3_reason(
     max_val: Optional[float],
 ) -> str:
     """Generate explanation for Tier 3 classification."""
-    if str(series.dtype) in ("object", "str", "string"):
-        _dropped = series.dropna()
-        if len(_dropped) > 0 and isinstance(_dropped.iloc[0], str):  # type: ignore[arg-type]
-            return "Text data (open-ended) - requires LLM interpretation"
-
     if n_unique > TIER_2_MAX_N_UNIQUE:
         return f"Too many unique values ({n_unique}) - not a pattern match"
 

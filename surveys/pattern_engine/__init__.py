@@ -15,6 +15,12 @@ Key components:
 
 from surveys.pattern_engine.missing_code_detector import detect_missing_codes
 from surveys.pattern_engine.pattern_classifier import classify
+from surveys.pattern_engine.pattern_matcher import (
+    MatchResult,
+    NearMiss,
+    PatternMatcher,
+    get_default_matcher,
+)
 from surveys.pattern_engine.patterns import (
     BasePattern,
     BinaryPresentPattern,
@@ -34,6 +40,11 @@ __all__ = [
     # Core classifier
     "classify",
     "detect_missing_codes",
+    # Pattern matcher
+    "PatternMatcher",
+    "MatchResult",
+    "NearMiss",
+    "get_default_matcher",
     # Base classes
     "BasePattern",
     "ClassificationResult",
