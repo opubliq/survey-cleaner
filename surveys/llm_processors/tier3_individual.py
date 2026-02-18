@@ -70,10 +70,20 @@ def build_user_prompt(
     classification: "ClassificationResult",
     sample_values: list,
     clean_var_name: str,
+    reason: Optional[str] = None,
+    incorrect_code: Optional[str] = None,
 ) -> str:
     """Build focused prompt for a single variable."""
     parts = [f"Variable: {var_name}"]
     parts.append(f"Target cleaned name: {clean_var_name}")
+
+    if reason or incorrect_code:
+        parts.append("\n[ESCALATION CONTEXT]")
+        if reason:
+            parts.append(f"Reason: {reason}")
+        if incorrect_code:
+            parts.append(f"Previous code (incorrect):\n{incorrect_code}")
+        parts.append("")
 
     if var:
         parts.append(f"\nLabel: {var.var_label}")
@@ -151,6 +161,8 @@ def process_tier3_variable(
     sample_values: list,
     clean_var_name: Optional[str] = None,
     model: Optional[str] = None,
+    reason: Optional[str] = None,
+    incorrect_code: Optional[str] = None,
 ) -> Tier3Result:
     """Process a single Tier 3 variable with Claude Haiku.
 
@@ -161,6 +173,8 @@ def process_tier3_variable(
         sample_values: Sample values from the actual data
         clean_var_name: Target standardized name (defaults to var_name)
         model: Override model (defaults to TIER_3_MODEL env var)
+        reason: Optional reason for escalation (e.g., validation error message)
+        incorrect_code: Optional incorrect code from previous tier
 
     Returns:
         Tier3Result with python_code, explanation, confidence, needs_review
@@ -168,7 +182,7 @@ def process_tier3_variable(
     clean_var = clean_var_name or var_name
     model = model or TIER_3_MODEL
 
-    user_prompt = build_user_prompt(var_name, var, classification, sample_values, clean_var)
+    user_prompt = build_user_prompt(var_name, var, classification, sample_values, clean_var, reason=reason, incorrect_code=incorrect_code)
 
     try:
         response = litellm.completion(

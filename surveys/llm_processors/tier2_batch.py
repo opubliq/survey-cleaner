@@ -168,11 +168,13 @@ class Tier2BatchProcessor:
             persist_file = self.cache_dir / "tier2_cache.json"
         return PromptCache(persist_file=persist_file)
 
-    def process_batch(self, batch: "Batch") -> BatchProcessingResult:
+    def process_batch(self, batch: "Batch", reason: Optional[str] = None, incorrect_code: Optional[str] = None) -> BatchProcessingResult:
         """Process a batch of variables.
 
         Args:
             batch: Batch object with tier=2 and list of variables.
+            reason: Optional reason for escalation (e.g., validation error message).
+            incorrect_code: Optional incorrect code from previous tier.
 
         Returns:
             BatchProcessingResult with generated code for each variable.
@@ -181,13 +183,13 @@ class Tier2BatchProcessor:
             raise ValueError(f"Expected tier=2 batch, got tier={batch.tier}")
 
         variables_data = self._build_variables_json(batch.variables)
-        user_prompt = self._build_user_prompt(variables_data)
+        user_prompt = self._build_user_prompt(variables_data, reason=reason, incorrect_code=incorrect_code)
 
         response = self._call_llm(user_prompt)
         result = self._parse_response(response, batch.batch_index)
 
         if result.failed_vars and self.max_retries > 0:
-            result = self._retry_failed(batch, result)
+            result = self._retry_failed(batch, result, reason=reason, incorrect_code=incorrect_code)
 
         return result
 
@@ -221,19 +223,25 @@ class Tier2BatchProcessor:
             result.append(var_data)
         return result
 
-    def _build_user_prompt(self, variables_data: list[dict]) -> str:
+    def _build_user_prompt(self, variables_data: list[dict], reason: Optional[str] = None, incorrect_code: Optional[str] = None) -> str:
         """Build the user prompt with all variables."""
-        return f"""Voici {len(variables_data)} variables à nettoyer.
+        prompt_parts = [f"Voici {len(variables_data)} variables à nettoyer.\n"]
 
-Génère le code Python pour chaque variable en suivant les règles définies.
+        if reason or incorrect_code:
+            prompt_parts.append("[CONTEXTE D'ESCALADE]\n")
+            if reason:
+                prompt_parts.append(f"Raison : {reason}\n")
+            if incorrect_code:
+                prompt_parts.append(f"Code précédent (incorrect) :\n{incorrect_code}\n")
+            prompt_parts.append("\n")
 
-Variables:
-```json
-{json.dumps({"variables": variables_data}, ensure_ascii=False, indent=2)}
-```
+        prompt_parts.append("Génère le code Python pour chaque variable en suivant les règles définies.\n")
+        prompt_parts.append("Variables:\n```json\n")
+        prompt_parts.append(json.dumps({"variables": variables_data}, ensure_ascii=False, indent=2))
+        prompt_parts.append("\n```\n")
+        prompt_parts.append("Retourne uniquement un objet JSON valide avec le code généré.\n")
 
-Retourne uniquement un objet JSON valide avec le code généré.
-"""
+        return "".join(prompt_parts)
 
     def _call_llm(self, user_prompt: str) -> str:
         """Call the LLM with system + user prompts."""
@@ -303,6 +311,8 @@ Retourne uniquement un objet JSON valide avec le code généré.
         self,
         batch: "Batch",
         previous_result: BatchProcessingResult,
+        reason: Optional[str] = None,
+        incorrect_code: Optional[str] = None,
     ) -> BatchProcessingResult:
         """Retry failed variables individually."""
         failed_vars = [
@@ -320,7 +330,7 @@ Retourne uniquement un objet JSON valide avec le code généré.
             single_data = self._build_variables_json(
                 [(clean_name, var_schema, classification)]
             )
-            user_prompt = self._build_user_prompt(single_data)
+            user_prompt = self._build_user_prompt(single_data, reason=reason, incorrect_code=incorrect_code)
 
             try:
                 response = self._call_llm(user_prompt)
@@ -342,6 +352,8 @@ def process_tier2_batch(
     batch: "Batch",
     model: Optional[str] = None,
     cache_dir: Optional[Path] = None,
+    reason: Optional[str] = None,
+    incorrect_code: Optional[str] = None,
 ) -> BatchProcessingResult:
     """Convenience function to process a single Tier 2 batch.
 
@@ -349,9 +361,11 @@ def process_tier2_batch(
         batch: Batch of variables to process.
         model: LLM model to use (default: opencode/glm-5-free).
         cache_dir: Directory for prompt cache persistence.
+        reason: Optional reason for escalation (e.g., validation error message).
+        incorrect_code: Optional incorrect code from previous tier.
 
     Returns:
         BatchProcessingResult with generated code.
     """
     processor = Tier2BatchProcessor(model=model, cache_dir=cache_dir)
-    return processor.process_batch(batch)
+    return processor.process_batch(batch, reason=reason, incorrect_code=incorrect_code)

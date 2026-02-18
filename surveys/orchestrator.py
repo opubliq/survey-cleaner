@@ -99,6 +99,8 @@ class VariableState:
     processed_at: Optional[str] = None
     needs_review: bool = False
     validation: Optional[dict] = None
+    escalation_count: int = 0
+    escalation_history: list[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -131,6 +133,8 @@ class SurveyState:
                     "processed_at": v.processed_at,
                     "needs_review": v.needs_review,
                     "validation": v.validation,
+                    "escalation_count": v.escalation_count,
+                    "escalation_history": v.escalation_history,
                 }
                 for k, v in self.variables.items()
             },
@@ -171,6 +175,8 @@ class SurveyState:
                             processed_at=vdata.get("processed_at"),
                             needs_review=vdata.get("needs_review", False),
                             validation=vdata.get("validation"),
+                            escalation_count=vdata.get("escalation_count", 0),
+                            escalation_history=vdata.get("escalation_history", []),
                         )
         return state
 
@@ -397,9 +403,9 @@ class OrchestratorV2:
 
         return f"op_{var_name.lower()[:20]}"
 
-    def _process_tier2_batch(self, batch: Batch) -> dict[str, VariableCode]:
+    def _process_tier2_batch(self, batch: Batch, reason: Optional[str] = None, incorrect_code: Optional[str] = None) -> dict[str, VariableCode]:
         processor = Tier2BatchProcessor(model=self.model)
-        result = processor.process_batch(batch)
+        result = processor.process_batch(batch, reason=reason, incorrect_code=incorrect_code)
         return result.variables
 
     def _process_tier3_variable(
@@ -408,6 +414,8 @@ class OrchestratorV2:
         var_schema: VariableSchema,
         classification: ClassificationResult,
         df: pd.DataFrame,
+        reason: Optional[str] = None,
+        incorrect_code: Optional[str] = None,
     ) -> str:
         sample_values = df[var_name].dropna().sample(min(20, len(df)), random_state=42).tolist()
         clean_var_name = self._generate_clean_var_name(
@@ -421,6 +429,8 @@ class OrchestratorV2:
             classification=classification,
             sample_values=sample_values,
             clean_var_name=clean_var_name,
+            reason=reason,
+            incorrect_code=incorrect_code,
         )
         return result.python_code
 
@@ -580,11 +590,29 @@ class OrchestratorV2:
 
         # --- Tier 1: traitement immédiat ---
         tier1_vars_done = 0
+        vars_to_escalate_t2: list[tuple[str, VariableSchema, ClassificationResult]] = []
+
         for batch in batching.tier_1_batches:
             for var_name, var_schema, classification in batch.variables:
                 var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
                 var_state.status = "in_progress"
                 survey_state.variables[var_name] = var_state
+
+                # Shortcut confiance : si confidence < 0.85, skip Tier 1 et escalader vers Tier 2
+                if classification.confidence < 0.85:
+                    self._log(f"  Tier 1 SKIP {var_name}: confidence {classification.confidence:.2f} < 0.85 → escalade vers Tier 2")
+                    vars_to_escalate_t2.append((var_name, var_schema, classification))
+                    var_state.tier = 1
+                    var_state.confidence = classification.confidence
+                    var_state.escalation_history.append({
+                        "from_tier": 1,
+                        "to_tier": 2,
+                        "reason": f"Confidence Tier 1 {classification.confidence:.2f} < 0.85",
+                        "incorrect_code": None,
+                        "timestamp": datetime.now().isoformat(),
+                    })
+                    var_state.escalation_count = 1
+                    continue
 
                 code: Optional[str] = None
                 error: Optional[str] = None
@@ -607,6 +635,18 @@ class OrchestratorV2:
                         self._validate_variable_code(
                             var_name, var_schema, var_state, df, tier=1
                         )
+                        # Si validation échoue, ajouter à la liste d'escalade vers Tier 2
+                        if var_state.validation and not var_state.validation.get("is_valid", True):
+                            self._log(f"  Tier 1 validation échouée pour {var_name} → escalade vers Tier 2")
+                            vars_to_escalate_t2.append((var_name, var_schema, classification))
+                            var_state.escalation_history.append({
+                                "from_tier": 1,
+                                "to_tier": 2,
+                                "reason": var_state.validation.get("issues", [{}])[0].get("message", "Validation échouée"),
+                                "incorrect_code": var_state.code,
+                                "timestamp": datetime.now().isoformat(),
+                            })
+                            var_state.escalation_count = 1
                     except Exception as ve:
                         self._log(f"    Validation error {var_name}: {ve}")
 
@@ -614,7 +654,12 @@ class OrchestratorV2:
             self._update_survey_state(survey_state)
             self._log(f"  Tier 1: {tier1_vars_done} variables traitées")
 
+        if vars_to_escalate_t2:
+            self._log(f"  Tier 1→2: {len(vars_to_escalate_t2)} variables à escalader vers Tier 2")
+
         # --- Tier 2: batching réel ---
+        vars_to_escalate_t3: list[tuple[str, VariableSchema, ClassificationResult, str, Optional[str]]] = []
+
         for batch in batching.tier_2_batches:
             batch_var_names = [v[0] for v in batch.variables]
             self._log(f"\n  Tier 2 lot {batch.batch_index + 1}/{len(batching.tier_2_batches)}: {len(batch_var_names)} variables")
@@ -650,6 +695,29 @@ class OrchestratorV2:
                     var_state.processed_at = datetime.now().isoformat()
                     survey_state.variables[var_name] = var_state
 
+                    # Validation après Tier 2
+                    if vc and var_state.status == "done":
+                        try:
+                            self._validate_variable_code(
+                                var_name, var_schema, var_state, df, tier=2
+                            )
+                            # Si validation échoue et pas déjà en escalade, ajouter à la liste d'escalade vers Tier 3
+                            if (var_state.validation and not var_state.validation.get("is_valid", True) and
+                                var_state.escalation_count < 2):
+                                self._log(f"  Tier 2 validation échouée pour {var_name} → escalade vers Tier 3")
+                                reason = var_state.validation.get("issues", [{}])[0].get("message", "Validation échouée")
+                                vars_to_escalate_t3.append((var_name, var_schema, classification, reason, var_state.code))
+                                var_state.escalation_history.append({
+                                    "from_tier": 2,
+                                    "to_tier": 3,
+                                    "reason": reason,
+                                    "incorrect_code": var_state.code,
+                                    "timestamp": datetime.now().isoformat(),
+                                })
+                                var_state.escalation_count = var_state.escalation_count + 1
+                        except Exception as ve:
+                            self._log(f"    Validation error {var_name}: {ve}")
+
             except Exception as e:
                 error_msg = str(e)
                 self._log(f"  Tier 2 lot ERROR: {error_msg}")
@@ -662,6 +730,99 @@ class OrchestratorV2:
 
             # Sauvegarde après chaque lot Tier 2
             self._update_survey_state(survey_state)
+
+        # --- Tier 1→2: escalades (shortcut confiance + validation échouée) ---
+        if vars_to_escalate_t2:
+            self._log(f"\n  Tier 1→2: traitement de {len(vars_to_escalate_t2)} variables escaladées")
+
+            # Grouper par similarité pour créer des batches de 10-20 variables
+            from surveys.llm_processors.batcher import Batch
+
+            def _group_key(t):
+                var_name, var_schema, classification = t
+                return (classification.tier, var_schema.var_type, var_schema.scale_type, classification.pattern_id)
+
+            # Trier par clé de groupement
+            vars_to_escalate_t2_sorted = sorted(vars_to_escalate_t2, key=_group_key)
+
+            # Créer des batches de max 20 variables
+            batch_size = 20
+            for i in range(0, len(vars_to_escalate_t2_sorted), batch_size):
+                batch_vars = vars_to_escalate_t2_sorted[i:i + batch_size]
+                self._log(f"\n  Tier 2 lot escalade {i // batch_size + 1}: {len(batch_vars)} variables")
+
+                # Créer un Batch temporaire
+                batch = Batch(tier=2, batch_index=999 + i // batch_size, variables=batch_vars)
+
+                # Marquer toutes les variables du lot in_progress
+                for var_name, var_schema, classification in batch_vars:
+                    var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                    var_state.status = "in_progress"
+                    survey_state.variables[var_name] = var_state
+
+                try:
+                    # Raison d'escalade : soit shortcut confiance, soit validation échouée
+                    reason = "Escalade depuis Tier 1"
+                    results = self._process_tier2_batch(batch, reason=reason)
+
+                    # results est keyé par clean_var_name; construire index inversé par original_var_name
+                    by_original: dict[str, VariableCode] = {
+                        vc.original_var_name: vc
+                        for vc in results.values()
+                        if vc.original_var_name
+                    }
+
+                    for var_name, var_schema, classification in batch_vars:
+                        var_state = survey_state.variables[var_name]
+                        vc = by_original.get(var_name) or results.get(var_name)
+                        if vc:
+                            var_state.code = vc.code
+                            var_state.clean_var_name = vc.clean_var_name
+                            var_state.status = "done"
+                            var_state.tier = 2
+                            self._log(f"    ✓ {var_name} (Tier 2)")
+                        else:
+                            var_state.error = "No result from batch processor"
+                            var_state.status = "error"
+                            self._log(f"    ✗ {var_name}: no result")
+                        var_state.processed_at = datetime.now().isoformat()
+                        survey_state.variables[var_name] = var_state
+
+                        # Validation après Tier 2 (escalade)
+                        if vc and var_state.status == "done":
+                            try:
+                                self._validate_variable_code(
+                                    var_name, var_schema, var_state, df, tier=2
+                                )
+                                # Si validation échoue, ajouter à la liste d'escalade vers Tier 3
+                                if (var_state.validation and not var_state.validation.get("is_valid", True) and
+                                    var_state.escalation_count < 2):
+                                    self._log(f"  Tier 2 (escalade) validation échouée pour {var_name} → escalade vers Tier 3")
+                                    reason_t3 = var_state.validation.get("issues", [{}])[0].get("message", "Validation échouée")
+                                    vars_to_escalate_t3.append((var_name, var_schema, classification, reason_t3, var_state.code))
+                                    var_state.escalation_history.append({
+                                        "from_tier": 2,
+                                        "to_tier": 3,
+                                        "reason": reason_t3,
+                                        "incorrect_code": var_state.code,
+                                        "timestamp": datetime.now().isoformat(),
+                                    })
+                                    var_state.escalation_count = var_state.escalation_count + 1
+                            except Exception as ve:
+                                self._log(f"    Validation error {var_name}: {ve}")
+
+                except Exception as e:
+                    error_msg = str(e)
+                    self._log(f"  Tier 2 lot escalade ERROR: {error_msg}")
+                    for var_name, _, _ in batch_vars:
+                        var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                        var_state.error = error_msg
+                        var_state.status = "error"
+                        var_state.processed_at = datetime.now().isoformat()
+                        survey_state.variables[var_name] = var_state
+
+                # Sauvegarde après chaque lot d'escalade
+                self._update_survey_state(survey_state)
 
         # --- Tier 3: traitement individuel ---
         for i, batch in enumerate(batching.tier_3_batches, 1):
@@ -686,8 +847,74 @@ class OrchestratorV2:
             var_state.processed_at = datetime.now().isoformat()
             survey_state.variables[var_name] = var_state
 
+            # Validation après Tier 3
+            if code and not error:
+                try:
+                    self._validate_variable_code(
+                        var_name, var_schema, var_state, df, tier=3
+                    )
+                    # Si validation échoue, marquer needs_review=True
+                    if var_state.validation and not var_state.validation.get("is_valid", True):
+                        self._log(f"  Tier 3 validation échouée pour {var_name} → needs_review=True")
+                        var_state.needs_review = True
+                except Exception as ve:
+                    self._log(f"    Validation error {var_name}: {ve}")
+
             # Sauvegarde après chaque variable Tier 3
             self._update_survey_state(survey_state)
+
+        # --- Tier 2→3: escalades (validation échouée) ---
+        if vars_to_escalate_t3:
+            self._log(f"\n  Tier 2→3: traitement de {len(vars_to_escalate_t3)} variables escaladées")
+
+            for var_name, var_schema, classification, reason, incorrect_code in vars_to_escalate_t3:
+                self._log(f"\n  Tier 3 (escalade) {var_name}: {reason}")
+
+                var_state = survey_state.variables.get(var_name, VariableState(var_name=var_name))
+                var_state.status = "in_progress"
+                survey_state.variables[var_name] = var_state
+
+                code = None
+                error = None
+                try:
+                    code = self._process_tier3_variable(
+                        var_name, var_schema, classification, df,
+                        reason=reason, incorrect_code=incorrect_code
+                    )
+                except Exception as e:
+                    error = str(e)
+                    self._log(f"    ERROR: {error}")
+
+                var_state.code = code
+                var_state.error = error
+                var_state.status = "done" if code and not error else "error"
+                var_state.tier = 3
+                var_state.processed_at = datetime.now().isoformat()
+                survey_state.variables[var_name] = var_state
+
+                # Validation après Tier 3 (escalade)
+                if code and not error:
+                    try:
+                        self._validate_variable_code(
+                            var_name, var_schema, var_state, df, tier=3
+                        )
+                        # Circuit-breaker : si validation échoue, marquer needs_review=True
+                        if var_state.validation and not var_state.validation.get("is_valid", True):
+                            self._log(f"  Tier 3 (escalade) validation échouée pour {var_name} → needs_review=True")
+                            var_state.needs_review = True
+                            var_state.escalation_history.append({
+                                "from_tier": 3,
+                                "to_tier": None,
+                                "reason": f"Validation échouée après escalade: {var_state.validation.get('issues', [{}])[0].get('message', 'Validation échouée')}",
+                                "incorrect_code": var_state.code,
+                                "timestamp": datetime.now().isoformat(),
+                            })
+                            var_state.escalation_count = 2
+                    except Exception as ve:
+                        self._log(f"    Validation error {var_name}: {ve}")
+
+                # Sauvegarde après chaque variable Tier 3 (escalade)
+                self._update_survey_state(survey_state)
 
     def _assemble_clean_py(self, survey_state: SurveyState) -> str:
         lines = [
