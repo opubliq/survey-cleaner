@@ -2,6 +2,16 @@
 
 This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
+## Environment Setup
+
+```bash
+source venv/bin/activate   # Always use this venv for Python commands
+```
+
+All Python commands should use the venv:
+- `venv/bin/python -m pytest tests/`
+- `venv/bin/python -m <module>`
+
 ## Quick Reference
 
 ```bash
