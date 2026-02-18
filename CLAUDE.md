@@ -147,7 +147,7 @@ survey-cleaner/
 │   └── {survey_id}/
 │       └── clean.py                 # Script généré progressivement
 │
-├── council/                         # 🗳️ Multi-LLM decision council
+├── .council/                        # 🗳️ Multi-LLM decision council (llm-council)
 │   ├── council.sh                   # Script d'orchestration (propose→critique→vote→verdict)
 │   ├── config.sh                    # Modèles et paramètres
 │   ├── templates/                   # Templates de prompts par phase

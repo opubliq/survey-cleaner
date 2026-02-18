@@ -58,7 +58,7 @@ survey-cleaner/
 │   ├── llm_processors/
 │   └── {survey_id}/         # Un dossier par sondage
 │       └── clean.py         # Script généré
-├── council/                 # Multi-LLM decision council
+├── .council/                # Multi-LLM decision council (llm-council)
 ├── tests/
 ├── _SharedFolder_data_produit/  # Données sources (jamais modifiées)
 ├── CLAUDE.md               # Documentation complète
