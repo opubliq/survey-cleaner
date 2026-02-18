@@ -11,6 +11,7 @@ Key components:
 - patterns/: All pattern implementations (Likert, demographics, binary, scales)
 - missing_code_detector: Preprocessing to identify sentinel codes
 - pattern_classifier: Tier 1/2/3 routing based on data + codebook
+- rule_generator: Generates Python cleaning code from patterns + codebook
 """
 
 from surveys.pattern_engine.missing_code_detector import detect_missing_codes
@@ -20,6 +21,12 @@ from surveys.pattern_engine.pattern_matcher import (
     NearMiss,
     PatternMatcher,
     get_default_matcher,
+)
+from surveys.pattern_engine.rule_generator import (
+    GeneratedRule,
+    RuleGenerator,
+    generate_rule,
+    generate_rule_from_match,
 )
 from surveys.pattern_engine.patterns import (
     BasePattern,
@@ -45,6 +52,11 @@ __all__ = [
     "MatchResult",
     "NearMiss",
     "get_default_matcher",
+    # Rule generator
+    "RuleGenerator",
+    "GeneratedRule",
+    "generate_rule",
+    "generate_rule_from_match",
     # Base classes
     "BasePattern",
     "ClassificationResult",
@@ -63,4 +75,4 @@ __all__ = [
     "BinaryPresentPattern",
 ]
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
