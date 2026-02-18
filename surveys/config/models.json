@@ -1,0 +1,21 @@
+{
+  "tier1_validator": {
+    "model": "anthropic/claude-sonnet-4-20250514",
+    "description": "Pattern-based validation - uses predefined patterns for standard variable types",
+    "use_case": "Variables with high confidence pattern match (>=0.8), low cardinality (<=7 unique values)",
+    "max_cost": "low"
+  },
+  "tier2_batch": {
+    "model": "anthropic/claude-sonnet-4-20250514",
+    "description": "Semi-standard batch processing - LLM processes multiple variables in a single call",
+    "use_case": "Variables with medium confidence, moderate cardinality (categorical with many values)",
+    "batch_size": 20,
+    "max_cost": "medium"
+  },
+  "tier3_individual": {
+    "model": "anthropic/claude-sonnet-4-20250514",
+    "description": "Complex individual processing - detailed LLM analysis per variable",
+    "use_case": "Complex variables, open-ended text, ambiguous types requiring deep analysis",
+    "max_cost": "high"
+  }
+}
