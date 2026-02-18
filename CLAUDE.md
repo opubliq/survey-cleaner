@@ -153,11 +153,6 @@ survey-cleaner/
 │   ├── templates/                   # Templates de prompts par phase
 │   └── sessions/                    # Sessions de délibération
 │
-├── refactoring/                     # 📋 Docs stratégie et rapports
-│   ├── strategie_finale.md          # Stratégie adoptée
-│   ├── strategie_cleaning_hybride.md
-│   └── rapport_experience_cleaning_manuel.md
-│
 ├── tests/                           # Données de test et codebooks sample
 │
 ├── .claude/agents/                  # Agents Claude (voir ci-dessous)
@@ -518,5 +513,4 @@ ERROR: Variable 'Q99' not found in data
 
 ## Références
 
-- **Stratégie complète:** Voir `refactoring/strategie_finale.md`
-- **Métriques performance:** Voir `refactoring/rapport_experience_cleaning_manuel.md`
+- **Documentation:** Voir `README.md` pour la structure du projet

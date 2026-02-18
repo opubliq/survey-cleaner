@@ -1,122 +1,81 @@
 # Survey Cleaner
 
-Outil pour automatiser le nettoyage manuel de fichiers de sondages (CSV/SAV/XLSX) à partir d'un codebook, avec Claude comme assistant interactif.
+Pipeline automatisé de nettoyage de sondages québécois (CSV/SAV/XLSX) générant des scripts Python standardisés.
 
-## Branch: manual-survey-cleaning
+## Architecture
 
-Cette branch est dédiée au **nettoyage manuel interactif** de sondages avec l'aide de Claude. Le workflow consiste à:
+Système 3-tiers pour le nettoyage de variables:
 
-1. Placer les fichiers bruts dans `surveys/{survey-id}/raw/`
-2. Utiliser l'agent `survey-cleaner-agent` de Claude pour analyser et nettoyer variable par variable
-3. Générer un script Python `clean.py` qui peut être déployé sur AWS
-4. Obtenir les données nettoyées dans `surveys/{survey-id}/processed/`
+- **Tier 1** (~50% vars): Pattern Engine - règles déterministes générées automatiquement
+- **Tier 2** (~40% vars): LLM batch (GLM-5 gratuit)
+- **Tier 3** (~10% vars): LLM individuel (cas complexes)
 
-## ⚠️ IMPORTANT: Setup de l'environnement Python
+### Composants principaux
 
-**Avant de commencer à coder ou utiliser l'agent, vous DEVEZ créer et activer le virtual environment Python:**
-
-### Setup automatique (recommandé)
-
-```bash
-./setup.sh
-source venv/bin/activate
+```
+surveys/
+├── orchestrator.py          # Point d'entrée unique
+├── pattern_engine/          # Détection et génération de règles
+│   ├── pattern_classifier.py
+│   ├── pattern_matcher.py
+│   ├── rule_generator.py
+│   └── patterns/            # Patterns prédéfinis (Likert, demographics, etc.)
+├── codebook_parser/         # Parsing des codebooks (PDF/TXT/Markdown)
+│   ├── parser.py
+│   ├── schemas/
+│   └── strategies/
+└── llm_processors/          # Traitement LLM (Tier 2/3)
+    ├── tier2_batch.py
+    └── tier3_individual.py
 ```
 
-### Setup manuel
+## Setup
 
 ```bash
-python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Activation pour chaque session
-
-À chaque fois que vous ouvrez un nouveau terminal:
+## Utilisation
 
 ```bash
-source venv/bin/activate
+python surveys/orchestrator.py <survey_id> [--limit N] [--only-var VAR_NAME]
 ```
 
-## Prérequis
-
-- Python 3.9+
-- API key Anthropic (Claude Code)
+Le survey doit exister dans `_SharedFolder_data_produit/{survey_id}/` avec:
+- **Fichier de données:** `*.csv`, `*.xlsx`, `*.sav`, ou `*.dta`
+- **Codebook (optionnel):** `*.pdf`, `*.pptx`, `*.txt`, ou `*.md`
 
 ## Structure du projet
 
 ```
 survey-cleaner/
-├── surveys/              # Répertoire des sondages
-│   ├── _template/        # Template avec exemple de clean.py
-│   └── {survey-id}/      # Un dossier par sondage
-│       ├── raw/          # Fichiers bruts (data.csv/sav + codebook.md)
-│       ├── processed/    # Données nettoyées (data_cleaned.csv + codebook.json)
-│       ├── clean.py      # Script Python généré (pour AWS)
-│       └── variables_todo.md  # Suivi des variables traitées
-├── tests/                # Scripts de test
-├── requirements.txt      # Dépendances Python
-├── setup.sh              # Script de setup automatique
-├── CLAUDE.md             # Instructions détaillées pour Claude
-└── README.md             # Ce fichier
+├── surveys/                 # Scripts générés + orchestrateur
+│   ├── orchestrator.py
+│   ├── status.json
+│   ├── pattern_engine/
+│   ├── codebook_parser/
+│   ├── llm_processors/
+│   └── {survey_id}/         # Un dossier par sondage
+│       └── clean.py         # Script généré
+├── council/                 # Multi-LLM decision council
+├── tests/
+├── _SharedFolder_data_produit/  # Données sources (jamais modifiées)
+├── CLAUDE.md               # Documentation complète
+└── AGENTS.md               # Instructions pour agents AI
 ```
 
-## Utilisation
+## Documentation
 
-### 1. Préparer les fichiers
+- [CLAUDE.md](CLAUDE.md) - Documentation complète du système
+- [AGENTS.md](AGENTS.md) - Instructions pour agents AI (tracking, workflow)
 
-Créer un dossier pour votre sondage:
+## Tests
 
 ```bash
-mkdir -p surveys/{survey-id}/raw
+venv/bin/python -m pytest tests/
 ```
 
-Placer dans `surveys/{survey-id}/raw/`:
-- **data.csv** (ou .sav, .xlsx) - fichier de données du sondage
-- **codebook.md** - codebook déjà converti en Markdown
+## Issue Tracking
 
-### 2. Lancer le nettoyage avec Claude
-
-Dans Claude Code, invoquer l'agent:
-
-```
-utilise survey-cleaner-agent pour cleaner surveys/{survey-id}
-```
-
-L'agent va:
-1. Créer le venv s'il n'existe pas déjà
-2. Analyser les fichiers bruts
-3. Créer `variables_todo.md` pour tracker la progression
-4. Traiter chaque variable de façon itérative:
-   - Chercher dans le codebook (fuzzy matching)
-   - Explorer la variable dans les données
-   - Générer le code de nettoyage
-   - Valider la transformation
-5. Construire le script `clean.py` final
-6. Exporter les données nettoyées et le codebook JSON
-
-### 3. Résultats
-
-À la fin du processus, vous aurez:
-- `surveys/{survey-id}/clean.py` - script Python pour AWS
-- `surveys/{survey-id}/processed/data_cleaned.csv` - données nettoyées
-- `surveys/{survey-id}/processed/codebook.json` - métadonnées structurées
-
-## Conventions de nommage
-
-- **Variables démographiques**: préfixe `demo_` (ex: `demo_age`, `demo_gender`)
-- **Variables d'opinion**: préfixe `op_` (ex: `op_satisfaction`, `op_trust`)
-- **Échelles d'opinion**: normalisées sur 0-1
-- **Valeurs manquantes**: `NaN` (pandas convention)
-
-## Documentation complète
-
-Voir [CLAUDE.md](CLAUDE.md) pour:
-- Architecture détaillée du projet
-- Workflow complet variable-by-variable
-- Standards techniques et formats
-- Intégration n8n (workflows automatisés)
-
-## Support
-
-Cette branch fait partie du projet Opubliq pour l'alimentation du moteur de recherche de sondages.
+Ce projet utilise **bd** (beads). Voir `AGENTS.md` pour les commandes.
