@@ -1,0 +1,29 @@
+flowchart LR
+    subgraph VERIFS["Vérifications automatiques"]
+        direction TB
+        V1["1. Syntaxe Python<br/>Le code est-il valide?"]
+        V2["2. Plages de valeurs<br/>Les résultats sont-ils entre 0 et 1?"]
+        V3["3. Types de données<br/>Sont-ils des float?"]
+        V4["4. Conflits<br/>Y a-t-il des doublons de colonnes?"]
+        V1 --> V2 --> V3 --> V4
+    end
+
+    subgraph EXEC["Exécution sur les données"]
+        direction TB
+        E1["Appliquer la transformation<br/>sur data.csv"]
+        E2["Comparer les fréquences<br/>avant / après"]
+        E1 --> E2
+    end
+
+    DECISION{"Tout est valide?"}
+    OK["✅ Approuvé<br/>→ passage à la sortie"]
+    RETRY["🔄 Rejeté<br/>→ retour au générateur"]
+
+    VERIFS --> EXEC --> DECISION
+    DECISION -->|"Oui"| OK
+    DECISION -->|"Non"| RETRY
+
+    style VERIFS   fill:#fff8e1,stroke:#f9a825
+    style EXEC     fill:#e8f5e9,stroke:#388e3c
+    style OK       fill:#c8e6c9,stroke:#388e3c
+    style RETRY    fill:#ffcdd2,stroke:#c62828

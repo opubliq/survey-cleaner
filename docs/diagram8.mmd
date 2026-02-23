@@ -1,0 +1,25 @@
+flowchart TB
+    subgraph SCRIPT["⚙️ clean.py"]
+        direction TB
+        F1["Script de transformation<br/>contient VARIABLE_METADATA<br/>contient la fonction clean_data()"]
+    end
+
+    subgraph SORTIE["📁 processed/"]
+        direction LR
+        F2["data_cleaned.csv<br/>(données nettoyées,<br/>valeurs normalisées 0-1)"]
+        F3["codebook.json<br/>(métadonnées structurées :<br/>labels, types, échelles)"]
+    end
+
+    UTIL["🤖 Utilisé par les LLM<br/>via VARIABLE_METADATA<br/>pour comprendre les variables"]
+    ANAL["📊 Utilisé pour l'analyse<br/>des données nettoyées"]
+
+    F1 -->|"génère"| F2
+    F1 -->|"génère"| F3
+    F2 --> ANAL
+    F3 --> UTIL
+    F3 --> ANAL
+
+    style SCRIPT  fill:#e0f2f1,stroke:#00796b
+    style SORTIE  fill:#b2dfdb,stroke:#00796b
+    style UTIL    fill:#ffebee,stroke:#c62828
+    style ANAL    fill:#e3f2fd,stroke:#1976d2

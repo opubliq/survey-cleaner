@@ -1,0 +1,26 @@
+flowchart LR
+    subgraph ETAPE1["1️⃣ Parser le codebook"]
+        direction TB
+        CP1["codebook.pdf"]
+        CP2["codebook.json<br/>{Q1: {label: 'Âge', valeurs: {...}}}"]
+        CP1 -->|"LLM extrait<br/>la structure"| CP2
+    end
+
+    subgraph ETAPE2["2️⃣ Analyser les statistiques"]
+        direction TB
+        S1["Pour chaque variable :<br/>calculer min, max,<br/>nombre de valeurs uniques"]
+    end
+
+    subgraph ETAPE3["3️⃣ Identifier les patterns"]
+        direction TB
+        P1["min=18, max=85<br/>→ numérique (âge)"]
+        P2["valeurs uniques = 3<br/>→ catégoriel (sexe)"]
+        P3["min=1, max=5<br/>→ Likert 5 points"]
+        P4["valeurs uniques = 2<br/>→ binaire (oui/non)"]
+    end
+
+    ETAPE1 --> ETAPE2 --> ETAPE3
+
+    style ETAPE1 fill:#e8f5e9,stroke:#388e3c
+    style ETAPE2 fill:#f3e5f5,stroke:#7b1fa2
+    style ETAPE3 fill:#fff8e1,stroke:#f9a825

@@ -1,0 +1,21 @@
+flowchart TB
+    subgraph ENTREES["Entrées"]
+        direction LR
+        P["Pattern identifié<br/>ex: likert_5_points"]
+        CB["Codebook (valeurs de Q4)<br/>1=Très insatisfait<br/>2=Insatisfait<br/>3=Neutre<br/>4=Satisfait<br/>5=Très satisfait"]
+    end
+
+    RG["⚙️ Générateur de règles"]
+
+    subgraph CODE["Code Python généré"]
+        direction TB
+        C["df['op_satisfaction'] = df['Q4'].map({<br/>    1.0: 0.00,<br/>    2.0: 0.25,<br/>    3.0: 0.50,<br/>    4.0: 0.75,<br/>    5.0: 1.00<br/>})"]
+    end
+
+    P  --> RG
+    CB --> RG
+    RG --> CODE
+
+    style ENTREES fill:#e8f5e9,stroke:#388e3c
+    style RG      fill:#f3e5f5,stroke:#7b1fa2
+    style CODE    fill:#fff8e1,stroke:#f9a825
