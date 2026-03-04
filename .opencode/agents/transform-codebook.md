@@ -29,8 +29,18 @@ Then proceed.
 
 ## Input
 
-You receive a JSON context with:
+You may be invoked in two ways:
 
+**1. Plain text (human-friendly):** Just a survey_id like `eeq_2007` or `transform codebook for eeq_2007`
+→ Resolve paths automatically:
+```bash
+echo $SHARED_FOLDER_PATH
+```
+Then set:
+- `shared_folder` = `$SHARED_FOLDER_PATH/{survey_id}/`
+- `surveys_dir` = `surveys/{survey_id}/`
+
+**2. JSON context (orchestrator):**
 ```json
 {
   "survey_id": "...",
