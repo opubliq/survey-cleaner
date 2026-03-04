@@ -15,7 +15,7 @@ You are the Survey Initialization Agent for the survey-cleaner project. Your res
 
 ## Context
 
-- **Source**: `_SharedFolder_data_produit/{survey_id}/` contains original data files and codebook
+- **Source**: `$SHARED_FOLDER_PATH/{survey_id}/` contains original data files and codebook (Google Drive, mounted locally via rclone)
 - **Destination**: `surveys/{survey_id}/` is the working directory
 - **Tracking**: `surveys/status.json` tracks all surveys centrally
 
@@ -28,7 +28,7 @@ Execute these steps:
 ### Step 1: Verify source directory exists
 
 ```bash
-ls _SharedFolder_data_produit/{survey_id}/
+ls "$SHARED_FOLDER_PATH/{survey_id}/"
 ```
 
 **Expected files:**
@@ -36,11 +36,11 @@ ls _SharedFolder_data_produit/{survey_id}/
 - Codebook: `*.pdf`, `*.pptx`, `*.txt`, or `*.md`
 
 **If directory doesn't exist:**
-- Report error: "_SharedFolder_data_produit/{survey_id}/ not found"
+- Report error: "$SHARED_FOLDER_PATH/{survey_id}/ not found"
 - EXIT with instructions to create it
 
 **If no data file found:**
-- Report error: "No data file found in _SharedFolder_data_produit/{survey_id}/"
+- Report error: "No data file found in $SHARED_FOLDER_PATH/{survey_id}/"
 - List supported formats: csv, sav, xlsx, dta
 - EXIT
 
@@ -61,8 +61,8 @@ import pandas as pd
 import sys
 from pathlib import Path
 
-# Data remains in _SharedFolder_data_produit
-data_dir = Path("_SharedFolder_data_produit/{survey_id}")
+import os
+data_dir = Path(os.environ["SHARED_FOLDER_PATH"]) / "{survey_id}"
 
 # Find data file
 data_files = (
@@ -151,7 +151,7 @@ Report to user:
 ✓ Survey initialized: {survey_id}
 
 Data source:
-  _SharedFolder_data_produit/{survey_id}/
+  $SHARED_FOLDER_PATH/{survey_id}/
     ├── {data_file}         ({n_obs} obs, {n_vars} vars)
     └── {codebook_file}     (codebook source)
 
