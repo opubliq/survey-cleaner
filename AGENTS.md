@@ -49,3 +49,23 @@ bd sync               # Sync with git
 - If push fails, resolve and retry until it succeeds
 
 Use 'bd' for task tracking
+
+## Definition of Done
+
+**An issue is NOT closeable until the component is tested.** Closing without testing = incomplete work.
+
+### How to test each component
+
+| Component | Test command |
+|-----------|-------------|
+| Agent `.claude/agents/*.md` | `opencode run --agent <name> --model <model> '<json context>'` on a real survey |
+| Python module | `venv/bin/python -m pytest tests/` |
+| Pipeline step | Run end-to-end on a sample survey in `_SharedFolder_data_produit/` |
+
+### Agent testing checklist
+
+Before closing an agent refactor issue:
+1. Run the agent on at least one real input (not mocked)
+2. Verify the expected output file was created (`codebook.json`, `vars/{var}.py`, etc.)
+3. Inspect the output — does it match the format spec in `docs/v3-plan.md`?
+4. If the agent fails, fix it before closing
