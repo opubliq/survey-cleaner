@@ -1,187 +1,107 @@
 #!/usr/bin/env python3
 """
-Generate codebook.json for eeq_2007 survey from SPSS file.
+Generate codebook.json from eeq_2007 SPSS file
 """
-
 import json
-import subprocess
-import os
-import re
+import pyreadstat
 
-# Survey configuration
-SURVEY_ID = "eeq_2007"
-SHARED_FOLDER = "/home/hubcad25/Dropbox/_SharedFolder_data_produit/eeq_2007"
-SAV_FILE = os.path.join(SHARED_FOLDER, "Quebec Election Study 2007 (SPSS).sav")
-OUTPUT_FILE = os.path.join(SHARED_FOLDER, "codebook.json")
+# Paths
+SAV_FILE = "/home/hubcad25/opubliq/gdrive/_SharedFolder_data_produit/eeq_2007/Quebec Election Study 2007 (SPSS).sav"
+OUTPUT_FILE = "/home/hubcad25/opubliq/gdrive/_SharedFolder_data_produit/eeq_2007/codebook.json"
 
-def get_variable_info():
-    """Extract variable labels and value labels from SPSS file using R."""
-    
-    r_script = '''
-library(haven)
-library(jsonlite)
+# Read SPSS file
+df, meta = pyreadstat.read_sav(SAV_FILE)
 
-sav_path <- "{sav_path}"
-df <- haven::read_sav(sav_path)
+# Get value labels from metadata
+value_labels = meta.variable_value_labels
 
-# Get all variable info
-var_info <- list()
+# Get variable types
+var_types = meta.readstat_variable_types
 
-for (var_name in names(df)) {{
-    attrs <- attributes(df[[var_name]])
+# Function to determine variable type
+def get_var_type(var_name):
+    """Determine if variable is categorical, ordinal, continuous, or text"""
+    # Check if variable has value labels
+    if var_name in value_labels and value_labels[var_name]:
+        # Check if it has numeric codes (indicating categorical/ordinal)
+        labels = value_labels[var_name]
+        # If all keys are numeric, it's likely categorical/ordinal
+        numeric_keys = all(
+            (isinstance(k, (int, float))) or 
+            (isinstance(k, str) and k.lstrip('-').isdigit())
+            for k in labels.keys()
+        )
+        if numeric_keys:
+            return "categorical"
+        else:
+            return "text"
     
-    # Get variable label (question text)
-    label <- attrs$label
-    if (is.null(label)) {{
-        label <- NA
-    }}
-    
-    # Get value labels
-    value_labels <- attrs$labels
-    if (is.null(value_labels)) {{
-        value_labels <- NA
-    }} else {{
-        # Convert to named list
-        value_labels <- as.list(value_labels)
-    }}
-    
-    # Get class to determine type
-    var_class <- class(df[[var_name]])[1]
-    
-    var_info[[var_name]] <- list(
-        label = label,
-        value_labels = value_labels,
-        class = var_class
-    )
-}}
-
-# Output as JSON
-writeLines(toJSON(var_info, auto_unbox = TRUE, na = "null"))
-'''.format(sav_path=SAV_FILE)
-    
-    result = subprocess.run(
-        ["Rscript", "-e", r_script],
-        capture_output=True,
-        text=True,
-        timeout=120
-    )
-    
-    if result.returncode != 0:
-        print(f"R error: {result.stderr}")
-        raise Exception("Failed to extract variable info from SPSS file")
-    
-    return json.loads(result.stdout)
-
-
-def determine_type(var_class, value_labels, var_name):
-    """Determine the variable type."""
-    if var_class == "character":
-        return "text"
-    
-    # Check if it's numeric (continuous)
-    if var_class == "numeric" or var_class == "double":
-        return "continuous"
-    
-    # For labelled variables, check if it has many unique values (continuous-like)
-    if isinstance(value_labels, dict) and value_labels:
-        num_values = len(value_labels)
-        # If more than 30 values, treat as continuous
-        if num_values > 30:
+    # Check if variable is numeric (continuous)
+    if var_name in var_types:
+        if var_types[var_name] in ('double', 'float', 'int', 'integer'):
+            # Check if it has few unique values (could be ordinal)
+            unique_vals = df[var_name].dropna().unique()
+            if len(unique_vals) <= 20:
+                return "ordinal"
             return "continuous"
     
-    # For Likert scales and similar, it's ordinal
-    ordinal_patterns = ['agree', 'désaccord', 'important', 'satisfait', 'proche', 'échelle']
-    if isinstance(value_labels, dict):
-        labels_str = ' '.join(str(v).lower() for v in value_labels.values())
-        for pattern in ordinal_patterns:
-            if pattern in labels_str.lower():
-                return "ordinal"
-    
-    return "categorical"
+    return "text"
 
+# Build codebook
+codebook = {
+    "survey_id": "eeq_2007",
+    "variables": {}
+}
 
-def format_value_labels(value_labels, var_name):
-    """Format value labels for codebook.json.
+for var_name in meta.column_names:
+    # Get question text
+    question = meta.column_labels[meta.column_names.index(var_name)] if meta.column_labels else ""
     
-    In R, the named list has labels as names and codes as values.
-    We need to swap them so codes are keys and labels are values.
-    """
-    if not value_labels or value_labels == "NA" or value_labels is None:
-        return {}
+    # Skip variables with no question text
+    if not question or question.strip() == "":
+        continue
     
-    if isinstance(value_labels, dict):
-        result = {}
-        for label, code in value_labels.items():
-            # The label is the key, code is the value in R's named list
-            # We need to swap: code becomes key, label becomes value
-            code_str = str(code).strip('"').strip("'")
-            label_str = str(label).strip()
-            result[code_str] = label_str
-        return result
+    # Get value labels
+    values = {}
+    if var_name in value_labels:
+        raw_values = value_labels[var_name]
+        for k, v in raw_values.items():
+            # Convert keys to strings
+            if isinstance(k, float):
+                if k == int(k):
+                    key = str(int(k))
+                else:
+                    key = str(int(k))  # Handle float codes like 995.0 -> "995"
+            else:
+                key = str(k)
+            values[key] = v
     
-    return {}
-
-
-def main():
-    print(f"Generating codebook for {SURVEY_ID}...")
+    # Determine type
+    var_type = get_var_type(var_name)
     
-    # Get variable information from SPSS file
-    var_info = get_variable_info()
-    
-    # Build codebook structure
-    codebook = {
-        "survey_id": SURVEY_ID,
-        "variables": {}
+    # Build variable entry
+    var_entry = {
+        "question": question.strip(),
+        "type": var_type,
+        "values": values,
     }
     
-    for var_name, info in var_info.items():
-        label = info.get("label")
-        
-        # Skip variables without question text (except those with value labels)
-        if label is None or (isinstance(label, float) and str(label) == 'nan'):
-            # Check if it has value labels anyway
-            if not isinstance(info.get("value_labels"), dict):
-                continue
-            label = f"[Variable: {var_name}]"
-        
-        value_labels = info.get("value_labels")
-        var_class = info.get("class", "haven_labelled")
-        
-        # Determine variable type
-        var_type = determine_type(var_class, value_labels, var_name)
-        
-        # Format value labels
-        formatted_labels = format_value_labels(value_labels, var_name)
-        
-        # Determine missing values based on common patterns in labels
-        # (now values in the dictionary, keys are codes)
-        missing_values = []
-        if formatted_labels:
-            for code, val_label in formatted_labels.items():
-                label_lower = str(val_label).lower()
-                if 'ne sais pas' in label_lower or 'nsp' in label_lower or 'refus' in label_lower:
-                    if code not in missing_values:
-                        missing_values.append(code)
-        
-        # Build variable entry
-        var_entry = {
-            "question": label,
-            "type": var_type,
-            "values": formatted_labels if formatted_labels else {}
-        }
-        
-        if missing_values:
-            var_entry["missing"] = missing_values
-        
-        codebook["variables"][var_name] = var_entry
+    # Add missing if applicable (based on value labels that indicate missing)
+    missing = []
+    if values:
+        # Common missing value codes in this survey: 98, 99, 997, 998, 999
+        for key in values.keys():
+            if key in ('98', '99', '997', '998', '999', '995', '996'):
+                missing.append(key)
+        if missing:
+            var_entry["missing"] = missing
     
-    # Write codebook.json
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(codebook, f, ensure_ascii=False, indent=2)
-    
-    print(f"Codebook written to: {OUTPUT_FILE}")
-    print(f"Total variables: {len(codebook['variables'])}")
+    # Add to codebook
+    codebook["variables"][var_name] = var_entry
 
+# Write codebook.json
+with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+    json.dump(codebook, f, indent=2, ensure_ascii=False)
 
-if __name__ == "__main__":
-    main()
+print(f"codebook.json written: {OUTPUT_FILE}")
+print(f"Variables: {len(codebook['variables'])}")
