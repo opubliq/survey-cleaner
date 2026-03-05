@@ -11,6 +11,7 @@ Usage:
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 import textwrap
@@ -32,7 +33,7 @@ def log(msg: str) -> None:
     print(f"[{ts}] {msg}", flush=True)
 
 
-def run_agent(agent: str, prompt: str, survey_id: str, tag: str) -> str:
+def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | None = None) -> str:
     """
     Appelle `opencode run --agent <agent> --format json <prompt>`.
     Capture le sessionID depuis le premier event JSON.
@@ -42,8 +43,11 @@ def run_agent(agent: str, prompt: str, survey_id: str, tag: str) -> str:
     logs_dir = SURVEYS_DIR / survey_id / "logs"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
-    cmd = ["opencode", "run", "--agent", agent, "--format", "json", prompt]
-    log(f"  → agent={agent} tag={tag}")
+    cmd = ["opencode", "run", "--agent", agent, "--format", "json"]
+    if model:
+        cmd += ["--model", model]
+    cmd.append(prompt)
+    log(f"  → agent={agent} model={model or 'agent-default'} tag={tag}")
 
     result = subprocess.run(cmd, capture_output=True, text=True)
 
@@ -93,7 +97,73 @@ def export_session(session_id: str, logs_dir: Path, tag: str) -> None:
 # Étapes du pipeline
 # ============================================================================
 
-def parse_codebook(survey_id: str) -> None:
+def init(survey_id: str) -> None:
+    """
+    Étape 0 — Initialisation déterministe (pas d'agent LLM).
+    - Crée surveys/{survey_id}/ et vars/ et logs/
+    - Copie le template clean.py si absent
+    - Crée ou met à jour surveys/status.json
+    """
+    log(f"[0/5] init({survey_id})")
+    survey_dir = SURVEYS_DIR / survey_id
+    (survey_dir / "vars").mkdir(parents=True, exist_ok=True)
+    (survey_dir / "logs").mkdir(parents=True, exist_ok=True)
+
+    # Template clean.py
+    clean_path = survey_dir / "clean.py"
+    if not clean_path.exists():
+        template = SURVEYS_DIR / "_template" / "clean.py"
+        content = template.read_text(encoding="utf-8").replace("[SURVEY_ID]", survey_id).replace("[NOM_SONDAGE]", survey_id)
+        clean_path.write_text(content, encoding="utf-8")
+        log(f"  [ok] clean.py créé depuis template")
+    else:
+        log(f"  [skip] clean.py déjà présent")
+
+    # Trouver le fichier de données dans _SharedFolder_data_produit
+    source_dir = SHARED_FOLDER / survey_id
+    data_file = None
+    n_obs = n_vars = None
+    if source_dir.exists():
+        for ext in ("*.sav", "*.dta", "*.csv", "*.xlsx", "*.xls"):
+            found = list(source_dir.glob(ext))
+            if found:
+                data_file = str(found[0])
+                break
+        if data_file:
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("surveys_io", SURVEYS_DIR / "io.py")
+                assert spec and spec.loader
+                surveys_io = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(surveys_io)  # type: ignore[union-attr]
+                df, _ = surveys_io.read_survey_file(data_file, usecols=None)
+                n_obs, n_vars = len(df), len(df.columns)
+                log(f"  [ok] {Path(data_file).name} — {n_obs} obs x {n_vars} vars")
+            except Exception as e:
+                log(f"  [WARN] Impossible de lire le fichier de données: {e}")
+    else:
+        log(f"  [WARN] {source_dir} introuvable — status.json sans métadonnées de données")
+
+    # status.json
+    status_path = SURVEYS_DIR / "status.json"
+    status = json.loads(status_path.read_text(encoding="utf-8")) if status_path.exists() else {"surveys": {}}
+    if survey_id not in status["surveys"]:
+        status["surveys"][survey_id] = {
+            "status": "not_started",
+            "created_date": datetime.now().strftime("%Y-%m-%d"),
+            "data_file": data_file,
+            "n_observations": n_obs,
+            "n_variables": n_vars,
+            "variables": {"total": n_vars, "cleaned": 0, "pending": n_vars},
+            "last_updated": datetime.now().isoformat(),
+        }
+        status_path.write_text(json.dumps(status, indent=2, ensure_ascii=False), encoding="utf-8")
+        log(f"  [ok] status.json — {survey_id} ajouté")
+    else:
+        log(f"  [skip] status.json — {survey_id} déjà présent")
+
+
+def parse_codebook(survey_id: str, model: str | None = None) -> None:
     """Étape 1 — Appelle l'agent transform-codebook → codebook.json."""
     log(f"[1/5] parse_codebook({survey_id})")
     prompt = json.dumps({
@@ -101,10 +171,10 @@ def parse_codebook(survey_id: str) -> None:
         "shared_folder": str(SHARED_FOLDER),
         "surveys_dir": str(SURVEYS_DIR),
     })
-    run_agent("transform-codebook", prompt, survey_id, "transform-codebook")
+    run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model)
 
 
-def clean_variable(survey_id: str, variable_name: str) -> str:
+def clean_variable(survey_id: str, variable_name: str, model: str | None = None) -> str:
     """Étape 2 — Appelle l'agent clean-variable pour UNE variable."""
     ctx_path = SURVEYS_DIR / survey_id / "vars" / f"ctx_{variable_name}.json"
     if not ctx_path.exists():
@@ -118,15 +188,15 @@ def clean_variable(survey_id: str, variable_name: str) -> str:
         prompt = ctx_path.read_text(encoding="utf-8")
 
     tag = f"clean-variable_{variable_name}"
-    return run_agent("clean-variable", prompt, survey_id, tag)
+    return run_agent("clean-variable", prompt, survey_id, tag, model=model)
 
 
-def clean_all_variables(survey_id: str, variables: list[str], max_workers: int = 4) -> None:
+def clean_all_variables(survey_id: str, variables: list[str], max_workers: int = 4, model: str | None = None) -> None:
     """Étape 2 — Nettoie toutes les variables en parallèle."""
     log(f"[2/5] clean_variable x{len(variables)} (max_workers={max_workers})")
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {
-            pool.submit(clean_variable, survey_id, var): var
+            pool.submit(clean_variable, survey_id, var, model): var
             for var in variables
         }
         for fut in as_completed(futures):
@@ -186,7 +256,7 @@ def assemble(survey_id: str) -> None:
     log(f"  [ok] {out_path.relative_to(REPO_ROOT)} ({len(var_files)} variables)")
 
 
-def validate_all_variables(survey_id: str, variables: list[str], max_workers: int = 4) -> None:
+def validate_all_variables(survey_id: str, variables: list[str], max_workers: int = 4, model: str | None = None) -> None:
     """Étape 4 (optionnelle) — Valide chaque vars/*.py via l'agent validate-cleaning."""
     log(f"[4/5] validate x{len(variables)} (max_workers={max_workers})")
 
@@ -196,7 +266,7 @@ def validate_all_variables(survey_id: str, variables: list[str], max_workers: in
             "survey_id": survey_id, "variable_name": var,
         })
         tag = f"validate_{var}"
-        return run_agent("validate-cleaning", prompt, survey_id, tag)
+        return run_agent("validate-cleaning", prompt, survey_id, tag, model=model)
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {pool.submit(_validate_one, var): var for var in variables}
@@ -209,11 +279,11 @@ def validate_all_variables(survey_id: str, variables: list[str], max_workers: in
                 log(f"  [ERREUR] {var}: {exc}")
 
 
-def finalize(survey_id: str) -> None:
+def finalize(survey_id: str, model: str | None = None) -> None:
     """Étape 5 — Appelle l'agent finalize-survey → met status.json à 'completed'."""
     log(f"[5/5] finalize({survey_id})")
     prompt = json.dumps({"survey_id": survey_id, "surveys_dir": str(SURVEYS_DIR)})
-    run_agent("finalize-survey", prompt, survey_id, "finalize-survey")
+    run_agent("finalize-survey", prompt, survey_id, "finalize-survey", model=model)
 
 
 # ============================================================================
@@ -244,6 +314,12 @@ def main() -> None:
     parser.add_argument("survey_id", help="ID du sondage (ex: eeq_2007)")
     parser.add_argument("--vars", nargs="+", metavar="VAR",
                         help="Subset de variables à nettoyer (défaut: toutes depuis codebook.json)")
+    parser.add_argument("--max-vars", type=int, metavar="N",
+                        help="Limiter aux N premières variables du codebook (utile pour tester)")
+    parser.add_argument("--model", metavar="MODEL",
+                        help="Modèle à utiliser pour tous les agents (ex: google/gemini-2.5-flash)")
+    parser.add_argument("--skip-init", action="store_true",
+                        help="Sauter l'init (répertoire + status.json déjà créés)")
     parser.add_argument("--skip-codebook", action="store_true",
                         help="Sauter l'étape transform-codebook (codebook.json déjà présent)")
     parser.add_argument("--skip-validate", action="store_true",
@@ -255,34 +331,43 @@ def main() -> None:
     args = parser.parse_args()
 
     survey_id = args.survey_id
-    log(f"=== Pipeline v3 : {survey_id} ===")
+    model = args.model or None
+    log(f"=== Pipeline v3 : {survey_id} | model={model or 'agent-default'} ===")
+
+    # 0. Init (déterministe, pas d'agent)
+    if not args.skip_init:
+        init(survey_id)
+    else:
+        log("[0/5] init — skipped")
 
     # 1. Codebook
     if not args.skip_codebook:
-        parse_codebook(survey_id)
+        parse_codebook(survey_id, model=model)
     else:
         log("[1/5] parse_codebook — skipped")
 
     # 2. Variables à nettoyer
     variables = args.vars or get_variables_from_codebook(survey_id)
+    if args.max_vars:
+        variables = variables[:args.max_vars]
     if not variables:
         log("[ERREUR] Aucune variable à nettoyer. Fournir --vars ou générer codebook.json d'abord.")
         sys.exit(1)
     log(f"  Variables: {variables}")
-    clean_all_variables(survey_id, variables, max_workers=args.workers)
+    clean_all_variables(survey_id, variables, max_workers=args.workers, model=model)
 
     # 3. Assemble
     assemble(survey_id)
 
     # 4. Validate
     if not args.skip_validate:
-        validate_all_variables(survey_id, variables, max_workers=args.workers)
+        validate_all_variables(survey_id, variables, max_workers=args.workers, model=model)
     else:
         log("[4/5] validate — skipped")
 
     # 5. Finalize
     if not args.skip_finalize:
-        finalize(survey_id)
+        finalize(survey_id, model=model)
     else:
         log("[5/5] finalize — skipped")
 
