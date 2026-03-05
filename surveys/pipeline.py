@@ -131,13 +131,28 @@ def init(survey_id: str) -> None:
                 break
         if data_file:
             try:
-                import importlib.util
-                spec = importlib.util.spec_from_file_location("surveys_io", SURVEYS_DIR / "io.py")
-                assert spec and spec.loader
-                surveys_io = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(surveys_io)  # type: ignore[union-attr]
-                df, _ = surveys_io.read_survey_file(data_file, usecols=None)
-                n_obs, n_vars = len(df), len(df.columns)
+                ext = Path(data_file).suffix.lower()
+                if ext == ".sav":
+                    import pyreadstat
+                    _, meta = pyreadstat.read_sav(data_file, metadataonly=True)
+                    n_obs = meta.number_rows
+                    n_vars = len(meta.column_names)
+                elif ext == ".dta":
+                    import pandas as pd
+                    reader = pd.read_stata(data_file, iterator=True)
+                    n_vars = len(reader.variable_labels())  # type: ignore[operator]
+                    n_obs = None  # pas dispo sans charger
+                    reader.close()  # type: ignore[attr-defined]
+                elif ext in (".csv",):
+                    import pandas as pd
+                    df = pd.read_csv(data_file, nrows=0)
+                    n_vars = len(df.columns)
+                    n_obs = None
+                else:
+                    import pandas as pd
+                    df = pd.read_excel(data_file, nrows=0)
+                    n_vars = len(df.columns)
+                    n_obs = None
                 log(f"  [ok] {Path(data_file).name} — {n_obs} obs x {n_vars} vars")
             except Exception as e:
                 log(f"  [WARN] Impossible de lire le fichier de données: {e}")
