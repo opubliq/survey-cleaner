@@ -178,11 +178,17 @@ def clean_variable(survey_id: str, variable_name: str, model: str | None = None)
     """Étape 2 — Appelle l'agent clean-variable pour UNE variable."""
     ctx_path = SURVEYS_DIR / survey_id / "vars" / f"ctx_{variable_name}.json"
     if not ctx_path.exists():
-        log(f"  [WARN] Pas de ctx_{variable_name}.json — clean-variable utilisera codebook.json")
+        # Trouver le data_file depuis status.json pour éviter que l'agent cherche
+        data_file = None
+        status_path = SURVEYS_DIR / "status.json"
+        if status_path.exists():
+            status = json.loads(status_path.read_text(encoding="utf-8"))
+            data_file = status.get("surveys", {}).get(survey_id, {}).get("data_file")
         prompt = json.dumps({
             "survey_id": survey_id,
             "variable_name": variable_name,
-            "surveys_dir": str(SURVEYS_DIR),
+            "surveys_dir": str(SURVEYS_DIR / survey_id),
+            "data_file": data_file,
         })
     else:
         prompt = ctx_path.read_text(encoding="utf-8")
@@ -287,6 +293,68 @@ def finalize(survey_id: str, model: str | None = None) -> None:
 
 
 # ============================================================================
+# Coût d'un sondage
+# ============================================================================
+
+def survey_cost(survey_id: str) -> None:
+    """
+    Lit tous les logs JSON dans surveys/{survey_id}/logs/ et imprime
+    un résumé des tokens et coûts par agent + total.
+    """
+    logs_dir = SURVEYS_DIR / survey_id / "logs"
+    if not logs_dir.exists():
+        print(f"Aucun log trouvé pour {survey_id}")
+        return
+
+    rows = []
+    for log_file in sorted(logs_dir.glob("*.json")):
+        try:
+            data = json.loads(log_file.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+
+        t_in = t_out = t_cache_read = t_cache_write = cost = 0
+        for msg in data.get("messages", []):
+            info = msg.get("info", {})
+            tokens = info.get("tokens", {})
+            if not tokens:
+                continue
+            t_in          += tokens.get("input", 0) or 0
+            t_out         += tokens.get("output", 0) or 0
+            cache          = tokens.get("cache", {}) or {}
+            t_cache_read  += cache.get("read", 0) or 0
+            t_cache_write += cache.get("write", 0) or 0
+            cost          += info.get("cost", 0) or 0
+
+        rows.append({
+            "tag": log_file.stem,
+            "in": t_in,
+            "out": t_out,
+            "cache_r": t_cache_read,
+            "cache_w": t_cache_write,
+            "total": t_in + t_out + t_cache_read + t_cache_write,
+            "cost": cost,
+        })
+
+    if not rows:
+        print(f"Aucune donnée de tokens dans {logs_dir}")
+        return
+
+    # Affichage
+    print(f"\n=== Coût pipeline : {survey_id} ===\n")
+    col_w = max(len(r["tag"]) for r in rows) + 2
+    header = f"{'Agent':<{col_w}}  {'Input':>8}  {'Output':>8}  {'Cache R':>8}  {'Cache W':>8}  {'Total':>10}  {'Cost':>10}"
+    print(header)
+    print("-" * len(header))
+    for r in rows:
+        print(f"{r['tag']:<{col_w}}  {r['in']:>8,}  {r['out']:>8,}  {r['cache_r']:>8,}  {r['cache_w']:>8,}  {r['total']:>10,}  ${r['cost']:>9.4f}")
+    print("-" * len(header))
+    totals = {k: sum(r[k] for r in rows) for k in ("in", "out", "cache_r", "cache_w", "total", "cost")}
+    print(f"{'TOTAL':<{col_w}}  {totals['in']:>8,}  {totals['out']:>8,}  {totals['cache_r']:>8,}  {totals['cache_w']:>8,}  {totals['total']:>10,}  ${totals['cost']:>9.4f}")
+    print()
+
+
+# ============================================================================
 # CLI
 # ============================================================================
 
@@ -328,9 +396,17 @@ def main() -> None:
                         help="Sauter l'étape finalize-survey")
     parser.add_argument("--workers", type=int, default=4,
                         help="Nombre de threads parallèles (défaut: 4)")
+    parser.add_argument("--cost", action="store_true",
+                        help="Afficher le rapport de coût des sessions (sans relancer le pipeline)")
     args = parser.parse_args()
 
     survey_id = args.survey_id
+
+    # Mode coût seulement
+    if args.cost:
+        survey_cost(survey_id)
+        return
+
     model = args.model or None
     log(f"=== Pipeline v3 : {survey_id} | model={model or 'agent-default'} ===")
 
