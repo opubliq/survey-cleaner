@@ -168,8 +168,8 @@ def parse_codebook(survey_id: str, model: str | None = None) -> None:
     log(f"[1/5] parse_codebook({survey_id})")
     prompt = json.dumps({
         "survey_id": survey_id,
-        "shared_folder": str(SHARED_FOLDER),
-        "surveys_dir": str(SURVEYS_DIR),
+        "shared_folder": str(SHARED_FOLDER / survey_id),
+        "surveys_dir": str(SURVEYS_DIR / survey_id),
     })
     run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model)
 

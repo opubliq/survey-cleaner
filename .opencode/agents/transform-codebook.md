@@ -54,7 +54,7 @@ Then set:
 
 ## Output
 
-Write `{shared_folder}/codebook.json`:
+Write `{surveys_dir}/codebook.json` (NOT in shared_folder — that directory is read-only source data):
 
 ```json
 {
