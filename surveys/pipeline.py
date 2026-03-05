@@ -286,10 +286,48 @@ def validate_all_variables(survey_id: str, variables: list[str], max_workers: in
 
 
 def finalize(survey_id: str, model: str | None = None) -> None:
-    """Étape 5 — Appelle l'agent finalize-survey → met status.json à 'completed'."""
+    """
+    Étape 5 — Validation déterministe + mise à jour status.json.
+    Pas d'agent LLM : tout est vérifiable en Python pur.
+    """
     log(f"[5/5] finalize({survey_id})")
-    prompt = json.dumps({"survey_id": survey_id, "surveys_dir": str(SURVEYS_DIR)})
-    run_agent("finalize-survey", prompt, survey_id, "finalize-survey", model=model)
+    survey_dir = SURVEYS_DIR / survey_id
+    issues = []
+
+    # Vérifier les fichiers requis
+    for f in ("clean.py", "codebook.json"):
+        if not (survey_dir / f).exists():
+            issues.append(f"  [ERREUR] {f} manquant")
+
+    # Compter les vars/*.py générés
+    vars_dir = survey_dir / "vars"
+    var_files = list(vars_dir.glob("*.py")) if vars_dir.exists() else []
+
+    # Vérifier que clean.py ne contient plus de placeholders
+    clean_path = survey_dir / "clean.py"
+    if clean_path.exists():
+        content = clean_path.read_text(encoding="utf-8")
+        if "[SURVEY_ID]" in content or "[NOM_SONDAGE]" in content:
+            issues.append("  [WARN] clean.py contient encore des placeholders")
+
+    if issues:
+        for issue in issues:
+            log(issue)
+        log("  [WARN] finalize incomplet — voir issues ci-dessus")
+    else:
+        log(f"  [ok] clean.py + codebook.json présents, {len(var_files)} vars/*.py")
+
+    # Mettre à jour status.json
+    status_path = SURVEYS_DIR / "status.json"
+    if status_path.exists():
+        status = json.loads(status_path.read_text(encoding="utf-8"))
+        survey_status = status.get("surveys", {}).get(survey_id, {})
+        survey_status["status"] = "completed" if not issues else "in_progress"
+        survey_status["variables"]["cleaned"] = len(var_files)
+        survey_status["last_updated"] = datetime.now().isoformat()
+        status["surveys"][survey_id] = survey_status
+        status_path.write_text(json.dumps(status, indent=2, ensure_ascii=False), encoding="utf-8")
+        log(f"  [ok] status.json → {survey_status['status']}")
 
 
 # ============================================================================
