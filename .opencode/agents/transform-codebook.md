@@ -83,17 +83,40 @@ List them all before proceeding.
 
 **This step is mandatory regardless of what other files exist.** Even if a SAV file is present, you must still convert every PDF/DOC/DOCX first.
 
+**Conversion with automatic fallback:**
+
+Try each conversion method in order; if one fails (exit code ≠ 0 or empty output), immediately try the next:
+
+1. `markitdown` - Primary choice
+2. `antiword` - Fallback for .doc files
+3. `strings` - Last resort (noisy but readable)
+
 ```bash
-# For each PDF file found:
-venv/bin/python -m markitdown "{pdf_file}" > "{pdf_file}.md"
+# Convert a .doc file with fallback logic
+venv/bin/python -m markitdown "$doc_file" > "$md_file"
+rc=$?
 
-# For each DOCX file found:
-venv/bin/python -m markitdown "{docx_file}" > "{docx_file}.md"
+# If markitdown failed (non-zero exit or empty output), try antiword
+if [ $rc -ne 0 ] || [ ! -s "$md_file" ]; then
+    antiword "$doc_file" > "$md_file" 2>/dev/null
+    rc=$?
+fi
 
-# For old-style .doc (OLE format) — markitdown and pandoc don't support it, use antiword:
-antiword "{doc_file}" > "{doc_file}.md"
-# If antiword fails, try: strings "{doc_file}" > "{doc_file}.md"  (last resort, noisy but readable)
+# If antiword also failed, try strings as last resort
+if [ $rc -ne 0 ] || [ ! -s "$md_file" ]; then
+    strings "$doc_file" > "$md_file" 2>/dev/null
+fi
+
+# Check final result
+if [ ! -s "$md_file" ] || [ "$(wc -l < "$md_file")" -eq 0 ]; then
+    echo "ERROR: Failed to convert $doc_file" >&2
+    exit 1
+fi
+
+echo "Converted: $md_file"
 ```
+
+**Apply this to EACH .doc file found:**
 
 Do this for every PDF/DOC/DOCX in the folder. These markdown files become the **primary label source**.
 

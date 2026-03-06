@@ -11,7 +11,6 @@ Usage:
 
 import argparse
 import json
-import shutil
 import subprocess
 import sys
 import textwrap
@@ -22,23 +21,115 @@ from pathlib import Path
 SURVEYS_DIR = Path(__file__).parent
 REPO_ROOT = SURVEYS_DIR.parent
 SHARED_FOLDER = REPO_ROOT / "_SharedFolder_data_produit"
+MODELS_CONFIG_PATH = SURVEYS_DIR / "models.json"
+
+
+# ============================================================================
+# Config modèles + fallback
+# ============================================================================
+
+def load_models_config() -> dict:
+    """Charge surveys/models.json. Retourne un dict avec fallback_chain et patterns."""
+    if MODELS_CONFIG_PATH.exists():
+        return json.loads(MODELS_CONFIG_PATH.read_text(encoding="utf-8"))
+    return {"fallback_chain": [], "timeout_seconds": 300, "model_error_patterns": []}
+
+
+def is_model_error(returncode: int, stdout: str, stderr: str, config: dict) -> bool:
+    """
+    Retourne True si l'erreur est probablement liée au modèle (rate limit,
+    unavailable, timeout, quota…) plutôt qu'à la logique de l'agent.
+    
+    Note: opencode peut retourner returncode=0 même pour les erreurs modèle,
+    donc on analyse stdout (JSON) et le returncode.
+    """
+    # 1. Chercher un champ "error" dans chaque ligne JSON de stdout
+    for line in stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+            if "error" in obj:
+                return True
+        except json.JSONDecodeError:
+            continue
+
+    # 2. Vérifier si le returncode est non-zéro (erreur d'exécution d'opencode elle-même)
+    if returncode != 0:
+        return True
+
+    return False
 
 
 # ============================================================================
 # Helpers
 # ============================================================================
 
+def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
+    """Convert hex color #RRGGBB to RGB tuple."""
+    hex_color = hex_color.lstrip('#')
+    if len(hex_color) != 6:
+        return (255, 255, 255)  # fallback to white
+    return (int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16))
+
+
+def load_agent_colors() -> dict[str, str]:
+    """Load agent colors from .opencode/agents/*.md files."""
+    agents_dir = REPO_ROOT / ".opencode" / "agents"
+    colors: dict[str, str] = {}
+    if not agents_dir.exists():
+        return colors
+
+    for agent_file in agents_dir.glob("*.md"):
+        try:
+            content = agent_file.read_text(encoding="utf-8")
+            lines = content.splitlines()
+            name = None
+            for line in lines:
+                if line.startswith("name:"):
+                    name = line.split(":", 1)[1].strip()
+                elif line.startswith("color:") and name:
+                    hex_color = line.split(":", 1)[1].strip().strip('"\'')
+                    colors[name] = hex_color
+                    break
+        except Exception:
+            continue
+    return colors
+
+
+AGENT_COLORS = load_agent_colors()
+
+
+def colorize(text: str, color: str | None = None) -> str:
+    """Apply color to text using ANSI 24-bit RGB or predefined colors."""
+    if color:
+        if color in AGENT_COLORS:
+            rgb = hex_to_rgb(AGENT_COLORS[color])
+            return f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m{text}\033[0m"
+    return text
+
+
 def log(msg: str) -> None:
     ts = datetime.now().strftime("%H:%M:%S")
-    print(f"[{ts}] {msg}", flush=True)
+    colored_msg = msg
+
+    # Colorize agent names
+    for agent_name in AGENT_COLORS.keys():
+        if agent_name in msg:
+            colored_msg = colored_msg.replace(agent_name, colorize(agent_name, agent_name))
+
+    # Colorize WARN messages
+    if "[WARN]" in colored_msg:
+        colored_msg = colored_msg.replace("[WARN]", "\033[38;5;208m[WARN]\033[0m")
+
+    print(f"[{ts}] {colored_msg}", flush=True)
 
 
-def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | None = None) -> str:
+def _run_agent_once(agent: str, prompt: str, survey_id: str, tag: str, model: str | None, model_label: str | None = None, try_num: int = 1) -> tuple[str, int, str, str]:
     """
-    Appelle `opencode run --agent <agent> --format json <prompt>`.
-    Capture le sessionID depuis le premier event JSON.
-    Exporte la session dans surveys/{survey_id}/logs/{tag}_{session_id}.json.
-    Retourne le sessionID.
+    Appelle opencode une fois avec le modèle donné.
+    Retourne (session_id, returncode, stdout, stderr).
     """
     logs_dir = SURVEYS_DIR / survey_id / "logs"
     logs_dir.mkdir(parents=True, exist_ok=True)
@@ -47,7 +138,6 @@ def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | No
     if model:
         cmd += ["--model", model]
     cmd.append(prompt)
-    log(f"  → agent={agent} model={model or 'agent-default'} tag={tag}")
 
     result = subprocess.run(cmd, capture_output=True, text=True)
 
@@ -65,23 +155,151 @@ def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | No
         except json.JSONDecodeError:
             continue
 
-    if result.returncode != 0:
-        log(f"  [ERREUR] agent={agent} tag={tag} rc={result.returncode}")
-        if result.stderr:
-            print(result.stderr[:500], file=sys.stderr)
-
     # Exporter la session pour debug
     if session_id:
-        export_session(session_id, logs_dir, tag)
+        export_session(session_id, logs_dir, tag, model_label, try_num)
     else:
         log(f"  [WARN] Pas de sessionID pour {tag} — export impossible")
 
-    return session_id or ""
+    return session_id or "", result.returncode, result.stdout, result.stderr
 
 
-def export_session(session_id: str, logs_dir: Path, tag: str) -> None:
+def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | None = None, expected_output_path: Path | None = None) -> str:
+    """
+    Appelle `opencode run --agent <agent> --format json <prompt>` avec fallback dynamique.
+
+    Si `model` est fourni explicitement, utilise ce modèle sans fallback.
+    Sinon, charge la chaîne depuis surveys/models.json et essaie dans l'ordre :
+      - Si l'erreur est une erreur de modèle (rate limit, unavailable, etc.), passe au suivant.
+      - Si l'agent échoue à produire `expected_output_path` (si fourni), passe au suivant.
+      - Si tous les modèles échouent, lève une RuntimeError.
+      - Si un modèle a déjà réussi dans ce pipeline, le réutilise.
+
+    Retourne le sessionID opencode.
+    """
+    config = load_models_config()
+    state_path = SURVEYS_DIR / survey_id / ".pipeline_state.json"
+
+    # Cas 1 : modèle explicite — pas de fallback
+    if model:
+        log(f"  → agent={agent} model={model} tag={tag}")
+        session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, model, model, 1)
+        if rc != 0:
+            log(f"  [ERREUR] agent={agent} tag={tag} rc={rc}")
+            if stderr:
+                print(stderr[:500], file=sys.stderr)
+
+        # Vérifier l'output attendu si l'invocation du modèle a réussi
+        if expected_output_path and not expected_output_path.exists():
+            log(f"  [ERREUR] {agent} avec {model} n'a pas généré {expected_output_path.name}")
+            raise RuntimeError(f"Agent {agent} ({model}) n'a pas généré le fichier attendu.")
+
+        return session_id
+
+    # Cas 2 : fallback dynamique depuis models.json
+    chain = config.get("fallback_chain", [])
+
+    if not chain:
+        # Aucune config — comportement legacy (agent-default)
+        log(f"  → agent={agent} model=agent-default tag={tag}")
+        session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, None, "agent-default", 1)
+        if rc != 0:
+            log(f"  [ERREUR] agent={agent} tag={tag} rc={rc}")
+            if stderr:
+                print(stderr[:500], file=sys.stderr)
+
+        # Vérifier l'output attendu si l'invocation du modèle a réussi
+        if expected_output_path and not expected_output_path.exists():
+            log(f"  [ERREUR] {agent} (agent-default) n'a pas généré {expected_output_path.name}")
+            raise RuntimeError(f"Agent {agent} (agent-default) n'a pas généré le fichier attendu.")
+
+        return session_id
+
+    # Charger l'état si un modèle a déjà réussi
+    working_model_index = None
+    if state_path.exists():
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        working_model_index = state.get("working_model_index")
+
+    if working_model_index is not None and working_model_index < len(chain):
+        # Réutiliser le modèle qui a déjà réussi
+        entry = chain[working_model_index]
+        m = entry.get("model")
+        label = entry.get("label", m)
+        log(f"  → agent={agent} model={label} (réutilise modèle #{working_model_index + 1}) tag={tag}")
+        session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, m, label, working_model_index + 1)
+
+        is_model_busted = is_model_error(rc, stdout, stderr, config)
+        has_expected_output = expected_output_path and expected_output_path.exists()
+
+        if is_model_busted or (expected_output_path and not has_expected_output):
+            # Le modèle qui marchait ne marche plus, réinitialiser et refaire le fallback
+            log(f"  [WARN] Modèle {label} ne répond plus — réinitialisation du fallback")
+            state_path.unlink(missing_ok=True)
+            working_model_index = None
+        elif rc == 0:
+            return session_id
+        else:
+            log(f"  [ERREUR] agent={agent} tag={tag} rc={rc} (erreur logique agent)")
+            if stderr:
+                print(stderr[:500], file=sys.stderr)
+            return session_id
+
+    last_error = None
+    for i, entry in enumerate(chain):
+        m = entry.get("model")
+        label = entry.get("label", m)
+
+        # Commencer depuis l'index sauvegardé si on vient de réinitialiser
+        if working_model_index is not None and i < working_model_index:
+            continue
+
+        log(f"  → agent={agent} model={label} ({i+1}/{len(chain)}) tag={tag}")
+
+        session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, m, label, i+1)
+        
+        is_model_busted = is_model_error(rc, stdout, stderr, config)
+        has_expected_output = expected_output_path and expected_output_path.exists()
+
+        # Si c'est une erreur de modèle ou si l'output attendu est manquant, on tente le prochain modèle
+        if is_model_busted or (expected_output_path and not has_expected_output):
+            if is_model_busted:
+                log(f"  [WARN] Modèle {label} a retourné une erreur d'API (rc={rc}) — tentative suivante")
+                if stdout:
+                    print(f"  [WARN] stdout: {stdout[:300]}", file=sys.stderr)
+                if stderr:
+                    print(f"  [WARN] stderr: {stderr[:300]}", file=sys.stderr)
+                last_error = f"Modèle {label} erreur API (rc={rc}): {stdout[:100]} {stderr[:100]}"
+            elif expected_output_path and not has_expected_output:
+                log(f"  [WARN] Agent {agent} avec {label} n'a pas généré {expected_output_path.name} (échec fonctionnel) — tentative suivante")
+                last_error = f"Agent {agent} ({label}) échec fonctionnel: {expected_output_path.name} manquant"
+            continue # Tente le prochain modèle
+        
+        # Si ce n'est PAS une erreur de modèle ET opencode a retourné 0 → succès
+        if rc == 0:
+            # Sauvegarder ce modèle comme "working" pour les futurs appels
+            state = {"working_model_index": i, "model_label": label}
+            state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
+            return session_id
+        else:
+            # Ce n'est PAS une erreur de modèle, mais opencode a retourné != 0
+            # C'est une erreur logique de l'agent, on ne fallback pas ici.
+            log(f"  [ERREUR] agent={agent} tag={tag} rc={rc} (erreur logique agent, pas de fallback)")
+            if stderr:
+                print(stderr[:500], file=sys.stderr)
+            return session_id # Arrête ici, c'est un problème d'agent.
+
+    # Tous les modèles ont échoué
+    log(f"  [ERREUR CRITIQUE] Tous les modèles de la chaîne ont échoué pour {tag}")
+    raise RuntimeError(f"Aucun modèle disponible pour {tag}. Dernière erreur: {last_error}")
+
+
+def export_session(session_id: str, logs_dir: Path, tag: str, model_label: str | None = None, try_num: int = 1) -> None:
     """Exporte la session opencode en JSON dans logs/."""
-    out_path = logs_dir / f"{tag}_{session_id}.json"
+    if model_label:
+        out_path = logs_dir / f"{tag}-{model_label}-try{try_num}.json"
+    else:
+        out_path = logs_dir / f"{tag}_{session_id}.json"
     export = subprocess.run(
         ["opencode", "export", session_id],
         capture_output=True, text=True,
@@ -108,6 +326,12 @@ def init(survey_id: str) -> None:
     survey_dir = SURVEYS_DIR / survey_id
     (survey_dir / "vars").mkdir(parents=True, exist_ok=True)
     (survey_dir / "logs").mkdir(parents=True, exist_ok=True)
+
+    # Nettoyer l'état du fallback au démarrage
+    state_path = survey_dir / ".pipeline_state.json"
+    if state_path.exists():
+        state_path.unlink()
+        log(f"  [ok] Fallback state reset")
 
     # Template clean.py
     clean_path = survey_dir / "clean.py"
@@ -186,7 +410,8 @@ def parse_codebook(survey_id: str, model: str | None = None) -> None:
         "shared_folder": str(SHARED_FOLDER / survey_id),
         "surveys_dir": str(SURVEYS_DIR / survey_id),
     })
-    run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model)
+    codebook_path = SURVEYS_DIR / survey_id / "codebook.json"
+    run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model, expected_output_path=codebook_path)
 
 
 def clean_variable(survey_id: str, variable_name: str, model: str | None = None) -> str:
@@ -366,7 +591,8 @@ def survey_cost(survey_id: str) -> None:
         except Exception:
             continue
 
-        t_in = t_out = t_cache_read = t_cache_write = cost = 0
+        t_in = t_out = t_cache_write = cost = 0
+        t_cache_read = 0  # cumulatif: prendre la valeur max (dernier turn)
         for msg in data.get("messages", []):
             info = msg.get("info", {})
             tokens = info.get("tokens", {})
@@ -375,7 +601,9 @@ def survey_cost(survey_id: str) -> None:
             t_in          += tokens.get("input", 0) or 0
             t_out         += tokens.get("output", 0) or 0
             cache          = tokens.get("cache", {}) or {}
-            t_cache_read  += cache.get("read", 0) or 0
+            # cache.read est cumulatif dans opencode (taille totale du cache à ce turn)
+            # → prendre le max plutôt que sommer
+            t_cache_read   = max(t_cache_read, cache.get("read", 0) or 0)
             t_cache_write += cache.get("write", 0) or 0
             cost          += info.get("cost", 0) or 0
 

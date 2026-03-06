@@ -47,12 +47,15 @@ The var file path is `surveys/{survey_id}/vars/{variable_name}.py`. Read it to e
 
 ### Step 2: Load only the raw column and execute the mapping
 
-Run as a single bash heredoc (no temp file):
+Run as a single bash heredoc (no temp file). Pass `codebook_entry.values` via an env variable to avoid quoting issues with accented characters:
 
 ```bash
+CODEBOOK_VALUES_JSON='{"1": "très important", "2": "assez important"}' \
 venv/bin/python - <<'EOF'
 import sys
 sys.path.insert(0, '.')
+import json
+import os
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -61,6 +64,7 @@ from surveys.io import read_survey_file
 # --- Fill in from context ---
 RAW_NAME = "{raw_name}"
 VAR_FILE = "surveys/{survey_id}/vars/{variable_name}.py"
+CODEBOOK_VALUES = json.loads(os.environ.get("CODEBOOK_VALUES_JSON", "{}"))  # codebook_entry.values
 
 # Load only the raw column
 data_file = Path("{data_file}")
@@ -89,12 +93,13 @@ if not std_cols:
     print("ERROR: var file did not write any column to df_clean")
     sys.exit(1)
 STANDARD_NAME = std_cols[0]
-print(f"\nClean column: '{STANDARD_NAME}'")
-print(f"Clean value_counts (sorted):")
+print("Clean column: '" + STANDARD_NAME + "'")
+print("Clean value_counts (sorted):")
 print(df_clean[STANDARD_NAME].value_counts(dropna=False).sort_index().to_string())
 
 # --- VALIDATION CHECKS ---
-print("\n" + "="*60)
+print("")
+print("="*60)
 print("VALIDATION")
 print("="*60)
 
@@ -147,8 +152,71 @@ else:
             warnings.append(f"CODEBOOK_VARIABLES['{STANDARD_NAME}'] missing key '{key}'")
     print(f"[OK] CODEBOOK_VARIABLES entry present")
 
+# Check 6: Naming convention
+import re as _re
+if not _re.match(r'^(ses|op|behav|know)_', STANDARD_NAME):
+    warnings.append(f"standard_name '{STANDARD_NAME}' does not follow ses_/op_/behav_/know_* convention")
+else:
+    print(f"[OK] Naming convention: {STANDARD_NAME}")
+
+# Check 7: value_labels keys match actual df_clean values
+if STANDARD_NAME in CODEBOOK_VARIABLES:
+    vl = CODEBOOK_VARIABLES[STANDARD_NAME].get('value_labels', {})
+    actual_clean_vals = set(str(v) for v in df_clean[STANDARD_NAME].dropna().unique())
+    vl_keys = set(str(k) for k in vl.keys())
+    phantom_keys = vl_keys - actual_clean_vals
+    missing_keys = actual_clean_vals - vl_keys
+    if phantom_keys:
+        warnings.append(f"value_labels has phantom keys not in df_clean: {phantom_keys}")
+    if missing_keys:
+        warnings.append(f"value_labels missing keys present in df_clean: {missing_keys}")
+    if not phantom_keys and not missing_keys:
+        print(f"[OK] value_labels keys match df_clean values")
+
+# Check 8: type consistency vs actual clean values
+if STANDARD_NAME in CODEBOOK_VARIABLES:
+    declared_type = CODEBOOK_VARIABLES[STANDARD_NAME].get('type', '')
+    clean_vals = df_clean[STANDARD_NAME].dropna()
+    if declared_type == 'likert':
+        non_01 = clean_vals[(clean_vals < 0) | (clean_vals > 1)]
+        if len(non_01) > 0:
+            errors.append(f"type=likert but clean values out of [0,1]: {sorted(non_01.unique())}")
+        elif not pd.api.types.is_numeric_dtype(clean_vals):
+            errors.append(f"type=likert but clean values are not numeric: dtype={clean_vals.dtype}")
+        else:
+            print(f"[OK] type=likert, values in [0,1]")
+    elif declared_type == 'binary':
+        unexpected = set(clean_vals.unique()) - {0.0, 1.0}
+        if unexpected:
+            errors.append(f"type=binary but unexpected clean values: {unexpected}")
+        else:
+            print(f"[OK] type=binary, values are 0.0/1.0")
+    elif declared_type == 'categorical':
+        if pd.api.types.is_numeric_dtype(clean_vals):
+            warnings.append(f"type=categorical but clean values are numeric — expected strings")
+        else:
+            print(f"[OK] type=categorical, values are strings")
+
+# Check 9: codebook_entry values vs mapping keys
+# Codebook codes that appear in data but are unmapped (excluding known missing codes)
+# We already have unmapped_vals from Check 2.
+# Cross-reference with CODEBOOK_VALUES to identify which are documented vs undocumented.
+if CODEBOOK_VALUES:
+    codebook_codes = set(str(k) for k in CODEBOOK_VALUES.keys())
+    # Unmapped values that ARE in the codebook (not just missing codes) = real problem
+    unmapped_str = set(str(v) for v in unmapped_vals)
+    undocumented_unmapped = unmapped_str - codebook_codes
+    documented_unmapped = unmapped_str & codebook_codes
+    if documented_unmapped:
+        errors.append(f"Codebook values not mapped (data has them, codebook documents them): {documented_unmapped}")
+    if undocumented_unmapped:
+        warnings.append(f"Undocumented codes in data (not in codebook, becoming NaN): {undocumented_unmapped}")
+    if not documented_unmapped and not undocumented_unmapped:
+        print(f"[OK] All codebook values are mapped")
+
 # --- VERDICT ---
-print("\n" + "="*60)
+print("")
+print("="*60)
 if errors:
     print("VERDICT: needs_fix")
     for e in errors:
@@ -219,8 +287,14 @@ Warnings (if any):
 | Row count preserved | must be identical | error |
 | All values NaN | any | error |
 | NaN increase | >20pp | error |
+| Likert values out of [0,1] | any | error |
+| Binary values not 0.0/1.0 | any | error |
+| Codebook value not mapped | any | error |
 | NaN increase | 5–20pp | warning |
-| Unmapped values | any | warning |
+| Unmapped undocumented codes | any | warning |
+| Naming convention (ses_/op_/behav_/know_) | violated | warning |
+| value_labels phantom/missing keys | any | warning |
+| Categorical values are numeric | any | warning |
 | CODEBOOK_VARIABLES entry | missing | warning |
 
 ## Important
