@@ -20,6 +20,9 @@ Usage::
     # meta.sep               → str séparateur CSV
 
     df, meta = read_survey_file(Path("data.sav"))
+
+    # Lire seulement certaines colonnes (beaucoup plus rapide sur gros fichiers) :
+    df, meta = read_survey_file(Path("data.sav"), usecols=["q2", "q3"])
 """
 
 from __future__ import annotations
@@ -28,7 +31,7 @@ import logging
 import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Sequence
 
 import pandas as pd
 
@@ -94,6 +97,7 @@ def _try_read_csv(
     encoding: str,
     sep: str,
     nrows: Optional[int] = None,
+    usecols: Optional[Sequence[str]] = None,
 ) -> pd.DataFrame:
     """Tente de lire le CSV avec les paramètres donnés. Lève si ça échoue."""
     kwargs: dict = {
@@ -104,6 +108,8 @@ def _try_read_csv(
     }
     if nrows is not None:
         kwargs["nrows"] = nrows
+    if usecols is not None:
+        kwargs["usecols"] = usecols
     return pd.read_csv(path, **kwargs)
 
 
@@ -146,20 +152,21 @@ def _sniff_csv(path: Path, raw: bytes) -> tuple[str, str]:
 # Lecteurs par format
 # ---------------------------------------------------------------------------
 
-def _read_csv(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
+def _read_csv(
+    path: Path,
+    usecols: Optional[Sequence[str]] = None,
+) -> tuple[pd.DataFrame, SurveyReadMeta]:
     with open(path, "rb") as f:
         raw = f.read(_SNIFF_BYTES)
 
     encoding, sep = _sniff_csv(path, raw)
     logger.debug(f"CSV sniff: {path.name} → encoding={encoding!r} sep={sep!r}")
 
-    # Lecture complète : si l'encodage sniffé échoue sur le fichier entier
-    # (octets non-ASCII hors des premières lignes), on descend la cascade.
     cascade = [encoding] + [e for e in _CSV_ENCODINGS if e != encoding]
     last_err: Exception = RuntimeError("no attempt made")
     for enc in cascade:
         try:
-            df = _try_read_csv(path, enc, sep)
+            df = _try_read_csv(path, enc, sep, usecols=usecols)
             if enc != encoding:
                 logger.debug(f"CSV fallback encoding: {path.name} → {enc!r}")
             meta = SurveyReadMeta(
@@ -179,14 +186,25 @@ def _read_csv(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
     )
 
 
-def _read_sav(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
+def _read_sav(
+    path: Path,
+    usecols: Optional[Sequence[str]] = None,
+) -> tuple[pd.DataFrame, SurveyReadMeta]:
     import pyreadstat  # type: ignore[import]
 
-    df, prs_meta = pyreadstat.read_sav(str(path))
+    kwargs: dict = {}
+    if usecols is not None:
+        kwargs["usecols"] = list(usecols)
+
+    df, prs_meta = pyreadstat.read_sav(str(path), **kwargs)
 
     # column_names_to_labels : {col_name: label_str} ou None
     raw_labels = getattr(prs_meta, "column_names_to_labels", None) or {}
-    labels: dict[str, str] = dict(raw_labels)
+    # Filtrer aux colonnes demandées si usecols fourni
+    labels: dict[str, str] = {
+        k: v for k, v in dict(raw_labels).items()
+        if usecols is None or k in usecols
+    }
 
     meta = SurveyReadMeta(
         file_path=path,
@@ -196,14 +214,24 @@ def _read_sav(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
     return df, meta
 
 
-def _read_dta(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
-    df_raw = pd.read_stata(str(path))
+def _read_dta(
+    path: Path,
+    usecols: Optional[Sequence[str]] = None,
+) -> tuple[pd.DataFrame, SurveyReadMeta]:
+    kwargs: dict = {}
+    if usecols is not None:
+        kwargs["columns"] = list(usecols)
+
+    df_raw = pd.read_stata(str(path), **kwargs)
     df = df_raw if isinstance(df_raw, pd.DataFrame) else df_raw.read()
 
-    # pandas ≥ 1.3 expose les variable labels dans df.attrs
     labels: dict[str, str] = {}
     if hasattr(df, "attrs") and isinstance(df.attrs, dict):
-        labels = dict(df.attrs.get("variable_labels", {}))
+        all_labels = dict(df.attrs.get("variable_labels", {}))
+        labels = {
+            k: v for k, v in all_labels.items()
+            if usecols is None or k in usecols
+        }
 
     meta = SurveyReadMeta(
         file_path=path,
@@ -213,8 +241,14 @@ def _read_dta(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
     return df, meta
 
 
-def _read_xlsx(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
-    df = pd.read_excel(path)
+def _read_xlsx(
+    path: Path,
+    usecols: Optional[Sequence[str]] = None,
+) -> tuple[pd.DataFrame, SurveyReadMeta]:
+    kwargs: dict = {}
+    if usecols is not None:
+        kwargs["usecols"] = list(usecols)
+    df = pd.read_excel(path, **kwargs)
     meta = SurveyReadMeta(file_path=path, format="xlsx")
     return df, meta
 
@@ -232,7 +266,10 @@ _READERS = {
 }
 
 
-def read_survey_file(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
+def read_survey_file(
+    path: Path,
+    usecols: Optional[Sequence[str]] = None,
+) -> tuple[pd.DataFrame, SurveyReadMeta]:
     """
     Lit n'importe quel fichier de données de sondage et retourne
     ``(DataFrame, SurveyReadMeta)``.
@@ -246,11 +283,14 @@ def read_survey_file(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
     ----------
     path : Path
         Chemin vers le fichier de données.
+    usecols : list[str], optional
+        Liste de colonnes à lire. Si fourni, seules ces colonnes sont chargées
+        en mémoire — beaucoup plus rapide sur les gros fichiers SAV/CSV.
 
     Returns
     -------
     df : pd.DataFrame
-        Données brutes.
+        Données brutes (colonnes filtrées si usecols fourni).
     meta : SurveyReadMeta
         Métadonnées de lecture (format, encodage, séparateur, labels).
 
@@ -274,4 +314,4 @@ def read_survey_file(path: Path) -> tuple[pd.DataFrame, SurveyReadMeta]:
             f"Formats acceptés : {list(_READERS)}"
         )
 
-    return reader(path)
+    return reader(path, usecols=usecols)

@@ -39,9 +39,10 @@ surveys/pipeline.py                 ← orchestrateur (~100 lignes)
 ├── 3. assemble(survey_id)
 │       concat vars/*.py → clean.py  ← script Python déterministe
 │
-├── 4. validate_survey(survey_id)
-│       exécute clean.py, vérifie outputs
-│       opencode prompt si corrections nécessaires
+├── 4. [PARALLEL, OPTIONAL] pour chaque variable:
+│       validate_variable(survey_id, var)
+│         opencode prompt --model <model> → verdict ok/needs_fix
+│         [--skip-validation pour bypasser]
 │
 └── 5. finalize(survey_id)
         met à jour status.json
@@ -132,12 +133,13 @@ Format `codebook.json`:
 ---
 
 ### 3. `validate-cleaning` (refactorer)
-**Tâche**: Exécuter `clean.py` assemblé, vérifier distributions, détecter erreurs  
+**Tâche**: Valider `vars/{var}.py` variable par variable  
 **Modèle**: GLM-5 free  
-**Input**: `survey_id`, chemin données  
-**Output**: rapport validation, liste de vars à corriger
+**Input**: `survey_id`, `variable_name`, chemin `vars/{var}.py`, chemin données  
+**Output**: verdict par variable (`ok` / `needs_fix`) + corrections suggérées  
+**Optionnel**: le pipeline peut tourner sans cette étape (`--skip-validation`)
 
-**Changements vs v1**: Valide le `clean.py` assemblé entier (pas var par var). Propose corrections si besoin.
+**Changements vs v1**: Variable par variable (pas le `clean.py` assemblé). Pour chaque variable : exécute le code dans un contexte isolé, vérifie les distributions contre les données brutes, détecte NaN excessifs / mappings incorrects / types inattendus. Ne se fie pas aux commentaires dans le code — valide contre les données.
 
 ---
 

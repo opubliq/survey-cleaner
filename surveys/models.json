@@ -1,0 +1,55 @@
+{
+  "_comment": "Chaîne de fallback des modèles LLM. Le pipeline essaie dans l'ordre: si un modèle échoue (rate limit, unavailable, timeout), il passe au suivant.",
+  "fallback_chain": [
+    {
+      "label": "test-anthropic-haiku",
+      "model": "anthropic/claude-3-5-haiku-latest",
+      "description": "TEST: Claude Haiku — devrait déclencher le fallback (rate limit/404)"
+    },
+    {
+      "label": "test-deepseek-reasoner",
+      "model": "deepseek/deepseek-reasoner",
+      "description": "TEST: DeepSeek Reasoner — devrait déclencher le fallback (Insufficient Balance)"
+    },
+    {
+      "label": "primary-ollama-deepseek",
+      "model": "ollama-cloud/deepseek-v3.1:671b",
+      "description": "DeepSeek V3.1 sur Ollama Cloud — Modèle primaire gratuit et performant"
+    },
+    {
+      "label": "fallback-opencode-bigpickle",
+      "model": "opencode/big-pickle",
+      "description": "Big Pickle sur Opencode — Optimisé pour le code et la transformation"
+    },
+    {
+      "label": "fallback-anthropic-haiku",
+      "model": "anthropic/claude-3-5-haiku-latest",
+      "description": "Claude Haiku sur Anthropic — Rapide et léger"
+    },
+    {
+      "label": "fallback-google-gemini",
+      "model": "google/gemini-2.5-flash-lite-preview-09-2025",
+      "description": "Gemini Flash Lite sur Google — Ultra-rapide"
+    },
+    {
+      "label": "fallback-mistral-devstral",
+      "model": "mistral/devstral-small-2507",
+      "description": "Devstral Small sur Mistral — Performant et économique"
+    },
+    {
+      "label": "fallback-cerebras-qwen",
+      "model": "cerebras/qwen-3-235b-a22b-instruct-2507",
+      "description": "Qwen 235B sur Cerebras — Grande capacité et gratuit"
+    },
+    {
+      "label": "fallback-openrouter-sherlock",
+      "model": "openrouter/openrouter/sherlock-think-alpha",
+      "description": "Sherlock Think Alpha sur OpenRouter — Réflexion approfondie (dernier recours)"
+    }
+  ],
+  "timeout_seconds": 300,
+   "model_error_patterns": [
+    "api error",
+    "error"
+  ]
+}
