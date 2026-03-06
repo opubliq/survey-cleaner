@@ -73,75 +73,89 @@ Write `{surveys_dir}/codebook.json` (NOT in shared_folder — that directory is 
 
 ## Steps
 
-### 1. Locate source
+### 1. Locate source files
 
-Priority: `codebook_source` → `codebook_hint` → scan `shared_folder`.
+Scan `shared_folder` and identify ALL available source files: PDF, DOC/DOCX, XLSX, SAV, CSV, MD, TXT.
 
-Interpret `codebook_hint` flexibly:
-- `sheet:2` / `feuille 2` / `second sheet` → Excel sheet by index/name
-- File path → read directly
-- Description → find the right file
+List them all before proceeding.
 
-### 2. Pre-process the source (if needed)
+### 2. Convert ALL PDF/DOC/DOCX to Markdown — ALWAYS, no exceptions
 
-**PDF or DOCX files:** Convert to Markdown before processing — it is much easier to parse text from Markdown than from binary formats.
+**This step is mandatory regardless of what other files exist.** Even if a SAV file is present, you must still convert every PDF/DOC/DOCX first.
 
 ```bash
-# PDF → Markdown
-venv/bin/python -m markitdown "{source_file}" > "{source_file}.md"
+# For each PDF file found:
+venv/bin/python -m markitdown "{pdf_file}" > "{pdf_file}.md"
 
-# DOCX → Markdown (alternative)
-venv/bin/python -m markitdown "{source_file}" > "{source_file}.md"
+# For each DOCX file found:
+venv/bin/python -m markitdown "{docx_file}" > "{docx_file}.md"
+
+# For old-style .doc (OLE format) — markitdown and pandoc don't support it, use antiword:
+antiword "{doc_file}" > "{doc_file}.md"
+# If antiword fails, try: strings "{doc_file}" > "{doc_file}.md"  (last resort, noisy but readable)
 ```
 
-Then use the resulting `.md` file as the source for the next steps.
+Do this for every PDF/DOC/DOCX in the folder. These markdown files become the **primary label source**.
 
-**SAV files (SPSS):** Read the file with R using `haven` to inspect variable and value labels embedded in the data:
+### 3. Extract SAV metadata (if a SAV file exists)
 
-```r
-library(haven)
-df <- haven::read_sav("{source_file}")
-# View variable labels and value labels
-attributes(df)           # top-level metadata
-lapply(df, attributes)   # per-variable labels and value labels
+Read the SAV file with pyreadstat to extract variable names, question text, and any value labels embedded in the SPSS metadata:
+
+```python
+import pyreadstat
+df, meta = pyreadstat.read_sav("{sav_file}")
+# meta.column_names         → variable names
+# meta.column_labels        → question text per variable
+# meta.variable_value_labels → value labels dict (may be empty)
 ```
 
-This lets you extract question text (`label` attribute) and value labels (`labels` attribute) directly from the SAV metadata without needing a separate codebook file.
+Note which variables have value labels in the SAV and which do not (empty dict `{}`).
 
-### 3. Sample the source
+### 4. Sample the markdown sources
 
-Write and run a small Python script to extract a **sample only** (first 10 rows / 2-3 pages / 50 lines). Never output the full content yourself.
+Write and run a small Python script to print **50–100 lines** of each converted markdown file. Never output the full content yourself.
 
-Goal: understand field names, variable structure, value label format.
+Goal: understand how value labels are documented (table format, numbered list, indented codes, etc.).
 
-### 4. Write transformation script
+### 5. Write transformation script
 
-Write `surveys/{survey_id}/generate_codebook.py` that:
-- Reads the full source
-- Parses every variable
-- Writes `{shared_folder}/codebook.json` in the format above
+Write `surveys/{survey_id}/generate_codebook.py` that builds `codebook.json` using this **merge strategy**:
+
+**For each variable:**
+
+1. **Question text**: take from SAV `column_labels` if non-empty; otherwise search the markdown.
+2. **Value labels**: start from SAV `variable_value_labels`.
+   - If the SAV has explicit labels for this variable → use them directly.
+   - **If the SAV has no labels (empty `{}`) AND the variable appears to be categorical (≤ 25 unique values)** → search the markdown files for a block that matches the variable name or question text, and extract the code→label pairs found there. Only take labels that are explicitly written — do not infer or invent.
+   - If labels cannot be found in either source → use unique numeric codes from the data as keys with `null` values: `{"1": null, "2": null}`.
+3. **Type**: `categorical` if value labels exist or ≤ 25 unique values; `continuous` if > 25 unique values or no labels and numeric; `text` if string column.
+4. **Missing codes**: only include if explicitly documented in either source.
 
 Rules:
 - Use `venv/bin/python` to run scripts
 - Skip variables with no question text (missing labels are fine — write `"values": {}`)
-- `missing` field: only include if missing codes are explicitly documented
 - `notes` field: omit if empty
-- **If the source has no value labels column: read the unique values from the data file and put them as keys with `null` values, e.g. `{"1": null, "2": null, "99": null}`. Do NOT invent what those codes mean.**
-- **If a variable has more than 25-30 unique values, leave `"values": {}` — it's a continuous variable, listing all codes is useless.**
+- **If a variable has more than 25-30 unique values, leave `"values": {}` — it's continuous.**
+- **NEVER invent label text.** If a code→label pair is not explicitly written somewhere in the sources, use `null`.
 
-### 5. Run and verify
+### 6. Run and verify
 
 Execute the script. Read the first 30 lines of `codebook.json` to confirm it is valid JSON with at least one variable entry.
 
+Check: are there variables that were null in SAV but now have labels from the markdown? Report the count.
+
 If the script fails, debug and fix it.
 
-### 6. Report
+### 7. Report
 
 ```
 Script: surveys/{survey_id}/generate_codebook.py
-codebook.json written: {shared_folder}/codebook.json
+codebook.json written: {surveys_dir}/codebook.json
 Variables: {count}
-Source: {source_description}
+Labels from SAV only: {n}
+Labels enriched from PDF/DOC: {n}
+Labels still null (not found anywhere): {n}
+Sources used: {list of files}
 ```
 
 EXIT.
@@ -156,5 +170,6 @@ If this model fails or is unavailable, retry with: `opencode/kimi-k2.5`
 - Preserve original language (do not translate)
 - Let Python parse the full file — never output raw content yourself
 - Do NOT update status.json (pipeline's responsibility)
-- **NEVER guess or invent value labels** — if a code has no explicit label in the source, use `null` as the label: `{"1": null, "2": null}`
+- **ALWAYS convert PDF/DOC/DOCX to markdown first — no exceptions, even if SAV is present**
+- **NEVER guess or invent value labels** — if a code has no explicit label in any source, use `null`: `{"1": null, "2": null}`
 - Reading unique codes from the data file is allowed and encouraged — but never assign text meanings to those codes yourself
