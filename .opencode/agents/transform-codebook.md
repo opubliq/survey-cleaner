@@ -1,13 +1,14 @@
 ---
 name: transform-codebook
 description: Transform raw codebook (PDF/XLSX/MD/TXT) into codebook.json for the v3 pipeline
-model: opencode/glm-5-free
 color: "#a855f7"
 permission:
   bash: allow
   read: allow
   write: allow
   edit: allow
+  glob: allow
+  external_directory: allow
 ---
 
 You are the Codebook Transformation Agent (v3). Transform a raw codebook file into `codebook.json`.
@@ -120,19 +121,38 @@ echo "Converted: $md_file"
 
 Do this for every PDF/DOC/DOCX in the folder. These markdown files become the **primary label source**.
 
-### 3. Extract SAV metadata (if a SAV file exists)
+### 3. Extract data file metadata (SAV or DTA)
 
-Read the SAV file with pyreadstat to extract variable names, question text, and any value labels embedded in the SPSS metadata:
+**If a SAV file exists**, use pyreadstat:
 
 ```python
 import pyreadstat
 df, meta = pyreadstat.read_sav("{sav_file}")
-# meta.column_names         → variable names
-# meta.column_labels        → question text per variable
+# meta.column_names          → variable names
+# meta.column_labels         → question text per variable
 # meta.variable_value_labels → value labels dict (may be empty)
 ```
 
-Note which variables have value labels in the SAV and which do not (empty dict `{}`).
+**If a DTA file exists (Stata format)**, use pandas — do NOT use pyreadstat for DTA:
+
+```python
+import pandas as pd
+
+# Get variable labels and value labels via iterator (do NOT call .close())
+reader = pd.read_stata("{dta_file}", iterator=True)
+variable_labels = reader.variable_labels()   # dict: var_name → label
+value_labels = reader.value_labels()         # dict: label_set_name → {code: label}
+
+# Get column names and load data (convert_categoricals=False to keep numeric codes)
+df = pd.read_stata("{dta_file}", convert_categoricals=False)
+column_names = list(df.columns)
+
+# Build variable_value_labels (same structure as SAV meta)
+# Note: DTA stores value labels by label-set name, not variable name.
+# Use df.dtypes or reader to map variables to their label sets if needed.
+```
+
+Note which variables have value labels and which do not (empty dict `{}`).
 
 ### 4. Sample the markdown sources
 

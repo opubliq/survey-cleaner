@@ -1,0 +1,125 @@
+{
+  "info": {
+    "id": "ses_315a00753ffezRHmP0R7nxMARN",
+    "slug": "happy-planet",
+    "projectID": "616f8ed3fb130076217d95602a1c83bb82f6323f",
+    "directory": "/home/hubcad25/opubliq/repos/survey-cleaner",
+    "title": "Survey data processing for eeq_2014 Q45",
+    "version": "1.2.26",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "permission": [
+      {
+        "permission": "question",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_enter",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_exit",
+        "pattern": "*",
+        "action": "deny"
+      }
+    ],
+    "time": {
+      "created": 1773458684076,
+      "updated": 1773458684987
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1773458684092
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "clean-variable",
+        "model": {
+          "providerID": "google",
+          "modelID": "gemini-flash-lite-latest"
+        },
+        "id": "msg_cea5ff8bc001lLAReTW4R3x6Mu",
+        "sessionID": "ses_315a00753ffezRHmP0R7nxMARN"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "\"{\\\"survey_id\\\": \\\"eeq_2014\\\", \\\"variable_name\\\": \\\"Q45\\\", \\\"surveys_dir\\\": \\\"/home/hubcad25/opubliq/repos/survey-cleaner/surveys/eeq_2014\\\", \\\"data_file\\\": \\\"/home/hubcad25/opubliq/gdrive/_SharedFolder_data_produit/eeq_2014/Quebec Election Study 2014.sav\\\"}\"",
+          "id": "prt_cea5ff8bd001IPDdRk96pmdpRB",
+          "sessionID": "ses_315a00753ffezRHmP0R7nxMARN",
+          "messageID": "msg_cea5ff8bc001lLAReTW4R3x6Mu"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773458684168,
+          "completed": 1773458685552
+        },
+        "parentID": "msg_cea5ff8bc001lLAReTW4R3x6Mu",
+        "modelID": "gemini-flash-lite-latest",
+        "providerID": "google",
+        "mode": "clean-variable",
+        "agent": "clean-variable",
+        "path": {
+          "cwd": "/home/hubcad25/opubliq/repos/survey-cleaner",
+          "root": "/home/hubcad25/opubliq/repos/survey-cleaner"
+        },
+        "cost": 0.0010322,
+        "tokens": {
+          "total": 10322,
+          "input": 10322,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "finish": "error",
+        "id": "msg_cea5ff908001wus5p73SxtmdB6",
+        "sessionID": "ses_315a00753ffezRHmP0R7nxMARN"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "6640e18c71ec6c54b7d4690b38235f4000432800",
+          "id": "prt_cea5ffe54001hjf3eq6RF6ur0i",
+          "sessionID": "ses_315a00753ffezRHmP0R7nxMARN",
+          "messageID": "msg_cea5ff908001wus5p73SxtmdB6"
+        },
+        {
+          "type": "step-finish",
+          "reason": "error",
+          "snapshot": "6640e18c71ec6c54b7d4690b38235f4000432800",
+          "cost": 0.0010322,
+          "tokens": {
+            "total": 10322,
+            "input": 10322,
+            "output": 0,
+            "reasoning": 0,
+            "cache": {
+              "read": 0,
+              "write": 0
+            }
+          },
+          "id": "prt_cea5ffe57001gY2WlUd2brR1BJ",
+          "sessionID": "ses_315a00753ffezRHmP0R7nxMARN",
+          "messageID": "msg_cea5ff908001wus5p73SxtmdB6"
+        }
+      ]
+    }
+  ]
+}

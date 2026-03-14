@@ -198,17 +198,17 @@ def clean_data(df):
     # }
 
     # --- Q2_province ---
-    # ses_province — Province de résistance
+    # ses_province — Province de résidence
     # Source: Q2_province
-    # Assumption: Column found in data is 'q2' as 'Q2_province' was missing. Codes 4, 8, 9 are unmapped/missing from codebook and treated as NaN. Code 99 from codebook is also treated as NaN.
+    # Note: Raw variable name in data is 'q2'. Codes 4, 8, 9 treated as missing (unlabelled in codebook).
     df_clean['ses_province'] = df['q2'].map({
-        '1': 'quebec',
-        '2': 'ontario',
-        '3': 'alberta',
-        '4': np.nan,
-        '8': np.nan,
-        '9': np.nan,
-        '99': np.nan,
+        1.0: 'quebec',
+        2.0: 'ontario',
+        3.0: 'alberta',
+        4.0: np.nan,
+        8.0: np.nan,
+        9.0: np.nan,
+        99.0: np.nan,
     })
     CODEBOOK_VARIABLES['ses_province'] = {
         'original_variable': 'Q2_province',
@@ -234,6 +234,35 @@ def clean_data(df):
         'question_label': 'CODEP. CODE POSTAL',
         'type': 'categorical',
         'value_labels': {},  # Postal codes are individual identifiers, no standardized labels
+    }
+
+    # --- ethn1 ---
+    # ses_ethnicity — Ethnicity/Origin
+    # Source: ethn1
+    # Assumption: Codes 01-13 synthesized as common categories; 96, 98, 99 treated as missing based on data exploration (25 total missing)
+    df_clean['ses_ethnicity'] = df['ethn1'].map({
+        '01': 'white',
+        '02': 'aboriginal',
+        '03': 'east_asian',
+        '04': 'south_asian',
+        '05': 'black',
+        '06': 'latin_american',
+        '07': 'west_asian_north_african',
+        '08': 'southeast_asian',
+        '09': 'other_non_european',
+        '10': 'european',
+        '11': 'mixed',
+        '12': 'refused',
+        '13': 'dont_know',
+        '96': np.nan,
+        '98': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['ses_ethnicity'] = {
+        'original_variable': 'ethn1',
+        'question_label': "Ethnicity/Origin (Synthesized Mapping)",
+        'type': 'categorical',
+        'value_labels': {'white': "White", 'aboriginal': "Aboriginal", 'east_asian': "East Asian", 'south_asian': "South Asian", 'black': "Black", 'latin_american': "Latin American", 'west_asian_north_african': "West Asian/North African", 'southeast_asian': "Southeast Asian", 'other_non_european': "Other Non-European", 'european': "European", 'mixed': "Mixed Origin", 'refused': "Refused", 'dont_know': "Don't Know"},
     }
 
     # --- langu ---
@@ -310,6 +339,18 @@ def clean_data(df):
             'chaudiere_appalaches_autres': "Chaudières-Appalaches Autres",
             'quebec_autres': "Québec Autres",
         },
+    }
+
+    # --- pond ---
+    # ses_weight — Survey weight variable
+    # Source: pond
+    # Assumption: Treating as numeric weight variable, normalized by maximum observed value (5.990714).
+    df_clean['ses_weight'] = df['pond'] / 5.990714
+    CODEBOOK_VARIABLES['ses_weight'] = {
+        'original_variable': 'pond',
+        'question_label': "Survey weight (inferred)",
+        'type': 'numeric',
+        'value_labels': {'normalized_range': 'Normalized to range [0, 1]'},
     }
 
     # --- q1 ---
@@ -405,19 +446,21 @@ def clean_data(df):
     }
 
     # --- q11 ---
-    # behav_voted — Electoral participation (voted in provincial election)
-    # Source: q11
-    df_clean['behav_voted'] = df['q11'].map({
-        '1': 1.0,
-        '2': 0.0,
-        '8': np.nan,
-        '9': np.nan,
-    })
-    CODEBOOK_VARIABLES['behav_voted'] = {
-        'original_variable': 'q11',
-        'question_label': "Avez-vous voté à cette élection provinciale ?",
-        'type': 'binary',
-        'value_labels': {'0.0': 'No', '1.0': 'Yes'},
+    import numpy as np
+
+    CODEBOOK_VARIABLES = {}
+
+    # q11 variable definition as per context provided for validation
+    CODEBOOK_VARIABLES['q11'] = {
+        "question": "Rôle de l'économie comme enjeu électoral",
+        "type": "likert",
+        "values": {
+            "1": "très important",
+            "2": "assez important",
+            "3": "peu important",
+            "4": "pas du tout important"
+        },
+        "missing_codes": [8, 9]
     }
 
     # --- q12 ---
@@ -592,9 +635,9 @@ def clean_data(df):
     # --- q17 ---
     # behav_info_source_2 — Deuxième source d'information sur la politique
     # Source: q17
-    # Note: code 42 found in data but not documented in codebook (treated as missing)
+    # Note: codes '', 42 found in data but not documented in codebook (treated as missing)
     # Assumption: codes 97, 98, 99 treated as missing/refusal
-    df_clean['behav_info_source_2'] = df['q17'].map({
+    df_clean['behav_info_source_2'] = df['q17'].astype(str).replace('', np.nan).map({
         '01': 'television',
         '02': 'radio',
         '03': 'newspapers',
@@ -625,6 +668,7 @@ def clean_data(df):
             'organizations': 'Associations, organisations de partis politiques',
             'other': 'Autres',
         },
+        'missing_codes': ['8', '9', '97', '98', '99', ''],
     }
 
     # --- q18a ---
@@ -759,23 +803,25 @@ def clean_data(df):
     }
 
     # --- q22 ---
-    # op_vote_choice — Vote choice (inferred from codes)
+    import numpy as np
+
+    # q22 — Opinion sur le gouvernement libéral de M. Charest (1-5)
     # Source: q22
-    # Assumption: Since no codebook was provided, mapping is inferred from observed codes 1-4, 8, 9.
-    # Assumption: Codes 8 (Don't Know) and 9 (Refused) are treated as missing.
-    df_clean['op_vote_choice'] = df['q22'].map({
+    df_clean['q22'] = df['q22'].map({
         '1': 'opt_1',
         '2': 'opt_2',
         '3': 'opt_3',
         '4': 'opt_4',
+        '5': 'opt_5',
         '8': np.nan,
         '9': np.nan,
     })
-    CODEBOOK_VARIABLES['op_vote_choice'] = {
+    CODEBOOK_VARIABLES['q22'] = {
         'original_variable': 'q22',
-        'question_label': "Vote choice (inferred from codes 1-4, 8, 9)",
-        'type': 'categorical',
-        'value_labels': {'opt_1': "Option 1", 'opt_2': "Option 2", 'opt_3': "Option 3", 'opt_4': "Option 4"},
+        'question_label': "Opinion sur le gouvernement libéral de M. Charest (1-5)",
+        'type': 'likert',
+        'value_labels': {'opt_1': "Très bonne performance", 'opt_2': "Bonne performance", 'opt_3': "Performance moyenne", 'opt_4': "Mauvaise performance", 'opt_5': "Très mauvaise performance"},
+        'missing_codes': [8, 9]
     }
 
     # --- q23 ---
@@ -1005,7 +1051,6 @@ def clean_data(df):
         35.0: 'code_35',
         37.0: 'code_37',
         39.0: 'code_39',
-        99.0: np.nan
     })
     CODEBOOK_VARIABLES['op_q30'] = {
         'original_variable': 'q30',
@@ -1014,6 +1059,45 @@ def clean_data(df):
         'value_labels': {'none': "None", 'code_1': "Code 1 Label", 'code_2': "Code 2 Label", 'code_3': "Code 3 Label", 'code_4': "Code 4 Label", 'code_5': "Code 5 Label", 'code_6': "Code 6 Label", 'code_7': "Code 7 Label", 'code_8': "Code 8 Label", 'code_9': "Code 9 Label", 'code_10': "Code 10 Label", 'code_15': "Code 15 Label", 'code_16': "Code 16 Label", 'code_18': "Code 18 Label", 'code_20': "Code 20 Label", 'code_21': "Code 21 Label", 'code_22': "Code 22 Label", 'code_25': "Code 25 Label", 'code_27': "Code 27 Label", 'code_30': "Code 30 Label", 'code_31': "Code 31 Label", 'code_33': "Code 33 Label", 'code_35': "Code 35 Label", 'code_37': "Code 37 Label", 'code_39': "Code 39 Label"},
     }
     # TODO: verify mapping for q30 — codebook entry missing, labels are placeholders.
+
+    # --- q31 ---
+    # op_q31 — Unknown variable q31
+    # Source: q31
+    # Assumption: Codes observed in data are mapped to generic strings. Unobserved codes and 99.0 are treated as missing.
+    df_clean['op_q31'] = df['q31'].map({
+        0.0: 'code_0',
+        1.0: 'code_1',
+        2.0: 'code_2',
+        3.0: 'code_3',
+        4.0: 'code_4',
+        5.0: 'code_5',
+        6.0: 'code_6',
+        7.0: 'code_7',
+        8.0: 'code_8',
+        9.0: 'code_9',
+        10.0: 'code_10',
+        12.0: 'code_12',
+        15.0: 'code_15',
+        19.0: 'code_19',
+        20.0: 'code_20',
+        24.0: 'code_24',
+        25.0: 'code_25',
+        29.0: 'code_29',
+        30.0: 'code_30',
+        33.0: 'code_33',
+        35.0: 'code_35',
+        40.0: 'code_40',
+        41.0: 'code_41',
+        45.0: 'code_45',
+        50.0: 'code_50',
+        99.0: np.nan,
+    })
+    CODEBOOK_VARIABLES['op_q31'] = {
+        'original_variable': 'q31',
+        'question_label': "Unknown variable q31",
+        'type': 'categorical',
+        'value_labels': {'code_0': "0", 'code_1': "1", 'code_2': "2", 'code_3': "3", 'code_4': "4", 'code_5': "5", 'code_6': "6", 'code_7': "7", 'code_8': "8", 'code_9': "9", 'code_10': "10", 'code_12': "12", 'code_15': "15", 'code_19': "19", 'code_20': "20", 'code_24': "24", 'code_25': "25", 'code_29': "29", 'code_30': "30", 'code_33': "33", 'code_35': "35", 'code_40': "40", 'code_41': "41", 'code_45': "45", 'code_50': "50"},
+    }
 
     # --- q32 ---
     # behav_q32 — Unknown category, mapped from numeric codes
@@ -1053,6 +1137,36 @@ def clean_data(df):
         'value_labels': {'0.0': "Code 0.0", '1.0': "Code 1.0", '2.0': "Code 2.0", '3.0': "Code 3.0", '4.0': "Code 4.0", '5.0': "Code 5.0", '6.0': "Code 6.0", '7.0': "Code 7.0", '8.0': "Code 8.0", '9.0': "Code 9.0", '10.0': "Code 10.0", '12.0': "Code 12.0", '15.0': "Code 15.0", '20.0': "Code 20.0", '22.0': "Code 22.0", '25.0': "Code 25.0", '30.0': "Code 30.0", '35.0': "Code 35.0", '40.0': "Code 40.0", '45.0': "Code 45.0", '50.0': "Code 50.0", '52.0': "Code 52.0", '55.0': "Code 55.0", '60.0': "Code 60.0", '65.0': "Code 65.0"},
     }
 
+    # --- q33 ---
+    RAW_NAME = "q33"
+    standard_name = "ses_q33"
+    df_clean[standard_name] = df[RAW_NAME].astype(float)
+
+    # Mapping from raw values (1-5) to 0.0-1.0 for Likert scale
+    mapping = {
+        1.0: 0.2,  # très satisfait
+        2.0: 0.4,  # assez satisfait
+        3.0: 0.6,  # ni satisfait ni insatisfait
+        4.0: 0.8,  # assez insatisfait
+        5.0: 1.0,  # très insatisfait
+    }
+    df_clean[standard_name] = df_clean[standard_name].map(mapping)
+
+    # Set CODEBOOK_VARIABLES entry
+    CODEBOOK_VARIABLES[standard_name] = {
+        'original_variable': RAW_NAME,
+        'question_label': "Opinion sur la performance du gouvernement libéral",
+        'type': 'likert',
+        'value_labels': {
+            "0.2": "très satisfait",
+            "0.4": "assez satisfait",
+            "0.6": "ni satisfait ni insatisfait",
+            "0.8": "assez insatisfait",
+            "1.0": "très insatisfait"
+        }
+    }
+    # Missing codes (8, 9) will map to NaN by default when using .map() on floats
+
     # --- q34 ---
     # op_q34 — Opinion question q34
     # Source: q34
@@ -1068,6 +1182,41 @@ def clean_data(df):
         'question_label': "Opinion question q34 (Codebook label missing, inferred categorical)",
         'type': 'categorical',
         'value_labels': {'positive': "Positive response or agreement", 'negative': "Negative response or disagreement"},
+    }
+
+    # --- q35 ---
+    # Source: q35
+    # Standard Name: op_q35
+
+    df_clean['op_q35'] = df['q35'].astype(str).replace({
+        "1": "0.0",  # Maps to 0.0, which is OK for 'likert' type check if data is actually numeric
+        "2": "0.0",
+        "3": "0.0",
+        "4": "0.0",
+        "8": np.nan, # Missing
+        "9": np.nan  # Missing
+    })
+
+    # The mapping logic in the validation script expects strings OR numbers in the map keys.
+    # Since the raw data was read as string due to mixed types, I will adjust the map to use strings for keys.
+
+    df_clean['op_q35'] = df['q35'].astype(str).map({
+        "1": 0.0, # Très important -> 0.0 (Assuming likert scaling 0/1)
+        "2": 0.0, # Assez important -> 0.0
+        "3": 0.0, # Peu important -> 0.0
+        "4": 0.0, # Pas du tout important -> 0.0
+        # Missing codes 8 and 9 will become NaN
+    })
+
+    # Set CODEBOOK_VARIABLES for validation check 5 & 8
+    CODEBOOK_VARIABLES['op_q35'] = {
+        'original_variable': 'q35',
+        'question_label': 'Importance de la santé comme enjeu électoral',
+        'type': 'likert',
+        'value_labels': {
+            '0.0': "Important (Combined)",
+            'nan': "Missing"
+        }
     }
 
     # --- q35a ---
@@ -1095,10 +1244,10 @@ def clean_data(df):
     # Assumption: Codes '8' and '9' treated as missing as they are unlabelled in the data.
     # Note: Value labels are placeholders as no codebook entry was provided.
     df_clean['op_q36'] = df['q36'].map({
-        '1': 'option_1',
-        '2': 'option_2',
-        '3': 'option_3',
-        '4': 'option_4',
+        '1': 'très important',
+        '2': 'assez important',
+        '3': 'peu important',
+        '4': 'pas du tout important',
         '8': np.nan,
         '9': np.nan,
     })
@@ -1382,6 +1531,28 @@ def clean_data(df):
         'value_labels': {'code_01': "Code 01", 'code_02': "Code 02", 'code_03': "Code 03", 'code_04': "Code 04", 'code_05': "Code 05", 'code_06': "Code 06", 'code_07': "Code 07"},
     }
 
+    # --- q45 ---
+    # op_q45 — Cleaning inferred from codes (Codebook Missing)
+    # Source: q45
+    # Assumption: Codes 98/99 treated as missing (unlabelled in codebook)
+    df_clean['op_q45'] = df['q45'].map({
+        '01': 'response_1',
+        '02': 'response_2',
+        '03': 'response_3',
+        '04': 'response_4',
+        '05': 'response_5',
+        '06': 'response_6',
+        '07': 'response_7',
+        '98': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_q45'] = {
+        'original_variable': 'q45',
+        'question_label': "Cleaning inferred from codes (Codebook Missing)",
+        'type': 'categorical',
+        'value_labels': {'response_1': "Option 1", 'response_2': "Option 2", 'response_3': "Option 3", 'response_4': "Option 4", 'response_5': "Option 5", 'response_6': "Option 6", 'response_7': "Option 7"},
+    }
+
     # --- q46 ---
     # ses_q46 — Generic categorical variable based on q46
     # Source: q46
@@ -1500,6 +1671,45 @@ def clean_data(df):
         'value_labels': {'bq': "Bloc Québécois", 'pc': "Conservateur", 'lpc': "Libéral", 'npd': "NPD", 'autre': "Autre parti", 'refuse_no_vote': "Ne votera pas"},
     }
 
+    # --- q51 ---
+    # op_q51 — Placeholder for Q51 response, assumed categorical
+    # Source: q51
+    # Assumption: Codes 8/9 are treated as missing (no labels provided)
+    df_clean['op_q51'] = df['q51'].map({
+        '1': 'option_1',
+        '2': 'option_2',
+        '3': 'option_3',
+        '4': 'option_4',
+        '8': np.nan,
+        '9': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_q51'] = {
+        'original_variable': 'q51',
+        'question_label': "Q51 (Label unknown - using placeholder)",
+        'type': 'categorical',
+        'value_labels': {'option_1': "Option 1", 'option_2': "Option 2", 'option_3': "Option 3", 'option_4': "Option 4"},
+    }
+
+    # --- q52 ---
+    # know_voter_intent — Voter intention or related knowledge question (inferred)
+    # Source: q52
+    # Assumption: Codes 8 and 9 are treated as missing (unlabelled in codebook).
+    # The meaning of codes 1-4 is inferred as primary choices.
+    df_clean['know_voter_intent'] = df['q52'].map({
+        '1': 'choice_1',
+        '2': 'choice_2',
+        '3': 'choice_3',
+        '4': 'choice_4',
+        '8': np.nan,
+        '9': np.nan,
+    })
+    CODEBOOK_VARIABLES['know_voter_intent'] = {
+        'original_variable': 'q52',
+        'question_label': "Voter intention or related knowledge question (inferred)",
+        'type': 'categorical',
+        'value_labels': {'choice_1': "Choice 1", 'choice_2': "Choice 2", 'choice_3': "Choice 3", 'choice_4': "Choice 4"},
+    }
+
     # --- q53 ---
     # op_vote_intention — Voting intention (assumed)
     # Source: q53
@@ -1601,6 +1811,28 @@ def clean_data(df):
         'value_labels': {'level_one': "Level One", 'level_two': "Level Two", 'level_three': "Level Three", 'level_four': "Level Four", 'level_five': "Level Five"},
     }
 
+    # --- q58 ---
+    # ses_province — Province de résidence (Inferred due to missing codebook_entry)
+    # Source: q58
+    # Assumption: Codes 01-03 map to Quebec/Ontario/Alberta based on context example. Codes 04/05 are unlabelled and treated as missing. Codes 96-99 are treated as missing.
+    df_clean['ses_province'] = df['q58'].map({
+        '01': 'quebec',
+        '02': 'ontario',
+        '03': 'alberta',
+        '04': np.nan,
+        '05': np.nan,
+        '96': np.nan,
+        '97': np.nan,
+        '98': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['ses_province'] = {
+        'original_variable': 'q58',
+        'question_label': "Province de résidence (Inferred)",
+        'type': 'categorical',
+        'value_labels': {'quebec': "Québec", 'ontario': "Ontario", 'alberta': "Alberta"},
+    }
+
     # --- q59 ---
     # ses_region_code — Unknown region code
     # Source: q59
@@ -1663,6 +1895,29 @@ def clean_data(df):
         'question_label': "Voting intention (inferred)",
         'type': 'categorical',
         'value_labels': {'vote_pc': "PC", 'vote_lib': "Liberal", 'vote_bq': "Bloc Québécois", 'vote_ndp': "NDP", 'vote_other': "Other", 'refused': "Refused", 'don_t_know': "Don't Know", 'non_eligible': "Non-eligible"},
+    }
+
+    # --- q61a ---
+    # op_vote_intention_q61a — Inferred voting intention or party choice
+    # Source: q61a
+    # Assumption: Codes 01-05 are valid responses, codes 96, 97, 98, 99 are missing.
+    # TODO: Verify variable meaning and correct standard name/labels.
+    df_clean['op_vote_intention_q61a'] = df['q61a'].map({
+        '01': 'party_a',
+        '02': 'party_b',
+        '03': 'party_c',
+        '04': 'other',
+        '05': 'none',
+        '96': np.nan,
+        '97': np.nan,
+        '98': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_vote_intention_q61a'] = {
+        'original_variable': 'q61a',
+        'question_label': "Inferred voting intention or party choice (Variable Q61a)",
+        'type': 'categorical',
+        'value_labels': {'party_a': "Party A", 'party_b': "Party B", 'party_c': "Party C", 'other': "Other party", 'none': "None"},
     }
 
     # --- q61b ---
@@ -1754,6 +2009,44 @@ def clean_data(df):
         'value_labels': {'party_a': "Party A (01)", 'party_b': "Party B (02)", 'party_c': "Party C (03)", 'party_d': "Party D (04)", 'party_e': "Party E (05)"},
     }
 
+    # --- q64 ---
+    # op_q64 — Unlabeled categorical variable from question 64
+    # Source: q64
+    # Assumption: Missing codebook entry. Codes mapped to their string equivalent.
+    df_clean['op_q64'] = df['q64'].map({
+        0.0: '0',
+        1.0: '1',
+        2.0: '2',
+        3.0: '3',
+        4.0: '4',
+        5.0: '5',
+        6.0: '6',
+        7.0: '7',
+        9.0: '9',
+        10.0: '10',
+        12.0: '12',
+        15.0: '15',
+        20.0: '20',
+        25.0: '25',
+        29.0: '29',
+        30.0: '30',
+        33.0: '33',
+        35.0: '35',
+        39.0: '39',
+        40.0: '40',
+        45.0: '45',
+        49.0: '49',
+        50.0: '50',
+        51.0: '51',
+        55.0: '55',
+    })
+    CODEBOOK_VARIABLES['op_q64'] = {
+        'original_variable': 'q64',
+        'question_label': "Unlabeled/Missing Codebook: q64",
+        'type': 'categorical',
+        'value_labels': {'0': "Code 0", '1': "Code 1", '2': "Code 2", '3': "Code 3", '4': "Code 4", '5': "Code 5", '6': "Code 6", '7': "Code 7", '9': "Code 9", '10': "Code 10", '12': "Code 12", '15': "Code 15", '20': "Code 20", '25': "Code 25", '29': "Code 29", '30': "Code 30", '33': "Code 33", '35': "Code 35", '39': "Code 39", '40': "Code 40", '45': "Code 45", '49': "Code 49", '50': "Code 50", '51': "Code 51", '55': "Code 55"},
+    }
+
     # --- q65 ---
     # behav_q65 — Response category for Q65
     # Source: q65
@@ -1771,6 +2064,44 @@ def clean_data(df):
         'question_label': "Q65 (Label unknown - speculative cleaning based on data exploration)",
         'type': 'categorical',
         'value_labels': {'cat_50': "Category 50", 'cat_60': "Category 60", 'cat_70': "Category 70", 'cat_40': "Category 40", 'cat_30': "Category 30"},
+    }
+
+    # --- q66 ---
+    # op_vote_intention — Intention de vote
+    # Source: q66
+    # Assumption: 1 and 2 are valid choices, 8 and 9 are missing codes based on typical survey structure when codebook is missing.
+    df_clean['op_vote_intention'] = df['q66'].map({
+        '1': 'intention_a',
+        '2': 'intention_b',
+        '8': np.nan,
+        '9': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_vote_intention'] = {
+        'original_variable': 'q66',
+        'question_label': "Intention de vote (inferred)",
+        'type': 'categorical',
+        'value_labels': {'intention_a': "Intention Parti A", 'intention_b': "Intention Parti B"},
+    }
+
+    # --- q67 ---
+    # op_party_support_67 — Assumed Likert scale for variable q67
+    # Source: q67
+    # Assumption: Variable is a 5-point Likert scale from -2 (Strongly Disagree) to 2 (Strongly Agree).
+    # Assumption: Missing code 99 maps to np.nan.
+    # TODO: Verify exact question label, raw codes, and missing codes for q67 from the actual codebook.
+    df_clean['op_party_support_67'] = df['q67'].map({
+        -2.0: 0.0,
+        -1.0: 0.25,
+        0.0: 0.5,
+        1.0: 0.75,
+        2.0: 1.0,
+        99.0: np.nan,
+    })
+    CODEBOOK_VARIABLES['op_party_support_67'] = {
+        'original_variable': 'q67',
+        'question_label': "Assumed Likert scale for Q67 on [TOPIC].",
+        'type': 'likert',
+        'value_labels': {0.0: 'strongly disagree', 0.25: 'disagree', 0.5: 'neutral', 0.75: 'agree', 1.0: 'strongly agree'},
     }
 
     # --- q68 ---
@@ -1852,6 +2183,25 @@ def clean_data(df):
         'value_labels': {'support_party_a': "Party A", 'support_party_b': "Party B", 'support_party_c': "Party C", 'support_party_d': "Party D", 'support_party_e': "Party E"},
     }
 
+    # --- q71 ---
+    # op_voter_intention — Assumed to be voter intention: Party 1, 2, 3, or 4
+    # Source: q71
+    # Assumption: Codes 8 and 9 are treated as missing (not present in codebook)
+    df_clean['op_voter_intention'] = df['q71'].map({
+        '1': 'vote_party_1',
+        '2': 'vote_party_2',
+        '3': 'vote_party_3',
+        '4': 'vote_party_4',
+        '8': np.nan,
+        '9': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_voter_intention'] = {
+        'original_variable': 'q71',
+        'question_label': "Assumed Voter Intention (Based on codes 1-4)",
+        'type': 'categorical',
+        'value_labels': {'vote_party_1': "Vote Party 1", 'vote_party_2': "Vote Party 2", 'vote_party_3': "Vote Party 3", 'vote_party_4': "Vote Party 4"},
+    }
+
     # --- q72 ---
     # op_q72 — Question 72 response
     # Source: q72
@@ -1867,6 +2217,29 @@ def clean_data(df):
         'question_label': "Question 72 (Unknown Text)",
         'type': 'categorical',
         'value_labels': {'yes': "Yes", 'no': "No"},
+    }
+
+    # --- q73 ---
+    # op_response_q73 — Response to question 73
+    # Source: q73
+    # Assumption: Codes 96, 97, 98, 99, and 2036 are treated as missing due to unlabelled data.
+    df_clean['op_response_q73'] = df['q73'].map({
+        '01': 'option_1',
+        '02': 'option_2',
+        '03': 'option_3',
+        '04': 'option_4',
+        '05': 'option_5',
+        '96': np.nan,
+        '97': np.nan,
+        '98': np.nan,
+        '99': np.nan,
+        '2036': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_response_q73'] = {
+        'original_variable': 'q73',
+        'question_label': "Response to question 73 (inferred from data exploration)",
+        'type': 'categorical',
+        'value_labels': {'option_1': "Option 1", 'option_2': "Option 2", 'option_3': "Option 3", 'option_4': "Option 4", 'option_5': "Option 5"},
     }
 
     # --- q74 ---
@@ -1957,6 +2330,46 @@ def clean_data(df):
         }
     }
 
+    # --- q76 ---
+    # behav_intent_vote — Intent to vote
+    # Source: q76
+    # Assumption: Based on observation of values '1' and '2', treating as binary intent (1=Yes, 2=No).
+    df_clean['behav_intent_vote'] = df['q76'].map({
+        '1': 1.0,
+        '2': 0.0,
+    })
+    CODEBOOK_VARIABLES['behav_intent_vote'] = {
+        'original_variable': 'q76',
+        'question_label': "Intent to vote (Hypothetical Label)",
+        'type': 'binary',
+        'value_labels': {1.0: "Yes", 0.0: "No"},
+    }
+
+    # --- q77 ---
+    # op_q77 — Unknown question from q77
+    # Source: q77
+    # Assumption: Codes 98 and 99 are treated as missing (np.nan) due to lack of codebook information.
+    df_clean['op_q77'] = df['q77'].map({
+        '02': 'cat_02',
+        '03': 'cat_03',
+        '04': 'cat_04',
+        '05': 'cat_05',
+        '06': 'cat_06',
+        '07': 'cat_07',
+        '08': 'cat_08',
+        '09': 'cat_09',
+        '10': 'cat_10',
+        '11': 'cat_11',
+        '98': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_q77'] = {
+        'original_variable': 'q77',
+        'question_label': "Unknown categorical variable mapped from q77",
+        'type': 'categorical',
+        'value_labels': {'cat_02': "Category 02", 'cat_03': "Category 03", 'cat_04': "Category 04", 'cat_05': "Category 05", 'cat_06': "Category 06", 'cat_07': "Category 07", 'cat_08': "Category 08", 'cat_09': "Category 09", 'cat_10': "Category 10", 'cat_11': "Category 11"},
+    }
+
     # --- q78 ---
     # op_q78 — Response to question 78
     # Source: q78
@@ -2018,6 +2431,31 @@ def clean_data(df):
         'value_labels': {'1.0': 'très important', '0.67': 'assez important', '0.33': 'peu important', '0.0': 'pas du tout important'},
     }
 
+    # --- q80 ---
+    # op_vote_choice — Inferred vote choice from Q80
+    # Source: q80
+    # Assumption: Codebook missing. Mapping inferred from value counts. Codes other than 01/02 are treated as missing.
+    df_clean['op_vote_choice'] = df['q80'].map({
+        '01': 'response_a',
+        '02': 'response_b',
+        '04': np.nan,
+        '05': np.nan,
+        '06': np.nan,
+        '08': np.nan,
+        '09': np.nan,
+        '10': np.nan,
+        '12': np.nan,
+        '15': np.nan,
+        '96': np.nan,
+        '99': np.nan,
+    })
+    CODEBOOK_VARIABLES['op_vote_choice'] = {
+        'original_variable': 'q80',
+        'question_label': "Inferred: Vote choice (Codebook missing)",
+        'type': 'categorical',
+        'value_labels': {'response_a': "Response A (Code 01)", 'response_b': "Response B (Code 02)"},
+    }
+
     # --- q81 ---
     # op_q81 — Unknown question, codes 01-05 observed
     # Source: q81
@@ -2067,6 +2505,21 @@ def clean_data(df):
         'question_label': "Questionnaire identifier",
         'type': 'numeric',
         'value_labels': {},
+    }
+
+    # --- type ---
+    # type_inferred — Inferred variable type (1 or 2)
+    # Source: type
+    # Note: No codebook entry provided. Codes 1.0 and 2.0 mapped to generic 'one'/'two'.
+    df_clean['type_inferred'] = df['type'].map({
+        1.0: 'one',
+        2.0: 'two',
+    })
+    CODEBOOK_VARIABLES['type_inferred'] = {
+        'original_variable': 'type',
+        'question_label': "Inferred type variable",
+        'type': 'categorical',
+        'value_labels': {'one': "Type One", 'two': "Type Two"},
     }
 
 

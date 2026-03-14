@@ -11,16 +11,27 @@ Usage:
 
 import argparse
 import json
+import os
 import subprocess
+from dotenv import load_dotenv
 import sys
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+class CleanFailedError(Exception):
+    """L'agent clean-variable a terminé sans créer le fichier .py (fail silencieux)."""
+    pass
+
 
 SURVEYS_DIR = Path(__file__).parent
 REPO_ROOT = SURVEYS_DIR.parent
-SHARED_FOLDER = REPO_ROOT / "_SharedFolder_data_produit"
+SHARED_FOLDER = Path(os.environ.get("SHARED_FOLDER_PATH", REPO_ROOT / "_SharedFolder_data_produit"))
 MODELS_CONFIG_PATH = SURVEYS_DIR / "models.json"
 
 
@@ -123,6 +134,10 @@ def log(msg: str) -> None:
     if "[WARN]" in colored_msg:
         colored_msg = colored_msg.replace("[WARN]", "\033[38;5;208m[WARN]\033[0m")
 
+    # Colorize FAIL/ERREUR messages
+    if "[FAIL]" in colored_msg or "[ERREUR" in colored_msg:
+        colored_msg = "\033[1;97;41m" + colored_msg + "\033[0m"
+
     print(f"[{ts}] {colored_msg}", flush=True)
 
 
@@ -175,7 +190,7 @@ def _run_agent_once(agent: str, prompt: str, survey_id: str, tag: str, model: st
     return session_id or "", result.returncode, result.stdout, result.stderr
 
 
-def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | None = None, expected_output_path: Path | None = None) -> str:
+def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | None = None, expected_output_path: Path | None = None, timeout_seconds: int = 60) -> str:
     """
     Appelle `opencode run --agent <agent> --format json <prompt>`.
 
@@ -190,7 +205,7 @@ def run_agent(agent: str, prompt: str, survey_id: str, tag: str, model: str | No
     model_label = model or "agent-default"
 
     log(f"  → agent={agent} model={model_label} tag={tag}")
-    session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, effective_model, model_label, 1)
+    session_id, rc, stdout, stderr = _run_agent_once(agent, prompt, survey_id, tag, effective_model, model_label, 1, timeout_seconds)
 
     # Détecter erreur de modèle
     if is_model_error(rc, stdout, stderr, config):
@@ -287,7 +302,7 @@ def init(survey_id: str) -> None:
                     reader = pd.read_stata(data_file, iterator=True)
                     n_vars = len(reader.variable_labels())  # type: ignore[operator]
                     n_obs = None  # pas dispo sans charger
-                    reader.close()  # type: ignore[attr-defined]
+                    # StataReader n'a pas de .close() selon la version de pandas
                 elif ext in (".csv",):
                     import pandas as pd
                     df = pd.read_csv(data_file, nrows=0)
@@ -328,14 +343,24 @@ def parse_codebook(survey_id: str, model: str | None = None) -> None:
     log(f"[1/5] parse_codebook({survey_id})")
     codebook_path = SURVEYS_DIR / survey_id / "codebook.json"
     if codebook_path.exists():
-        log(f"  [skip] codebook.json déjà présent")
-        return
+        try:
+            cb = json.loads(codebook_path.read_text(encoding="utf-8"))
+            n = len(cb.get("variables", {}))
+            if n > 0:
+                log(f"  [skip] codebook.json déjà présent ({n} variables)")
+                return
+            else:
+                log(f"\033[1;97;41m  [FAIL] codebook.json existant mais vide (0 variables) — on relance\033[0m")
+                codebook_path.unlink()
+        except Exception:
+            log(f"  [WARN] codebook.json illisible — on relance")
+            codebook_path.unlink()
     prompt = json.dumps({
         "survey_id": survey_id,
         "shared_folder": str(SHARED_FOLDER / survey_id),
         "surveys_dir": str(SURVEYS_DIR / survey_id),
     })
-    run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model, expected_output_path=codebook_path)
+    run_agent("transform-codebook", prompt, survey_id, "transform-codebook", model=model, expected_output_path=codebook_path, timeout_seconds=600)
 
 
 def clean_variable(survey_id: str, variable_name: str, model: str | None = None) -> str:
@@ -364,12 +389,17 @@ def clean_variable(survey_id: str, variable_name: str, model: str | None = None)
         prompt = ctx_path.read_text(encoding="utf-8")
 
     tag = f"clean-variable_{variable_name}"
-    return run_agent("clean-variable", prompt, survey_id, tag, model=model)
+    run_agent("clean-variable", prompt, survey_id, tag, model=model)
+
+    if not var_py.exists():
+        raise CleanFailedError(f"{variable_name}: agent terminé sans créer {var_py.name}")
 
 
 def clean_all_variables(survey_id: str, variables: list[str], max_workers: int = 4, model: str | None = None) -> None:
     """Étape 2 — Nettoie toutes les variables en parallèle."""
     log(f"[2/5] clean_variable x{len(variables)} (max_workers={max_workers})")
+    failed: list[str] = []
+
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {
             pool.submit(clean_variable, survey_id, var, model): var
@@ -380,8 +410,33 @@ def clean_all_variables(survey_id: str, variables: list[str], max_workers: int =
             try:
                 fut.result()
                 log(f"  [ok] {var}")
+            except CleanFailedError as exc:
+                log(f"  [FAIL] {var}: agent terminé sans .py (voir logs)")
+                failed.append(var)
             except Exception as exc:
-                log(f"  [ERREUR] {var}: {exc}")
+                log(f"  [ERREUR modèle] {var}: {exc}")
+                failed.append(var)
+
+    if failed:
+        log(f"\033[1;97;41m  ⚠ {len(failed)} variable(s) failed: {failed}\033[0m")
+        _update_failed_variables(survey_id, failed)
+    else:
+        log(f"\033[32m  ✓ All {len(variables)} variable(s) cleaned successfully\033[0m")
+
+
+def _update_failed_variables(survey_id: str, failed: list[str]) -> None:
+    """Ajoute les variables failed dans status.json."""
+    status_path = SURVEYS_DIR / "status.json"
+    if not status_path.exists():
+        return
+    status = json.loads(status_path.read_text(encoding="utf-8"))
+    survey_status = status.get("surveys", {}).get(survey_id, {})
+    existing = set(survey_status.get("failed_variables", []))
+    existing.update(failed)
+    survey_status["failed_variables"] = sorted(existing)
+    survey_status["last_updated"] = datetime.now().isoformat()
+    status["surveys"][survey_id] = survey_status
+    status_path.write_text(json.dumps(status, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def assemble(survey_id: str) -> None:
@@ -605,6 +660,8 @@ def main() -> None:
                         help="Sauter l'étape validate-cleaning")
     parser.add_argument("--skip-finalize", action="store_true",
                         help="Sauter l'étape finalize-survey")
+    parser.add_argument("--only-codebook", action="store_true",
+                        help="Lancer uniquement l'étape transform-codebook et sortir")
     parser.add_argument("--workers", type=int, default=4,
                         help="Nombre de threads parallèles (défaut: 4)")
     parser.add_argument("--cost", action="store_true",
@@ -632,6 +689,10 @@ def main() -> None:
         parse_codebook(survey_id, model=model)
     else:
         log("[1/5] parse_codebook — skipped")
+
+    if args.only_codebook:
+        log("=== --only-codebook: done ===")
+        return
 
     # 2. Variables à nettoyer
     variables = args.vars or get_variables_from_codebook(survey_id)

@@ -1,4 +1,4 @@
-# ses_province — Province de résidence
+# ses_province — Province de કર્યો
 # Source: Q2_province
 # Note: Data column used is 'q2' as 'Q2_province' was not found in data exploration.
 df_clean['ses_province'] = df['q2'].map({

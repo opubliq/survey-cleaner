@@ -1,0 +1,1513 @@
+{
+  "survey_id": "eeq_2008",
+  "variables": {
+    "q0age": {
+      "question": "Quel âge avez-vous ?",
+      "type": "categorical",
+      "values": {
+        "2.0": "Entre 18 et 24 ans",
+        "3.0": "Entre 25 et 34 ans",
+        "4.0": "Entre 35 et 44 ans",
+        "5.0": "Entre 45 et 54 ans",
+        "6.0": "Entre 55 et 64 ans",
+        "7.0": "Entre 65 et 74 ans",
+        "8.0": "75 ans ou plus",
+        "99.0": "Je préfère ne pas répondre a cette question"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +6"
+    },
+    "regio": {
+      "question": "Région",
+      "type": "categorical",
+      "values": {
+        "1.0": "MTL RMR",
+        "2.0": "QC RMR",
+        "3.0": "AUTRES RÉGIONS"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> *"
+    },
+    "q1": {
+      "question": "Parmi les enjeux suivants, lequel était, pour vous personnellement, le plus important lors de l'élection provinciale du 8 décembre dernier ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...L'économie",
+        "2.0": "...La santé",
+        "3.0": "...L'environnement",
+        "4.0": "...L'éducation",
+        "5.0": "...L'aide aux familles",
+        "6.0": "...La pauvreté",
+        "96.0": "Autre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q11": {
+      "question": "Avez-vous voté à cette élection provinciale ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Oui",
+        "2.0": "Non",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q12a": {
+      "question": "Pour quel parti avez-vous voté ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec Solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "95.0": "n'a pas voté",
+        "96.0": "autre parti (spécifiez)",
+        "97.0": "aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q12b": {
+      "question": "Si vous aviez voté, quel parti auriez-vous été tenté d'appuyer ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec Solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "95.0": "n'a pas voté",
+        "96.0": "autre parti (spécifiez)",
+        "97.0": "aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q13": {
+      "question": "Pour quel parti aviez-vous voté lors de l'élection provinciale du 26 mars 2007?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec Solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "95.0": "n'a pas voté",
+        "96.0": "autre parti (spécifiez)",
+        "97.0": "aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q14": {
+      "question": "Sur une échelle de 0 à 10 où 0 veut dire aucun intérêt et 10 veut dire beaucoup d'intérêt,  quel a été votre intérêt pour l'élection PROVINCIALE qui vient d'avoir lieu ?",
+      "type": "categorical",
+      "values": {
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q21"
+    },
+    "q18a": {
+      "question": "Les gens ont différentes façons de se définir. Diriez-vous que vous vous considérez...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...uniquement comme Québécois(e)",
+        "2.0": "...d'abord comme Québécois(e), puis comme Canadien(ne)",
+        "3.0": "...également comme Canadien(ne) et comme Québécois(e)",
+        "4.0": "...d'abord comme Canadien(ne), puis comme Québécois(e)",
+        "5.0": "...ou uniquement comme Canadien(ne)?",
+        "96.0": "autres (précisez)",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q21"
+    },
+    "q18b": {
+      "question": "Les gens ont différentes façons de se définir. Diriez-vous que vous vous considérez...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...uniquement comme Canadien(ne)",
+        "2.0": "...d'abord comme Canadien(ne), puis comme Québécois(e)",
+        "3.0": "...également comme Canadien(ne) et comme Québécois(e)",
+        "4.0": "...d'abord comme Québécois(e), puis comme Canadien(ne)",
+        "5.0": "...ou uniquement comme Québécois(e)?",
+        "96.0": "autres (précisez)",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q21"
+    },
+    "q19": {
+      "question": "Si un référendum avait lieu aujourd'hui sur la même question que celle qui a été posée lors du dernier référendum de 1995,  c'est-à-dire sur la souveraineté assortie d'une offre de partenariat au reste du Canada,  voteriez-vous OUI ou voteriez-vous NON ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Oui",
+        "2.0": "Non",
+        "3.0": "Ne voterait pas/annulerait",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q19"
+    },
+    "q20": {
+      "question": "Même si vous n'avez peut-être pas encore fait votre choix, s'il y avait un référendum aujourd'hui sur cette question, seriez-vous tenté(e) de voter pour le OUI ou pour le NON ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Oui",
+        "2.0": "Non",
+        "3.0": "Ne voterait pas/annulerait",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q21": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants. / Je ne crois pas que les gouvernements se soucient beaucoup de ce que les gens comme moi pensent.   Note: par \"go",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> Q21"
+    },
+    "q22": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants. / Ceux qui sont élus au Parlement perdent vite contact avec les gens.",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q23": {
+      "question": "Dans quelle mesure faites-vous confiance aux gouvernements pour faire ce qui doit être fait ? Est-ce que vous leur faites confiance ...",
+      "type": "categorical",
+      "values": {
+        "1.0": "...presque toujours",
+        "2.0": "...la plupart du temps",
+        "3.0": "...parfois seulement",
+        "4.0": "...presque jamais",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q24": {
+      "question": "Pensez-vous que les gens au gouvernement gaspillent BEAUCOUP, QUELQUE PEU ou PAS BEAUCOUP nos taxes ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...gaspillent beaucoup de nos taxes",
+        "2.0": "...en gaspillent quelque peu",
+        "3.0": "...n'en gaspillent pas beaucoup",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q25": {
+      "question": "Pensez-vous que...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...plusieurs dirigeants gouvernementaux sont malhonnêtes",
+        "2.0": "...certains d'entre eux sont malhonnêtes",
+        "3.0": "...presqu'aucun d'entre eux n'est malhonnête",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q26": {
+      "question": "En général, diriez-vous que les gouvernements sont dirigés pour le bénéfice des intérêts de quelques personnes importantes préoccupées seulement par leur sort ou qu'ils sont dirigés pour le bénéfice de tous ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...Dirigés pour les intérêts de quelques personnes important",
+        "2.0": "...Dirigés pour le bénéfice de tous",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q27": {
+      "question": "Dans l'ensemble, êtes-vous SATISFAIT de la façon dont la démocratie fonctionne au Québec ? Êtes-vous...",
+      "type": "categorical",
+      "values": {
+        "1.0": "...très satisfait",
+        "2.0": "...assez satisfait",
+        "3.0": "...pas très satisfait",
+        "4.0": "...pas du tout satisfait",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q33": {
+      "question": "Personnellement, trouvez-vous que l'idée de tenir une élection au Québec cet automne était...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Très bonne",
+        "2.0": "Assez bonne",
+        "3.0": "Assez mauvaise",
+        "4.0": "Très mauvaise",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q39": {
+      "question": "Aimez-vous JEAN CHAREST ?",
+      "type": "categorical",
+      "values": {
+        "995.0": "ne connais aucun chef",
+        "997.0": "ne le connais pas",
+        "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q40": {
+      "question": "Aimez-vous PAULINE MAROIS ?",
+      "type": "categorical",
+      "values": {
+        "995.0": "ne connais aucun chef",
+        "997.0": "ne le connais pas",
+        "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q41": {
+      "question": "Aimez-vous MARIO DUMONT ?",
+      "type": "categorical",
+      "values": {
+        "0.0": "0",
+        "100.0": "100",
+        "995.0": "ne connais aucun chef",
+        "997.0": "ne le connais pas",
+        "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q42": {
+      "question": "Aimez-vous FRANÇOISE DAVID ?",
+      "type": "categorical",
+      "values": {
+        "0.0": "0",
+        "100.0": "100",
+        "995.0": "ne connais aucun chef",
+        "997.0": "ne le connais pas",
+        "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q43": {
+      "question": "Aimez-vous GUY RAINVILLE ?",
+      "type": "categorical",
+      "values": {
+        "0.0": "0",
+        "100.0": "100",
+        "995.0": "ne connais aucun chef",
+        "997.0": "ne le connais pas",
+        "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q44": {
+      "question": "le plus compétent ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Jean Charest",
+        "2.0": "Pauline Marois",
+        "3.0": "Mario Dumont",
+        "4.0": "Françoise David",
+        "5.0": "Guy Rainville",
+        "6.0": "Aucun",
+        "7.0": "Tous",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q45": {
+      "question": "le plus honnête ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Jean Charest",
+        "2.0": "Pauline Marois",
+        "3.0": "Mario Dumont",
+        "4.0": "Françoise David",
+        "5.0": "Guy Rainville",
+        "6.0": "Aucun",
+        "7.0": "Tous",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q46": {
+      "question": "le plus proche des gens ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Jean Charest",
+        "2.0": "Pauline Marois",
+        "3.0": "Mario Dumont",
+        "4.0": "Françoise David",
+        "5.0": "Guy Rainville",
+        "6.0": "Aucun",
+        "7.0": "Tous",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q47": {
+      "question": "Selon vous, l'économie québécoise s'est-elle AMÉLIORÉE, DÉTÉRIORÉE, ou est-elle restée à PEU PRÈS LA MÊME depuis un an ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Améliorée",
+        "2.0": "Détériorée",
+        "3.0": "A peu près la même",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q48": {
+      "question": "Vous considérez-vous surtout comme un(e) fédéraliste, surtout comme un(e) souverainiste, comme quelqu'un qui est entre les deux ou comme quelqu'un qui n'est ni l'un ni l'autre ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...surtout comme un(e) fédéraliste",
+        "2.0": "...surtout comme un(e) souverainiste",
+        "3.0": "...quelqu'un qui est entre les deux",
+        "4.0": "... ni l'un ni l'autre",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q49": {
+      "question": "D'après vous, à l'avenir…?",
+      "type": "categorical",
+      "values": {
+        "1.0": "...les gouvernements provinciaux devraient avoir plus de pou",
+        "2.0": "...le gouvernement fédéral devrait avoir plus de pouvoirs et",
+        "3.0": "...ou est-ce que les choses devraient rester comme elles son",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q50": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Au total, ce serait une bonne chose de privatiser Hydro Québec.",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q51": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Pour améliorer le système de santé au Québec, il faudrait avoir davantage recours au secteur privé.",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q52": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Sans l'action du gouvernement, il y aurait beaucoup plus de pauvreté dans nos sociétés.",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q53": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Sans l'action du gouvernement, l'environnement serait beaucoup moins bien protégé.",
+      "type": "categorical",
+      "values": {
+        "1.0": "fortement d'accord",
+        "2.0": "plutôt d'accord",
+        "3.0": "plutôt en désaccord",
+        "4.0": "fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q55": {
+      "question": "Selon vous, quel parti politique est le meilleur pour améliorer les soins de santé ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "96.0": "Autre, spécifiez",
+        "97.0": "Aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q57": {
+      "question": "Quel parti est le meilleur pour s'occuper de la crise économique?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "96.0": "Autre, spécifiez",
+        "97.0": "Aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q61b": {
+      "question": "Quel parti est le meilleur pour défendre l'identité et la culture québécoise ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "96.0": "Autre, spécifiez",
+        "97.0": "Aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q61d": {
+      "question": "Quel parti est le meilleur pour s'occuper de la Caisse de dépôt et de placement du Québec ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "96.0": "Autre, spécifiez",
+        "97.0": "Aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q64": {
+      "question": "Sur une échelle qui va de 0 à 100, où 0 veut dire que vous n'aimez vraiment pas du tout les syndicats, et 100 veut dire que vous les aimez vraiment beaucoup. / En général, aimez-vous les syndicats ?",
+      "type": "categorical",
+      "values": {
+        "998.0": "Je ne sais pas",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q65": {
+      "question": "Sur une échelle qui va de 0 à 100, où 0 veut dire que vous n'aimez vraiment pas du tout les ENTREPRISES, et 100 veut dire que vous les aimez vraiment beaucoup. / En général, aimez-vous les ENTREPRISES ?",
+      "type": "categorical",
+      "values": {
+        "998.0": "Je ne sais pas",
+        "999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q66": {
+      "question": "Êtes-vous pour ou contre le mariage entre personnes de même sexe ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Pour",
+        "2.0": "Contre",
+        "8.0": "Je ne sais pas/N'a pas d'opinion sur le sujet",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q67": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Notre société se porterait mieux si les gens pratiquaient leur religion plus régulièrement.",
+      "type": "categorical",
+      "values": {
+        "1.0": "Fortement d'accord",
+        "2.0": "Plutôt d'accord",
+        "3.0": "Plutôt en désaccord",
+        "4.0": "Fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q68": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Il y aurait beaucoup moins de problèmes au Québec si on accordait plus d'importance aux valeurs familiales",
+      "type": "categorical",
+      "values": {
+        "1.0": "Fortement d'accord",
+        "2.0": "Plutôt d'accord",
+        "3.0": "Plutôt en désaccord",
+        "4.0": "Fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q69": {
+      "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord ou fortement en désaccord avec chacun des énoncés suivants. / Tout bien pesé, il est préférable d'avoir des gouvernements majoritaires plutôt que des gouvernements mino",
+      "type": "categorical",
+      "values": {
+        "1.0": "Fortement d'accord",
+        "2.0": "Plutôt d'accord",
+        "3.0": "Plutôt en désaccord",
+        "4.0": "Fortement en désaccord",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    },
+    "q70": {
+      "question": "En politique provinciale, habituellement est-ce que vous vous identifiez au / à...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "... Parti Libéral",
+        "2.0": "... Parti Québécois",
+        "3.0": "... l'Action Démocratique du Québec (ADQ)",
+        "4.0": "... Québec solidaire",
+        "5.0": "... Parti Vert",
+        "96.0": "Un autre parti",
+        "97.0": "Aucun parti",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +4"
+    },
+    "q71": {
+      "question": "Vous sentez-vous très proche du / de <Q70>, assez proche, ou  pas très proche ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "très proche",
+        "2.0": "assez proche",
+        "3.0": "pas très proche",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +3"
+    },
+    "q72": {
+      "question": "Vous sentez-vous UN PEU plus proche de l'un ou l'autre des partis provinciaux ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Oui",
+        "2.0": "Non",
+        "8.0": "Je ne sais pas",
+        "9.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q73": {
+      "question": "De quel parti ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral (PLQ)",
+        "2.0": "Le Parti québécois (PQ)",
+        "3.0": "L'Action démocratique du Québec (ADQ)",
+        "4.0": "Québec Solidaire (QS)",
+        "5.0": "Le Parti vert (PV)",
+        "96.0": "Autre (spécifiez)",
+        "97.0": "Aucun",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q74": {
+      "question": " Lors de la dernière élection FÉDÉRALE en octobre 2008, pour quel parti avez-vous voté ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Le Parti libéral du Canada (PLC)",
+        "2.0": "Le Parti conservateur (PC)",
+        "3.0": "Le Nouveau Parti démocratique (NPD)",
+        "4.0": "Le Bloc québécois (BQ)",
+        "5.0": "Le Parti vert du Canada (PV)",
+        "6.0": "N'a pas voté",
+        "7.0": "A annulé son vote",
+        "96.0": "Autre (spécifiez)",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q75": {
+      "question": "Pour terminer l'entrevue, nous aimerions avoir quelques informations qui nous aideront à vérifier si notre échantillon représente bien l'ensemble de la population québécoise.   D'abord, en quelle année êtes-vous né(e) ? / (exemple:1972)",
+      "type": "categorical",
+      "values": {
+        "9999.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q76": {
+      "question": "Êtes-vous...",
+      "type": "categorical",
+      "values": {
+        "1.0": "Un homme",
+        "2.0": "Une femme"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q77": {
+      "question": "Quel est votre niveau d'éducation ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "aucune scolarité",
+        "2.0": "cours primaire (sans diplôme)",
+        "3.0": "cours primaire (avec diplôme)",
+        "4.0": "cours secondaire (sans diplôme)",
+        "5.0": "cours secondaire (avec diplôme)",
+        "6.0": "cours technique, cégep, collège classique (sans diplôme)",
+        "7.0": "cours technique, cégep, collège classique (avec diplôme)",
+        "8.0": "université non complétée",
+        "9.0": "baccalauréat",
+        "10.0": "maîtrise",
+        "11.0": "diplôme professionnel ou doctorat",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q78": {
+      "question": "Quel était le revenu total de votre ménage avant impôts en 2007.   Ceci inclut les revenus de toutes les sources telles l'épargne, les pensions, les loyers, en plus des salaires.  Est-ce...?",
+      "type": "categorical",
+      "values": {
+        "1.0": "moins de $20,000",
+        "2.0": "entre $20,000 et $29,999",
+        "3.0": "entre $30,000 et $39,999",
+        "4.0": "entre $40,000 et $49,999",
+        "5.0": "entre $50,000 et $59,999",
+        "6.0": "entre $60,000 et $69,999",
+        "7.0": "entre $70,000 et $79,999",
+        "8.0": "entre $80,000 et $89,999",
+        "9.0": "entre $90,000 et $99,999",
+        "10.0": "plus de $100,000",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q79": {
+      "question": "Travaillez-vous actuellement à votre compte, êtes-vous salarié, avez-vous pris votre retraite, êtes-vous au chômage ou cherchez-vous du travail, êtes-vous étudiant, ménagère ou quelque chose d'autre ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Je travaille à mon compte (avec ou sans employés)",
+        "2.0": "Je travaille pour un salaire (à temps plein ou à temps parti",
+        "3.0": "Je suis à la retraite",
+        "4.0": "Je suis au chômage/ je cherche du travail",
+        "5.0": "Je suis étudiant",
+        "6.0": "Je suis ménagère",
+        "7.0": "Je suis handicapé",
+        "96.0": "autre (préciser)",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q81": {
+      "question": "Sans compter les mariages et les funérailles, combien de fois assistez-vous aux messes à votre lieu de culte ?   Est-ce...",
+      "type": "categorical",
+      "values": {
+        "1.0": "...chaque semaine (ou plus souvent))",
+        "2.0": "...deux fois par mois",
+        "3.0": "...une fois par mois",
+        "4.0": "...une ou deux fois par an",
+        "5.0": "...presque jamais (ou jamais)",
+        "98.0": "Je ne sais pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "q80": {
+      "question": "Quelle langue parlez-vous LE PLUS SOUVENT à la maison ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Anglais",
+        "2.0": "Français",
+        "3.0": "Chinois",
+        "4.0": "Italien",
+        "5.0": "Portugais",
+        "6.0": "Espagnol",
+        "7.0": "Allemand",
+        "8.0": "Polonais",
+        "9.0": "Pundjabi",
+        "10.0": "Grec",
+        "11.0": "Vietnamien",
+        "12.0": "Arabe",
+        "13.0": "Cri",
+        "14.0": "Tagal (philippin)",
+        "15.0": "Ukrainien / Russe",
+        "96.0": "Autre  (spécifiez)",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "ethn1": {
+      "question": "De quelle ORIGINE ETHNIQUE êtes-vous ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Canadienne-québécoise",
+        "2.0": "Afrique du Nord (Maroc, Algérie, Tunisie, Libye, Egypte)",
+        "3.0": "Afrique ( Gabon, Congo, Cote d'ivoire, Ethiopie, Kenya, Came",
+        "4.0": "Amérindienne",
+        "5.0": "Américaine (USA)",
+        "6.0": "Amérique Centrale et du Sud (Nicaragua, Pérou,   Bolivie, Vé",
+        "7.0": "Mexique",
+        "8.0": "Antillaise, Haiti, Jamaique, République dominicaine..",
+        "9.0": "Asiatique (Japon, Chine, Vietnam, Corée, Cambodge ...)",
+        "10.0": "Europe (France, Belgique, Italie, Espagne, Grèce,Portugal, A",
+        "11.0": "Europe de l'Est (Russie, Ukraine, Pologne,       Roumanie, E",
+        "12.0": "Moyen-Orient (sauf ceux de l'Afrique du Nord)    Jordanie, A",
+        "13.0": "Turquie, Arménie, Iran, Kurde",
+        "96.0": "Autre (spécifiez)",
+        "98.0": "Ne sait pas",
+        "99.0": "Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "langu": {
+      "question": "Quelle est la langue que vous avez apprise en premier lieu à la maison dans votre enfance et que vous comprenez toujours ?",
+      "type": "categorical",
+      "values": {
+        "1.0": "Français",
+        "2.0": "Anglais",
+        "3.0": "Autre",
+        "9.0": "Nsp/Je préfère ne pas répondre"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +1"
+    },
+    "reg": {
+      "question": "REG.",
+      "type": "categorical",
+      "values": {
+        "1.0": "Mtl RMR",
+        "2.0": "Qc RMR",
+        "3.0": "Est",
+        "4.0": "Centre",
+        "5.0": "Ouest"
+      },
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> *"
+    },
+    "pond": {
+      "question": "Sans taux de participation",
+      "type": "continuous",
+      "values": {},
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ],
+      "notes": "=> +2"
+    },
+    "pondx": {
+      "question": "avec taux de participation",
+      "type": "continuous",
+      "values": {},
+      "missing": [
+        "01",
+        "19",
+        "8",
+        "66",
+        "13",
+        "9",
+        "99",
+        "999",
+        "9999"
+      ]
+    }
+  }
+}

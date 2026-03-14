@@ -1,0 +1,1763 @@
+{
+    "survey_id": "eeq_2014",
+    "variables": {
+        "SDAT": {
+            "question": "Date d'entrevue",
+            "type": "categorical",
+            "values": {
+                "20140409": null,
+                "20140410": null,
+                "20140411": null,
+                "20140412": null,
+                "20140413": null,
+                "20140414": null,
+                "20140415": null,
+                "20140416": null,
+                "20140417": null
+            }
+        },
+        "LANG": {
+            "question": "Préfèreriez-vous répondre à ce questionnaire en anglais ou en français?  Would you prefer to complete the survey in English or French?",
+            "type": "categorical",
+            "values": {
+                "EN": "English",
+                "FR": "Français"
+            }
+        },
+        "GREET": {
+            "question": "Ce sondage en ligne est mené au nom d'une équipe de recherche basée à l'Université McGill. Cette étude concerne les attitudes en rapport à une variété de questions économiques et politiques au Québec. Ce sondage devrait prendre environ 20 minutes à complét",
+            "type": "categorical",
+            "values": {
+                "1.0": "continue"
+            }
+        },
+        "QAGE": {
+            "question": "En quelle année êtes-vous né(e)? / Entrez l'année de naissance &nbsp;",
+            "type": "categorical",
+            "values": {
+                "9999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "SMAGE": {
+            "question": "Age",
+            "type": "continuous",
+            "values": {}
+        },
+        "CLAGE": {
+            "question": "Groupe d'age",
+            "type": "categorical",
+            "values": {
+                "2.0": "Entre 18 et 24 ans:",
+                "3.0": "Entre 25 et 34 ans:",
+                "4.0": "Entre 35 et 44 ans:",
+                "5.0": "Entre 45 et 54 ans:",
+                "6.0": "Entre 55 et 64 ans:",
+                "7.0": "Entre 65 et 74 ans:",
+                "8.0": "75 ans +"
+            }
+        },
+        "QSEXE": {
+            "question": "Quel est votre sexe?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Masculin",
+                "2.0": "Féminin"
+            }
+        },
+        "QLANG": {
+            "question": "Quelle est la langue que vous avez apprise en premier lieu à la maison dans votre enfance et que vous comprenez toujours?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Français",
+                "2.0": "Anglais",
+                "3.0": "Autre",
+                "4.0": "Français et anglais",
+                "5.0": "Français et autre",
+                "6.0": "Anglais et autre",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "QREGION": {
+            "question": "Dans quelle région du Québec habitez-vous?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Bas-Saint-Laurent",
+                "2.0": "Saguenay-Lac-Saint-Jean",
+                "3.0": "Capitale-Nationale",
+                "4.0": "Mauricie",
+                "5.0": "Estrie",
+                "6.0": "Montréal",
+                "7.0": "Outaouais",
+                "8.0": "Abitibi-Témiscamingue",
+                "9.0": "Côte-Nord",
+                "10.0": "Nord-du-Québec",
+                "11.0": "Gaspésie/Iles-de-la-Madeleine",
+                "12.0": "Chaudière-Appalaches",
+                "13.0": "Laval",
+                "14.0": "Lanaudière",
+                "15.0": "Laurentides",
+                "16.0": "Montérégie",
+                "17.0": "Centre-du-Québec"
+            }
+        },
+        "REGIO": {
+            "question": "Région métropolitaine",
+            "type": "categorical",
+            "values": {
+                "1.0": "MTL RMR",
+                "2.0": "QC RMR",
+                "3.0": "AUTRES RÉGIONS"
+            }
+        },
+        "CODE1": {
+            "question": "Code Postal - caractere 1",
+            "type": "categorical",
+            "values": {
+                "9": "9",
+                "A": "A",
+                "B": "B",
+                "C": "C",
+                "D": "D",
+                "E": "E",
+                "F": "F",
+                "G": "G",
+                "H": "H",
+                "I": "I",
+                "J": "J",
+                "K": "K",
+                "L": "L",
+                "M": "M",
+                "N": "N",
+                "O": "O",
+                "P": "P",
+                "Q": "Q",
+                "R": "R",
+                "S": "S",
+                "T": "T",
+                "U": "U",
+                "V": "V",
+                "W": "W",
+                "X": "X",
+                "Y": "Y",
+                "Z": "Z"
+            }
+        },
+        "CODE2": {
+            "question": "Code Postal - caractere 2",
+            "type": "categorical",
+            "values": {
+                "0.0": "0",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9"
+            }
+        },
+        "CODE3": {
+            "question": "Code Postal - caractere 3",
+            "type": "categorical",
+            "values": {
+                "9": "9",
+                "A": "A",
+                "B": "B",
+                "C": "C",
+                "D": "D",
+                "E": "E",
+                "F": "F",
+                "G": "G",
+                "H": "H",
+                "I": "I",
+                "J": "J",
+                "K": "K",
+                "L": "L",
+                "M": "M",
+                "N": "N",
+                "O": "O",
+                "P": "P",
+                "Q": "Q",
+                "R": "R",
+                "S": "S",
+                "T": "T",
+                "U": "U",
+                "V": "V",
+                "W": "W",
+                "X": "X",
+                "Y": "Y",
+                "Z": "Z"
+            }
+        },
+        "QENFAN": {
+            "question": "Y a-t-il des enfants de moins de 18 ans vivant dans votre ménage?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "QSCOL": {
+            "question": "À quel niveau se situe la dernière année de scolarité que vous avez complétée?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Aucune scolarité",
+                "2.0": "Cours primaire (sans diplôme)",
+                "3.0": "Cours primaire (avec diplôme)",
+                "4.0": "Cours secondaire (sans diplôme)",
+                "5.0": "Cours secondaire (avec diplôme)",
+                "6.0": "CÉGEP (sans diplôme)",
+                "7.0": "CÉGEP (avec diplôme)",
+                "8.0": "Cours technique",
+                "9.0": "Université non complétée",
+                "10.0": "Baccalauréat",
+                "11.0": "Maîtrise ou doctorat",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q1": {
+            "question": "Parmi les enjeux suivants, lequel était, pour vous personnellement, le plus important lors de l'élection provinciale du 7 avril dernier?",
+            "type": "categorical",
+            "values": {
+                "1.0": "L'économie",
+                "2.0": "La santé",
+                "3.0": "L'environnement",
+                "4.0": "L'éducation",
+                "5.0": "L'aide aux familles",
+                "6.0": "La pauvreté",
+                "7.0": "L'intégrité",
+                "8.0": "Les taxes et les finances publiques",
+                "9.0": "La souveraineté du Québec",
+                "10.0": "La charte de la laïcité",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q2": {
+            "question": "Avez-vous voté à cette élection provinciale?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q3": {
+            "question": "Pour quel parti avez-vous voté?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Parti vert du Québec",
+                "6.0": "Option nationale",
+                "96.0": "Un autre parti",
+                "99.0": "Je préfère ne pas répondre"
+            },
+            "notes": "SI Q2=OUI"
+        },
+        "Q4": {
+            "question": "Est-ce que ce parti était votre premier choix?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            },
+            "notes": "SI Q2=OUI"
+        },
+        "Q5": {
+            "question": "Quel parti était votre premier choix?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Parti vert du Québec",
+                "6.0": "Option nationale",
+                "96.0": "Un autre parti",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q6": {
+            "question": "Pour quel parti aviez-vous voté lors de l'élection provinciale du 4 septembre 2012?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Parti vert du Québec",
+                "6.0": "Option nationale",
+                "96.0": "Un autre parti",
+                "97.0": "Je n'ai pas voté",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7A": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / Les positions politiques du parti",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7B": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / La qualité du/de la candidat(e) local(e)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7C": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / Le/la chef du parti",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7D": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / La capacité du parti à défendre les intérêts actuels et futurs du Québec",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7E": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / La capacité du parti à comprendre l'histoire et la culture du Québec",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7F": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / La probabilité que le parti forme un gouvernement",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q7G": {
+            "question": "Lorsque vous avez voté à l'{u}élection provinciale du 7 avril dernier{/u}, quelle a été l'importance de chacun des facteurs suivants dans votre décision? / Les préférences constitutionnelles du parti",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pas du tout important",
+                "2.0": "Pas très important",
+                "3.0": "Plutôt important",
+                "4.0": "Très important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q8": {
+            "question": "Vos préférences partisanes mises à part, quel parti a selon vous mené la {u}meilleure campagne{/u}?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Parti vert du Québec",
+                "6.0": "Option nationale",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q9": {
+            "question": "Et quel parti a selon vous mené la {u}moins bonne{/u} campagne?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Parti vert du Québec",
+                "6.0": "Option nationale",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q10": {
+            "question": "À quel point êtes-vous satisfait(e) de la performance du gouvernement péquiste {u}en général{/u}?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très satisfait(e)",
+                "2.0": "Assez satisfait(e)",
+                "3.0": "Pas très satisfait(e)",
+                "4.0": "Pas du tout satisfait(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q11": {
+            "question": "Et à quel point êtes-vous satisfait(e) de la performance du gouvernement péquiste {u}dans la gestion de l'économie{/u}?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très satisfait(e)",
+                "2.0": "Assez satisfait(e)",
+                "3.0": "Pas très satisfait(e)",
+                "4.0": "Pas du tout satisfait(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q12": {
+            "question": "Quel est votre degré d'attachement {u}au Québec{/u}?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très attaché(e)",
+                "2.0": "Plutôt attaché(e)",
+                "3.0": "Pas très attaché(e)",
+                "4.0": "Pas du tout attaché(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q13": {
+            "question": "Et quel est votre degré d'attachement {u}au Canada{/u}?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très attaché(e)",
+                "2.0": "Plutôt attaché(e)",
+                "3.0": "Pas très attaché(e)",
+                "4.0": "Pas du tout attaché(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "SEL1": {
+            "question": "Sélection 1",
+            "type": "categorical",
+            "values": {
+                "1.0": "Q14A",
+                "2.0": "Q14B"
+            }
+        },
+        "Q14A": {
+            "question": "Les gens ont différentes façons de se définir. Diriez-vous que vous vous considérez...?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Uniquement comme Québécois(e), pas du tout comme Canadien(ne)",
+                "2.0": "D'abord comme Québécois(e), puis comme Canadien(ne)",
+                "3.0": "Également comme Québécois(e) et comme Canadien(ne)",
+                "4.0": "D'abord comme Canadien(ne), puis comme Québécois(e)",
+                "5.0": "Uniquement comme Canadien(ne), pas du tout comme Québécois(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q14B": {
+            "question": "Les gens ont différentes façons de se définir. Diriez-vous que vous vous considérez...?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Uniquement comme Canadien(ne), pas du tout comme Québécois(e)",
+                "2.0": "D'abord comme Canadien(ne), puis comme Québécois(e)",
+                "3.0": "Également comme Canadien(ne) et comme Québécois(e)",
+                "4.0": "D'abord comme Québécois(e), puis comme Canadien(ne)",
+                "5.0": "Uniquement comme Québécois(e), pas du tout comme Canadien(ne)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q15": {
+            "question": "Certaines personnes croient que les Québécois ont des valeurs et priorités qui les rendent distincts au sein du Canada. D'autres croient que les Québécois ont les mêmes valeurs et priorités que les autres Canadiens. Et d'autres se situent entre ces deux po",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Valeurs distinctes",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Mêmes valeurs",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q16": {
+            "question": "Avez-vous voté lors du référendum de 1995 sur la souveraineté du Québec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q17": {
+            "question": "Pour quelle option avez-vous voté?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            },
+            "notes": "SI OUI À Q16"
+        },
+        "Q18": {
+            "question": "À quel point l'enjeu de l'indépendance politique du Québec est-il important pour vous, personnellement?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très important",
+                "2.0": "Plutôt important",
+                "3.0": "Pas très important",
+                "4.0": "Pas du tout important",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q19": {
+            "question": "Si un référendum sur l'indépendance avait lieu vous demandant si vous voulez que le Québec devienne un pays indépendant, voteriez-vous OUI ou voteriez-vous NON?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q20": {
+            "question": "Et si un référendum avait lieu vous demandant si vous voulez que l'Assemblée nationale du Québec obtienne beaucoup plus de pouvoirs d'Ottawa, voteriez-vous OUI ou voteriez-vous NON?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q21": {
+            "question": "Et si un référendum avait lieu vous demandant si vous voulez que l'Assemblée nationale du Québec signe la Constitution canadienne de 1982, voteriez-vous OUI ou voteriez-vous NON?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q22": {
+            "question": "Et s'il y avait un référendum vous demandant de choisir parmi les  trois options suivantes. Voteriez-vous pour: signer la Constitution de 1982, avoir plus de pouvoirs pour le Québec, ou l'indépendance?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Avoir plus de pouvoirs pour le Québec",
+                "3.0": "Indépendance",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q23": {
+            "question": "Si l'option <Q22> était rejetée par une majorité de la population, quelle serait alors votre deuxième préférence?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Avoir plus de pouvoirs pour le Québec",
+                "3.0": "Indépendance",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q24A": {
+            "question": "Classez, par ordre de préférence personnelle, les trois options constitutionnelles suivantes. / {b}Premier choix",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Avoir plus de pouvoirs pour le Québec",
+                "3.0": "Indépendance",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q24B": {
+            "question": "Classez, par ordre de préférence personnelle, les trois options constitutionnelles suivantes. / {b}Deuxième choix",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Avoir plus de pouvoirs pour le Québec",
+                "3.0": "Indépendance",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q24C": {
+            "question": "Classez, par ordre de préférence personnelle, les trois options constitutionnelles suivantes. / {b}Troisième choix",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Avoir plus de pouvoirs pour le Québec",
+                "3.0": "Indépendance",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q25": {
+            "question": "Parmi les trois {u}questions{/u} suivantes, laquelle préféreriez-vous voir posée dans un référendum?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Signer la Constitution de 1982",
+                "2.0": "Demander plus de pouvoirs pour le Québec",
+                "3.0": "Faire l'indépendance du Québec",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "SEL2": {
+            "question": "Sélection 2",
+            "type": "categorical",
+            "values": {
+                "1.0": "Q26A",
+                "2.0": "Q26B"
+            }
+        },
+        "Q26A": {
+            "question": "Si le Parti québécois tenait un référendum pour demander plus de pouvoirs au gouvernement fédéral, voteriez-vous OUI ou voteriez-vous NON?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q26B": {
+            "question": "Si le Parti libéral du Québec tenait un référendum pour demander plus de pouvoirs au gouvernement fédéral, voteriez-vous OUI ou voteriez-vous NON?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "SEL3": {
+            "question": "Sélection 3",
+            "type": "categorical",
+            "values": {
+                "1.0": "Q27A",
+                "2.0": "Q27B"
+            }
+        },
+        "Q27A": {
+            "question": "Qu'est-ce qui constituerait pour vous une majorité claire dans un référendum sur l'indépendance du Québec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "50% plus une voix",
+                "2.0": "55%",
+                "3.0": "60%",
+                "4.0": "Plus de 60%",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q27B": {
+            "question": "Qu'est-ce qui constituerait pour vous une majorité claire dans un référendum sur la Constitution canadienne de 1982?",
+            "type": "categorical",
+            "values": {
+                "1.0": "50% plus une voix",
+                "2.0": "55%",
+                "3.0": "60%",
+                "4.0": "Plus de 60%",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q28": {
+            "question": "Quel est votre intérêt pour la politique en général? Êtes-vous:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très intéressé(e)",
+                "2.0": "Plutôt intéressé(e)",
+                "3.0": "Pas très intéressé(e)",
+                "4.0": "Pas du tout intéressé(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29A": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}PHILIPPE COUILLARD{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29B": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}PAULINE MAROIS{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29C": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}FRANÇOIS LEGAULT{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29D": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}FRANÇOISE DAVID{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29E": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}SOL ZANETTI{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29F": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}ALEX TYRRELL{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q29G": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L'AIMEZ VRAIMENT BEAUCOUP, que pensez-vous de...{br}{br}{b}PIERRE KARL PÉLADEAU{/b}? / Entrez une réponse (entre 0 et 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "Je ne le/la connais pas",
+                "998.0": "Je ne sais pas / Je ne sais pas comment l'évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q30A": {
+            "question": "Selon vous, lequel des chefs de parti est le plus compétent?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Philippe Couillard",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Françoise David",
+                "5.0": "Sol Zanetti",
+                "6.0": "Alex Tyrrell",
+                "95.0": "Tous",
+                "97.0": "Aucun",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q30B": {
+            "question": "Selon vous, lequel des chefs de parti est le plus honnête?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Philippe Couillard",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Françoise David",
+                "5.0": "Sol Zanetti",
+                "6.0": "Alex Tyrrell",
+                "95.0": "Tous",
+                "97.0": "Aucun",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q30C": {
+            "question": "Selon vous, lequel des chefs de parti est le plus proche des gens?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Philippe Couillard",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Françoise David",
+                "5.0": "Sol Zanetti",
+                "6.0": "Alex Tyrrell",
+                "95.0": "Tous",
+                "97.0": "Aucun",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31A": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Parti libéral du Québec",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31B": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Parti québécois",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31C": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Coalition avenir Québec",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31D": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Québec solidaire",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31E": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Option nationale",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q31F": {
+            "question": "En politique, les gens parlent de la « gauche » et de la « droite ». Sur une échelle allant de 0 à  10, où 0 est le plus à gauche et 10 est le plus à droite, où placeriez-vous chacun des partis politiques suivants? / Parti vert du Québec",
+            "type": "categorical",
+            "values": {
+                "0.0": "0{br}Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10{br}Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q32": {
+            "question": "Et sur la même échelle, où vous placeriez-vous, de manière générale?",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Le plus à gauche",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Le plus à droite",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q33": {
+            "question": "Diriez-vous que l'on peut faire confiance à la plupart des gens ou qu'on n'est jamais trop prudent dans nos relations avec les autres?",
+            "type": "categorical",
+            "values": {
+                "1.0": "On peut faire confiance à la plupart des gens",
+                "2.0": "On n'est jamais trop prudent dans nos relations avec les autres",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q34A": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" C'est la responsabilité du gouvernement de garantir que les besoins fondamentaux sont satisfaits pour tous. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q34B": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" L'Assemblée nationale du Québec ne se soucie pas beaucoup de ce que les gens comme moi pensent. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q34C": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Les gens comme moi n'ont rien à dire sur ce que fait le gouvernement provincial à Québec. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q34D": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Parfois la politique et le gouvernement au niveau provincial semblent si compliqués qu'une personne comme moi",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q35": {
+            "question": "Dans l'ensemble, êtes-vous satisfait(e) de la façon dont la démocratie fonctionne au Québec? Êtes-vous:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très satisfait(e)",
+                "2.0": "Assez satisfait(e)",
+                "3.0": "Pas très satisfait(e)",
+                "4.0": "Pas du tout satisfait(e)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q36A": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Notre société doit faire tout ce qui est nécessaire pour s'assurer que chacun ait une chance égale de réussir.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q36B": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Ce n'est pas si grave si certaines personnes ont plus de chance que d'autres dans la vie. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q36C": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Sans l'action du gouvernement, il y aurait beaucoup plus de pauvreté dans nos sociétés. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q36D": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Quand les entreprises font beaucoup d'argent, tout le monde y gagne, y compris les pauvres. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q36E": {
+            "question": "Veuillez indiquer si vous êtes fortement d'accord, plutôt d'accord, plutôt en désaccord, ou fortement en désaccord avec les énoncés suivants: / \" Il y a trop d'immigrants au Québec. \"",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q37": {
+            "question": "Selon vous, l'avortement devrait-il être illégal ou non?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q38": {
+            "question": "Êtes-vous pour ou contre le mariage entre personnes de même sexe?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pour",
+                "2.0": "Contre",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q39": {
+            "question": "Êtes-vous pour ou contre la peine de mort?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Pour",
+                "2.0": "Contre",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q40": {
+            "question": "Certaines personnes disent que les gouvernements devraient s'assurer que chaque personne ait un emploi et une bonne qualité de vie. D'autres personnes disent que les gouvernements devraient plutôt laisser chaque personne se débrouiller par elle-même. Et d'",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: Les gouvernements devraient s'assurer que chaque personne a un emploi et une bonne qualité de vie",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5: Les gouvernements devraient laisser chaque personne se débrouiller par elle-même",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q41": {
+            "question": "Il existe des opinions différentes à propos de ceux qui viennent de l'extérieur du Québec, qui apportent souvent avec eux leurs propres coutumes, religions et traditions. Croyez-vous qu'il vaut mieux que ces nouveaux arrivants essaient de s'adapter et de s",
+            "type": "categorical",
+            "values": {
+                "1.0": "Les nouveaux arrivants devraient s'adapter et s'intégrer",
+                "2.0": "Les nouveaux arrivants devraient rester différents et contribuer à la diversité des coutumes et traditions",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42A": {
+            "question": "Quel parti est le meilleur pour défendre les intérêts du Québec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42B": {
+            "question": "Quel parti est le meilleur pour défendre l'identité et la culture québécoise?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42C": {
+            "question": "Quel parti est le meilleur pour gérer l'économie?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42D": {
+            "question": "Quel parti est le meilleur pour améliorer l'éducation?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42E": {
+            "question": "Quel parti est le meilleur pour protéger l'environnement?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42F": {
+            "question": "Quel parti est le meilleur pour gérer le système de santé?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42G": {
+            "question": "Quel parti est le meilleur pour combattre la pauvreté?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42H": {
+            "question": "Quel parti est le meilleur pour lutter contre la corruption?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q42I": {
+            "question": "Quel parti est le meilleur pour baisser les taxes?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Parti libéral du Québec",
+                "2.0": "Parti québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec solidaire",
+                "5.0": "Option nationale",
+                "6.0": "Parti vert du Québec",
+                "96.0": "Un autre parti",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q43A": {
+            "question": "Sur une échelle de ZERO à CENT, où zéro veut dire que vous N'AIMEZ VRAIMENT PAS DU TOUT les syndicats, et cent veut dire que vous les AIMEZ VRAIMENT BEAUCOUP, que pensez-vous des SYNDICATS en général? / Entrez une réponse (entre 0 et 100) &nbsp;",
+            "type": "categorical",
+            "values": {
+                "998.0": "Je ne sais pas / Je ne sais pas comment les évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q43B": {
+            "question": "Et sur la même échelle, que pensez-vous des ENTREPRISES en général? / Entrez une réponse (entre 0 et 100) &nbsp;",
+            "type": "categorical",
+            "values": {
+                "998.0": "Je ne sais pas / Je ne sais pas comment les évaluer",
+                "999.0": "Je préfère ne pas répondre"
+            }
+        },
+        "SEL4": {
+            "question": "Sélection 4",
+            "type": "categorical",
+            "values": {
+                "1.0": "Q44A",
+                "2.0": "Q44B"
+            }
+        },
+        "Q44A": {
+            "question": "Concernant le projet de charte de la laïcité proposée par le gouvernement l'automne dernier, diriez-vous que vous êtes fortement d'accord avec cette charte, plutôt d'accord, plutôt en désaccord ou fortement en désaccord?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q44B": {
+            "question": "Concernant le projet de charte des valeurs proposée par le gouvernement l'automne dernier, diriez-vous que vous êtes fortement d'accord avec cette charte, plutôt d'accord, plutôt en désaccord ou fortement en désaccord?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Fortement d'accord",
+                "2.0": "Plutôt d'accord",
+                "3.0": "Plutôt en désaccord",
+                "4.0": "Fortement en désaccord",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q45": {
+            "question": "Si vous comparez la situation économique au Québec avec le reste du Canada, pensez-vous que la situation est meilleure au Québec, pire ou la même que celle du Canada?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Meilleure",
+                "2.0": "Pire",
+                "3.0": "La même",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q46": {
+            "question": "Si le Québec devenait un pays indépendant, croyez-vous que la situation économique au Québec s'améliorerait, se détériorerait ou resterait à peu près la même?",
+            "type": "categorical",
+            "values": {
+                "1.0": "S'améliorerait",
+                "2.0": "Se détériorerait",
+                "3.0": "Resterait à peu près la même",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q47": {
+            "question": "Et si le Québec devenait un pays indépendant, croyez-vous que votre situation financière personnelle s'améliorerait, se détériorerait ou resterait à peu près la même?",
+            "type": "categorical",
+            "values": {
+                "1.0": "S'améliorerait",
+                "2.0": "Se détériorerait",
+                "3.0": "Resterait à peu près la même",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q48": {
+            "question": "Si le Québec devenait un pays indépendant, croyez-vous qu'il devrait garder le dollar canadien ou utiliser sa propre devise monétaire?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Garder le dollar canadien",
+                "2.0": "Utiliser sa propre devise monétaire",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q49": {
+            "question": "En général, diriez-vous que faire partie du Canada est très positif, plutôt positif, plutôt négatif ou très négatif pour l'économie du Québec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très positif",
+                "2.0": "Plutôt positif",
+                "3.0": "Plutôt négatif",
+                "4.0": "Très négatif",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q50": {
+            "question": "Certaines personnes croient qu'il est mieux pour un pays de faire partie d'un plus grand marché, même si cela veut dire perdre une partie de sa souveraineté. D'autres croient qu'il est mieux pour un pays de garder sa souveraineté, même si cela veut dire fa",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Un plus grand marché avec moins de souveraineté",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Plus de souveraineté avec un plus petit marché",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q51": {
+            "question": "Dans l'avenir, quelle serait la meilleure option pour l'économie du Québec: renforcer ses relations avec le reste du Canada ou renforcer ses relations avec les États-Unis?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Renforcer ses relations avec le reste du Canada",
+                "2.0": "Renforcer ses relations avec les États-Unis",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q52": {
+            "question": "Selon vous, l'économie du Québec s'est-elle améliorée, détériorée ou est-elle restée à peu près la même depuis un an?",
+            "type": "categorical",
+            "values": {
+                "1.0": "S'est améliorée",
+                "2.0": "S'est détériorée",
+                "3.0": "Restée à peu près le même",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q53": {
+            "question": "Sur une échelle de ZÉRO à DIX, où zéro veut dire qu'il n'est PAS DU TOUT IMPORTANT selon vous de tenir un référendum sur l'indépendance du Québec, et dix veut dire qu'il est TRÈS IMPORTANT,  quelle est l'importance de tenir un référendum sur l'indépendance",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Pas du tout important",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Très important",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q54": {
+            "question": "Et sur la même échelle, quelle est l'importance d'adopter une charte de la laïcité?",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Pas du tout important",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Très important",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q55": {
+            "question": "En {u}politique provinciale{/u}, vous considérez-vous habituellement comme un…?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Libéral",
+                "2.0": "Péquiste",
+                "3.0": "Caquiste",
+                "4.0": "Solidaire",
+                "5.0": "Oniste",
+                "6.0": "Vert",
+                "97.0": "Rien de cela",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q56": {
+            "question": "Vous sentez-vous très fortement <Q55>, assez fortement, ou pas très fortement?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Très fortement",
+                "2.0": "Assez fortement",
+                "3.0": "Pas très fortement",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q57": {
+            "question": "Les prochaines questions serviront à des fins statistiques seulement.  Parmi les catégories suivantes, laquelle reflète le mieux le revenu total avant impôt de tous les membres de votre foyer pour l'année 2013? Ceci inclut les revenus de toutes les sources",
+            "type": "categorical",
+            "values": {
+                "1.0": "Moins de 8 000$",
+                "2.0": "8 000$ - 15 999$",
+                "3.0": "16 000$ - 23 999$",
+                "4.0": "24 000$ - 39 999$",
+                "5.0": "40 000$ - 55 999$",
+                "6.0": "56 000$ - 71 999$",
+                "7.0": "72 000$ - 87 999$",
+                "8.0": "88 000$ -  103 999$",
+                "9.0": "104 000$ ou plus",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q58": {
+            "question": "Travaillez-vous actuellement à votre compte, êtes-vous salarié(e), avez-vous pris votre retraite, êtes-vous au chômage ou cherchez-vous du travail, êtes-vous étudiant(e), ménager(ère), ou quelque chose d'autre?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Travaille à son compte (avec ou sans employés)",
+                "2.0": "Travaille pour un salaire (à temps plein ou à temps partiel, inclut congé payé)",
+                "3.0": "Retraité(e)",
+                "4.0": "Au chômage/cherche du travail",
+                "5.0": "Étudiant(e)",
+                "6.0": "Ménager(ère)",
+                "7.0": "Handicapé(e)",
+                "8.0": "Occupe deux ou plus de deux emplois rémunérés",
+                "9.0": "Étudiant(e) et salarié(e)",
+                "10.0": "Ménager(ère) et salarié(e)",
+                "11.0": "Retraité(e) et salarié(e)",
+                "96.0": "Autre",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59A": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Compte épargne dans une banque",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59B": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Compte dans une société de fiducie",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59C": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / REER ou CELI",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59D": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Actions ou parts d'entreprise",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59E": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Obligations (obligations d'épargne du Canada, etc.)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59F": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Portefeuille d'actifs financiers (CPG, fonds mutuels, etc.)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q59G": {
+            "question": "Parmi les types de placements financiers suivants, quels sont ceux que vous détenez ou que détient l'un des membres de votre foyer? / Régime d'épargne-retraite",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q60A": {
+            "question": "Aujourd'hui, êtes-vous propriétaire : / De votre résidence principale?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q60B": {
+            "question": "Aujourd'hui, êtes-vous propriétaire : / D'une résidence secondaire (maison de campagne, chalet, etc.)?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q60C": {
+            "question": "Aujourd'hui, êtes-vous propriétaire : / D'autres biens immobiliers ou de propriétés que vous louez (duplex, etc.)?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q60D": {
+            "question": "Aujourd'hui, êtes-vous propriétaire : / D'autres biens immobiliers ou propriétés?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q60E": {
+            "question": "Aujourd'hui, êtes-vous propriétaire : / D'un ou de plusieurs terrains?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q61": {
+            "question": "Est-ce que vous ou quelqu'un dans votre ménage est syndiqué(e)?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q62": {
+            "question": "Considérez-vous appartenir à une religion ou à une dénomination particulière?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Oui",
+                "2.0": "Non",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q63": {
+            "question": "À quelle religion appartenez-vous?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Christianisme (Catholicisme)",
+                "2.0": "Christianisme (Protestant)",
+                "3.0": "Christianisme (autre)",
+                "4.0": "Judaïsme",
+                "5.0": "Islam",
+                "6.0": "Autre",
+                "9.0": "Je préfère ne pas répondre"
+            },
+            "notes": "SI Q62=OUI"
+        },
+        "Q64": {
+            "question": "Sans compter les mariages et les funérailles, combien de fois assistez-vous aux messes à votre lieu de culte?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Chaque semaine",
+                "2.0": "Deux fois par mois",
+                "3.0": "Une fois par mois",
+                "4.0": "Une ou deux fois par année",
+                "7.0": "Presque jamais (ou jamais)",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q65": {
+            "question": "Où êtes-vous né(e)?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Au Québec",
+                "2.0": "Ailleurs au Canada",
+                "3.0": "Hors du Canada",
+                "8.0": "Je ne sais pas",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q66": {
+            "question": "Quelle langue parlez-vous le plus souvent à la maison?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Anglais",
+                "2.0": "Français",
+                "3.0": "Chinois",
+                "4.0": "Italien",
+                "5.0": "Portugais",
+                "6.0": "Espagnol",
+                "7.0": "Allemand",
+                "8.0": "Polonais",
+                "9.0": "Punjabi",
+                "10.0": "Grec",
+                "11.0": "Vietnamien",
+                "12.0": "Arabe",
+                "13.0": "Inuktitut",
+                "14.0": "Cri",
+                "15.0": "Tagal (Philippin)",
+                "16.0": "Ukrainien / Russe",
+                "96.0": "Autre",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q67": {
+            "question": "De quelle origine ethnique êtes-vous?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Canadienne, Québécoise",
+                "2.0": "Autochtone (Amérindienne, Premières nations)",
+                "3.0": "Afrique du Nord (Maroc, Algérie, Tunisie, Libye, Égypte)",
+                "4.0": "Afrique (Gabon, Congo, Côte d'Ivoire, Éthiopie, Kenya, Cameroun, Mauritanie, ...) et Afrique du Sud",
+                "5.0": "Amérique centrale et sud (Nicaragua, Pérou, Bolivie, Vénézuela, Argentine, El Salvador, Guatemala, …)",
+                "6.0": "Américaine (États-Unis)",
+                "7.0": "Mexicaine",
+                "8.0": "Antillaise (Haïti, Jamaïque, République Dominicaine, ….)",
+                "9.0": "Asiatique (Japon, Chine, Vietnam, Corée, Cambodge, ...)",
+                "10.0": "Européenne (France, Belgique, Italie, Espagne, Portugal, Allemagne, Autriche, Suède, Norvège, Danemark, Pays-Bas, Grèce,",
+                "11.0": "Europe de l'Est (Russie, Ukraine, Pologne, Roumanie, Ex-Yougoslavie, Croatie, République Tchèque, République Slovaque, H",
+                "12.0": "Moyen-Orient (Jordanie, Arabie Saoudite, Irak, Liban,...), sauf l'Afrique du Nord",
+                "13.0": "Turquie, Arménie, Iran, Kurde",
+                "96.0": "Autre origine",
+                "98.0": "Je ne sais pas",
+                "99.0": "Je préfère ne pas répondre"
+            }
+        },
+        "Q68": {
+            "question": "Quel est votre statut civil officiel?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Marié(e)",
+                "2.0": "Marié(e), mais séparé(e)",
+                "3.0": "Célibataire",
+                "4.0": "Divorcé(e)",
+                "5.0": "Veuf/veuve",
+                "6.0": "Dans une union civile",
+                "9.0": "Je préfère ne pas répondre"
+            }
+        },
+        "POND": {
+            "question": "Pondération",
+            "type": "continuous",
+            "values": {}
+        }
+    }
+}
