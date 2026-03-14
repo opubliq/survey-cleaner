@@ -1,13 +1,14 @@
-# ses_province — Province de résidence
+# ses_province — Province de résistance
 # Source: Q2_province
-# NOTE: Original variable 'Q2_province' was not found in the data file.
-# Assumption: data is present in the 'codep' column instead.
-# Assumption: codes 99 treated as missing (unlabelled in codebook)
-df_clean['ses_province'] = df['codep'].map({
-    1.0: 'quebec',
-    2.0: 'ontario',
-    3.0: 'alberta',
-    99.0: np.nan,
+# Assumption: Column found in data is 'q2' as 'Q2_province' was missing. Codes 4, 8, 9 are unmapped/missing from codebook and treated as NaN. Code 99 from codebook is also treated as NaN.
+df_clean['ses_province'] = df['q2'].map({
+    '1': 'quebec',
+    '2': 'ontario',
+    '3': 'alberta',
+    '4': np.nan,
+    '8': np.nan,
+    '9': np.nan,
+    '99': np.nan,
 })
 CODEBOOK_VARIABLES['ses_province'] = {
     'original_variable': 'Q2_province',
