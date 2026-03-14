@@ -1,11 +1,14 @@
 # ses_province — Province de résidence
 # Source: Q2_province
-# Assumption: Code 99 from missing_codes is mapped to np.nan
-df_clean['ses_province'] = df['Q2_province'].map({
-    1.0: 'quebec',
-    2.0: 'ontario',
-    3.0: 'alberta',
-    99.0: np.nan,
+# Assumption: Data column is 'q2' instead of 'Q2_province'
+# Assumption: Codes '4', '8', '9' found in data but not in codebook values are treated as missing (np.nan)
+df_clean['ses_province'] = df['q2'].map({
+    '1': 'quebec',
+    '2': 'ontario',
+    '3': 'alberta',
+    '4': np.nan,
+    '8': np.nan,
+    '9': np.nan,
 })
 CODEBOOK_VARIABLES['ses_province'] = {
     'original_variable': 'Q2_province',
