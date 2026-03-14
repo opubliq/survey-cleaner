@@ -139,7 +139,18 @@ def _run_agent_once(agent: str, prompt: str, survey_id: str, tag: str, model: st
         cmd += ["--model", model]
     cmd.append(prompt)
 
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout_seconds)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout_seconds)
+    except subprocess.TimeoutExpired as e:
+        log(f"  [ERREUR] {tag} a dépassé le temps imparti ({timeout_seconds}s)")
+        # Créer un log minimal pour indiquer le timeout
+        minimal_log_path = logs_dir / f"{tag}-TIMEOUT-try{try_num}.json"
+        minimal_log_content = {
+            "info": {"id": f"TIMEOUT_{tag}", "status": "timed_out", "agent": agent, "model": model_label, "try_num": try_num, "timestamp": datetime.now().isoformat()},
+            "messages": [{"role": "error", "text": f"Timeout de {timeout_seconds} secondes atteint pour la variable.\nStdout: {e.stdout[:500] if e.stdout else ''}\nStderr: {e.stderr[:500] if e.stderr else ''}"}]
+        }
+        minimal_log_path.write_text(json.dumps(minimal_log_content, indent=2, ensure_ascii=False), encoding="utf-8")
+        raise RuntimeError(f"Agent {agent} ({model_label}) a dépassé le temps imparti.")
 
     # Extraire le sessionID du premier event JSON valide
     session_id = None

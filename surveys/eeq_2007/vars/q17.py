@@ -1,8 +1,8 @@
 # behav_info_source_2 — Deuxième source d'information sur la politique
 # Source: q17
-# Note: code 42 found in data but not documented in codebook (treated as missing)
+# Note: codes '', 42 found in data but not documented in codebook (treated as missing)
 # Assumption: codes 97, 98, 99 treated as missing/refusal
-df_clean['behav_info_source_2'] = df['q17'].map({
+df_clean['behav_info_source_2'] = df['q17'].astype(str).replace('', np.nan).map({
     '01': 'television',
     '02': 'radio',
     '03': 'newspapers',
@@ -33,4 +33,5 @@ CODEBOOK_VARIABLES['behav_info_source_2'] = {
         'organizations': 'Associations, organisations de partis politiques',
         'other': 'Autres',
     },
+    'missing_codes': ['8', '9', '97', '98', '99', ''],
 }

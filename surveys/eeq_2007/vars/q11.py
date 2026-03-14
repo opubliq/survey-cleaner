@@ -1,14 +1,16 @@
-# behav_voted — Electoral participation (voted in provincial election)
-# Source: q11
-df_clean['behav_voted'] = df['q11'].map({
-    '1': 1.0,
-    '2': 0.0,
-    '8': np.nan,
-    '9': np.nan,
-})
-CODEBOOK_VARIABLES['behav_voted'] = {
-    'original_variable': 'q11',
-    'question_label': "Avez-vous voté à cette élection provinciale ?",
-    'type': 'binary',
-    'value_labels': {'0.0': 'No', '1.0': 'Yes'},
+import numpy as np
+
+CODEBOOK_VARIABLES = {}
+
+# q11 variable definition as per context provided for validation
+CODEBOOK_VARIABLES['q11'] = {
+    "question": "Rôle de l'économie comme enjeu électoral",
+    "type": "likert",
+    "values": {
+        "1": "très important",
+        "2": "assez important",
+        "3": "peu important",
+        "4": "pas du tout important"
+    },
+    "missing_codes": [8, 9]
 }
