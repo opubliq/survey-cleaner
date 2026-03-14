@@ -1,0 +1,116 @@
+{
+  "info": {
+    "id": "ses_3161845a8ffehQaXE0jN00ArcZ",
+    "slug": "misty-harbor",
+    "projectID": "616f8ed3fb130076217d95602a1c83bb82f6323f",
+    "directory": "/home/hubcad25/opubliq/repos/survey-cleaner",
+    "title": "New session - 2026-03-14T01:13:23.799Z",
+    "version": "1.2.26",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "permission": [
+      {
+        "permission": "question",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_enter",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_exit",
+        "pattern": "*",
+        "action": "deny"
+      }
+    ],
+    "time": {
+      "created": 1773450803799,
+      "updated": 1773450803881
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1773450803812
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "transform-codebook",
+        "model": {
+          "providerID": "opencode",
+          "modelID": "claude-3-5-haiku"
+        },
+        "id": "msg_ce9e7ba64001rTKczB3frC7z6x",
+        "sessionID": "ses_3161845a8ffehQaXE0jN00ArcZ"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "\"{\\\"survey_id\\\": \\\"eeq_2007\\\", \\\"shared_folder\\\": \\\"/home/hubcad25/opubliq/repos/survey-cleaner/_SharedFolder_data_produit/eeq_2007\\\", \\\"surveys_dir\\\": \\\"/home/hubcad25/opubliq/repos/survey-cleaner/surveys/eeq_2007\\\"}\"\n",
+          "id": "prt_ce9e7ba65001CW7veXbyOcRuiF",
+          "sessionID": "ses_3161845a8ffehQaXE0jN00ArcZ",
+          "messageID": "msg_ce9e7ba64001rTKczB3frC7z6x"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773450803867,
+          "completed": 1773450804098
+        },
+        "error": {
+          "name": "APIError",
+          "data": {
+            "message": "No payment method. Add a payment method here: https://opencode.ai/workspace/wrk_01KHPHPD5DA04X1Z60CZKKS8G7/billing",
+            "statusCode": 401,
+            "isRetryable": false,
+            "responseHeaders": {
+              "cf-ray": "9dbf6a653e796156-ORD",
+              "connection": "keep-alive",
+              "content-length": "175",
+              "content-type": "text/plain;charset=UTF-8",
+              "date": "Sat, 14 Mar 2026 01:13:24 GMT",
+              "server": "cloudflare"
+            },
+            "responseBody": "{\"type\":\"error\",\"error\":{\"type\":\"CreditsError\",\"message\":\"No payment method. Add a payment method here: https://opencode.ai/workspace/wrk_01KHPHPD5DA04X1Z60CZKKS8G7/billing\"}}",
+            "metadata": {
+              "url": "https://opencode.ai/zen/v1/messages"
+            }
+          }
+        },
+        "parentID": "msg_ce9e7ba64001rTKczB3frC7z6x",
+        "modelID": "claude-3-5-haiku",
+        "providerID": "opencode",
+        "mode": "transform-codebook",
+        "agent": "transform-codebook",
+        "path": {
+          "cwd": "/home/hubcad25/opubliq/repos/survey-cleaner",
+          "root": "/home/hubcad25/opubliq/repos/survey-cleaner"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "id": "msg_ce9e7ba9b001gNI5eW9Dlvrxgs",
+        "sessionID": "ses_3161845a8ffehQaXE0jN00ArcZ"
+      },
+      "parts": []
+    }
+  ]
+}

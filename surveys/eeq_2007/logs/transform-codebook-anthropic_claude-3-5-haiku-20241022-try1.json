@@ -1,0 +1,127 @@
+{
+  "info": {
+    "id": "ses_31618b6ecffeYYj9I5VIfUIIXw",
+    "slug": "witty-eagle",
+    "projectID": "616f8ed3fb130076217d95602a1c83bb82f6323f",
+    "directory": "/home/hubcad25/opubliq/repos/survey-cleaner",
+    "title": "New session - 2026-03-14T01:12:54.803Z",
+    "version": "1.2.26",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "permission": [
+      {
+        "permission": "question",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_enter",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "plan_exit",
+        "pattern": "*",
+        "action": "deny"
+      }
+    ],
+    "time": {
+      "created": 1773450774803,
+      "updated": 1773450774895
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1773450774814
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "transform-codebook",
+        "model": {
+          "providerID": "anthropic",
+          "modelID": "claude-3-5-haiku-20241022"
+        },
+        "id": "msg_ce9e7491e001wROMQObicNxyes",
+        "sessionID": "ses_31618b6ecffeYYj9I5VIfUIIXw"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "\"{\\\"survey_id\\\": \\\"eeq_2007\\\", \\\"shared_folder\\\": \\\"/home/hubcad25/opubliq/repos/survey-cleaner/_SharedFolder_data_produit/eeq_2007\\\", \\\"surveys_dir\\\": \\\"/home/hubcad25/opubliq/repos/survey-cleaner/surveys/eeq_2007\\\"}\"\n",
+          "id": "prt_ce9e7491f001bYY3KQ4gD2BrEt",
+          "sessionID": "ses_31618b6ecffeYYj9I5VIfUIIXw",
+          "messageID": "msg_ce9e7491e001wROMQObicNxyes"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773450774879,
+          "completed": 1773450775065
+        },
+        "error": {
+          "name": "APIError",
+          "data": {
+            "message": "model: claude-3-5-haiku-20241022",
+            "statusCode": 404,
+            "isRetryable": false,
+            "responseHeaders": {
+              "anthropic-organization-id": "b1d7557f-3180-45e2-9e96-b15f681e79c5",
+              "cf-cache-status": "DYNAMIC",
+              "cf-ray": "9dbf69af6b9ba2de-YUL",
+              "connection": "keep-alive",
+              "content-encoding": "gzip",
+              "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+              "content-type": "application/json",
+              "date": "Sat, 14 Mar 2026 01:12:55 GMT",
+              "request-id": "req_011CZ25ra9S5J8doQo6QsABH",
+              "server": "cloudflare",
+              "server-timing": "proxy;dur=62",
+              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+              "transfer-encoding": "chunked",
+              "vary": "Accept-Encoding",
+              "x-envoy-upstream-service-time": "62",
+              "x-robots-tag": "none",
+              "x-should-retry": "false"
+            },
+            "responseBody": "{\"type\":\"error\",\"error\":{\"type\":\"not_found_error\",\"message\":\"model: claude-3-5-haiku-20241022\"},\"request_id\":\"req_011CZ25ra9S5J8doQo6QsABH\"}",
+            "metadata": {
+              "url": "https://api.anthropic.com/v1/messages"
+            }
+          }
+        },
+        "parentID": "msg_ce9e7491e001wROMQObicNxyes",
+        "modelID": "claude-3-5-haiku-20241022",
+        "providerID": "anthropic",
+        "mode": "transform-codebook",
+        "agent": "transform-codebook",
+        "path": {
+          "cwd": "/home/hubcad25/opubliq/repos/survey-cleaner",
+          "root": "/home/hubcad25/opubliq/repos/survey-cleaner"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "id": "msg_ce9e7495f001s591axN5yObpax",
+        "sessionID": "ses_31618b6ecffeYYj9I5VIfUIIXw"
+      },
+      "parts": []
+    }
+  ]
+}
