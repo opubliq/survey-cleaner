@@ -3,10 +3,10 @@
 # Assumption: Codes '8' and '9' treated as missing as they are unlabelled in the data.
 # Note: Value labels are placeholders as no codebook entry was provided.
 df_clean['op_q36'] = df['q36'].map({
-    '1': 'option_1',
-    '2': 'option_2',
-    '3': 'option_3',
-    '4': 'option_4',
+    '1': 'très important',
+    '2': 'assez important',
+    '3': 'peu important',
+    '4': 'pas du tout important',
     '8': np.nan,
     '9': np.nan,
 })

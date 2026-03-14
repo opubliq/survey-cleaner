@@ -1,0 +1,2383 @@
+{
+    "survey_id": "eeq_2012",
+    "variables": {
+        "QUEST": {
+            "question": "Quel est votre degré d’attachement au Québec?\n\n      - Très attaché(e)\n      - Plutôt attaché(e)\n      - Pas très attaché(e)\n      - Pas du tout attaché(e)\n      - Ne sais pas\n      - Pas de réponse",
+            "type": "categorical",
+            "values": {
+                "1": "Q"
+            },
+            "missing": []
+        },
+        "Q0QC": {
+            "question": "In what region in Quebec do you live?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Bas-Saint-Laurent",
+                "2.0": "Saguenay-Lac-Saint-Jean",
+                "3.0": "Capitale-Nationale",
+                "4.0": "Mauricie",
+                "5.0": "Estrie",
+                "6.0": "Montréal",
+                "7.0": "Outaouais",
+                "8.0": "Abitibi-Témiscamingue",
+                "9.0": "Côte-Nord",
+                "10.0": "Nord-du-Québec",
+                "11.0": "Gaspésie-Iles-de-la-Madeleine",
+                "12.0": "Chaudière-Appalaches",
+                "13.0": "Laval",
+                "14.0": "Lanaudière",
+                "15.0": "Laurentides",
+                "16.0": "Montérégie",
+                "17.0": "Centre-du-Québec"
+            },
+            "missing": []
+        },
+        "REGIO": {
+            "question": ".",
+            "type": "categorical",
+            "values": {
+                "1.0": "MTL RMR",
+                "2.0": "QC RMR",
+                "3.0": "AUTRES RÉGIONS"
+            },
+            "missing": []
+        },
+        "AGEX": {
+            "question": "In what year were you born? / Enter year of birth",
+            "type": "categorical",
+            "values": {
+                "9999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "AGE": {
+            "question": "In what year were you born? (CALCUL VARIABLE)",
+            "type": "continuous",
+            "values": {},
+            "missing": []
+        },
+        "SEXE": {
+            "question": "What is your gender?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Male",
+                "2.0": "Female"
+            },
+            "missing": []
+        },
+        "LANGU": {
+            "question": "What is the language you first learned at home in your childhood and that you still understand?",
+            "type": "categorical",
+            "values": {
+                "1.0": "French",
+                "2.0": "English",
+                "3.0": "Other",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "SCOL": {
+            "question": "What is the highest level of education that you have completed?",
+            "type": "categorical",
+            "values": {
+                "1.0": "No schooling",
+                "2.0": "Some elementary schooling",
+                "3.0": "Completed elementary school",
+                "4.0": "Some secondary school",
+                "5.0": "Completed secondary school",
+                "6.0": "Some CEGEP",
+                "7.0": "Completed CEGEP",
+                "8.0": "Post-secondary / Further education, not higher education",
+                "9.0": "Some higher education",
+                "10.0": "Certificate and diploma",
+                "11.0": "Undergraduate degree",
+                "12.0": "Postgraduate degree",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q1": {
+            "question": "How attached do you feel to Quebec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very attached",
+                "2.0": "Fairly attached",
+                "3.0": "Not very attached",
+                "4.0": "Not attached at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q2": {
+            "question": "And how attached do you feel to Canada?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very attached",
+                "2.0": "Fairly attached",
+                "3.0": "Not very attached",
+                "4.0": "Not attached at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q3": {
+            "question": "Which if any of the following best describes the way you think of yourself?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Québécois not Canadian",
+                "2.0": "More Québécois than Canadian",
+                "3.0": "Equally Québécois and Canadian",
+                "4.0": "More Canadian than Québécois",
+                "5.0": "Canadian not Québécois",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q4": {
+            "question": "According to you, what is the main difference between Québécois people and people from the rest of Canada?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Language",
+                "2.0": "Religion",
+                "3.0": "Culture",
+                "4.0": "Values",
+                "5.0": "History",
+                "7.0": "There are no important differences between these two groups",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q5": {
+            "question": "How important is the French language to Québécois identity?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Fairly important",
+                "3.0": "Not very important",
+                "4.0": "Not important at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q7": {
+            "question": "Some persons say that Québécois people have values and priorities that make them distinct within Canada.  Others say that Québécois people have the same values and priorities as other Canadians.  And others have opinions between these two positions.  Where",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: Distinct values",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: Same values",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q8": {
+            "question": "How important is it for you to vote in Quebec provincial elections?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Quite important",
+                "3.0": "Not very important",
+                "4.0": "Not at all important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q9": {
+            "question": "And how important is it for you to vote in Canadian federal elections?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Quite important",
+                "3.0": "Not very important",
+                "4.0": "Not at all important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q10": {
+            "question": "If you had to choose, at which level is it most important to cast your ballot?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Provincial elections",
+                "2.0": "Federal elections",
+                "3.0": "Municipal elections",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q11": {
+            "question": "How important are the decisions made by the Quebec National Assembly for you personally?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Quite important",
+                "3.0": "Not very important",
+                "4.0": "Not at all important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q12": {
+            "question": "And how important are the decisions made by the Parliament of Canada for you personally?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Quite important",
+                "3.0": "Not very important",
+                "4.0": "Not at all important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q13": {
+            "question": "Which party best stands up for the interests of Quebec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q14": {
+            "question": "Which party best defends Quebec's identity and culture?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q15": {
+            "question": "Which party is best at managing the economy?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q16": {
+            "question": "Which party is best at improving education?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q17": {
+            "question": "Which party is best at protecting the environment?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q18": {
+            "question": "Which party is best at managing the health care system?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q19": {
+            "question": "Which party is best at dealing with the Parliament of Canada?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q20": {
+            "question": "Which party is best at fighting poverty?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q20B": {
+            "question": "And which party is best at fighting corruption?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Option Nationale",
+                "6.0": "Parti Vert du Québec",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q21": {
+            "question": "Did you vote in the last Quebec provincial election of September 4th, 2012?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q22": {
+            "question": "And did you vote in the last Canadian federal election in May 2011?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q23": {
+            "question": "When you were deciding how to vote in the Canadian federal election, did you vote mostly according to what was going on in Quebec or mostly according to what was going on in Canada as a whole?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec",
+                "2.0": "Canada",
+                "3.0": "Both equally",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q24": {
+            "question": "When you were deciding how to vote in the Quebec provincial election, did you vote mostly according to what was going on in Quebec or mostly according to what was going on in Canada as a whole?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec",
+                "2.0": "Canada",
+                "3.0": "Both equally",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q25": {
+            "question": "How did you vote in the last Quebec provincial election of September 4th, 2012?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Parti Vert du Québec",
+                "6.0": "Option Nationale",
+                "96.0": "Another party",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q27": {
+            "question": "And in the last Canadian federal election in May 2011? Did you vote for the:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Conservative Party of Canada",
+                "2.0": "Liberal Party of Canada",
+                "3.0": "New Democratic Party (NDP)",
+                "4.0": "Bloc Québécois",
+                "5.0": "Green Party of Canada",
+                "96.0": "Another party",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q31": {
+            "question": "If there were a Canadian federal election next week, which party would you vote for?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Conservative Party of Canada",
+                "2.0": "Liberal Party of Canada",
+                "3.0": "New Democratic Party (NDP)",
+                "4.0": "Bloc Québécois",
+                "5.0": "Green Party of Canada",
+                "96.0": "Another party",
+                "97.0": "I would not vote",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q32": {
+            "question": "You said you didn't know which party you would vote for, but if you had to choose a party, which would it be?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Conservative Party of Canada",
+                "2.0": "Liberal Party of Canada",
+                "3.0": "New Democratic Party (NDP)",
+                "4.0": "Bloc Québécois",
+                "5.0": "Green Party of Canada",
+                "96.0": "Another party",
+                "97.0": "I would not vote",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33A": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The policy positions of the p",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33B": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The quality of the local cand",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33C": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / Party leader",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33D": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / How well the party defends Qu",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33E": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / How well the party understand",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33F": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The party's chances of formin",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q33G": {
+            "question": "When you cast your ballot in Canadian federal elections, how important are each of the following when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The party's constitutional pr",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34A": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The policy positions of the party",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34B": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The quality of the local candidate",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34C": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / Party leader",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34D": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / How well the party defends Quebec's",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34E": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / How well the party understands Queb",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34F": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The party's chances of forming a go",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34G": {
+            "question": "And what about in Quebec provincial elections? How important would each of these things be when you make your voting choice?  (4 = very important, 3 = fairly important, 2 = not very important, 1 = not at all important) / The party's constitutional preferen",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: not at all important",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4: very important",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34BB": {
+            "question": "Of the following issues, which was, for you personally, the most important in the provincial election of September 4?",
+            "type": "categorical",
+            "values": {
+                "1.0": "The economy",
+                "2.0": "Health care",
+                "3.0": "The environment",
+                "4.0": "Education",
+                "5.0": "Aid to families",
+                "6.0": "Poverty",
+                "7.0": "Corruption",
+                "8.0": "Quebec sovereignty",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34CC": {
+            "question": "Your partisan preferences aside, which party do you think led the best campaign?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Parti Vert du Québec",
+                "6.0": "Option Nationale",
+                "96.0": "Another party",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q34DD": {
+            "question": "And which party do you think led the worst campaign?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec Liberal Party",
+                "2.0": "Parti Québécois",
+                "3.0": "Coalition avenir Québec",
+                "4.0": "Québec Solidaire",
+                "5.0": "Parti Vert du Québec",
+                "6.0": "Option Nationale",
+                "96.0": "Another party",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q35": {
+            "question": "How satisfied are you with the performance of the provincial Liberal government in general?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very satisfied",
+                "2.0": "Fairly satisfied",
+                "3.0": "Not very satisfied",
+                "4.0": "Not satisfied at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q36": {
+            "question": "And how satisfied are you with the performance of the provincial Liberal government in managing the economy?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very satisfied",
+                "2.0": "Fairly satisfied",
+                "3.0": "Not very satisfied",
+                "4.0": "Not satisfied at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q37": {
+            "question": "Which of the following do you think currently HAS the most influence over the way Quebec is run?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q38": {
+            "question": "And which of the following do you think SHOULD have the most influence over the way Quebec is run?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q41": {
+            "question": "Who is more concerned with the worries and needs of the people of Quebec: the Quebec National Assembly or the Parliament of Canada?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q42": {
+            "question": "How much do you trust the Parliament of Canada to work in Quebec's best long-term interests?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very much",
+                "2.0": "Somewhat",
+                "3.0": "Very little",
+                "4.0": "Not at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q43": {
+            "question": "And how much do you trust the Quebec National Assembly to work in Quebec's best long-term interests?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very much",
+                "2.0": "Somewhat",
+                "3.0": "Very little",
+                "4.0": "Not at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q44": {
+            "question": "Would you say that compared with other parts of Canada, Quebec gets pretty much its fair share of government spending, more than its fair share, or less than its fair share?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec gets its fair share",
+                "2.0": "Quebec gets more than its fair share",
+                "3.0": "Quebec gets less than its fair share",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q45": {
+            "question": "Would you say that the Canadian government intervenes too much in the affairs of the Quebec National Assembly?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Agree strongly",
+                "2.0": "Agree",
+                "3.0": "Neither agree nor disagree",
+                "4.0": "Disagree",
+                "5.0": "Disagree strongly",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q47": {
+            "question": "Did you vote in the 1995 referendum on Quebec's sovereignty?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q48": {
+            "question": "How did you vote?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q50": {
+            "question": "How important to you personally is the issue of Quebec's political independence?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very important",
+                "2.0": "Fairly important",
+                "3.0": "Not very important",
+                "4.0": "Not important at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q51": {
+            "question": "Which of these statements comes closest to your view?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec should become independent, separate from Canada",
+                "2.0": "The Quebec National Assembly should have more powers",
+                "3.0": "We should leave things as they are now",
+                "4.0": "The Quebec National Assembly should have fewer powers",
+                "5.0": "There should be no provincial government in Quebec",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q52": {
+            "question": "If there were a referendum on independence that asked whether Quebec should be an independent country, would you vote YES or NO?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q53": {
+            "question": "And how would you vote in a referendum that asked whether the Quebec National Assembly should have much more powers, would you vote YES or NO?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q54": {
+            "question": "And what about a three-option referendum. Would you vote for: no change, more powers for Quebec, or independence?",
+            "type": "categorical",
+            "values": {
+                "1.0": "No change",
+                "2.0": "More powers for Quebec",
+                "3.0": "Independence",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q55": {
+            "question": "If you had to choose between more powers for Quebec and independence, which would you prefer?",
+            "type": "categorical",
+            "values": {
+                "1.0": "More powers for Quebec",
+                "2.0": "Independence",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q56": {
+            "question": "If you had to choose between no change and more powers for Quebec, which would you prefer?",
+            "type": "categorical",
+            "values": {
+                "1.0": "No change",
+                "2.0": "More powers for Quebec",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q57": {
+            "question": "If you had to choose between no change and independence, which would you prefer?",
+            "type": "categorical",
+            "values": {
+                "1.0": "No change",
+                "2.0": "Independence",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q58": {
+            "question": "Which term do you prefer to describe Quebec? Is Quebec:",
+            "type": "categorical",
+            "values": {
+                "1.0": "…a nation?",
+                "2.0": "…a province?",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q59": {
+            "question": "It is important that the Quebec National Assembly has sufficient powers to have an impact on living standards in Quebec.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Agree strongly",
+                "2.0": "Agree",
+                "3.0": "Neither agree nor disagree",
+                "4.0": "Disagree",
+                "5.0": "Disagree strongly",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q60": {
+            "question": "It is important that Quebec has a sufficient voice in central decision making in the Parliament of Canada.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Agree strongly",
+                "2.0": "Agree",
+                "3.0": "Neither agree nor disagree",
+                "4.0": "Disagree",
+                "5.0": "Disagree strongly",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q61": {
+            "question": "Which is more important: That the Quebec National Assembly has control over sufficient policy areas to have an impact on living standards in Quebec OR that Quebec's interests are represented in the Parliament of Canada's decisions over living standards.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly has sufficient control",
+                "2.0": "Quebec's interests represented in the Parliament of Canada",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62A": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Education",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62B": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Immigration policy",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62C": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Environmental protection",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62D": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Cultural policy",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62E": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Health care",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62F": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Defence",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62G": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Monetary policy",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62H": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Economic policy",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62I": {
+            "question": "For each of the following areas, do you think that decisions should be made by the Quebec National Assembly or the Parliament of Canada? / Foreign affairs",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "6.0": "Other",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q62AA": {
+            "question": "Other, please specify: / Education",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AB": {
+            "question": "Other, please specify: / Immigration policy",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AC": {
+            "question": "Other, please specify: / Environmental protection",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AD": {
+            "question": "Other, please specify: / Cultural policy",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AE": {
+            "question": "Other, please specify: / Health care",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AF": {
+            "question": "Other, please specify: / Defence",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AG": {
+            "question": "Other, please specify: / Monetary policy",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AH": {
+            "question": "Other, please specify: / Economic policy",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q62AI": {
+            "question": "Other, please specify: / Foreign affairs",
+            "type": "categorical",
+            "values": {
+                "96.0": ""
+            },
+            "missing": []
+        },
+        "Q63": {
+            "question": "Who has authority over education policy in Quebec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Quebec National Assembly",
+                "2.0": "Parliament of Canada",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q64": {
+            "question": "Who is leader of the Coalition Avenir Québec?",
+            "type": "categorical",
+            "values": {
+                "1.0": "***François Legault",
+                "2.0": "***F. Legault",
+                "3.0": "***Legault",
+                "4.0": "***André/ Claude/ Benoît/ Paul/ Jacques/ Jean-François Legau",
+                "96.0": "",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q65": {
+            "question": "What is the name of your constituency for Canadian federal elections?",
+            "type": "categorical",
+            "values": {
+                "1.0": "***Abitibi-Témiscamingue",
+                "2.0": "***Ahuntsic",
+                "3.0": "***Alfred-Pellan",
+                "4.0": "***Argenteuil-Papineau-Mirabel",
+                "5.0": "***Beauce",
+                "6.0": "***Beauharnois-Salaberry",
+                "7.0": "***Beauport-Limoilou",
+                "8.0": "***Berthier-Maskinongé",
+                "9.0": "***Bourassa",
+                "10.0": "***Brome-Missisquoi",
+                "11.0": "***Brossard-La Prairie",
+                "12.0": "***Chambly-Borduas",
+                "13.0": "***Charlesbourg-Haute-Saint-Charles",
+                "14.0": "***Montmorency-Charlevoix-Haute-Côte-Nord",
+                "15.0": "***Châteauguay-Saint-Constant",
+                "16.0": "***Chicoutimi-Le Fjord",
+                "17.0": "***Compton-Stanstead",
+                "18.0": "***Drummond",
+                "19.0": "***Gaspésie–Îles-de-la-Madeleine",
+                "20.0": "***Gatineau",
+                "21.0": "***Hochelaga",
+                "22.0": "***Honoré-Mercier",
+                "23.0": "***Hull–Aylmer",
+                "24.0": "***Jeanne-Le Ber",
+                "25.0": "***Joliette",
+                "26.0": "***Jonquière-Alma",
+                "27.0": "***Lac-Saint-Louis",
+                "28.0": "***La Pointe-de-l'Île",
+                "29.0": "***LaSalle-Émard",
+                "30.0": "***Laurentides-Labelle",
+                "31.0": "***Laurier-Sainte-Marie",
+                "32.0": "***Laval",
+                "33.0": "***Laval-Les Îles",
+                "34.0": "***Lévis-Bellechasse",
+                "35.0": "***Longueuil-Pierre-Boucher",
+                "36.0": "***Lotbinière-Chutes-de-la-Chaudière",
+                "37.0": "***Louis-Hébert",
+                "38.0": "***Louis-Saint-Laurent",
+                "39.0": "***Manicouagan",
+                "40.0": "***Marc-Aurèle-Fortin",
+                "41.0": "***Haute-Gaspésie-La Mitis-Matane-Matapédia",
+                "42.0": "***Mégantic-L'Érable",
+                "43.0": "***Montcalm",
+                "44.0": "***Mont-Royal",
+                "45.0": "***Notre-Dame-de-Grâce-Lachine",
+                "46.0": "***Abitibi-Baie-James-Nunavik-Eeyou",
+                "47.0": "***Outremont",
+                "48.0": "***Papineau",
+                "49.0": "***Pierrefonds-Dollard",
+                "50.0": "***Pontiac",
+                "51.0": "***Portneuf-Jacques-Cartier",
+                "52.0": "***Québec",
+                "53.0": "***Repentigny",
+                "54.0": "***Bas-Richelieu-Nicolet-Bécancour",
+                "55.0": "***Richmond-Arthabaska",
+                "56.0": "***Rimouski-Neigette-Témiscouata-Les Basques",
+                "57.0": "***Rivière-des-Mille-Îles",
+                "58.0": "***Montmagny-L'Islet-Kamouraska-Rivière-du-Loup",
+                "59.0": "***Rivière-du-Nord",
+                "60.0": "***Roberval-Lac-Saint-Jean",
+                "61.0": "***Rosemont-La Petite-Patrie",
+                "62.0": "***Saint-Bruno-Saint-Hubert",
+                "63.0": "***Saint-Hyacinthe-Bagot",
+                "64.0": "***Saint-Jean",
+                "65.0": "***Saint-Lambert",
+                "66.0": "***Saint-Laurent-Cartierville",
+                "67.0": "***Saint-Léonard-Saint-Michel",
+                "68.0": "***Saint-Maurice-Champlain",
+                "69.0": "***Shefford",
+                "70.0": "***Sherbrooke",
+                "71.0": "***Terrebonne-Blainville",
+                "72.0": "***Trois-Rivières",
+                "73.0": "***Vaudreuil-Soulanges",
+                "74.0": "***Verchères-Les Patriotes",
+                "75.0": "***Westmount-Ville-Marie",
+                "96.0": "*",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q66": {
+            "question": "How many MNAs are there in the Quebec National Assembly?",
+            "type": "categorical",
+            "values": {
+                "998.0": "I don't know",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q67": {
+            "question": "How interested would you say you are in politics?  Are you:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very interested",
+                "2.0": "Quite interested",
+                "3.0": "Hardly interested",
+                "4.0": "Not at all interested",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68": {
+            "question": "On a scale where zero means you REALLY DISLIKE him and one hundred means you REALLY LIKE him, how do you feel about JEAN CHAREST? / Enter your answer (number between 0 and 100):",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68B": {
+            "question": "On the same scale, how do you feel about PAULINE MAROIS? / Enter your answer (number between 0 (really dislike) and 100 (really like)):",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who she is",
+                "998.0": "I don't know / I don't know how to rate her",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68C": {
+            "question": "On the same scale, how do you feel about FRANÇOIS LEGAULT? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68D": {
+            "question": "On the same scale, how do you feel about AMIR KHADIR? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68E": {
+            "question": "On the same scale, how do you feel about JEAN-MARTIN AUSSANT? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q68F": {
+            "question": "On the same scale, how do you feel about CLAUDE SABOURIN? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69": {
+            "question": "On the same scale, how do you feel about STEPHEN HARPER? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "997.0": "I don't know who he is",
+                "998.0": "I don't know / I don't know how to rate him",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69B": {
+            "question": "On the same scale, how do you feel about LABOUR UNIONS in general? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "998.0": "I don't know / I don't know how to rate them",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69C": {
+            "question": "And on the same scale, how do you feel about BUSINESSES in general? / Enter answer (number between 0 and 100)",
+            "type": "categorical",
+            "values": {
+                "998.0": "I don't know / I don't know how to rate them",
+                "999.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69D": {
+            "question": "Which party leader do you think is more competent?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Jean Charest",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Amir Khadir",
+                "5.0": "Jean-Martin Aussant",
+                "6.0": "Claude Sabourin",
+                "95.0": "All of them",
+                "97.0": "None",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69E": {
+            "question": "Which party leader do you think is more honest?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Jean Charest",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Amir Khadir",
+                "5.0": "Jean-Martin Aussant",
+                "6.0": "Claude Sabourin",
+                "95.0": "All of them",
+                "97.0": "None",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q69F": {
+            "question": "Which party leader do you think is closer to the people?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Jean Charest",
+                "2.0": "Pauline Marois",
+                "3.0": "François Legault",
+                "4.0": "Amir Khadir",
+                "5.0": "Jean-Martin Aussant",
+                "6.0": "Claude Sabourin",
+                "95.0": "All of them",
+                "97.0": "None",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70A": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Quebec Liberal Party",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70B": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Parti Québécois",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70C": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Coalition Avenir Québec",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70D": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Québec Solidaire",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70E": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Option Nationale",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q70F": {
+            "question": "In political matters people talk of \"the left\" and \"the right\". On a scale of 0 to 10, where 0 is the most left and 10 is the most right, where would place the following political parties? / Parti Vert du Québec",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q71": {
+            "question": "And on the same scale, where would you place your own views, generally speaking?",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: most left",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: most right",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q72": {
+            "question": "Would you say that most people can be trusted or that you can't be too careful?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Most people can be trusted",
+                "2.0": "Can't be too careful",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73A": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / It is government's responsibility to guarantee that basic needs are met for all.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73B": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / The Quebec National Assembly doesn't care much about what people like me think.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73C": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / The Parliament of Canada doesn't care much about what people like me think.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73D": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / People like me don't have any say about what the provincial government in Quebec City does.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73E": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / People like me don't have any say about what the federal government in Ottawa does.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73F": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / Sometimes provincial politics and government seem so complicated that a person like me can't really understand what's going on.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q73G": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / Sometimes federal politics and government seem so complicated that a person like me can't really understand what's going on.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q74": {
+            "question": "On the whole, are you satisfied with the way democracy works in Quebec?  Are you:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very satisfied",
+                "2.0": "Fairly satisfied",
+                "3.0": "Not very satisfied",
+                "4.0": "Not satisfied at all",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q75": {
+            "question": "Here are several goals for Quebec. Can you tell me which you think is most important?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Maintaining order in the nation",
+                "2.0": "Giving people more say in important political decisions",
+                "3.0": "Fighting rising prices",
+                "4.0": "Protecting freedom of speech",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q76": {
+            "question": "And which is second most important?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Maintaining order in the nation",
+                "2.0": "Giving people more say in important political decisions",
+                "3.0": "Fighting rising prices",
+                "4.0": "Protecting freedom of speech",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q77A": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / Our society should do whatever is necessary to make sure that everyone has an equal chance at succeeding.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q77B": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / It is not really that big a problem if some people have more chances in life than others.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q77C": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / Without government action, there would be a lot more poverty in our society.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q77D": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / When businesses make a lot of money, everyone benefits, including the poor.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q77E": {
+            "question": "Please tell us if you strongly agree, somewhat agree, somewhat disagree, or strongly disagree with the following statements: / There are too many immigrants in Quebec.",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q78": {
+            "question": "Should abortion be illegal?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q79": {
+            "question": "Are you for or against same-sex marriage?",
+            "type": "categorical",
+            "values": {
+                "1.0": "For",
+                "2.0": "Against",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q80": {
+            "question": "Are you for or against death penalty?",
+            "type": "categorical",
+            "values": {
+                "1.0": "For",
+                "2.0": "Against",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q81": {
+            "question": "Some people say that governments should see to it that every person has a job and a good standard of living. Other people say that governments should just let each person get ahead on their own. And, of course, other people have opinions somewhere in betwe",
+            "type": "categorical",
+            "values": {
+                "1.0": "1: Governments should see that every person has a job and a",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5:  Governments should let each person get ahead on his own",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82": {
+            "question": "There are different views about those who come from outside Quebec, often bringing their own customs, religion and traditions with them. Do you think it is best if such incomers try to adapt and blend into the locality? Or is it best if they stay different",
+            "type": "categorical",
+            "values": {
+                "1.0": "Best if incomers try to adapt and blend",
+                "2.0": "Best if incomers stay different and add to the variety of cu",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82B": {
+            "question": "Regarding the tuition fee hike proposed by the government last spring, would you say that you strongly agree with this hike, somewhat agree, somewhat disagree or strongly disagree?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82C": {
+            "question": "Regarding the adoption of Bill 78 by the government last spring, would you say that you strongly agree with this bill, somewhat agree, somewhat disagree or strongly disagree?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strongly agree",
+                "2.0": "Somewhat agree",
+                "3.0": "Somewhat disagree",
+                "4.0": "Strongly disagree",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82D_M1": {
+            "question": "Last spring, did you at one time or another do one of the following (click as many as applies):",
+            "type": "categorical",
+            "values": {
+                "1.0": "Wear a red square",
+                "2.0": "Take part in a protest held on the 22nd (of March, April, Ma",
+                "3.0": "Take part in a casseroles protest",
+                "4.0": "Take part in a students' nightly protest",
+                "5.0": "Use social media to express your displeasure with the hike /",
+                "7.0": "None of these",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82D_M2": {
+            "question": "Last spring, did you at one time or another do one of the following (click as many as applies):",
+            "type": "categorical",
+            "values": {
+                "1.0": "Wear a red square",
+                "2.0": "Take part in a protest held on the 22nd (of March, April, Ma",
+                "3.0": "Take part in a casseroles protest",
+                "4.0": "Take part in a students' nightly protest",
+                "5.0": "Use social media to express your displeasure with the hike /",
+                "7.0": "None of these",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82D_M3": {
+            "question": "Last spring, did you at one time or another do one of the following (click as many as applies):",
+            "type": "categorical",
+            "values": {
+                "1.0": "Wear a red square",
+                "2.0": "Take part in a protest held on the 22nd (of March, April, Ma",
+                "3.0": "Take part in a casseroles protest",
+                "4.0": "Take part in a students' nightly protest",
+                "5.0": "Use social media to express your displeasure with the hike /",
+                "7.0": "None of these",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82D_M4": {
+            "question": "Last spring, did you at one time or another do one of the following (click as many as applies):",
+            "type": "categorical",
+            "values": {
+                "1.0": "Wear a red square",
+                "2.0": "Take part in a protest held on the 22nd (of March, April, Ma",
+                "3.0": "Take part in a casseroles protest",
+                "4.0": "Take part in a students' nightly protest",
+                "5.0": "Use social media to express your displeasure with the hike /",
+                "7.0": "None of these",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82D_M5": {
+            "question": "Last spring, did you at one time or another do one of the following (click as many as applies):",
+            "type": "categorical",
+            "values": {
+                "1.0": "Wear a red square",
+                "2.0": "Take part in a protest held on the 22nd (of March, April, Ma",
+                "3.0": "Take part in a casseroles protest",
+                "4.0": "Take part in a students' nightly protest",
+                "5.0": "Use social media to express your displeasure with the hike /",
+                "7.0": "None of these",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q82E": {
+            "question": "What was the main reason you protested?",
+            "type": "categorical",
+            "values": {
+                "1.0": "To protest against the tuition fee hike",
+                "2.0": "To protest against the adoption of Bill 78",
+                "3.0": "To protest against another policy of the government",
+                "4.0": "To protest against the Charest government in general",
+                "96.0": "Other reason, please specify:",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q83": {
+            "question": "If you compare the economic situation in Quebec with the rest of Canada, do you think that the situation is better in Quebec, worse, or no different?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Better",
+                "2.0": "Worse",
+                "3.0": "No different",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q84": {
+            "question": "If Quebec were to become an independent country, do you think that the economic situation in Quebec would get better, get worse or stay about the same?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Get better",
+                "2.0": "Get worse",
+                "3.0": "Stay about the same",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q85": {
+            "question": "And if Quebec were to become an independent country, do you think that your own personal financial situation would get better, get worse or stay about the same?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Get better",
+                "2.0": "Get worse",
+                "3.0": "Stay about the same",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q87": {
+            "question": "If Quebec were to become an independent country, do you think that it should keep the Canadian dollar or use its own currency?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Keep the Canadian dollar",
+                "2.0": "Use its own currency",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q88": {
+            "question": "Overall, would you say that being part of Canada is very positive, positive, negative or very negative for Quebec's economy?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very positive",
+                "2.0": "Positive",
+                "3.0": "Negative",
+                "4.0": "Very negative",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q89": {
+            "question": "Some people think that a country is better off as part of a larger market even if it means losing part of its sovereignty.  Others think that a country is better off by keeping its sovereignty even if it means being part of a smaller market.  And others ha",
+            "type": "categorical",
+            "values": {
+                "0.0": "0: larger market with less sovereignty",
+                "1.0": "1",
+                "2.0": "2",
+                "3.0": "3",
+                "4.0": "4",
+                "5.0": "5",
+                "6.0": "6",
+                "7.0": "7",
+                "8.0": "8",
+                "9.0": "9",
+                "10.0": "10: more sovereignty and a smaller market",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer this question"
+            },
+            "missing": []
+        },
+        "Q90": {
+            "question": "In the future, what would be the best option for Quebec's economy: strengthening its relationship with the rest of Canada or strengthening its relationship with the United States?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Strengthening its relationship with the rest of Canada",
+                "2.0": "Strengthening its relationship with the United States",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q91": {
+            "question": "Over the past year, has Quebec's economy: gotten better, gotten worse, or stayed about the same?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Gotten better",
+                "2.0": "Gotten worse",
+                "3.0": "Stayed about the same",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q92": {
+            "question": "In provincial politics, do you usually think of yourself as a:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Liberal",
+                "2.0": "Péquist",
+                "3.0": "Caquist",
+                "4.0": "Solidaire",
+                "5.0": "Onist",
+                "6.0": "Green",
+                "97.0": "None of these",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q93": {
+            "question": "How strongly <Q92> do you feel?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very strongly",
+                "2.0": "Fairly strongly",
+                "3.0": "Not very strongly",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q94": {
+            "question": "And in federal politics, do you usually think of yourself as a:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Liberal",
+                "2.0": "Conservative",
+                "3.0": "NDP",
+                "4.0": "Bloquist",
+                "5.0": "Green",
+                "97.0": "None of these",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q95": {
+            "question": "How strongly <Q94> do you feel?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Very strongly",
+                "2.0": "Fairly strongly",
+                "3.0": "Not very strongly",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q96": {
+            "question": "Finally, do you think that Quebec will be an independent country one day?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "REVEN": {
+            "question": "And now your total household income before taxes for 2011.  That includes income from all sources such as savings, pensions, rent, as well as wages.   Was it:",
+            "type": "categorical",
+            "values": {
+                "1.0": "Less than $8,000",
+                "2.0": "$8000 - $15,999",
+                "3.0": "$16,000 - $23,999",
+                "4.0": "$24,000 - $39,999",
+                "5.0": "$40,000 - $55,999",
+                "6.0": "$56,000 - $71,999",
+                "7.0": "$72,000 - $87,999",
+                "8.0": "$88,000 -  $103,999",
+                "9.0": "$104,000 or more",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "OCCUP": {
+            "question": "Are you currently self-employed, working for pay, retired, unemployed or looking for work, a student, caring for a family, or something else?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Self-employed (with or without employees)",
+                "2.0": "Working for pay (full or part time, includes paid leave)",
+                "3.0": "Retired",
+                "4.0": "Unemployed / looking for work",
+                "5.0": "Student",
+                "6.0": "Caring for family",
+                "7.0": "Disabled",
+                "8.0": "Work two or more jobs",
+                "9.0": "Student and working for pay",
+                "10.0": "Caring for a family and working for pay",
+                "11.0": "Retired and working for pay",
+                "96.0": "Other",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q101A": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / A savings account in a bank",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101B": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / An account in a trust company",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101C": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / Any RRSPs (registered retirement savings plans) or TFSAs (tax-free savings accounts)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101D": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / Stocks or shares in a company",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101E": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / Savings bonds (Canada Savings Bonds, etc.)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101F": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / A portfolio of stocks and corporate shares (GICs [Guaranteed Investment Certificates], mutual funds, etc.)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q101G": {
+            "question": "Among the following types of financial investments, which do you or any member of your household possess? / A retirement savings plan (RSP)",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "8.0": "I don't know",
+                "9.0": "I prefer not answer"
+            },
+            "missing": []
+        },
+        "Q102": {
+            "question": "Do you consider yourself as belonging to any particular religion or denomination?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Yes",
+                "2.0": "No",
+                "3.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q103": {
+            "question": "Which religion?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Christianity (Catholic)",
+                "2.0": "Christianity (Protestant)",
+                "3.0": "Christianity (other)",
+                "4.0": "Judaism",
+                "5.0": "Islam",
+                "6.0": "Other",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q104": {
+            "question": "Not counting weddings and funerals, how often do you attend services at your place of worship?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Every week",
+                "2.0": "Twice a month",
+                "3.0": "Once a month",
+                "4.0": "Once or twice a year",
+                "5.0": "Hardly ever (includes never)",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q105": {
+            "question": "Where were you born?",
+            "type": "categorical",
+            "values": {
+                "1.0": "In Quebec",
+                "2.0": "In another part of Canada",
+                "3.0": "Somewhere else",
+                "8.0": "I don't know",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q107": {
+            "question": "Which language do you speak most often at home?",
+            "type": "categorical",
+            "values": {
+                "1.0": "English",
+                "2.0": "French",
+                "3.0": "Chinese",
+                "4.0": "Italian",
+                "5.0": "Portuguese",
+                "6.0": "Spanish",
+                "7.0": "German",
+                "8.0": "Polish",
+                "9.0": "Punjabi",
+                "10.0": "Greek",
+                "11.0": "Vietnamese",
+                "12.0": "Arabic",
+                "13.0": "Inuktitut",
+                "14.0": "Cree",
+                "15.0": "Tagalog (Filipino)",
+                "16.0": "Ukrainian / Russian",
+                "96.0": "Other",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q108": {
+            "question": "What is your ethnic background?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Canadian, Québécois",
+                "2.0": "Aboriginal (American Indian, First Nations)",
+                "3.0": "North African (Morocco, Algeria, Tunisia, Libya, Egypt, ...)",
+                "4.0": "Africa (Gabon, Congo, Ivory Coast, Ethiopia, Kenya, Cameroun",
+                "5.0": "American (USA)",
+                "6.0": "Central and South American (Nicaragua, Peru, Bolivia, Venezu",
+                "7.0": "Mexican",
+                "8.0": "Caribbean (Haiti, Jamaica, Dominican Republic, ...)",
+                "9.0": "Asian (Japan, China, Vietnam, Korea, Cambodia, ...)",
+                "10.0": "European (France, Belgium, Italy, Spain, Portugal, Germany,",
+                "11.0": "Eastern European (Russia, Ukraine, Poland, Romania, Ex-Yugos",
+                "12.0": "Middle East, except North Africa (Jordan, Saudi Arabia, Iraq",
+                "13.0": "Turkish, Armenian, Iranian, Kurd",
+                "96.0": "Other background",
+                "98.0": "I don't know",
+                "99.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "Q109": {
+            "question": "Which of these applies to you at present?",
+            "type": "categorical",
+            "values": {
+                "1.0": "Married",
+                "2.0": "Married, but separated",
+                "3.0": "Single",
+                "4.0": "Divorced",
+                "5.0": "Widowed",
+                "6.0": "In a civil partnership",
+                "9.0": "I prefer not to answer"
+            },
+            "missing": []
+        },
+        "POND": {
+            "question": "Les gens ont différentes façons de se définir. Diriez-vous que vous",
+            "type": "categorical",
+            "values": {
+                "1": "vous considérez...?\n(INVERSER L’ORDRE DES CHOIX DE RÉPONSES POUR LA MOITIÉ DE L’ÉCHANTILLON)\n\n       Uniquement comme Québécois(e), pas du tout comme Canadien(ne)\n       D’abord comme Québécois(e), puis comme Canadien(ne)\n       Également comme Canadien(ne) et comme Québécois(e)\n       D’abord comme Canadien(ne), puis comme Québécois(e)\n       Uniquement comme Canadien(ne), pas du tout comme Québécois(e)\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ4: Selon vous, quelle est la différence principale entre les Québécois et\nles gens du reste du Canada?\n\n       Langue\n       Religion\n       Culture\n       Valeurs\n       Histoire\n       Il n’y a pas de différence importante entre les deux  groupes\n       Ne sais pas\n       Pas de réponse\n\n\nQ5: Dans quelle mesure la langue française estelle importante pour\nl’identité québécoise?\n\n       Très importante\n       Plutôt importante\n       Pas très importante\n       Pas du tout importante\n       Ne sais pas\n       Pas de réponse\n\n\nQ7: Certaines personnes croient que les Québécois ont des valeurs et\npriorités qui les rendent distincts au sein du Canada. D’autres croient que\nles Québécois ont les mêmes valeurs et priorités que les autres Canadiens.\nEt d’autres se situent entre ces deux positions. Où vous situeriezvous sur\nune échelle de 0 à 10, où 0 veut dire que les Québécois ont des valeurs et\npriorités distinctes et 10 veut dire que les Québécois ont les mêmes\nvaleurs que les autres Canadiens?\n\n       0: Valeurs distinctes\n       1\n       2\n       3\n       4\n       5\n       6\n       7\n       8\n       9\n       10: Mêmes valeurs\n       Ne sais pas\n       Pas de réponse\n\n\n\nParticipation politique/comportement électoral\nQ8: Dans quelle mesure estil important pour vous de voter lors des\nélections provinciales?\n\n       Très important\n       Plutôt important\n       Pas très important\n       Pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ9: Dans quelle mesure estil important pour vous de voter lors des\nélections fédérales?\n\n       Très important\n       Plutôt important\n       Pas très important\n       Pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ10: Si vous deviez choisir, à quel niveau estil plus important que vous\nvotiez?\n(ROTATION DES TROIS PREMIÈRES RÉPONSES)\n\n       Élections provinciales\n       Élections fédérales\n       Élections municipales\n       Ne sais pas\n       Pas de réponse\n\n\nQ11: Dans quelle mesure les décisions prises à l’Assemblée nationale du\nQuébec sontelles importantes pour vous, personnellement?\n\n       Très importantes\n       Plutôt importantes\n       Pas très importantes\n       Pas du tout importantes\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ12: Et dans quelle mesure les décisions prises au Parlement du Canada sont\nelles importantes pour vous, personnellement?\n\n       Très importantes\n       Plutôt importantes\n       Pas très importantes\n       Pas du tout importantes\n       Ne sais pas\n       Pas de réponse\n\n\nQ13: Quel parti est le meilleur pour défendre les intérêts du Québec?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ14: Quel parti est le meilleur pour défendre l’identité et la culture\nquébécoise?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ15: Quel parti est le meilleur pour gérer l’économie?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ16: Quel parti est le meilleur pour améliorer l’éducation?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ17: Quel parti est le meilleur pour protéger l’environnement?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ18: Quel parti est le meilleur pour gérer le système de santé?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ19: Quel parti est le meilleur pour négocier avec le Parlement du Canada?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ20: Quel parti est le meilleur pour combattre la pauvreté?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ20b: Et quel parti est le meilleur pour lutter contre la corruption?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Option nationale\n       Parti vert du Québec\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ21: Avezvous voté lors de l’élection provinciale du 4 septembre 2012?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nQ22: Et avezvous voté lors de la dernière élection fédérale en mai 2011?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nALTERNER L’ORDRE DES DEUX QUESTIONS SUIVANTES\n(SI RÉPONDU ‘NON’ À Q21 OU Q22, SAUTER ET ALLER À Q31)\n\nQ23: Lorsque vous décidiez comment voter à l’élection fédérale, avezvous\nvoté selon ce qui se passait au Québec ou selon ce qui se passait dans\nl’ensemble du Canada?\n\n       Québec\n       Canada\n       Les deux également\n       Ne sais pas\n       Pas de réponse\n\n\nQ24: Lorsque vous décidiez comment voter à l’élection provinciale, avez\nvous voté selon ce qui se passait au Québec ou selon ce qui se passait dans\nl’ensemble du Canada?\n\n       Québec\n       Canada\n       Les deux également\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ25: Pour quel parti avezvous voté lors de la dernière élection\nprovinciale le 4 septembre 2012?\n(ROTATION DES CHOIX)\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Parti vert du Québec\n       Option nationale\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ27: Et lors de la dernière élection fédérale en mai 2011? Avezvous voté\npour:\n(ROTATION DES CHOIX)\n\n       Parti conservateur du Canada\n       Parti libéral du Canada\n       Nouveau parti démocratique (NPD)\n       Bloc québécois\n       Parti vert du Canada\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ31: Si une élection fédérale avait lieu la semaine prochaine, pour quel\nparti voteriezvous?\n(ROTATION DES CHOIX)\n\n       Parti conservateur du Canada\n       Parti libéral du Canada\n       Nouveau parti démocratique (NPD)\n       Bloc québécois\n       Parti vert du Canada\n       Un autre parti\n       Ne voterait pas\n       Ne sais pas [aller à Q32]\n       Pas de réponse\n\n\n\n\nQ32: Vous avez dit que vous ne saviez pas pour quel parti voter, mais si\nvous deviez faire un choix, quel parti choisiriezvous?\n(ROTATION DES CHOIX)\n\n       Parti conservateur du Canada\n       Parti libéral du Canada\n       Nouveau parti démocratique (NPD)\n       Bloc québécois\n       Parti vert du Canada\n       Un autre parti\n       Ne voterait pas\n       Ne sais pas\n       Pas de réponse\n\n\nQ33: Lorsque vous votez aux élections fédérales, quelle est l’importance de\nchacun des facteurs suivants dans votre décision?\n(4 = très important, 3 = plutôt important, 2 = pas très important, 1 = pas\ndu tout important)\n\n   a. Les positions politiques du parti\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n   b. La qualité du/de la candidat(e) local(e)\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   c. Le/la chef du parti\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   d.  La capacité du parti à défendre les intérêts actuels et futurs du\n      Québec\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   e. La capacité du parti à comprendre l’histoire et la culture du Québec\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   f. La probabilité que le parti forme un gouvernement\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   g. Les préférences constitutionnelles du parti\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ34: Et lors des élections provinciales? Quelle est l’importance de chacun\ndes facteurs suivants dans votre décision?\n(4 = très important, 3 = plutôt important, 2 = pas très important, 1 = pas\ndu tout important)\n\n   a. Les positions politiques du parti\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   b. La qualité du/de la candidat(e) local(e)\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   c. Le/la chef du parti\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   d. La capacité du parti à défendre les intérêts actuels et futurs du\n      Québec\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n   e. La capacité du parti à comprendre l’histoire et la culture du Québec\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n   f. La probabilité que le parti forme un gouvernement\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\n   g. Les préférences constitutionnelles du parti\n\n\n       4: très important\n       3\n       2\n       1: pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\nQ34b: Parmi les enjeux suivants, lequel était, pour vous personnellement,\nle plus important lors de l’élection provinciale du 4 septembre dernier?\n[ROTATION DES CHOIX DE RÉPONSES]\n\n       L’économie\n       La santé\n       L’environnement\n       L’éducation\n       L’aide aux familles\n       La pauvreté\n       La corruption\n       La souveraineté du Québec\n       Ne sais pas\n       Pas de réponse\n\n\nQ34c: Vos préférences partisanes mises à part, quel parti a selon vous mené\nla meilleure campagne?\n[ROTATION DES CHOIX DE RÉPONSES]\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Parti vert du Québec\n       Option nationale\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ34d: Et quel parti a selon vous mené la moins bonne campagne?\n[ROTATION DES CHOIX DE RÉPONSES]\n\n       Parti libéral du Québec\n       Parti québécois\n       Coalition avenir Québec\n       Québec solidaire\n       Parti vert du Québec\n       Option nationale\n       Un autre parti\n       Ne sais pas\n       Pas de réponse\n\n\nQ35: À quel point êtesvous satisfait(e) de la performance du gouvernement\nlibéral provincial en général?\n\n       Très satisfait(e)\n       Assez satisfait(e)\n       Pas très satisfait(e)\n       Pas du tout satisfait(e)\n       Ne sais pas\n       Pas de réponse\n\n\nQ36: Et à quel point êtesvous satisfait(e) de la performance du\ngouvernement libéral provincial dans la gestion de l’économie?\n\n       Très satisfait(e)\n       Assez satisfait(e)\n       Pas très satisfait(e)\n       Pas du tout satisfait(e)\n       Ne sais pas\n       Pas de réponse\n\n\nGouvernance\nQ37: Selon vous, laquelle des institutions suivantes POSSÈDE le plus\nd’influence sur la façon dont le Québec est gouverné?\n\n       L’Assemblée nationale du Québec\n       Le Parlement du Canada\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ38: Et selon vous, laquelle des institutions suivantes DEVRAIT avoir le\nplus d’influence sur la façon dont le Québec est gouverné?\n\n       L’Assemblée nationale du Québec\n       Le Parlement du Canada\n       Ne sais pas\n       Pas de réponse\n\n\nQ41: Qui se préoccupe le plus des soucis et besoins du peuple québécois:\nl’Assemblée nationale du Québec ou le Parlement du Canada?\n\n       L’Assemblée nationale du Québec\n       Le Parlement du Canada\n       Ne sais pas\n       Pas de réponse\n\n\nQ42: Dans quelle mesure faitesvous confiance au Parlement du Canada pour\ndéfendre les intérêts à long terme du Québec?\n\n       Beaucoup\n       Un peu\n       Assez peu\n       Pas du tout\n       Ne sais pas\n       Pas de réponse\n\n\nQ43: Et dans quelle mesure faitesvous confiance à l’Assemblée nationale du\nQuébec pour défendre les intérêts à long terme du Québec?\n\n       Beaucoup\n       Un peu\n       Assez peu\n       Pas du tout\n       Ne sais pas\n       Pas de réponse\n\n\nQ44: Diriezvous qu’en comparaison avec le reste du Canada, le Québec\nreçoit sa juste part des dépenses publiques, plus que sa juste part, ou\nmoins que sa juste part?\n\n       Le Québec reçoit sa juste part\n       Le Québec reçoit plus que sa juste part\n       Le Québec reçoit moins que sa juste part\n       Ne sais pas\n       Pas de réponse\n\n\nQ45: Diriezvous que le gouvernement canadien intervient trop dans les\naffaires de l’Assemblée nationale du Québec?\n\n       Fortement d’accord\n       Plutôt d’accord\n       Ni d’accord ni en désaccord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nPréférences constitutionnelles\nQ47: Avezvous voté lors du référendum de 1995 sur la souveraineté du\nQuébec?\n\n       Oui\n       Non [aller à Q50]\n       Pas de réponse\n\n\nQ48: Pour quelle option avezvous voté?\n\n       Oui\n       Non\n       Pas de réponse\n\n\n\n\nQ50: À quel point l’enjeu de l’indépendance politique du Québec estil\nimportant pour vous, personnellement?\n\n       Très important\n       Plutôt important\n       Pas très important\n       Pas du tout important\n       Ne sais pas\n       Pas de réponse\n\n\nQ51: Lequel des énoncés suivants est plus proche de votre point de vue?\n\n       Le Québec devrait devenir indépendant, séparé du Canada\n       L’Assemblée nationale du Québec devrait avoir plus de pouvoirs\n       On devrait laisser les choses telles qu’elles sont\n       L’Assemblée nationale du Québec devrait avoir moins de pouvoirs\n       Il ne devrait pas y avoir de gouvernement provincial au Québec\n       Ne sais pas\n       Pas de réponse\n\n\nQ52: Si un référendum sur l’indépendance avait lieu vous demandant si vous\nvoulez que le Québec devienne un pays indépendant, voteriezvous OUI ou\nvoteriezvous NON?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nQ53: Et si un référendum avait lieu vous demandant si vous voulez que\nl’Assemblée nationale du Québec ait beaucoup plus de pouvoirs, voteriez\nvous OUI ou voteriezvous NON?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nQ54: Et s’il y avait un référendum avec trois options. Voteriezvous pour:\nle statu quo, plus de pouvoirs pour le Québec, ou l’indépendance?\n\n       Statu quo\n       Plus de pouvoirs pour le Québec\n       Indépendance\n       Ne sais pas\n       Pas de réponse\n\n\nQ55: Si vous deviez choisir entre plus de pouvoirs pour le Québec et\nl’indépendance, lequel préféreriezvous?\n\n       Plus de pouvoirs pour le Québec\n       Indépendance\n       Ne sais pas\n       Pas de réponse\n\n\nQ56: Si vous deviez choisir entre le statu quo et plus de pouvoirs pour le\nQuébec, lequel préféreriezvous?\n\n       Statu quo\n       Plus de pouvoirs pour le Québec\n       Ne sais pas\n       Pas de réponse\n\n\nQ57: Si vous deviez choisir entre le statu quo et l’indépendance, lequel\npréféreriezvous?\n\n       Statu quo\n       Indépendance\n       Ne sais pas\n       Pas de réponse\n\n\nQ58: Quel terme préférezvous pour décrire le Québec? Le Québec estil…\n\n       …une nation?\n       …une province?\n       Ne sais pas\n       Pas de réponse\n\n\nDécentralisation et gouvernance multiniveaux\nQ59: Il est important que l’Assemblée nationale du Québec ait des pouvoirs\nsuffisants pour avoir un impact sur la qualité de vie au Québec.\n\n       Fortement d’accord\n       Plutôt d’accord\n       Ni d’accord ni en désaccord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ60: Il est important que le Québec ait une voix suffisante dans les prises\nde décisions au Parlement du Canada.\n\n       Fortement d’accord\n       Plutôt d’accord\n       Ni d’accord ni en désaccord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nQ61: Qu’estce qui est le plus important: que l’Assemblée nationale du\nQuébec contrôle un nombre de domaines politiques suffisant pour avoir un\nimpact sur la qualité de vie au Québec OU que les intérêts du Québec soient\nreprésentés dans les décisions prises au Parlement du Canada quant à la\nqualité de vie?\n\n       Que l’Assemblée nationale contrôle un nombre de domaines politiques\n        suffisant\n       Que les intérêts du Québec soient représentés au Parlement du\n        Canada\n       Ne sais pas\n       Pas de réponse\n\n\nQ62: Pour chacun des domaines suivants, pensezvous que les décisions\ndoivent être prises par l’Assemblée nationale du Québec ou par le Parlement\ndu Canada?\n\n   a. Éducation\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n   b. Politique d’immigration\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   c. Protection de l’environnement\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   d. Politique culturelle\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   e. Santé\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   f. Défense\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   g. Politique monétaire\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   h. Politique économique\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\n   i. Affaires étrangères\n\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Autre (spécifiez)\n       Ne sais pas\n       Pas de réponse\n\n\nConnaissances politiques\nQ63: Qui a l’autorité sur la politique d’éducation au Québec?\n(ROTATION DES CHOIX)\n\n       Assemblée nationale du Québec\n       Parlement du Canada\n       Ne sais pas\n       Pas de réponse\n\n\n [Réponse correcte: Assemblée nationale du Québec]\n\n\nQ64: Qui est le chef de la Coalition avenir Québec?\n\n       Ne sais pas\n       Pas de réponse\n\n[Réponse correcte: François Legault]\n\n\nQ65: Quel est le nom de votre circonscription au niveau fédéral?\n\n       Ne sais pas\n       Pas de réponse\n\n[Réponse correcte: vérifier avec le code postal à la fin]\n\n\nQ66: Combien de députés y atil à l’Assemblée nationale du Québec?\n\n       Ne sais pas\n       Pas de réponse\n\n[Réponse correcte: 125]\n\n\nQ67: Quel est votre intérêt pour la politique en général? Êtesvous:\n\n       Très intéressé(e)\n       Plutôt intéressé(e)\n       Pas très intéressé(e)\n       Pas du tout intéressé(e)\n       Ne sais pas\n       Pas de réponse\n\n\nQ68: Sur une échelle de ZERO à CENT, où zéro veut dire que vous N’AIMEZ\nVRAIMENT PAS DU TOUT un politicien, et cent veut dire que vous L’AIMEZ\nVRAIMENT BEAUCOUP, que pensezvous de JEAN CHAREST?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ68b: Sur la même échelle, que pensezvous de PAULINE MAROIS?\n\n       Entrez réponse (entre 0 et 100)\n       Ne la connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ68c: Sur la même échelle, que pensezvous de FRANÇOIS LEGAULT?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ68d: Sur la même échelle, que pensezvous de AMIR KHADIR?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ68e: Sur la même échelle, que pensezvous de JEANMARTIN AUSSANT?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ68f: Sur la même échelle, que pensezvous de CLAUDE SABOURIN?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ69: Sur la même échelle, que pensezvous de STEPHEN HARPER?\n\n       Entrez réponse (entre 0 et 100)\n       Ne le connaît pas\n       Ne sais pas / Ne sais pas comment l’évaluer\n       Pas de réponse\n\n\nQ69b: Sur la même échelle, que pensezvous des SYNDICATS en général?\n\n       Entrez réponse (entre 0 et 100)\n       Ne sais pas / Ne sais pas comment les évaluer\n       Pas de réponse\n\n\nQ69c: Et sur la même échelle, que pensezvous des ENTREPRISES en général?\n\n       Entrez réponse (entre 0 et 100)\n       Ne sais pas / Ne sais pas comment les évaluer\n       Pas de réponse\n\n\nQ69d: Selon vous, lequel des chefs de parti est le plus compétent?\n(ROTATION DES CHOIX)\n\n       Jean Charest\n       Pauline Marois\n       François Legault\n       Amir Khadir\n       JeanMartin Aussant\n       Claude Sabourin\n       Aucun\n       Tous\n       Ne sais pas\n       Pas de réponse\n\n\nQ69e: Selon vous, lequel des chefs de parti est le plus honnête?\n(ROTATION DES CHOIX)\n\n       Jean Charest\n       Pauline Marois\n       François Legault\n       Amir Khadir\n       JeanMartin Aussant\n       Claude Sabourin\n       Aucun\n       Tous\n       Ne sais pas\n       Pas de réponse\n\n\nQ69f: Selon vous, lequel des chefs de parti est le plus proche des gens?\n(ROTATION DES CHOIX)\n\n       Jean Charest\n       Pauline Marois\n       François Legault\n       Amir Khadir\n       JeanMartin Aussant\n       Claude Sabourin\n       Aucun\n       Tous\n       Ne sais pas\n       Pas de réponse\n\n\nValeurs et enjeux\nQ70: En politique, les gens parlent de la « gauche » et de la « droite ».\nSur une échelle allant de 0 à 10, où 0 est le plus à gauche et 10 est le\nplus à droite, où placeriezvous chacun des partis politiques suivants?\n\n       0: le plus à gauche\n       1\n       2\n       3\n       4\n       5\n       6\n       7\n       8\n       9\n       10: le plus à droite\n       Ne sais pas\n       Pas de réponse\n\n      a.  Parti libéral du Québec\n\n\n      b.  Parti québécois\n\n\n      c.  Coalition avenir Québec\n\n\n      d.  Québec solidaire\n\n\n      e.  Option nationale\n\n\n      f.  Parti vert du Québec\n\n\nQ71: Et sur la même échelle, où vous placeriezvous, de manière générale?\n\n       0: le plus à gauche\n       1\n       2\n       3\n       4\n       5\n       6\n       7\n       8\n       9\n       10: le plus à droite\n       Ne sais pas\n       Pas de réponse\n\n\nQ72: Diriezvous que l’on peut faire confiance à la plupart des gens ou\nqu’on n’est jamais trop prudent dans nos relations avec les autres?\n\n       On peut faire confiance à la plupart des gens\n       On n’est jamais trop prudent dans nos relations avec les autres\n       Ne sais pas\n       Pas de réponse\n\n\nQ73: Veuillez indiquer si vous êtes fortement d’accord, plutôt d’accord,\nplutôt en désaccord, ou fortement en désaccord avec les énoncés suivants:\n\na. « C’est la responsabilité du gouvernement de garantir que les besoins\nfondamentaux sont satisfaits pour tous. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\nb. « L’Assemblée nationale du Québec ne se soucie pas beaucoup de ce que\nles gens comme moi pensent. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\nc. « Le Parlement du Canada ne se soucie pas beaucoup de ce que les gens\ncomme moi pensent. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nd. « Les gens comme moi n’ont rien à dire sur ce que fait le gouvernement\nprovincial à Québec. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\ne. « Les gens comme moi n’ont rien à dire sur ce que fait le gouvernement\nfédéral à Ottawa. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nf. « Parfois la politique et le gouvernement au niveau provincial semblent\nsi compliqués qu’une personne comme moi ne peut pas comprendre ce qui se\npasse. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\ng. « Parfois la politique et le gouvernement au niveau fédéral semblent si\ncompliqués qu’une personne comme moi ne peut pas comprendre ce qui se\npasse. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nQ74: Dans l’ensemble, êtesvous satisfait(e) de la façon dont la démocratie\nfonctionne au Québec? Êtesvous:\n\n       Très satisfait(e)\n       Assez satisfait(e)\n       Pas très satisfait(e)\n       Pas du tout satisfait(e)\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ75: Voici quelques objectifs pour le Québec. Pourriezvous me dire lequel\nd’après vous est le plus important?\n\n       Maintenir l’ordre dans la nation\n       Donner plus de voix aux citoyens dans les décisions politiques\n        importantes\n       Combattre l’augmentation des prix\n       Protéger la liberté d’expression\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ76: Et lequel est le deuxième plus important?\n\n       Maintenir l’ordre dans la nation\n       Donner plus de voix aux citoyens dans les décisions politiques\n        importantes\n       Combattre l’augmentation des prix\n       Protéger la liberté d’expression\n       Ne sais pas\n       Pas de réponse\n\n\nQ77: Veuillez indiquer si vous êtes fortement d’accord, plutôt d’accord,\nplutôt en désaccord, ou fortement en désaccord avec les énoncés suivants:\n\na. « Notre société doit faire tout ce qui est nécessaire pour s’assurer que\n   chacun ait une chance égale de réussir. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\nb. « Ce n’est pas si grave si certaines personnes ont plus de chance que\n   d’autres dans la vie. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\nc. « Sans l’action du gouvernement, il y aurait beaucoup plus de pauvreté\n   dans nos sociétés. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\nd.  « Quand les entreprises font beaucoup d’argent, tout le monde y gagne,\n   y compris les pauvres. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\ne. « Il y a trop d’immigrants au Québec. »\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Pas de réponse\n\n\nQ78: L’avortement devraitil être illégal?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nQ79: Êtesvous pour ou contre le mariage entre personnes de même sexe?\n\n       Pour\n       Contre\n       Ne sais pas\n       Pas de réponse\n\n\nQ80: Êtesvous pour ou contre la peine de mort?\n\n       Pour\n       Contre\n       Ne sais pas\n       Pas de réponse\n\n\nQ81: Certaines personnes disent que les gouvernements devraient s’assurer\nque chaque personne ait un emploi et une bonne qualité de vie. D’autres\npersonnes disent que les gouvernements devraient plutôt laisser chaque\npersonne se débrouiller par ellemême. Et d’autres personnes ont une\nopinion entre ces deux positions. Où vous situezvous sur l’échelle ci\ndessous?\n\n       1: Les gouvernements devraient s’assurer que chaque personne a un\n        emploi et une bonne qualité de vie\n       2\n       3\n       4\n       5: Les gouvernements devraient laisser chaque personne se\n        débrouiller par ellemême\n       Ne sais pas\n       Pas de réponse\n\n\nQ82: Il existe des opinions différentes à propos de ceux qui viennent de\nl’extérieur du Québec, qui apportent souvent avec eux leurs propres\ncoutumes, religions et traditions. Croyezvous qu’il vaut mieux que ces\nnouveaux arrivants essaient de s’adapter et de s’intégrer à la culture\nlocale? Ou vautil mieux qu’ils restent différents et qu’ils contribuent à\nla diversité des coutumes et traditions locales?\n\n       Les nouveaux arrivants devraient s’adapter et s’intégrer\n       Les nouveaux arrivants devraient rester différents et contribuer à\n        la diversité des coutumes et traditions\n       Ne sais pas\n       Pas de réponse\n\n\nQ82b: Concernant la hausse des droits de scolarité proposée par le\ngouvernement le printemps dernier, diriezvous que vous êtes fortement\nd’accord avec cette hausse, plutôt d’accord, plutôt en désaccord ou\nfortement en désaccord?\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Refus\n\n\n\nQ82c: Concernant l’adoption de la Loi 78 par le gouvernement le printemps\ndernier, diriezvous que vous êtes fortement d’accord avec cette loi,\nplutôt d’accord, plutôt en désaccord ou fortement en désaccord?\n\n       Fortement d’accord\n       Plutôt d’accord\n       Plutôt en désaccord\n       Fortement en désaccord\n       Ne sais pas\n       Refus\n\n\n\nQ82d: Le printemps dernier, avezvous à un moment ou à un autre posé une\ndes actions suivantes (cliquez pour chacune qui s’applique à votre cas) :\n\n       Porté un carré rouge\n       Participé à une grande manifestation du 22 (mars, avril, mai, etc.)\n       Participé à une manifestation de casseroles\n       Participé à une manifestation étudiante nocturne\n       Utilisé les médias sociaux pour exprimer votre mécontentement\n        concernant la hausse/Loi 78/gouvernement Charest\n       Aucune de ces actions\n       Refus\n\n\n\nQ82e: [Si au moins une participation mentionnée à Q82d] Quelle était la\nraison principale pour laquelle vous avez manifesté?\n\n       Pour vous opposer à la hausse des droits de scolarité\n       Pour vous opposer à l’adoption de la Loi 78\n       Pour vous opposer à une autre politique du gouvernement\n       Pour vous opposer au gouvernement Charest en général\n       Ne sais pas\n       Pour une autre raison: spécifiez\n       Refus\n\n\nÉconomie\nQ83: Si vous comparez la situation économique au Québec avec le reste du\nCanada, pensezvous que la situation est meilleure au Québec, pire ou la\nmême?\n\n       Meilleure\n       Pire\n       La même\n       Ne sais pas\n       Pas de réponse\n\n\nQ84: Si le Québec devenait un pays indépendant, croyezvous que la\nsituation économique au Québec s’améliorerait, se détériorerait ou\nresterait à peu près la même?\n\n       S’améliorerait\n       Se détériorerait\n       Resterait à peu près la même\n       Ne sais pas\n       Pas de réponse\n\n\nQ85: Et si le Québec devenait un pays indépendant, croyezvous que votre\nsituation financière personnelle s’améliorerait, se détériorerait ou\nresterait à peu près la même?\n\n       S’améliorerait\n       Se détériorerait\n       Resterait à peu près la même\n       Ne sais pas\n       Pas de réponse\n\n\nQ87: Si le Québec devenait un pays indépendant, croyezvous qu’il devrait\ngarder le dollar canadien ou utiliser sa propre devise monétaire?\n\n       Garder le dollar canadien\n       Utiliser sa propre devise monétaire\n       Ne sais pas\n       Pas de réponse\n\n\nQ88: En général, diriezvous que faire partie du Canada est très positif,\nplutôt positif, plutôt négatif ou très négatif pour l’économie du Québec?\n\n       Très positif\n       Plutôt positif\n       Plutôt négatif\n       Très négatif\n       Ne sais pas\n       Pas de réponse\n\n\nQ89: Certaines personnes croient qu’il est mieux pour un pays de faire\npartie d’un plus grand marché, même si cela veut dire perdre une partie de\nsa souveraineté. D’autres croient qu’il est mieux pour un pays de garder sa\nsouveraineté, même si cela veut dire faire partie d’un plus petit marché.\nEt d’autres se situent entre ces deux positions. Où vous situeriezvous,\nsur une échelle de 0 à 10, où 0 veut dire que vous préférez un plus grand\nmarché avec moins de souveraineté et 10 veut dire que vous préférez plus de\nsouveraineté et un plus petit marché?\n\n       0: un plus grand marché avec moins de souveraineté\n       1\n       2\n       3\n       4\n       5\n       6\n       7\n       8\n       9\n       10: plus de souveraineté avec un plus petit marché\n\n\nQ90: Dans l’avenir, quelle serait la meilleure option pour l’économie du\nQuébec: renforcer ses relations avec le reste du Canada ou renforcer ses\nrelations avec les ÉtatsUnis?\n\n       Renforcer ses relations avec le reste du Canada\n       Renforcer ses relations avec les ÉtatsUnis\n       Ne sais pas\n       Pas de réponse\n\n\nQ91: Selon vous, l’économie du Québec s’estelle améliorée, détériorée ou\nestelle restée à peu près la même depuis un an?\n\n       S’est améliorée\n       S’est détériorée\n       Restée à peu près le même\n       Ne sais pas\n       Pas de réponse\n\n\nIdentification partisane\nQ92: En politique provinciale, vous considérezvous habituellement comme\nun…?\n(ROTATION DES CHOIX)\n\n       Libéral\n       Péquiste\n       Caquiste\n       Solidaire\n       Oniste\n       Vert\n       Rien de cela [aller à Q94]\n       Ne sais pas [aller à Q94]\n       Pas de réponse [aller à Q94]\n\n\nQ93: Vous sentezvous très fortement [insérer réponse de Q92], assez\nfortement, ou pas très fortement?\n\n       Très fortement\n       Assez fortement\n       Pas très fortement\n       Ne sais pas\n       Pas de réponse\n\n\nQ94: En politique fédérale, vous considérezvous habituellement comme un…?\n(ROTATION DES CHOIX)\n\n       Libéral\n       Conservateur\n       NPD\n       Bloquiste\n       Vert\n       Rien de cela [aller à Q96]\n       Ne sais pas [aller à Q96]\n       Pas de réponse [aller à Q96]\n\n\nQ95: Vous sentezvous très fortement [insérer réponse de Q94], assez\nfortement, ou pas très fortement?\n\n       Très fortement\n       Assez fortement\n       Pas très fortement\n       Ne sais pas\n       Pas de réponse\n\n\nQ96: Finalement, croyezvous que le Québec sera un pays indépendant un\njour?\n\n       Oui\n       Non\n       Ne sais pas\n       Pas de réponse\n\n\nVariables démographiques\nQ97: En quelle année êtesvous né(e)?\n\n       Entrez l’année de naissance\n       Pas de réponse\n\n\nQ98: Quel est votre sexe?\n\n       Masculin\n       Féminin\n       Pas de réponse\n\n\nQ99: À quel niveau se situe la dernière année de scolarité que vous avez\ncomplétée?\n\n       Aucune scolarité\n       Cours primaire (sans diplôme)\n       Cours primaire (avec diplôme)\n       Cours secondaire (sans diplôme)\n     Cours secondaire (avec diplôme)\n       CÉGEP (sans diplôme)\n       CÉGEP (avec diplôme)\n       Cours technique\n       Université non complétée\n       Baccalauréat\n       Maîtrise ou doctorat\n       Ne sais pas\n       Pas de réponse\n\n\nQ100: Et maintenant le revenu total de votre ménage avant impôts pour\nl’année 2011. Ceci inclut les revenus de toutes les sources telles\nl’épargne, les pensions, les loyers, en plus des salaires. Étaitce:\n\n       Moins de 8 000$\n       8 000$  15 999$\n       16 000$  23 999$\n       24 000$  39 999$\n       40 000$  55 999$\n       56 000$  71 999$\n       72 000$  87 999$\n       88 000$   103 999$\n       104 000$ ou plus\n       Ne sais pas\n       Pas de réponse\n\n\n\n\nQ101: Travaillezvous actuellement à votre compte, êtesvous salarié(e),\navezvous pris votre retraite, êtesvous au chômage ou cherchezvous du\ntravail, êtesvous étudiant(e), ménager(ère), ou quelque chose d’autre?\n\n       Travaille à son compte (avec ou sans employés)\n       Travaille pour un salaire (à temps plein ou à temps partiel, inclut\n        congé payé)\n       Retraité(e)\n       Au chômage/cherche du travail\n       Étudiant(e)\n       Ménager(ère)\n       Handicapé(e)\n       Occupe deux ou plus de deux emplois rémunérés\n       Étudiant(e) et salarié(e)\n       Ménager(ère) et salarié(e)\n       Retraité(e) et salarié(e)\n       Autre\n       Pas de réponse\n\n\nQ101b. Parmi les types de placements financiers suivants, quels sont ceux\nque vous détenez ou que détient l'un des membres de votre foyer? (Plusieurs\nréponses possibles)\n\n|[ROTATION des choix]               |Oui   |Non    |Je ne   |Je préfère  |\n|                                   |      |       |sais pas|ne pas      |\n|                                   |      |       |        |répondre    |\n|Compte épargne dans une banque     |      |       |        |            |\n|Compte dans une société de fiducie |      |       |        |            |\n|REER ou CELI                       |      |       |        |            |\n|Actions ou parts d’entreprise      |      |       |        |            |\n|Obligations (obligations d’épargne |      |       |        |            |\n|du Canada, etc.)                   |      |       |        |            |\n|Portefeuille d’actifs financiers   |      |       |        |            |\n|(CPG, fonds mutuels, etc.)         |      |       |        |            |\n|Régime d’épargneretraite          |      |       |        |            |\n\n\nQ102: Considérezvous appartenir à une religion ou à une dénomination\nparticulière?\n\n       Oui [aller à Q103]\n       Non\n       Pas de réponse\n\n\nQ103: Quelle religion?\n\n       Christianisme (Catholicisme)\n       Christianisme (Protestant)\n       Christianisme (autre)\n       Judaïsme\n       Islam\n       Autre\n       Pas de réponse\n\n\nQ104: Sans compter les mariages et les funérailles, combien de fois\nassistezvous aux messes à votre lieu de culte?\n\n       Chaque semaine\n       Deux fois par mois\n       Une fois par mois\n       Une ou deux fois par année\n       Presque jamais (ou jamais)\n       Ne sais pas\n       Pas de réponse\n\n\n\nQ105: Où êtesvous né(e)?\n\n       Au Québec\n       Ailleurs au Canada\n       Hors du Canada\n       Ne sais pas\n       Pas de réponse\n\n\nQ106: Quelle est la langue que vous avez apprise en premier lieu à la\nmaison dans votre enfance et que vous comprenez toujours?\n\n       Français\n       Anglais\n       Autre\n       Français et anglais\n       Français et autre\n       Anglais et autre\n       Ne sais pas\n       Pas de réponse\n\n\nQ107: Quelle langue parlezvous le plus souvent à la maison?\n\n       Anglais\n       Français\n       Chinois\n       Italien\n       Portugais\n       Espagnol\n       Allemand\n       Polonais\n       Punjabi\n       Grec\n       Vietnamien\n       Arabe\n       Inuktitut\n       Cri\n       Tagal (Philippin)\n       Ukrainien / Russe\n       Autre\n       Ne sais pas\n       Pas de réponse\n\n\nQ108: De quelle origine ethnique êtesvous?\n\n       Canadienne, Québécoise\n       Autochtone (Amérindienne, Premières nations)\n       Afrique du Nord (Maroc, Algérie, Tunisie, Libye, Égypte)\n       Afrique (Gabon, Congo, Côte d’Ivoire, Éthiopie, Kenya, Cameroun,\n        Mauritanie, ...) et Afrique du Sud\n       Américaine (ÉtatsUnis)\n       Amérique centrale et sud (Nicaragua, Pérou, Bolivie, Vénézuela,\n        Argentine, El Salvador, Guatemala, …)\n       Mexicaine\n       Antillaise (Haïti, Jamaïque, République Dominicaine, ….)\n       Asiatique (Japon, Chine, Vietnam, Corée, Cambodge, ...)\n       Européenne (France, Belgique, Italie, Espagne, Portugal, Allemagne,\n        Autriche, Suède, Norvège, Danemark, PaysBas, Grèce, …)\n       Europe de l’Est (Russie, Ukraine, Pologne, Roumanie, Ex\n        Yougoslavie, Croatie, République Tchèque, République Slovaque,\n        Hongrie, …)\n       MoyenOrient, sauf l’Afrique du Nord (Jordanie, Arabie Saoudite,\n        Irak, Liban,...)\n       Turquie, Arménie, Iran, Kurde\n       Autre origine\n       Ne sais pas\n       Pas de réponse\n\n\nQ109: Quel est votre statut civil officiel?\n\n       Marié(e)\n       Marié(e), mais séparé(e)\n       Célibataire\n       Divorcé(e)\n       Veuf/veuve\n       Dans une union civile\n       Pas de réponse\n\n\nQ110: Dans quelle région du Québec habitezvous?\n\n       BasSaintLaurent\n       SaguenayLacSaintJean\n       CapitaleNationale\n       Mauricie\n       Estrie\n       Montréal\n       Outaouais\n       AbitibiTémiscamingue\n       CôteNord\n       NordduQuébec\n       GaspésieÎlesdelaMadeleine\n       ChaudièreAppalaches\n       Laval\n       Lanaudière\n       Laurentides\n       Montérégie\n       CentreduQuébec\n       Ne sais pas\n       Pas de réponse\n\n\nQ111: Quel est votre code postal?\n\n       Entrez le code\n       Ne sais pas\n       Pas de réponse"
+            },
+            "missing": []
+        }
+    }
+}

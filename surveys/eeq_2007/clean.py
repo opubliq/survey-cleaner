@@ -1005,6 +1005,7 @@ def clean_data(df):
         35.0: 'code_35',
         37.0: 'code_37',
         39.0: 'code_39',
+        99.0: np.nan
     })
     CODEBOOK_VARIABLES['op_q30'] = {
         'original_variable': 'q30',
